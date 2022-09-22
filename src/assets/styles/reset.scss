@@ -1,0 +1,17 @@
+body {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+.hello {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.name {
+	padding: 20px;
+
+	font-size: 20px;
+}

@@ -1,0 +1,28 @@
+// const {meta, queryKey, pageParam = 1, signal} = context
+
+import { useMutation } from "@tanstack/react-query";
+
+import { utils } from "services";
+
+export const useDelete = ({ url, customQueryFn, queryOptions = {} }) => {
+	const mutation = useMutation(
+		utils.apiHelpers.getQueryKey("DELETE", url),
+
+		utils.apiHelpers.ultimateQueryFn(customQueryFn),
+
+		{
+			retry: false,
+			...queryOptions,
+		}
+	);
+
+	// console.log(mutation);
+
+	return {
+		...mutation,
+		mutate: (urlSearchParams) =>
+			mutation.mutate({
+				queryKey: utils.apiHelpers.getQueryKey("DELETE", url, urlSearchParams),
+			}),
+	};
+};

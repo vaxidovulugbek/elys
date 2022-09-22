@@ -1,0 +1,16 @@
+.breadcrumb {
+	display: flex;
+	flex-wrap: wrap;
+
+	list-style: none;
+	background-color: transparent;
+}
+
+.breadcrumb-item {
+	display: flex;
+
+	a {
+		color: #98a6ad;
+		text-decoration: none;
+	}
+}

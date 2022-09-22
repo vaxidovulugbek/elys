@@ -1,0 +1,49 @@
+.toolTip__wrapper {
+	position: relative;
+
+	display: inline-block;
+	padding: 0 5px;
+
+	vertical-align: middle;
+
+	img {
+		width: 16px;
+		height: 21px;
+	}
+}
+
+.toolTip__content {
+	position: absolute;
+	top: -80%;
+	left: calc(100% + 10px);
+
+	min-width: 220px;
+	padding: 10px;
+
+	color: #fff;
+	text-align: center;
+
+	background-color: #000;
+	opacity: 0;
+
+	transition: opacity 0.3s ease-in;
+}
+
+.toolTip__content::before {
+	position: absolute;
+	top: 50%;
+	left: -8px;
+
+	width: 10px;
+	height: 10px;
+
+	background-color: #000;
+	transform: rotate(45deg) translate(0, -50%);
+
+	content: "";
+}
+
+.toolTip__content.active {
+	// display: block;
+	opacity: 1;
+}

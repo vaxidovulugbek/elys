@@ -1,0 +1,187 @@
+.login {
+	position: relative;
+
+	overflow-x: hidden;
+
+	min-height: 100vh;
+}
+
+.login::before {
+	content: "";
+
+	position: absolute;
+	z-index: 5;
+	top: 0;
+	right: 0;
+	left: 0;
+
+	height: 2px;
+
+	background: #8adbcc;
+}
+
+.row-reg {
+	height: 100vh;
+}
+
+.reg-bg {
+	position: relative;
+
+	display: box;
+	display: flexbox;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	background-image: url("./../../../assets/images/reg-bg.png");
+	background-size: cover;
+
+	-webkit-box-align: center;
+	-webkit-box-pack: center;
+	-ms-flex-align: center;
+	-ms-flex-pack: center;
+}
+
+.text {
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	transform: translate(-50%, 0);
+	transform: translate(-50%, 0);
+	transform: translate(-50%, 0);
+
+	min-width: 86%;
+
+	color: #fff;
+}
+
+.text .title {
+	font-family: Roboto;
+	font-size: 18px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 27px;
+	color: #fff;
+	text-align: center;
+	letter-spacing: 0.2px;
+}
+
+.logo {
+	display: box;
+	display: flexbox;
+	display: flex;
+	justify-content: center;
+
+	margin-bottom: 19px;
+
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+}
+
+.logo img {
+	max-width: 170px;
+}
+
+.reg-content-header {
+	display: box;
+	display: flexbox;
+	display: flex;
+	column-gap: 100px;
+	align-items: center;
+	justify-content: flex-end;
+
+	padding: 40px;
+
+	-webkit-box-align: center;
+	-webkit-box-pack: end;
+	-ms-flex-align: center;
+	-ms-flex-pack: end;
+}
+
+.reg-content-header a {
+	font-family: Roboto;
+	font-size: 16px;
+	font-weight: 400;
+	font-weight: 700;
+	font-style: normal;
+	line-height: 24px;
+	color: #000;
+	text-decoration: underline;
+	letter-spacing: 0.2px;
+}
+
+.reg-content-header a:hover {
+	text-decoration: none;
+}
+
+.reg-content-main {
+	width: 100%;
+	max-width: 550px;
+	margin: 0 auto;
+
+	text-align: center;
+}
+
+.form-group {
+	margin: 25px;
+
+	text-align: left;
+}
+
+.label-control {
+	margin-bottom: 8px;
+
+	font-family: Roboto;
+	font-size: 14px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 21px;
+	color: #33475c;
+	letter-spacing: 0.2px;
+}
+
+.label-control .red {
+	font-size: 14px;
+	line-height: 21px;
+	color: #8b0000;
+}
+
+.form-group .form-control {
+	height: 44px;
+	padding: 7px 12px;
+
+	font-size: 16px;
+	color: #565656;
+
+	background: #f5f8fa;
+	border: 2px solid #cbd6e2;
+	border-radius: 8px;
+}
+
+.help-block {
+	margin: 0;
+	margin-top: 5px;
+
+	line-height: 1.1;
+}
+
+.form-btn {
+	display: block;
+
+	width: 100%;
+	margin-top: 40px;
+	padding: 10px 29px;
+
+	font-family: Raleway;
+	font-size: 12px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 18px;
+	color: #fff;
+	text-align: center;
+	letter-spacing: 0.5px;
+
+	background: #ff7a59;
+	border: 2px solid #ff7a59;
+	border-radius: 5px;
+}

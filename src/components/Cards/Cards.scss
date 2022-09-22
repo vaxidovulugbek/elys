@@ -1,0 +1,36 @@
+.gallery-items-list-box.thumb {
+	position: relative;
+
+	margin-top: 20px;
+
+	box-shadow: 0 1px 8px 0 rgb(0 0 0 / 10%);
+}
+
+.gallery-items-list-box-link {
+	display: block;
+}
+
+.thumb-img {
+	width: 100%;
+	object-fit: contain;
+	overflow: hidden;
+
+	border-radius: 2px;
+}
+
+.gallery-items-list-box-wrap .thumb-img {
+	height: 120px;
+	padding: 10px;
+
+	border: 0;
+
+	pointer-events: none;
+}
+
+.title {
+	overflow: hidden;
+
+	font-size: 14px;
+	text-transform: none;
+	text-overflow: ellipsis;
+}

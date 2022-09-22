@@ -1,0 +1,1 @@
+export { ApartamentRoute } from "./routes";
