@@ -7,6 +7,7 @@ import Containers from "containers";
 export const AddObject = ({
 	onClose,
 	onSuccess,
+	id = null,
 	onError,
 	title,
 	fields,
@@ -33,11 +34,18 @@ export const AddObject = ({
 					onError();
 				}}
 			>
-				{({ errors, values, resetForm, isLoading }) => (
+				{({ errors, values, setFormikState, resetForm, isLoading }) => (
 					<>
 						<div className="modal__heading d-flex align-items-center justify-content-between">
 							<h2 className="modal__title">{title}</h2>
-							<button className="close" onClick={() => onClose(resetForm)}>
+							<button
+								type="reset"
+								className="close"
+								onClick={() => {
+									setFormikState({});
+									onClose();
+								}}
+							>
 								×
 							</button>
 						</div>
@@ -49,10 +57,13 @@ export const AddObject = ({
 
 						<div className="modal__btns d-flex align-items-center justify-content-end">
 							<Button
-								onClick={() => onClose(resetForm)}
+								onClick={() => {
+									onClose();
+									resetForm();
+								}}
 								innerText="Close"
 								className="btn btn_outlined"
-								type="button"
+								type="reset"
 							/>
 							<Button
 								innerText={submitText}

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import cn from "classnames";
 
 import "./InfoTooltip.scss";

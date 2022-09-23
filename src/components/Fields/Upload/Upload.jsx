@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { get } from "lodash";
+
 import PropTypes from "prop-types";
-import { ControlLabel } from "components/common";
 import cn from "classnames";
+import { get } from "lodash";
+
+import { ControlLabel } from "components/common";
 import { httpCLient } from "services";
 
 export const Upload = ({
@@ -32,20 +34,23 @@ export const Upload = ({
 	useEffect(() => {
 		return () => {
 			if (image !== imgSrc) URL.revokeObjectURL(image);
+			setImage("");
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
-		const uploadFile = async () => {
-			const formData = new FormData();
-			formData.append("files", image);
-			setLoading(true);
-			const res = await httpCLient.post("file", formData);
-			form.setFieldValue(field.name, res?.data[0]?.data.id);
-			setLoading(false);
-		};
-		uploadFile();
+		if (image) {
+			const uploadFile = async () => {
+				const formData = new FormData();
+				formData.append("files", image);
+				setLoading(true);
+				const res = await httpCLient.post("file", formData);
+				form.setFieldValue(field.name, res?.data[0]?.data.id);
+				setLoading(false);
+			};
+			uploadFile();
+		}
 	}, [image]);
 
 	return (

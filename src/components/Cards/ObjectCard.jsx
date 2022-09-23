@@ -1,12 +1,12 @@
 import React from "react";
-import { get } from "lodash";
-import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { get } from "lodash";
 
 import { RoundCircle } from "./RoundCircle";
 import { useDelete } from "hooks";
-import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
 import { useSelector } from "react-redux";
+import { Modals } from "components";
 
 export const ObjectCard = ({ data }) => {
 	const lngCode = useSelector((state) => state.system.lngCode);
@@ -35,7 +35,7 @@ export const ObjectCard = ({ data }) => {
 
 	const deleteObject = (e) => {
 		e.stopPropagation();
-		deletePermission({
+		Modals.deletePermission({
 			title: "Delete a project?",
 			icon: "error",
 			text: "All data concerning this project will be deleted.",

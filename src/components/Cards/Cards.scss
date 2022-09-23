@@ -11,26 +11,27 @@
 }
 
 .thumb-img {
-	width: 100%;
-	object-fit: contain;
 	overflow: hidden;
 
+	width: 100%;
+
+	object-fit: contain;
 	border-radius: 2px;
 }
 
 .gallery-items-list-box-wrap .thumb-img {
+	pointer-events: none;
+
 	height: 120px;
 	padding: 10px;
 
 	border: 0;
-
-	pointer-events: none;
 }
 
 .title {
 	overflow: hidden;
 
 	font-size: 14px;
-	text-transform: none;
 	text-overflow: ellipsis;
+	text-transform: none;
 }

@@ -1,8 +1,9 @@
 import React from "react";
-import { get } from "lodash";
-import { toast } from "react-toastify";
-import { FastField, Field } from "formik";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import { FastField, Field } from "formik";
+import { get } from "lodash";
 
 import Containers from "containers";
 import { PageHeading, Fields, Button, MapPicker } from "components";

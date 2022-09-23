@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+
 import cn from "classnames";
 
 import { constants } from "services";
@@ -38,7 +39,7 @@ export const ModalWrapper = ({ children, isOpen, className, style }) => {
 			ref={modalWrapper}
 			onKeyDown={handleFocus}
 		>
-			{children}
+			{isOpen && children}
 		</div>
 	);
 };

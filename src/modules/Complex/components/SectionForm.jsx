@@ -1,6 +1,7 @@
 import React from "react";
-import { get } from "lodash";
+
 import { toast } from "react-toastify";
+import { get } from "lodash";
 
 import { Fields, ModalRoot, Modals } from "components";
 
@@ -13,12 +14,17 @@ const SectionForm = ({ modal, section = {}, complexID, type }) => {
 	const onError = () => {
 		toast.error("Something went wrong");
 	};
+
+	const onClose = () => {
+		modal.handleOverlayClose();
+	};
+
 	return (
 		<ModalRoot isOpen={modal.isOpen} style={{ maxWidth: "500px" }}>
 			<Modals.AddObject
 				url={`section${id && `/${id}`}`}
 				method={id ? "put" : "post"}
-				onClose={modal.handleOverlayClose}
+				onClose={onClose}
 				onAdd={() => {}}
 				title={`${type} a Section`}
 				type={type}

@@ -1,10 +1,12 @@
-import { Button, Fields } from "components";
-import Containers from "containers";
-import { FastField } from "formik";
-import { get } from "lodash";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+
+import { FastField } from "formik";
+import { get } from "lodash";
+
+import { Button, Fields } from "components";
+import Containers from "containers";
 
 export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText = "Save" }) => {
 	const { sectionID, complexID, floorID } = useParams();

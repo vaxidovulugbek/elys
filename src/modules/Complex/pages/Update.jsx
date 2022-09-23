@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { get } from "lodash";
-import { useMutation } from "@tanstack/react-query";
-import { FastField, Field } from "formik";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { FastField, Field } from "formik";
+import { get } from "lodash";
+
 import Containers from "containers";
-import { httpCLient } from "services";
-import { useFetchOne, useOverlay } from "hooks";
+import { useFetchOne, useFetchOneWithId, useOverlay } from "hooks";
 import { PageHeading, Fields, Button, MapPicker, SectionCard } from "components";
 import SectionForm from "../components/SectionForm";
 
@@ -20,21 +19,21 @@ const Update = () => {
 		url: `complex/${complexID}`,
 		urlSearchParams: { include: "region,district" },
 	});
-	const section = useMutation(async ({ url, id }) => {
-		const res = await httpCLient.get(`${url}/${id}`);
 
-		return get(res, "data.data", {});
+	const section = useFetchOneWithId({
+		url: "section",
+		queryOptions: { enabled: false },
+		refetchStatus: modal.isOpen,
 	});
 
 	const fetchSection = (e, id) => {
 		e.stopPropagation();
-		section.mutate({ url: "section", id });
+		section.setId(id);
 		setType("Updating");
 		modal.handleOverlayOpen();
 	};
 
 	const createSection = () => {
-		section.reset();
 		setType("Adding");
 		modal.handleOverlayOpen();
 	};
@@ -110,7 +109,7 @@ const Update = () => {
 						<div className="col-lg-6">
 							<div className="card-box">
 								<h5 className="text-muted card-sub">
-									<b>Object</b>
+									<b>Complex</b>
 									<small className="text-muted"> ID {complexID}</small>
 								</h5>
 

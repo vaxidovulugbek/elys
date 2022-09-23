@@ -1,5 +1,5 @@
+import React, { lazy } from "react";
 import { Route } from "react-router-dom";
-import { lazy } from "react";
 
 const Create = lazy(() => import("./pages/Create"));
 const List = lazy(() => import("./pages/List"));

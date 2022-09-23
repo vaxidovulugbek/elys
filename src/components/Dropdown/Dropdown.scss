@@ -7,6 +7,7 @@
 		bottom: -170px;
 
 		display: none;
+
 		min-width: 160px;
 		margin: 2px 0 0;
 		padding: 8px 0;
@@ -15,19 +16,21 @@
 		border-radius: 4px;
 
 		.dropdown__item {
-			display: inline-block;
+			cursor: pointer;
+
 			clear: both;
+			display: inline-block;
+
 			width: 100%;
 			padding: 8px 24px;
 
-			color: #212529;
 			font-weight: 400;
-			white-space: nowrap;
+			color: #212529;
 			text-align: inherit;
+			white-space: nowrap;
 
 			background-color: transparent;
 			border: 0;
-			cursor: pointer;
 
 			&:hover {
 				color: #16181b;

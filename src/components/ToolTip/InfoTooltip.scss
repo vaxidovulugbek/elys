@@ -2,6 +2,7 @@
 	position: relative;
 
 	display: inline-block;
+
 	padding: 0 5px;
 
 	vertical-align: middle;
@@ -23,24 +24,24 @@
 	color: #fff;
 	text-align: center;
 
-	background-color: #000;
 	opacity: 0;
+	background-color: #000;
 
 	transition: opacity 0.3s ease-in;
 }
 
 .toolTip__content::before {
+	content: "";
+
 	position: absolute;
 	top: 50%;
 	left: -8px;
+	transform: rotate(45deg) translate(0, -50%);
 
 	width: 10px;
 	height: 10px;
 
 	background-color: #000;
-	transform: rotate(45deg) translate(0, -50%);
-
-	content: "";
 }
 
 .toolTip__content.active {

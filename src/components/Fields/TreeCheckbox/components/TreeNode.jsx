@@ -1,5 +1,6 @@
 /* eslint-disable no-eval */
 import React, { useState } from "react";
+
 import { get } from "lodash";
 import cn from "classnames";
 
@@ -32,8 +33,8 @@ const TreeNode = ({ data = {}, state, setState, index, cb, parentIndex }) => {
 	// }
 
 	const handleCheck = (e) => {
-		let newState = state;
-		let indexTree = [...parentIndex, index];
+		const newState = state;
+		const indexTree = [...parentIndex, index];
 
 		const evalString = setChecked(`[${indexTree.shift()}]`, indexTree);
 		const isChecked = get(data, "checked", false);
@@ -47,7 +48,7 @@ const TreeNode = ({ data = {}, state, setState, index, cb, parentIndex }) => {
 
 	return (
 		<div className={name}>
-			<div className={name + "-data"}>
+			<div className={`${name}-data`}>
 				<i className={cn({ arrow: children })} onClick={(e) => toggleExpend(e)}></i>
 				<div className="title">
 					<i
@@ -75,7 +76,7 @@ const TreeNode = ({ data = {}, state, setState, index, cb, parentIndex }) => {
 
 const setChecked = (str, indexList) => {
 	if (indexList.length > 0) {
-		return setChecked(str + `.children[${indexList.shift()}]`, indexList);
+		return setChecked(`${str}.children[${indexList.shift()}]`, indexList);
 	}
 	return str;
 };

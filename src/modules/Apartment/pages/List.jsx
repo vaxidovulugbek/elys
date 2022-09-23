@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { get } from "lodash";
 
@@ -6,7 +7,6 @@ import Containers from "containers";
 import { useDelete } from "hooks";
 
 import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
-import { useNavigate, useParams } from "react-router-dom";
 import { AddObject, FloorCard } from "components";
 
 const Apartment = () => {
@@ -14,7 +14,6 @@ const Apartment = () => {
 	const navigate = useNavigate();
 	const { mutate } = useDelete({
 		url: "apartment",
-		queryOptions: {},
 	});
 
 	const onDelete = (id) => {

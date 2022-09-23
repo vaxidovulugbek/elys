@@ -20,21 +20,19 @@
 
 .select {
 	&__control--is-disabled {
-		cursor: not-allowed !important;
-
 		pointer-events: auto !important;
+		cursor: not-allowed !important;
 	}
 
 	&__control {
+		cursor: pointer !important;
+
 		padding: 0 5px;
 
 		background-color: #fff !important;
-
 		border: 1px solid var(--main-grey) !important;
 		border-radius: 4px !important;
-
 		box-shadow: none !important;
-		cursor: pointer !important;
 	}
 
 	&__control:focus-within {
@@ -55,9 +53,9 @@
 	}
 
 	&__input-container {
-		color: var(--main-black) !important;
-		font-weight: 500 !important;
 		font-size: 14px !important;
+		font-weight: 500 !important;
+		color: var(--main-black) !important;
 	}
 
 	&__menu {
@@ -65,6 +63,7 @@
 
 		background: #fff;
 		border: 1px solid #e3e3e3;
+
 		// border-radius: 8px !important;
 
 		box-shadow: 0 0 1px rgb(12 26 75 / 20%), 0 3px 8px -1px rgb(50 50 71 / 5%) !important;
@@ -75,13 +74,15 @@
 	}
 
 	&__option {
+		cursor: pointer !important;
+
 		overflow: hidden;
-		//color: var(--main-black) !important;
-		font-weight: 500 !important;
+
 		font-size: 14px !important;
 
-		border-radius: 6px;
+		//color: var(--main-black) !important;
+		font-weight: 500 !important;
 
-		cursor: pointer !important;
+		border-radius: 6px;
 	}
 }

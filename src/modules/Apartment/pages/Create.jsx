@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
 import { ApartmentForm } from "../components/ApartmentForm";
 
 const Create = () => {

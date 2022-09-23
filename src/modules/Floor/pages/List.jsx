@@ -1,22 +1,27 @@
 import React from "react";
-import { useMutation } from "@tanstack/react-query";
-import { AddObject, Breadcrumb, Fields, FloorCard, ModalRoot, Modals } from "components";
-import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
-import Containers from "containers";
-import { useDelete, useFetchList, useFetchOne, useOverlay } from "hooks";
-import { get } from "lodash";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { httpCLient } from "services";
+
+import { get } from "lodash";
+
+import Containers from "containers";
+import { useDelete, useFetchList, useFetchOneWithId, useOverlay } from "hooks";
+import { AddObject, Breadcrumb, Fields, FloorCard, ModalRoot, Modals } from "components";
 import { SectionCard } from "../components/SectionCard";
 
 const List = () => {
 	const modal = useOverlay("modal");
 	const planModal = useOverlay("plan");
-	const { mutate, data, reset } = useMutation(fetchFormData);
+	const { data, setId } = useFetchOneWithId({
+		url: "floor",
+		queryOptions: {
+			enabled: false,
+		},
+		refetchStatus: planModal.isOpen,
+	});
+
 	const deleteData = useDelete({
 		url: "floor",
-		queryOptions: {},
 	});
 	const { sectionID, complexID } = useParams();
 	const floorQuery = useFetchList({
@@ -30,21 +35,18 @@ const List = () => {
 	const onSuccess = () => {
 		floorQuery.refetch();
 		planModal.handleOverlayClose();
-		reset();
 		toast.success(data ? "floor is updated" : "floor is created");
 	};
 
-	const onClose = (cb) => {
-		reset();
+	const onClose = () => {
 		planModal.handleOverlayClose();
-		cb();
 	};
 
 	const onDelete = (id) => {
 		const receivePermission = () => {
 			deleteData.mutate(id);
 		};
-		deletePermission({
+		Modals.deletePermission({
 			title: "Delete a floor?",
 			icon: "error",
 			text: "All data concerning this floor will be deleted.",
@@ -53,9 +55,8 @@ const List = () => {
 	};
 
 	async function fetchFormData(id) {
-		const res = await httpCLient.get(`floor/${id}`);
+		setId(id);
 		planModal.handleOverlayOpen();
-		return res.data.data;
 	}
 
 	return (
@@ -113,7 +114,7 @@ const List = () => {
 										return data?.map((item) => (
 											<FloorCard
 												onDelete={onDelete}
-												onClick={mutate}
+												onClick={fetchFormData}
 												key={item.id}
 												item={item}
 												link={`/complex/${complexID}/section/${sectionID}/floor/${get(
@@ -230,6 +231,7 @@ const List = () => {
 						{
 							name: "file_id",
 							validationType: "number",
+							value: get(data, "file_id"),
 							// validations: [{ type: "required" }],
 						},
 						{
