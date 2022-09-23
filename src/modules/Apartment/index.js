@@ -1,1 +1,1 @@
-export { ApartamentRoute } from "./routes";
+export { ApartmentRoute } from "./routes";

@@ -2,10 +2,10 @@ import { lazy } from "react";
 import { Route } from "react-router-dom";
 
 const List = lazy(() => import("./pages/List"));
-const Create = lazy(() => import("./pages/Update"));
+const Create = lazy(() => import("./pages/Create"));
 const Update = lazy(() => import("./pages/Update"));
 
-export const ApartamentRoute = (
+export const ApartmentRoute = (
 	<>
 		<Route
 			path="complex/:complexID/section/:sectionID/floor/:floorID/apartment"

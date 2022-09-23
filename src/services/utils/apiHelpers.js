@@ -19,7 +19,6 @@ const getQueryKey = (method, url, urlSearchParams) => {
 const queryFn = async (context, urlSearchParams = {}) => {
 	const { queryKey, signal, pageParam } = context;
 	if (pageParam) urlSearchParams.page = pageParam;
-	if (queryKey[2] && queryKey[2].id) queryKey[1] = `${queryKey[1]}/${queryKey[2].id}`;
 	const url = queryBuilder(queryKey[1], urlSearchParams);
 	const { data } = await httpCLient.request({
 		method: queryKey[0],

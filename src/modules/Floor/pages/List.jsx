@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { AddObject, Breadcrumb, Fields, FloorCard, ModalRoot, Modals } from "components";
 import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
 import Containers from "containers";
-import { useDelete, useFetchList, useOverlay } from "hooks";
+import { useDelete, useFetchList, useFetchOne, useOverlay } from "hooks";
 import { get } from "lodash";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -42,7 +42,7 @@ const List = () => {
 
 	const onDelete = (id) => {
 		const receivePermission = () => {
-			deleteData.mutate({ id });
+			deleteData.mutate(id);
 		};
 		deletePermission({
 			title: "Delete a floor?",

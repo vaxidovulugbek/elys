@@ -27,7 +27,7 @@ export const SectionCard = ({ data, link = "/building/update", onClick = () => {
 	});
 
 	const receivePermission = () => {
-		mutate({});
+		mutate();
 	};
 
 	const deleteSection = (e) => {

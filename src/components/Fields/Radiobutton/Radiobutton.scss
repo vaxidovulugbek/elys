@@ -1,0 +1,50 @@
+.radio {
+	display: flex;
+	align-items: center;
+	width: fit-content;
+
+	.form-label {
+		margin-bottom: 0;
+	}
+
+	&__label {
+		margin-right: 10px;
+	}
+
+	&__input {
+		position: absolute;
+
+		visibility: hidden;
+	}
+
+	&__checkmark {
+		position: relative;
+
+		display: block;
+		width: 18px;
+		height: 18px;
+
+		border: 1px solid #98a6ad;
+		border-radius: 100%;
+	}
+
+	&__checkmark::after {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+
+		display: none;
+		width: 12px;
+		height: 12px;
+
+		background-color: #98a6ad;
+		border-radius: 100%;
+		transform: translate(-50%, -50%);
+
+		content: "";
+	}
+
+	&__input:checked + &__checkmark::after {
+		display: block;
+	}
+}

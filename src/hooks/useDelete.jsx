@@ -16,13 +16,14 @@ export const useDelete = ({ url, customQueryFn, queryOptions = {} }) => {
 		}
 	);
 
-	// console.log(mutation);
-
 	return {
 		...mutation,
-		mutate: (urlSearchParams) =>
+		mutate: (appendUrl) =>
 			mutation.mutate({
-				queryKey: utils.apiHelpers.getQueryKey("DELETE", url, urlSearchParams),
+				queryKey: utils.apiHelpers.getQueryKey(
+					"DELETE",
+					appendUrl ? `${url}/${appendUrl}` : url
+				),
 			}),
 	};
 };

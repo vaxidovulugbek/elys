@@ -1,0 +1,68 @@
+.tree-checkbox {
+	.branch {
+		svg {
+			width: 24px;
+			height: 24px;
+			padding: 4px;
+		}
+	}
+
+	.arrow {
+		background-image: url("/assets/images/tree-icons.png");
+	}
+
+	i {
+		width: 24px;
+		height: 24px;
+
+		background-position: -36px -4px;
+	}
+
+	.close {
+		background-position: -4px -4px;
+	}
+
+	.checkbox {
+		background-image: url("/assets/images/tree-icons.png");
+		background-position: -164px -4px;
+	}
+
+	.title {
+		display: flex;
+		align-items: center;
+
+		p {
+			font-size: 14px;
+		}
+	}
+
+	.checked {
+		background-position: -228px -4px;
+	}
+}
+
+.tree-checkbox {
+	.tree {
+		transition: all 0.3s;
+
+		.tree {
+			margin-left: 24px;
+		}
+	}
+
+	.branch {
+		overflow: hidden;
+	}
+
+	.branch-data {
+		display: flex;
+	}
+
+	.leaf-data {
+		display: flex;
+	}
+
+	.tree-closed {
+		max-height: 24px;
+	}
+}

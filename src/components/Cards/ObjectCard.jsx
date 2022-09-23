@@ -22,6 +22,7 @@ export const ObjectCard = ({ data }) => {
 	};
 
 	const { mutate } = useDelete({
+		url: `complex/${get(data, "id")}`,
 		queryOptions: {
 			onSuccess,
 			onError,
@@ -29,7 +30,7 @@ export const ObjectCard = ({ data }) => {
 	});
 
 	const receivePermission = () => {
-		mutate({ url: "complex", id: get(data, "id") });
+		mutate();
 	};
 
 	const deleteObject = (e) => {

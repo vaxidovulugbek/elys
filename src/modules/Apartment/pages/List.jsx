@@ -9,16 +9,17 @@ import { deletePermission } from "components/Modal/DeletePermission/DeletePermis
 import { useNavigate, useParams } from "react-router-dom";
 import { AddObject, FloorCard } from "components";
 
-const Apartament = () => {
+const Apartment = () => {
 	const { floorID, complexID, sectionID } = useParams();
 	const navigate = useNavigate();
 	const { mutate } = useDelete({
+		url: "apartment",
 		queryOptions: {},
 	});
 
 	const onDelete = (id) => {
 		const receivePermission = () => {
-			mutate({ url: "apartment", id });
+			mutate(id);
 		};
 		deletePermission({
 			title: "Delete a Apartment?",
@@ -70,4 +71,4 @@ const Apartament = () => {
 	);
 };
 
-export default Apartament;
+export default Apartment;

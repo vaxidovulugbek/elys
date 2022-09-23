@@ -6,7 +6,7 @@ import { App } from "App";
 import { Spinner } from "components";
 import { ComplexRoute } from "modules/Complex";
 import { AuthRoute } from "modules/Authorization";
-import { ApartamentRoute } from "modules/Apartment";
+import { ApartmentRoute } from "modules/Apartment";
 import { FloorRoute } from "modules/Floor";
 
 export const AppRoutes = () => {
@@ -18,7 +18,7 @@ export const AppRoutes = () => {
 						<Routes>
 							<Route path="/" element={<MainLayout />}>
 								{ComplexRoute}
-								{ApartamentRoute}
+								{ApartmentRoute}
 								{FloorRoute}
 							</Route>
 						</Routes>
