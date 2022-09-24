@@ -8,6 +8,7 @@ import { ComplexRoute } from "modules/Complex";
 import { AuthRoute } from "modules/Authorization";
 import { ApartmentRoute } from "modules/Apartment";
 import { FloorRoute } from "modules/Floor";
+import { CrossTabRoute } from "modules/Crosstab";
 
 export const AppRoutes = () => {
 	return (
@@ -21,6 +22,7 @@ export const AppRoutes = () => {
 								{ApartmentRoute}
 								{FloorRoute}
 							</Route>
+							{CrossTabRoute()}
 						</Routes>
 					</Suspense>
 				) : isFetching ? (

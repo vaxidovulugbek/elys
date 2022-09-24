@@ -1,0 +1,139 @@
+@mixin table-cell {
+	padding: 15px;
+
+	font-weight: bold;
+	font-size: 13px;
+	line-height: 1em;
+	text-align: center;
+
+	border: 1px solid #D7D8DA;
+	cursor: pointer;
+}
+
+.crosstab {
+	.list-content {
+		min-width: 100%;
+		// height: calc(100vh - 80px);
+		height: max-content !important;
+	}
+
+	.content::-webkit-scrollbar {
+		// background-color: transparent;
+	}
+
+	.content::-webkit-scrollbar-track {
+		background-color: transparent;
+	}
+
+	.content::-webkit-scrollbar-thumb {
+		width: 5px;
+
+		border-radius: 10px;
+	}
+
+	.list {
+		padding: 15px 30px;
+		overflow-x: auto;
+
+		table {
+			width: 100%;
+			min-width: 1000px;
+
+			border-collapse: collapse;
+			border-spacing: 0;
+
+			thead {
+				th {
+					@include table-cell;
+					border-bottom: 2px solid #D7D8DA;
+					border-collapse: collapse;
+
+					.head-row {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+
+						h3 {
+							color: rgb(0 0 0);
+							font-size: 13px;
+						}
+
+						svg {
+							width: 1em;
+							height: 1em;
+							margin-left: 5px;
+
+							opacity: 0.3;
+						}
+					}
+
+					&:hover {
+						svg {
+							opacity: 0.8;
+						}
+					}
+				}
+			}
+
+			tbody {
+				tr {
+					&:nth-child(2n) {
+						background-color: #FBFBFB;
+					}
+
+					&:nth-child(2n-1) {
+						background-color: #F8F8F8;
+					}
+
+					&:hover {
+						background-color: #EBEDF1;
+
+						td {
+							border-right-color: #FFF;
+
+							&:last-child {
+								border-color: #D7D8DA;
+							}
+						}
+					}
+
+					&:active {
+						background-color: #08C;
+
+						td {
+							color: #FFF;
+
+							border-right-color: #FFF;
+
+							&:last-child {
+								border-color: #D7D8DA;
+							}
+						}
+					}
+				}
+
+				td {
+					@include table-cell;
+					padding: 10px 15px;
+
+					color: #444;
+					font-weight: 400;
+					font-size: 13px;
+
+					border: 1px solid #D7D8DA;
+					border-collapse: collapse;
+
+					[class*="status"] {
+						padding: 3px 5px;
+
+						color: #FFF;
+						font-size: 11px;
+						white-space: nowrap;
+
+						border-radius: 3px;
+					}
+				}
+			}
+		}
+	}
+}

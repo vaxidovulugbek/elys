@@ -1,0 +1,109 @@
+.interactive {
+	position: relative;
+
+	width: 100%;
+
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+
+	svg {
+		width: 100%;
+		height: auto;
+		padding: 30px;
+	}
+
+	rect {
+		fill: #FFF;
+	}
+
+	polygon {
+		opacity: 0;
+
+		&:hover {
+			opacity: 0.5;
+		}
+	}
+
+	.buildings,
+	.sections {
+		polygon {
+			opacity: 0;
+
+			transition: all 300ms;
+
+			fill: #FFF;
+
+			&:hover {
+				opacity: 0.5;
+			}
+		}
+	}
+
+	.steps {
+		position: relative;
+		z-index: 10;
+
+		margin-left: 30px;
+
+		.step {
+			position: relative;
+
+			display: block;
+			float: left;
+			width: max-content;
+			padding: 0 35px 0 25px;
+			overflow: hidden;
+
+			color: rgb(26 188 156);
+			font-size: 12px;
+			line-height: 36px;
+
+			background: #EBEDF1;
+
+			outline: none;
+
+			span {
+				position: absolute;
+				top: 0;
+				left: -18px;
+				z-index: 1;
+
+				display: none;
+				width: 36px;
+				height: 36px;
+
+				background: #EBEDF1;
+				border-radius: 0 5px 0 50px;
+				box-shadow: 2px -2px 0 2px #12A588;
+				transform: scale(0.707) rotate(45deg);
+
+				transition: background 0.5s;
+			}
+
+			&:first-child {
+				padding-left: 20px;
+
+				border-top-left-radius: 5px;
+				border-bottom-left-radius: 5px;
+			}
+		}
+
+		.has-angle {
+			padding: 0 10px 0 35px;
+
+			span {
+				display: block;
+			}
+		}
+
+		.current {
+			padding-right: 20px;
+
+			color: #FFF;
+
+			background: rgb(26 188 156);
+			border-top-right-radius: 5px;
+			border-bottom-right-radius: 5px;
+		}
+	}
+}
