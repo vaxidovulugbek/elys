@@ -22,7 +22,7 @@ export const AppRoutes = () => {
 								{ApartmentRoute}
 								{FloorRoute}
 							</Route>
-							{CrossTabRoute()}
+							{CrossTabRoute}
 						</Routes>
 					</Suspense>
 				) : isFetching ? (
