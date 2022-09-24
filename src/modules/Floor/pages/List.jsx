@@ -147,7 +147,7 @@ const List = () => {
 							</h5>
 
 							<div className="row g-4">
-								{new Array(1, 2, 3, 4, 5).map((el) => (
+								{new Array(5).fill(1).map((el) => (
 									<div
 										className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card"
 										key={el}

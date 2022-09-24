@@ -12,6 +12,8 @@ import { Overlay } from "layouts/components";
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 
+import { CrossTabRoute } from "modules/Crosstab";
+
 export const AppRoutes = () => {
 	const user = useSelector((state) => state.auth.username);
 	return (
@@ -39,6 +41,7 @@ export const AppRoutes = () => {
 									{ApartmentRoute}
 									{FloorRoute}
 								</Route>
+								{CrossTabRoute}
 							</Routes>
 						</Suspense>
 					) : (
