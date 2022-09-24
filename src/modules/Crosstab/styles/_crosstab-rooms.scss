@@ -5,9 +5,13 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
 		gap: 20px;
+
 		padding: 10px 30px;
 
 		.card {
+			will-change: transform;
+			cursor: pointer;
+
 			position: relative;
 
 			width: 100%;
@@ -16,45 +20,42 @@
 			text-align: center;
 			text-decoration: none;
 
-			background: #F9F9F9;
-			border: 1px solid #D7D8DA;
+			background: #f9f9f9;
+			border: 1px solid #d7d8da;
 			border-radius: 5px;
-			cursor: pointer;
 
 			transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s;
-
-			will-change: transform;
 
 			.top {
 				padding: 10px 0;
 
-				border-bottom: 1px solid #D7D8DA;
+				border-bottom: 1px solid #d7d8da;
 
 				h2 {
 					margin: 0;
 
-					color: #444;
-					font-weight: bold;
 					font-size: 14px;
+					font-weight: bold;
+					color: #444;
 					text-align: center;
 				}
 
 				p {
 					margin-top: 7px;
 
-					color: #A0A0A0;
 					font-size: 10px;
 					font-style: normal;
-					letter-spacing: 0.5px;
+					color: #a0a0a0;
 					text-align: center;
 					text-transform: uppercase;
+					letter-spacing: 0.5px;
 				}
 			}
 
 			.center {
 				padding: 15px 5px 0;
 
-				border-bottom: 1px solid #D7D8DA;
+				border-bottom: 1px solid #d7d8da;
 
 				img {
 					width: 100%;
@@ -67,19 +68,21 @@
 				.coast-wrap {
 					display: flex;
 					justify-content: flex-end;
+
 					width: 100%;
 					padding: 0 10px 15px;
 				}
 
 				.coast {
 					display: inline-block;
+
 					margin-left: auto;
 					padding: 5px 12px;
 
-					font-weight: bold;
 					font-size: 12px;
+					font-weight: bold;
 
-					background-color: #FFD060;
+					background-color: #ffd060;
 					border-radius: 4px;
 
 					span {
@@ -90,40 +93,44 @@
 
 			.bottom {
 				display: flex;
+
 				width: 100%;
 
-				border-bottom: 1px solid #D7D8DA;
+				border-bottom: 1px solid #d7d8da;
 
 				.surface {
 					display: flex;
 					flex-direction: column;
 					align-items: center;
 					justify-content: center;
+
 					width: 100%;
 					padding: 10px 0;
 
-					border-right: 1px solid #D7D8DA;
+					border-right: 1px solid #d7d8da;
 
 					.name {
 						float: left;
+
 						width: 100%;
 						padding: 0;
 
-						color: rgb(0 0 0 / 60%);
 						font-size: 12px;
 						line-height: 1em;
+						color: rgb(0 0 0 / 60%);
 						text-align: center;
 					}
 
 					.val {
 						float: left;
+
 						width: 100%;
 						margin-top: 5px;
 
-						color: #444;
-						font-weight: bold;
 						font-size: 14px;
+						font-weight: bold;
 						line-height: 1em;
+						color: #444;
 						text-align: center;
 					}
 				}
@@ -146,19 +153,20 @@
 					display: flex;
 					align-items: center;
 					justify-content: center;
+
 					width: 100%;
 					padding: 10px 0;
 
-					color: #FFF;
 					font-size: 13px;
+					color: #fff;
 
-					background: #1ABC9C;
+					background: #1abc9c;
 					border-radius: 0 0 5px 5px;
 
 					strong {
 						margin: 0 3px;
 
-						color: #FFF;
+						color: #fff;
 					}
 
 					svg {
@@ -167,44 +175,46 @@
 						margin-left: 7px;
 
 						path {
-							fill: #FFF;
+							fill: #fff;
 						}
 					}
 				}
 
 				.flats-modal {
-					position: absolute;
-					bottom: 100%;
-					z-index: 10;
-
-					display: none;
-					width: 100%;
-					height: 150px;
-					overflow-y: auto;
-
-					background: #FFF;
-					border-top: 1px solid #D7D8DA;
-					border-radius: 5px 5px 0 0;
-					border-radius: 5px 5px 0 0;
-
-					box-shadow: 0 6px 20px 7px rgb(0 0 0 / 10%);
-
 					user-select: none;
 
+					position: absolute;
+					z-index: 10;
+					bottom: 100%;
+
+					overflow-y: auto;
+					display: none;
+
+					width: 100%;
+					height: 150px;
+
+					background: #fff;
+					border-top: 1px solid #d7d8da;
+					border-radius: 5px 5px 0 0;
+					border-radius: 5px 5px 0 0;
+					box-shadow: 0 6px 20px 7px rgb(0 0 0 / 10%);
+
 					.flat {
+						cursor: pointer;
+
 						display: flex;
+
 						margin: 0;
 						padding: 8px 15px;
 
 						font-size: 13px;
 
-						border-bottom: 1px solid #EBEDF1;
-						cursor: pointer;
+						border-bottom: 1px solid #ebedf1;
 
 						.position {
 							width: 100%;
 
-							border-right: 1px solid #EBEDF1;
+							border-right: 1px solid #ebedf1;
 
 							.number {
 								display: flex;
@@ -213,6 +223,7 @@
 
 								[class*="status"] {
 									display: inline-block;
+
 									width: 12px;
 									height: 12px;
 									margin-right: 5px;
@@ -232,6 +243,7 @@
 							display: flex;
 							flex-direction: column;
 							align-items: flex-end;
+
 							width: 100%;
 						}
 					}

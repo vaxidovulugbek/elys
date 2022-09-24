@@ -6,9 +6,9 @@
 
 	#tab {
 		position: fixed;
+		z-index: 11;
 		bottom: 0;
 		left: 0;
-		z-index: 11;
 
 		width: 100%;
 		height: 60px;
@@ -23,11 +23,13 @@
 		.right {
 			display: grid;
 			grid-template-columns: repeat(5, 1fr);
+
 			width: 100%;
 			margin: 0;
 
 			button {
 				display: block;
+
 				margin: auto 0;
 				padding: 0;
 
@@ -37,8 +39,8 @@
 				p {
 					display: block;
 
-					color: #7C98B6;
 					font-size: 11px;
+					color: #7c98b6;
 				}
 
 				svg {
@@ -49,7 +51,7 @@
 				}
 
 				path {
-					fill: #7C98B6;
+					fill: #7c98b6;
 				}
 
 				&:last-child {
@@ -63,11 +65,11 @@
 				p {
 					display: block;
 
-					color: #FFF;
+					color: #fff;
 				}
 
 				path {
-					fill: #FFF;
+					fill: #fff;
 				}
 			}
 		}

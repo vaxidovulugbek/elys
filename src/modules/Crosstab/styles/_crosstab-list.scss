@@ -1,18 +1,20 @@
 @mixin table-cell {
+	cursor: pointer;
+
 	padding: 15px;
 
-	font-weight: bold;
 	font-size: 13px;
+	font-weight: bold;
 	line-height: 1em;
 	text-align: center;
 
-	border: 1px solid #D7D8DA;
-	cursor: pointer;
+	border: 1px solid #d7d8da;
 }
 
 .crosstab {
 	.list-content {
 		min-width: 100%;
+
 		// height: calc(100vh - 80px);
 		height: max-content !important;
 	}
@@ -32,21 +34,23 @@
 	}
 
 	.list {
-		padding: 15px 30px;
 		overflow-x: auto;
 
+		padding: 15px 30px;
+
 		table {
+			border-spacing: 0;
+			border-collapse: collapse;
+
 			width: 100%;
 			min-width: 1000px;
-
-			border-collapse: collapse;
-			border-spacing: 0;
 
 			thead {
 				th {
 					@include table-cell;
-					border-bottom: 2px solid #D7D8DA;
 					border-collapse: collapse;
+
+					border-bottom: 2px solid #d7d8da;
 
 					.head-row {
 						display: flex;
@@ -54,8 +58,8 @@
 						justify-content: center;
 
 						h3 {
-							color: rgb(0 0 0);
 							font-size: 13px;
+							color: rgb(0 0 0);
 						}
 
 						svg {
@@ -78,35 +82,35 @@
 			tbody {
 				tr {
 					&:nth-child(2n) {
-						background-color: #FBFBFB;
+						background-color: #fbfbfb;
 					}
 
 					&:nth-child(2n-1) {
-						background-color: #F8F8F8;
+						background-color: #f8f8f8;
 					}
 
 					&:hover {
-						background-color: #EBEDF1;
+						background-color: #ebedf1;
 
 						td {
-							border-right-color: #FFF;
+							border-right-color: #fff;
 
 							&:last-child {
-								border-color: #D7D8DA;
+								border-color: #d7d8da;
 							}
 						}
 					}
 
 					&:active {
-						background-color: #08C;
+						background-color: #08c;
 
 						td {
-							color: #FFF;
+							color: #fff;
 
-							border-right-color: #FFF;
+							border-right-color: #fff;
 
 							&:last-child {
-								border-color: #D7D8DA;
+								border-color: #d7d8da;
 							}
 						}
 					}
@@ -114,20 +118,21 @@
 
 				td {
 					@include table-cell;
+					border-collapse: collapse;
+
 					padding: 10px 15px;
 
-					color: #444;
-					font-weight: 400;
 					font-size: 13px;
+					font-weight: 400;
+					color: #444;
 
-					border: 1px solid #D7D8DA;
-					border-collapse: collapse;
+					border: 1px solid #d7d8da;
 
 					[class*="status"] {
 						padding: 3px 5px;
 
-						color: #FFF;
 						font-size: 11px;
+						color: #fff;
 						white-space: nowrap;
 
 						border-radius: 3px;

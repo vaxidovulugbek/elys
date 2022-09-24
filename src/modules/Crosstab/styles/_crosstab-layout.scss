@@ -1,31 +1,32 @@
 @mixin filter-title {
 	margin-bottom: 0;
 
-	color: #A6A6A6;
 	font-size: 11px;
 	line-height: 1em;
-	letter-spacing: 1px;
+	color: #a6a6a6;
 	text-align: center;
 	text-transform: uppercase;
+	letter-spacing: 1px;
 }
 
 @mixin number-btn {
+	cursor: pointer;
+	user-select: none;
+
 	float: left;
+
 	width: 35px;
 	height: 32px;
 	padding: 0 12px;
 
-	color: #A0A0A0;
-	color: #444;
 	font-size: 16px;
+	color: #a0a0a0;
+	color: #444;
 
-	background: #FFF;
-	background: #F9F9F9;
-	border: 1px solid #D7D8DA;
+	background: #fff;
+	background: #f9f9f9;
+	border: 1px solid #d7d8da;
 	border-radius: 3px;
-	cursor: pointer;
-
-	user-select: none;
 }
 
 @mixin mtn-group {
@@ -33,6 +34,7 @@
 	gap: 4px;
 	align-items: center;
 	justify-content: center;
+
 	margin-top: 13px;
 	margin-bottom: 30px;
 }
@@ -43,18 +45,19 @@ body {
 
 .crosstab-header {
 	position: fixed;
+	z-index: 1000;
 	top: 0;
 	left: 0;
-	z-index: 1000;
 
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+
 	width: 100%;
 	height: 80px;
 	padding: 12px 25px;
 
-	background-color: #FFF;
+	background-color: #fff;
 	box-shadow: 0 4px 8px 0 rgb(0 0 0 / 7%);
 
 	.left {
@@ -75,23 +78,26 @@ body {
 
 		.select {
 			display: flex;
+
 			box-sizing: content-box;
 			height: 32px;
 
+			font: 14px/32px Arial, sans-serif;
 			color: #333;
 			color: #444;
-			font: 14px/32px Arial, sans-serif;
 
 			[class*="singleValue"] {
+				overflow: hidden;
+
 				min-width: 155px;
 				max-width: 155px;
-				overflow: hidden;
 			}
 
 			[class*="Input"] {
+				overflow: hidden;
+
 				min-width: 155px;
 				max-width: 155px;
-				overflow: hidden;
 			}
 
 			&:nth-child(3) {
@@ -119,15 +125,14 @@ body {
 				padding: 8px 34px;
 				padding: 7px 40px 7px 30px;
 
-				color: #444;
-				color: #313A46;
-
 				/* border: 1px solid rgba(152, 166, 173, 0.15); */
 				font-size: 13px;
 				line-height: 16px;
+				color: #444;
+				color: #313a46;
 
 				background: rgb(152 166 173 / 10%);
-				border: 1px solid #D7D8DA;
+				border: 1px solid #d7d8da;
 				border-radius: 3px;
 				border-radius: 30px;
 				outline: 0 !important;
@@ -146,7 +151,7 @@ body {
 				margin-left: -50px;
 
 				path {
-					fill: #CCC;
+					fill: #ccc;
 				}
 			}
 		}
@@ -154,19 +159,21 @@ body {
 
 	.right {
 		.close {
+			cursor: pointer;
+
 			display: flex;
 			align-items: center;
 			justify-content: center;
+
 			width: 36px;
 			height: 36px;
 
-			color: #3B4952;
 			line-height: 40px;
+			color: #3b4952;
 			text-align: center;
 
-			background: #EC6372;
+			background: #ec6372;
 			border-radius: 2px;
-			cursor: pointer;
 
 			transition: 0.25s ease-out;
 
@@ -183,13 +190,13 @@ body {
 }
 
 .crosstab {
-
 	position: fixed;
+	z-index: 650;
 	top: 0;
 	left: 0;
-	z-index: 650;
 
 	display: flex;
+
 	width: 100%;
 	height: calc(100vh - 80px);
 	margin-top: 80px;
@@ -199,19 +206,19 @@ body {
 	}
 
 	.status-1 {
-		background-color: #1ABC9C;
+		background-color: #1abc9c;
 	}
 
 	.status-2 {
-		background-color: #FFB400;
+		background-color: #ffb400;
 	}
 
 	.status-3 {
-		background-color: #EC6372;
+		background-color: #ec6372;
 	}
 
 	.status-4 {
-		background-color: #5B8EC3;
+		background-color: #5b8ec3;
 	}
 
 	* {
@@ -223,18 +230,19 @@ body {
 	}
 
 	.filters-box {
+		overflow-x: hidden;
+		overflow-y: auto;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+
 		width: 330px;
 		min-width: 330px;
 		height: calc(100vh - 80px);
 		padding: 47px 30px 20px;
-		overflow-x: hidden;
-		overflow-y: auto;
 
-		background: #EBEDF1;
-		border-right: 1px solid #D7D8DA;
+		background: #ebedf1;
+		border-right: 1px solid #d7d8da;
 
 		transition: all 300ms;
 
@@ -255,11 +263,12 @@ body {
 			height: 730px;
 			padding: 20px;
 
-			background: #FFF;
+			background: #fff;
 			border-radius: 5px;
 			box-shadow: 0 3px 3px 0 rgb(0 0 0 / 5%);
 
 			.close {
+				cursor: pointer;
 
 				position: absolute;
 				top: -10px;
@@ -268,16 +277,16 @@ body {
 				display: flex;
 				align-items: center;
 				justify-content: center;
+
 				width: 22px;
 				height: 22px;
 
-				color: #3B4952;
 				line-height: 40px;
+				color: #3b4952;
 				text-align: center;
 
-				background: #EC6372;
+				background: #ec6372;
 				border-radius: 2px;
-				cursor: pointer;
 
 				transition: 0.25s ease-out;
 
@@ -289,6 +298,7 @@ body {
 
 			.select {
 				display: flex;
+
 				box-sizing: content-box;
 				width: 100%;
 				height: 32px;
@@ -314,9 +324,9 @@ body {
 						@include number-btn;
 
 						&:active {
-							color: #FFF;
+							color: #fff;
 
-							background-color: #1ABC9C;
+							background-color: #1abc9c;
 						}
 					}
 				}
@@ -330,6 +340,7 @@ body {
 
 					display: flex;
 					justify-content: space-between;
+
 					// width: calc(100% - 55px);
 					margin: 0 20px;
 
@@ -337,17 +348,17 @@ body {
 						position: relative;
 
 						display: block;
+
 						width: 1px;
 						height: 4px;
 
-						background: #E1E4E9;
+						background: #e1e4e9;
 
 						p {
 							@include filter-title;
 							position: absolute;
 							top: 100%;
 							right: 50%;
-
 							transform: translateX(50%);
 						}
 
@@ -372,7 +383,7 @@ body {
 					border-radius: 10px;
 				}
 
-				[slider]>div {
+				[slider] > div {
 					position: absolute;
 					right: 0;
 					left: 0;
@@ -380,57 +391,61 @@ body {
 					height: 12px;
 				}
 
-				[slider]>div>[inverse-left] {
+				[slider] > div > [inverse-left] {
 					position: absolute;
 					left: 0;
 
 					height: 12px;
 					margin: 0 7px;
 
-					background-color: #EBE9E9;
+					background-color: #ebe9e9;
 					border-radius: 10px;
 				}
 
-				[slider]>div>[inverse-right] {
+				[slider] > div > [inverse-right] {
 					position: absolute;
 					right: 0;
 
 					height: 12px;
 					margin: 0 7px;
 
-					background-color: #EBE9E9;
+					background-color: #ebe9e9;
 					border-radius: 10px;
 				}
 
-				[slider]>div>[range] {
+				[slider] > div > [range] {
 					position: absolute;
 					left: 0;
 
 					height: 12px;
+
 					// border-radius: 14px;
-					background-color: #1ABC9C;
+					background-color: #1abc9c;
 				}
 
-				[slider]>div>[thumb] {
+				[slider] > div > [thumb] {
+					cursor: pointer;
+
 					position: absolute;
-					top: -2px;
 					z-index: 2;
+					top: -2px;
 
 					width: 2px;
 					height: 18px;
 
 					text-align: left;
 
-					background-color: #16997F;
+					background-color: #16997f;
 					border-radius: 50%;
 					outline: none;
-					cursor: pointer;
 				}
 
-				[slider]>input[type="range"] {
+				[slider] > input[type="range"] {
+					pointer-events: none;
+
 					position: absolute;
-					top: -2px;
 					z-index: 3;
+					top: -2px;
 
 					width: 100%;
 					height: 14px;
@@ -442,10 +457,9 @@ body {
 					filter: alpha(opacity=0);
 
 					appearance: none;
-					pointer-events: none;
 				}
 
-				div[slider]>input[type="range"]::-ms-track {
+				div[slider] > input[type="range"]::-ms-track {
 					color: transparent;
 
 					background: transparent;
@@ -453,7 +467,7 @@ body {
 					appearance: none;
 				}
 
-				div[slider]>input[type="range"]::-moz-range-track {
+				div[slider] > input[type="range"]::-moz-range-track {
 					color: transparent;
 
 					background: transparent;
@@ -461,38 +475,40 @@ body {
 					appearance: none;
 				}
 
-				div[slider]>input[type="range"]:focus::-webkit-slider-runnable-track {
+				div[slider] > input[type="range"]:focus::-webkit-slider-runnable-track {
 					background: transparent;
 					border: transparent;
 				}
 
-				div[slider]>input[type="range"]:focus {
+				div[slider] > input[type="range"]:focus {
 					outline: none;
 				}
 
-				div[slider]>input[type="range"]::-ms-thumb {
+				div[slider] > input[type="range"]::-ms-thumb {
+					pointer-events: all;
+
 					width: 28px;
 					height: 28px;
 
 					background: red;
 					border: 0 none;
 					border-radius: 0;
-
-					pointer-events: all;
 				}
 
-				div[slider]>input[type="range"]::-moz-range-thumb {
+				div[slider] > input[type="range"]::-moz-range-thumb {
+					pointer-events: all;
+
 					width: 28px;
 					height: 28px;
 
 					background: red;
 					border: 0 none;
 					border-radius: 0;
-
-					pointer-events: all;
 				}
 
-				div[slider]>input[type="range"]::-webkit-slider-thumb {
+				div[slider] > input[type="range"]::-webkit-slider-thumb {
+					pointer-events: all;
+
 					width: 28px;
 					height: 28px;
 
@@ -501,69 +517,70 @@ body {
 					border-radius: 0;
 
 					appearance: none;
-					pointer-events: all;
 				}
 
-				div[slider]>input[type="range"]::-ms-fill-lower {
+				div[slider] > input[type="range"]::-ms-fill-lower {
 					background: transparent;
 					border: 0 none;
 				}
 
-				div[slider]>input[type="range"]::-ms-fill-upper {
+				div[slider] > input[type="range"]::-ms-fill-upper {
 					background: transparent;
 					border: 0 none;
 				}
 
-				div[slider]>input[type="range"]::-ms-tooltip {
+				div[slider] > input[type="range"]::-ms-tooltip {
 					display: none;
 				}
 
-				[slider]>div>[sign] {
+				[slider] > div > [sign] {
 					position: absolute;
-					top: -24px;
 					z-index: 3;
+					top: -24px;
 
 					display: flex;
 					align-items: center;
 					justify-content: center;
+
 					min-width: 30px;
 					height: 16px;
 					margin-left: -13px;
 
-					color: #FFF;
+					color: #fff;
 
-					background-color: #1ABC9C;
-					border-radius: 2px;
 					opacity: 1;
+					background-color: #1abc9c;
+					border-radius: 2px;
 				}
 
-				[slider]>div>[sign]::after {
+				[slider] > div > [sign]::after {
+					content: "";
+
 					position: absolute;
+					z-index: -1;
 					top: 8px;
 					left: 4px;
-					z-index: -1;
 
-					border-top-color: #1ABC9C;
-					border-top-width: 12px;
+					border-top-color: #1abc9c;
 					border-top-style: solid;
+					border-top-width: 12px;
 					border-right: 10px solid transparent;
 					border-left: 10px solid transparent;
 					border-radius: 16px;
-
-					content: "";
 				}
 
-				[slider]>div>[sign]>span {
+				[slider] > div > [sign] > span {
 					display: block;
+
 					margin-top: -2px;
 
+					font-size: 11px;
 					font-weight: 400;
 
-					font-size: 11px;
 					// line-height: 28px;
 				}
 
-				[slider]:hover>div>[sign] {
+				[slider]:hover > div > [sign] {
 					opacity: 1;
 				}
 			}
@@ -576,28 +593,30 @@ body {
 						@include number-btn;
 
 						&:active {
-							color: #FFF;
+							color: #fff;
 
-							background-color: #1ABC9C;
+							background-color: #1abc9c;
 						}
 					}
 				}
 			}
 
 			.switch-box {
+				cursor: pointer;
+
 				display: flex;
 				gap: 20px;
 				align-items: center;
 				justify-content: center;
+
 				height: 25px;
 				margin: 15px;
-
-				cursor: pointer;
 
 				.switch {
 					position: relative;
 
 					display: inline-block;
+
 					width: 40px;
 					height: 20px;
 				}
@@ -610,20 +629,23 @@ body {
 				}
 
 				.switch-slider {
+					cursor: pointer;
+
 					position: absolute;
 					top: 0;
 					right: 0;
 					bottom: 0;
 					left: 0;
 
-					background-color: #CCC;
-					cursor: pointer;
+					background-color: #ccc;
 
 					transition: 0.4s;
 					transition: 0.4s;
 				}
 
 				.switch-slider::before {
+					content: "";
+
 					position: absolute;
 					top: 1px;
 					left: 1px;
@@ -635,19 +657,17 @@ body {
 
 					transition: 0.4s;
 					transition: 0.4s;
-
-					content: "";
 				}
 
-				input:checked+.switch-slider {
-					background-color: #1ABC9C;
+				input:checked + .switch-slider {
+					background-color: #1abc9c;
 				}
 
-				input:focus+.switch-slider {
-					box-shadow: 0 0 1px #1ABC9C;
+				input:focus + .switch-slider {
+					box-shadow: 0 0 1px #1abc9c;
 				}
 
-				input:checked+.switch-slider::before {
+				input:checked + .switch-slider::before {
 					transform: translateX(20px);
 				}
 
@@ -665,12 +685,13 @@ body {
 				display: flex;
 				align-items: center;
 				justify-content: center;
+
 				width: 100%;
 				margin-top: 30px;
 
 				p {
-					color: #1ABC9C;
 					font-size: 13px;
+					color: #1abc9c;
 				}
 
 				svg {
@@ -680,7 +701,7 @@ body {
 					margin-left: 5px;
 
 					path {
-						fill: #1ABC9C;
+						fill: #1abc9c;
 					}
 				}
 			}
@@ -691,22 +712,22 @@ body {
 			gap: 10px;
 			align-items: center;
 			justify-content: center;
+
 			margin-top: 30px;
 			padding: 8px 15px;
 
 			line-height: 1em;
 
-			background: #FFF;
+			background: #fff;
 			border-radius: 5px;
 			box-shadow: 0 3px 3px 0 rgb(0 0 0 / 5%);
 
 			p {
 				margin-top: 3px;
 
-				color: #1ABC9C;
 				font-size: 13px;
+				color: #1abc9c;
 				text-transform: none;
-
 				vertical-align: middle;
 			}
 
@@ -718,7 +739,7 @@ body {
 				animation-iteration-count: infinite;
 
 				path {
-					fill: #1ABC9C;
+					fill: #1abc9c;
 				}
 			}
 
@@ -735,13 +756,14 @@ body {
 	}
 
 	.content {
-		width: 100%;
-		height: 100%;
 		overflow: hidden;
 		overflow-x: hidden;
 		overflow-y: auto;
 
-		background-color: #EBEDF1;
+		width: 100%;
+		height: 100%;
+
+		background-color: #ebedf1;
 
 		.info {
 			display: flex;
@@ -749,15 +771,15 @@ body {
 			gap: 10px;
 			align-items: center;
 			justify-content: space-between;
+
 			// height: 46px;
 			padding: 12px 25px;
 
 			.left {
 				.count {
 					@include filter-title;
-
-					color: #89898A;
 					font-size: 11px;
+					color: #89898a;
 					letter-spacing: 0.5px;
 				}
 			}
@@ -775,6 +797,7 @@ body {
 
 					span {
 						display: block;
+
 						width: 12px;
 						height: 12px;
 						margin-right: 5px;
@@ -785,25 +808,25 @@ body {
 
 				.color:nth-child(1) {
 					span {
-						background: #1ABC9C;
+						background: #1abc9c;
 					}
 				}
 
 				.color:nth-child(2) {
 					span {
-						background: #FFB400;
+						background: #ffb400;
 					}
 				}
 
 				.color:nth-child(3) {
 					span {
-						background: #EC6372;
+						background: #ec6372;
 					}
 				}
 
 				.color:nth-child(4) {
 					span {
-						background: #5B8EC3;
+						background: #5b8ec3;
 					}
 				}
 			}
@@ -813,11 +836,13 @@ body {
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: space-between;
+
 			padding: 25px 30px 15px;
 
 			.left {
 				display: flex;
 				gap: 10px;
+
 				margin-bottom: 10px;
 
 				.filter-btn {
@@ -825,22 +850,21 @@ body {
 					gap: 10px;
 					align-items: center;
 					justify-content: center;
+
 					max-height: 39px;
 					padding: 8px 15px 7px;
 
-					background: #F9F9F9;
-
-					border: 1px solid #D7D8DA;
+					background: #f9f9f9;
+					border: 1px solid #d7d8da;
 					border-radius: 5px;
 					box-shadow: none;
 
 					p {
 						margin-top: 2px;
 
-						color: #444;
 						font-size: 14px;
-
 						line-height: 18px;
+						color: #444;
 						text-transform: none;
 						vertical-align: middle;
 					}
@@ -881,31 +905,33 @@ body {
 			.right {
 				display: flex;
 				gap: 6px;
+
 				margin-bottom: 10px;
 
 				button {
+					cursor: pointer;
+					user-select: none;
+
 					display: flex;
 					gap: 5px;
 					align-items: center;
+
 					padding: 0.5rem 1rem;
 
-					font-weight: 400;
 					font-size: 1rem;
 					font-size: 14px;
+					font-weight: 400;
 					line-height: 1.25;
 					text-align: center;
 					vertical-align: middle;
 
-					background: #F9F9F9;
+					background: #f9f9f9;
 					border: 1px solid transparent;
-					border: 1px solid #D7D8DA;
+					border: 1px solid #d7d8da;
 					border-radius: 3px;
 					outline: none;
-					cursor: pointer;
 
 					transition: all 0.1s ease-in-out;
-
-					user-select: none;
 
 					svg {
 						width: 16px;
@@ -926,25 +952,28 @@ body {
 
 		.content-box {
 			height: calc(100% - 46px);
+
 			// margin-top: 46px;
-			background-color: #FFF;
+			background-color: #fff;
 		}
 	}
 
 	.apartment {
+		overflow-x: hidden;
+		overflow-y: auto;
+
 		width: 100%;
 		max-width: 350px;
 		height: 100%;
 		padding: 47px 30px;
-		overflow-x: hidden;
-		overflow-y: auto;
 
 		background-color: rgb(235 237 241);
-		border-left: 1px solid #D7D8DA;
+		border-left: 1px solid #d7d8da;
 
 		transition: margin 300ms;
 
 		.close {
+			cursor: pointer;
 
 			position: absolute;
 			top: -10px;
@@ -953,16 +982,16 @@ body {
 			display: flex;
 			align-items: center;
 			justify-content: center;
+
 			width: 22px;
 			height: 22px;
 
-			color: #3B4952;
 			line-height: 40px;
+			color: #3b4952;
 			text-align: center;
 
-			background: #EC6372;
+			background: #ec6372;
 			border-radius: 2px;
-			cursor: pointer;
 
 			transition: 0.25s ease-out;
 
@@ -978,17 +1007,17 @@ body {
 			width: 100%;
 			padding: 10px 15px 20px;
 
-			background: #FFF;
+			background: #fff;
 			border-radius: 5px;
 			box-shadow: 0 3px 3px 0 rgb(0 0 0 / 5%);
 
 			transition: 0.25s ease-out;
 
-
 			.status {
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
+
 				height: 14px;
 				margin: 5px 0 7px;
 
@@ -1000,11 +1029,11 @@ body {
 						margin: 0 10px;
 						padding: 5px 0;
 
-						color: #89898A;
 						font-size: 10px;
 						line-height: 11px;
-						letter-spacing: 0.5px;
+						color: #89898a;
 						text-transform: uppercase;
+						letter-spacing: 0.5px;
 					}
 
 					svg {
@@ -1012,21 +1041,22 @@ body {
 						height: 12px;
 						margin-top: 1px;
 
-						fill: #E4E4E4;
+						fill: #e4e4e4;
 					}
 				}
 
 				.fid {
 					margin-bottom: 0;
 
-					color: #E4E4E4;
-					font-weight: 500;
 					font-size: 12px;
+					font-weight: 500;
+					color: #e4e4e4;
 					text-align: right;
 				}
 
 				[class*="status"] {
 					display: block;
+
 					width: 12px;
 					min-width: 12px;
 					height: 12px;
@@ -1043,9 +1073,9 @@ body {
 
 				.left {
 					strong {
-						color: #444;
-						font-weight: bold;
 						font-size: 14px;
+						font-weight: bold;
+						color: #444;
 
 						span {
 							font-size: 12px;
@@ -1055,9 +1085,9 @@ body {
 
 				.right {
 					strong {
-						color: #444;
-						font-weight: 600;
 						font-size: 12px;
+						font-weight: 600;
+						color: #444;
 						text-align: right;
 					}
 				}
@@ -1073,13 +1103,14 @@ body {
 				}
 
 				.img {
-					width: 100%;
-
 					cursor: zoom-in;
+
+					width: 100%;
 				}
 
 				.print,
 				.share {
+					pointer-events: auto;
 
 					position: absolute;
 					top: 0;
@@ -1088,35 +1119,33 @@ body {
 					display: flex;
 					align-items: center;
 					justify-content: center;
+
 					box-sizing: border-box;
 					width: 32px;
 					height: 32px;
 					margin: 0 3px 8px;
 
-					color: #037CB9;
 					font-size: 14px;
 					line-height: 32px;
+					color: #037cb9;
 
-					background: #FFF;
+					background: #fff;
 					border-radius: 5px;
 					box-shadow: 0 1px 4px 0 rgb(191 192 195);
 
 					transition: 0.15s ease-out;
-
-					pointer-events: auto;
 
 					svg {
 						width: 15px;
 						height: 15px;
 
 						path {
-							fill: #037CB9;
+							fill: #037cb9;
 						}
 					}
 				}
 
 				.share {
-
 					top: 35px;
 					right: 0;
 				}
@@ -1128,25 +1157,27 @@ body {
 						display: flex;
 						align-items: center;
 						justify-content: space-between;
+
 						width: 100%;
 
 						.name {
 							float: left;
 
-							color: #A6A6A6;
-							font-weight: normal;
 							font-size: 13px;
+							font-weight: normal;
+							color: #a6a6a6;
 						}
 
 						.value {
 							display: inline-block;
+
 							padding: 6px 12px;
 
-							color: #444;
-							font-weight: bold;
 							font-size: 15px;
+							font-weight: bold;
+							color: #444;
 
-							background-color: #FFD060;
+							background-color: #ffd060;
 							border-radius: 4px;
 						}
 					}
@@ -1154,8 +1185,8 @@ body {
 					dd {
 						margin-top: 4px;
 
-						color: #A6A6A6;
 						font-size: 11px;
+						color: #a6a6a6;
 						text-align: right;
 					}
 				}
@@ -1163,17 +1194,17 @@ body {
 
 			ul {
 				li {
+					overflow: hidden;
 					display: flex;
-
 					display: block;
 					align-items: center;
 					justify-content: space-between;
+
 					padding: 10px;
-					overflow: hidden;
 
 					line-height: 1.2em;
 
-					border-bottom: 1px solid #EBEDF1;
+					border-bottom: 1px solid #ebedf1;
 
 					&:last-child {
 						border: none;
@@ -1181,30 +1212,32 @@ body {
 
 					.name {
 						float: left;
+
 						padding: 0 !important;
 
-						color: #A6A6A6;
-						font-weight: normal;
 						font-size: 13px;
+						font-weight: normal;
+						color: #a6a6a6;
 					}
 
 					.value {
-						color: #444;
-						font-weight: bold;
 						font-size: 13px;
+						font-weight: bold;
+						color: #444;
 						text-align: right;
 					}
 
 					.plan {
 						float: right;
+
 						width: 110px;
 						margin: 0 10px;
 						margin: 8px 0 4px;
 						padding: 6px 7px;
 
-						color: #037CB9;
 						font-size: 12px;
 						line-height: 1em;
+						color: #037cb9;
 						text-align: center;
 
 						border-radius: 4px;
@@ -1219,17 +1252,17 @@ body {
 							margin-bottom: -1px;
 
 							path {
-								fill: #037CB9;
+								fill: #037cb9;
 							}
 						}
 
 						&:hover {
-							color: #FFF;
+							color: #fff;
 
-							background: #037CB9;
+							background: #037cb9;
 
 							path {
-								fill: #FFF;
+								fill: #fff;
 							}
 						}
 					}
@@ -1261,8 +1294,8 @@ body {
 			height: 34px;
 			min-height: 34px;
 
-			background-color: #F9F9F9;
-			border-color: #D7D8DA;
+			background-color: #f9f9f9;
+			border-color: #d7d8da;
 		}
 
 		[class*="Input"] {
@@ -1271,6 +1304,7 @@ body {
 
 			input {
 				height: 18px;
+
 				// color: #444;
 			}
 		}
