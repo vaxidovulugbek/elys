@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { notifications } from "services";
 
 import { ApartmentForm } from "../components/ApartmentForm";
 
@@ -9,7 +9,7 @@ const Create = () => {
 
 	const onSuccess = () => {
 		navigate(-1);
-		toast.success("Apartment is created!");
+		notifications.success("Apartment is created!");
 	};
 
 	return (

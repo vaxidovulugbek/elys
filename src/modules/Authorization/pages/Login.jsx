@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 
 import { FastField } from "formik";
 import { get } from "lodash";
@@ -9,7 +8,7 @@ import { get } from "lodash";
 import { Fields, Button } from "components";
 import Containers from "containers";
 
-import { storage } from "services";
+import { notifications, storage } from "services";
 import { auth } from "store/actions";
 
 import logo from "assets/images/logo.svg";
@@ -43,13 +42,14 @@ const Login = () => {
 								url="/user/login"
 								method="post"
 								onSuccess={(user) => {
-									storage.set("token", get(user, "token"));
-									dispatch(auth.success(user));
+									console.log(user, "user");
+									storage.set("token", get(user.data, "token"));
+									dispatch(auth.success(user.data));
 									navigate("/");
-									toast.success("Успех");
+									notifications.success("Успех");
 								}}
 								onError={(error, formHelpers) => {
-									toast.error("Ошибка");
+									notifications.error("Ошибка");
 									formHelpers.setErrors(get(error, "response.data.errors"));
 								}}
 								fields={[

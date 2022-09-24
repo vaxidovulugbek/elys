@@ -3,19 +3,25 @@ import { get } from "lodash";
 
 import { RoundCircle } from "./RoundCircle";
 import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useDelete } from "hooks";
+import { useDelete, useFetchList } from "hooks";
+import { notifications } from "services";
 
 export const SectionCard = ({ data, link = "/building/update", onClick = () => {}, complexID }) => {
 	const navigate = useNavigate();
+	const sectionList = useFetchList({
+		url: "section",
+		queryOptions: { enabled: false },
+		urlSearchParams: { filter: { complex_id: complexID } },
+	});
 
 	const onSuccess = () => {
-		toast.success("Section delete success");
+		notifications.success("Section delete success");
+		sectionList.refetch();
 	};
 
 	const onError = (err) => {
-		toast.error("Something went wrong");
+		notifications.error("Something went wrong");
 	};
 
 	const { mutate } = useDelete({

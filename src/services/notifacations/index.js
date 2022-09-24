@@ -1,6 +1,6 @@
-const { toast } = require("react-toastify");
+import { toast } from "react-toastify";
 
-const notifications = {
+export const notifications = {
 	success: (message) => toast.success(message),
 	warning: (message) => toast.warning(message),
 	error: (message) => toast.error(message),

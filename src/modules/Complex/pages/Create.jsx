@@ -1,19 +1,19 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import { FastField, Field } from "formik";
 import { get } from "lodash";
 
 import Containers from "containers";
 import { PageHeading, Fields, Button, MapPicker } from "components";
+import { notifications } from "services";
 
 const Create = () => {
 	const navigate = useNavigate();
 	const { complexID } = useParams();
 
 	const onSuccess = () => {
-		toast.success("Object create success");
+		notifications.success("Object create success");
 		navigate(-1);
 	};
 
@@ -35,7 +35,7 @@ const Create = () => {
 				method="post"
 				className="row"
 				onSuccess={onSuccess}
-				onError={() => toast.error("Something went wrong")}
+				onError={() => notifications.error("Something went wrong")}
 				fields={[
 					{
 						name: "name",

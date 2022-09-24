@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import { Spinner } from "components";
 import { ApartmentForm } from "../components/ApartmentForm";
 import { useFetchOne } from "hooks";
+import { notifications } from "services";
 
 const Update = () => {
 	const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Update = () => {
 
 	const onSuccess = () => {
 		navigate(-1);
-		toast.success("Apartment is updated!");
+		notifications.success("Apartment is updated!");
 	};
 
 	useEffect(() => {

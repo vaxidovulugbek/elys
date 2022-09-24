@@ -14,8 +14,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 import "services/i18n";
 import { AppRoutes } from "routes";
-import { Overlay } from "layouts/components";
-import { ToastContainer } from "react-toastify";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const queryClient = new QueryClient({
@@ -32,16 +30,6 @@ root.render(
 		<Provider store={store}>
 			<QueryClientProvider client={queryClient}>
 				<AppRoutes />
-				<Overlay />
-				<ToastContainer
-					position="top-right"
-					autoClose={3000}
-					newestOnTop
-					closeOnClick
-					draggable
-					pauseOnHover
-				/>
-
 				{process.env.NODE_ENV === "development" && (
 					<ReactQueryDevtools initialIsOpen={false} />
 				)}

@@ -17,7 +17,7 @@ export const Topbar = ({ setIsOpen, isOpen }) => {
 	};
 
 	const lngDropDown = useOutsideClick();
-	const profileDropDown = useOutsideClick();
+	const profileDropDown = useOutsideClick(false);
 
 	return (
 		<header className={cn("header", { close: !isOpen })}>

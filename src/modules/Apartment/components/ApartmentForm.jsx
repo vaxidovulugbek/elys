@@ -1,12 +1,12 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import { FastField } from "formik";
 import { get } from "lodash";
 
 import { Button, Fields } from "components";
 import Containers from "containers";
+import { notifications } from "services";
 
 export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText = "Save" }) => {
 	const { sectionID, complexID, floorID } = useParams();
@@ -81,7 +81,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 				onSuccess={() => onSuccess()}
 				onError={() => {
 					navigate(-1);
-					toast.error("Something went wrong!");
+					notifications.error("Something went wrong!");
 				}}
 			>
 				{() => (

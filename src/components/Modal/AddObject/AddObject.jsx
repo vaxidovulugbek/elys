@@ -11,7 +11,6 @@ export const AddObject = ({
 	onError,
 	title,
 	fields,
-	type,
 	formFields = [],
 	url = "",
 	method = "post",
@@ -26,15 +25,14 @@ export const AddObject = ({
 				method={method}
 				fields={formFields}
 				className="row"
-				onSuccess={(_, { resetForm }) => {
+				onSuccess={() => {
 					onSuccess();
-					resetForm();
 				}}
 				onError={() => {
 					onError();
 				}}
 			>
-				{({ errors, values, setFormikState, resetForm, isLoading }) => (
+				{({ errors, values, isLoading }) => (
 					<>
 						<div className="modal__heading d-flex align-items-center justify-content-between">
 							<h2 className="modal__title">{title}</h2>
@@ -42,7 +40,6 @@ export const AddObject = ({
 								type="reset"
 								className="close"
 								onClick={() => {
-									setFormikState({});
 									onClose();
 								}}
 							>
@@ -59,7 +56,6 @@ export const AddObject = ({
 							<Button
 								onClick={() => {
 									onClose();
-									resetForm();
 								}}
 								innerText="Close"
 								className="btn btn_outlined"
