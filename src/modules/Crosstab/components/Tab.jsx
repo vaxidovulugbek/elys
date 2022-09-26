@@ -1,4 +1,5 @@
 import React from "react";
+import { isEmpty } from "lodash";
 
 import { ReactComponent as Grid } from "assets/images/grid.svg";
 import { ReactComponent as Plan } from "assets/images/plan.svg";
@@ -7,7 +8,7 @@ import { ReactComponent as Justify } from "assets/images/justify.svg";
 import { ReactComponent as Search } from "assets/images/search.svg";
 import { ReactComponent as Rotate } from "assets/images/rotate.svg";
 
-const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter }) => {
+const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter, params }) => {
 	const changeTab = (id) => {
 		setCurrentTab(id);
 	};
@@ -23,10 +24,15 @@ const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter }) => {
 					<Search />
 					<p>Сбросить фильтр</p>
 				</button>
-				<button className="filter-btn clear-filter" onClick={() => window.clearFilter()}>
-					<Rotate />
-					<p>Сбросить фильтр</p>
-				</button>
+				{!isEmpty(params) && (
+					<button
+						className="filter-btn clear-filter"
+						onClick={() => window.clearFilter()}
+					>
+						<Rotate />
+						<p>Сбросить фильтр</p>
+					</button>
+				)}
 			</div>
 			<div className="right">
 				<button

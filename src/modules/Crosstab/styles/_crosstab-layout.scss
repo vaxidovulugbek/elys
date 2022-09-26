@@ -204,20 +204,48 @@ body {
 		display: none !important;
 	}
 
+	.status-0 {
+		visibility: none;
+	}
+
 	.status-1 {
 		background-color: #1abc9c;
+
+		span {
+			background-color: #1abc9c;
+		}
 	}
 
 	.status-2 {
-		background-color: #ffb400;
+		background-color: #4de601;
+
+		span {
+			background-color: #4de601;
+		}
 	}
 
 	.status-3 {
 		background-color: #ec6372;
+
+		span {
+			background-color: #ec6372;
+		}
 	}
 
 	.status-4 {
 		background-color: #5b8ec3;
+
+		span {
+			background-color: #5b8ec3;
+		}
+	}
+
+	.status-5 {
+		background-color: #ffb400;
+
+		span {
+			background-color: #ffb400;
+		}
 	}
 
 	* {
@@ -382,7 +410,7 @@ body {
 					border-radius: 10px;
 				}
 
-				[slider] > div {
+				[slider]>div {
 					position: absolute;
 					right: 0;
 					left: 0;
@@ -390,7 +418,7 @@ body {
 					height: 12px;
 				}
 
-				[slider] > div > [inverse-left] {
+				[slider]>div>[inverse-left] {
 					position: absolute;
 					left: 0;
 
@@ -401,7 +429,7 @@ body {
 					border-radius: 10px;
 				}
 
-				[slider] > div > [inverse-right] {
+				[slider]>div>[inverse-right] {
 					position: absolute;
 					right: 0;
 
@@ -412,7 +440,7 @@ body {
 					border-radius: 10px;
 				}
 
-				[slider] > div > [range] {
+				[slider]>div>[range] {
 					position: absolute;
 					left: 0;
 
@@ -422,7 +450,7 @@ body {
 					background-color: #1abc9c;
 				}
 
-				[slider] > div > [thumb] {
+				[slider]>div>[thumb] {
 					cursor: pointer;
 
 					position: absolute;
@@ -439,7 +467,7 @@ body {
 					outline: none;
 				}
 
-				[slider] > input[type="range"] {
+				[slider]>input[type="range"] {
 					pointer-events: none;
 
 					position: absolute;
@@ -458,7 +486,7 @@ body {
 					appearance: none;
 				}
 
-				div[slider] > input[type="range"]::-ms-track {
+				div[slider]>input[type="range"]::-ms-track {
 					color: transparent;
 
 					background: transparent;
@@ -466,7 +494,7 @@ body {
 					appearance: none;
 				}
 
-				div[slider] > input[type="range"]::-moz-range-track {
+				div[slider]>input[type="range"]::-moz-range-track {
 					color: transparent;
 
 					background: transparent;
@@ -474,16 +502,16 @@ body {
 					appearance: none;
 				}
 
-				div[slider] > input[type="range"]:focus::-webkit-slider-runnable-track {
+				div[slider]>input[type="range"]:focus::-webkit-slider-runnable-track {
 					background: transparent;
 					border: transparent;
 				}
 
-				div[slider] > input[type="range"]:focus {
+				div[slider]>input[type="range"]:focus {
 					outline: none;
 				}
 
-				div[slider] > input[type="range"]::-ms-thumb {
+				div[slider]>input[type="range"]::-ms-thumb {
 					pointer-events: all;
 
 					width: 28px;
@@ -494,7 +522,7 @@ body {
 					border-radius: 0;
 				}
 
-				div[slider] > input[type="range"]::-moz-range-thumb {
+				div[slider]>input[type="range"]::-moz-range-thumb {
 					pointer-events: all;
 
 					width: 28px;
@@ -505,7 +533,7 @@ body {
 					border-radius: 0;
 				}
 
-				div[slider] > input[type="range"]::-webkit-slider-thumb {
+				div[slider]>input[type="range"]::-webkit-slider-thumb {
 					pointer-events: all;
 
 					width: 28px;
@@ -518,21 +546,21 @@ body {
 					appearance: none;
 				}
 
-				div[slider] > input[type="range"]::-ms-fill-lower {
+				div[slider]>input[type="range"]::-ms-fill-lower {
 					background: transparent;
 					border: 0 none;
 				}
 
-				div[slider] > input[type="range"]::-ms-fill-upper {
+				div[slider]>input[type="range"]::-ms-fill-upper {
 					background: transparent;
 					border: 0 none;
 				}
 
-				div[slider] > input[type="range"]::-ms-tooltip {
+				div[slider]>input[type="range"]::-ms-tooltip {
 					display: none;
 				}
 
-				[slider] > div > [sign] {
+				[slider]>div>[sign] {
 					position: absolute;
 					z-index: 3;
 					top: -24px;
@@ -552,7 +580,7 @@ body {
 					border-radius: 2px;
 				}
 
-				[slider] > div > [sign]::after {
+				[slider]>div>[sign]::after {
 					content: "";
 
 					position: absolute;
@@ -568,7 +596,7 @@ body {
 					border-radius: 16px;
 				}
 
-				[slider] > div > [sign] > span {
+				[slider]>div>[sign]>span {
 					display: block;
 
 					margin-top: -2px;
@@ -579,7 +607,7 @@ body {
 					// line-height: 28px;
 				}
 
-				[slider]:hover > div > [sign] {
+				[slider]:hover>div>[sign] {
 					opacity: 1;
 				}
 			}
@@ -656,15 +684,15 @@ body {
 					transition: 0.4s;
 				}
 
-				input:checked + .switch-slider {
+				input:checked+.switch-slider {
 					background-color: #1abc9c;
 				}
 
-				input:focus + .switch-slider {
+				input:focus+.switch-slider {
 					box-shadow: 0 0 1px #1abc9c;
 				}
 
-				input:checked + .switch-slider::before {
+				input:checked+.switch-slider::before {
 					transform: translateX(20px);
 				}
 
@@ -791,6 +819,7 @@ body {
 					@include filter-title;
 					display: flex;
 					align-items: center;
+					background-color: transparent !important;
 
 					span {
 						display: block;
@@ -803,29 +832,29 @@ body {
 					}
 				}
 
-				.color:nth-child(1) {
-					span {
-						background: #1abc9c;
-					}
-				}
+				// .color:nth-child(1) {
+				// 	span {
+				// 		background: #1abc9c;
+				// 	}
+				// }
 
-				.color:nth-child(2) {
-					span {
-						background: #ffb400;
-					}
-				}
+				// .color:nth-child(2) {
+				// 	span {
+				// 		background: #ffb400;
+				// 	}
+				// }
 
-				.color:nth-child(3) {
-					span {
-						background: #ec6372;
-					}
-				}
+				// .color:nth-child(3) {
+				// 	span {
+				// 		background: #ec6372;
+				// 	}
+				// }
 
-				.color:nth-child(4) {
-					span {
-						background: #5b8ec3;
-					}
-				}
+				// .color:nth-child(4) {
+				// 	span {
+				// 		background: #5b8ec3;
+				// 	}
+				// }
 			}
 		}
 

@@ -114,7 +114,6 @@ const FlatList = ({ data = [] }) => {
 						}}
 					>
 						{({ data }) => {
-							console.log(data);
 							return (
 								<>
 									{Array.isArray(data) &&
