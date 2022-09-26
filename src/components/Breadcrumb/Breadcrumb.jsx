@@ -7,6 +7,7 @@ import "./Breadcrumb.scss";
 
 export const Breadcrumb = ({ links = [], className = "" }) => {
 	const classNames = cn("breadcrumb", className);
+
 	return (
 		<div className={classNames}>
 			{links.map((link, index) => {

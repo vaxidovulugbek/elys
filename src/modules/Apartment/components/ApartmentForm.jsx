@@ -84,7 +84,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 					toast.error("Something went wrong!");
 				}}
 			>
-				{() => (
+				{(formik) => (
 					<>
 						<div className="card-box">
 							<h5 className="text-muted card-sub">

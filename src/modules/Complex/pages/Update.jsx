@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import { FastField, Field } from "formik";
 import { get } from "lodash";
 
-import Containers from "containers";
 import { useFetchOne, useFetchOneWithId, useOverlay } from "hooks";
+
+import Containers from "containers";
 import { PageHeading, Fields, Button, MapPicker, SectionCard } from "components";
 import SectionForm from "../components/SectionForm";
 
@@ -52,7 +52,7 @@ const Update = () => {
 				hasButton={true}
 			/>
 			<Containers.Form
-				url={`complex/${complexID}`}
+				url={`/complex/${complexID}`}
 				method="put"
 				className="row"
 				onSuccess={() => navigate(-1)}

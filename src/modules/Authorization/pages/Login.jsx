@@ -2,15 +2,14 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-
 import { FastField } from "formik";
 import { get } from "lodash";
 
-import { Fields, Button } from "components";
-import Containers from "containers";
-
 import { storage } from "services";
 import { auth } from "store/actions";
+
+import { Fields, Button, Typography } from "components";
+import Containers from "containers";
 
 import logo from "assets/images/logo.svg";
 import "./../styles/Login.css";
@@ -27,9 +26,10 @@ const Login = () => {
 						<div className="logo">
 							<img src={logo} alt="logo" />
 						</div>
-						<h4 className="title">
-							Flatris helps you to sell apartments quickly and easily.
-						</h4>
+						<Typography
+							className="title"
+							text="Flatris helps you to sell apartments quickly and easily."
+						/>
 					</div>
 				</div>
 				<div className="col-lg-7 reg-content">
@@ -38,7 +38,7 @@ const Login = () => {
 					</div>
 					<div className="reg-content-main">
 						<div className="reg-form">
-							<h4>Log in</h4>
+							<Typography text="Log in" />
 							<Containers.Form
 								url="/user/login"
 								method="post"
@@ -65,14 +65,16 @@ const Login = () => {
 									},
 								]}
 							>
-								{(props) => {
+								{(formik) => {
 									return (
 										<>
 											<div className="form-group">
-												<label htmlFor="username" className="label-control">
-													Login
-													<span className="red"> * </span>
-												</label>
+												<Typography
+													text="Login"
+													append={<span className="red"> * </span>}
+													className="label-control"
+													htmlFor="username"
+												/>
 												<div>
 													<FastField
 														name="username"
@@ -81,18 +83,21 @@ const Login = () => {
 													/>
 
 													<p className="help-block">
-														<small>
-															Enter the email you used while
-															registering.
-														</small>
+														<Typography
+															Type="small"
+															text="Enter the email you used while
+															registering."
+														/>
 													</p>
 												</div>
 											</div>
 											<div className="form-group">
-												<label htmlFor="password" className="label-control">
-													Password
-													<span className="red"> * </span>
-												</label>
+												<Typography
+													text="Password"
+													append={<span className="red"> * </span>}
+													className="label-control"
+													htmlFor="password"
+												/>
 												<div>
 													<FastField
 														name="password"
@@ -101,12 +106,13 @@ const Login = () => {
 													/>
 
 													<p className="help-block">
-														<small>
-															If you do not remember your password -
+														<Typography
+															Type="small"
+															text="If you do not remember your password -
 															just leave this field blank and you will
 															receive a new one, along with an
-															activation link.
-														</small>
+															activation link."
+														/>
 													</p>
 												</div>
 											</div>
