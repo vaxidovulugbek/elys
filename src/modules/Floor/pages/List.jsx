@@ -53,10 +53,10 @@ const List = () => {
 		});
 	};
 
-	async function fetchFormData(id) {
+	const fetchFormData = (id) => {
 		setId(id);
 		planModal.handleOverlayOpen();
-	}
+	};
 
 	return (
 		<>

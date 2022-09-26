@@ -1,36 +1,20 @@
-import React, { lazy, Suspense } from "react";
-import { Route } from "react-router-dom";
-import { Spinner } from "components";
+import React, { lazy } from "react";
 
 const Create = lazy(() => import("./pages/Create"));
 const List = lazy(() => import("./pages/List"));
 const Update = lazy(() => import("./pages/Update"));
 
-export const ComplexRoute = (
-	<>
-		<Route
-			index
-			element={
-				<Suspense fallback={<Spinner />}>
-					<List />
-				</Suspense>
-			}
-		/>
-		<Route
-			path="/complex/create"
-			element={
-				<Suspense fallback={<Spinner />}>
-					<Create />
-				</Suspense>
-			}
-		/>
-		<Route
-			path="/complex/update/:complexID"
-			element={
-				<Suspense fallback={<Spinner />}>
-					<Update />
-				</Suspense>
-			}
-		/>
-	</>
-);
+export const ComplexRoutes = [
+	{
+		index: true,
+		element: <List />,
+	},
+	{
+		path: "/complex/create",
+		element: <Create />,
+	},
+	{
+		path: "/complex/update/:complexID",
+		element: <Update />,
+	},
+];

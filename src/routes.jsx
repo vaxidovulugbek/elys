@@ -7,11 +7,23 @@ import { App } from "App";
 import { MainLayout } from "layouts";
 import { Overlay } from "layouts/components";
 import { Spinner } from "components";
-import { ComplexRoute } from "modules/Complex";
-import { AuthRoute } from "modules/Authorization";
-import { ApartmentRoute } from "modules/Apartment";
-import { FloorRoute } from "modules/Floor";
-import { CrossTabRoute } from "modules/Crosstab";
+import { ComplexRoutes } from "modules/Complex";
+import { AuthRoutes } from "modules/Authorization";
+import { ApartmentRoutes } from "modules/Apartment";
+import { FloorRoutes } from "modules/Floor";
+import { CrossTabRoutes } from "modules/Crosstab";
+import { RoomRoute } from "modules/Room";
+
+const loggedInRoutes = [
+	{
+		layout: <MainLayout />,
+		routes: [...ComplexRoutes, ...ApartmentRoutes, ...FloorRoutes, ...RoomRoute],
+	},
+	{
+		layout: false,
+		routes: [...CrossTabRoutes],
+	},
+];
 
 export const AppRoutes = () => {
 	const user = useSelector((state) => state.auth.username);
@@ -34,18 +46,48 @@ export const AppRoutes = () => {
 
 					{user && (
 						<Routes>
-							<Route path="/" element={<MainLayout />}>
-								{ComplexRoute}
-								{ApartmentRoute}
-								{FloorRoute}
-							</Route>
-							{CrossTabRoute}
+							{loggedInRoutes.map((item, outerIndex) =>
+								item.routes.map((route, innerIndex) =>
+									item.layout ? (
+										<Route key={outerIndex} path="/" element={item.layout}>
+											<Route
+												key={innerIndex}
+												{...route}
+												element={
+													<Suspense fallback={<Spinner />}>
+														{route.element}
+													</Suspense>
+												}
+											/>
+										</Route>
+									) : (
+										<React.Fragment key={outerIndex}>
+											{item.routes.map((route, innerIndex) => (
+												<Route
+													key={innerIndex}
+													index={route.index}
+													path={route.path}
+													element={
+														<Suspense fallback={<Spinner />}>
+															{route.element}
+														</Suspense>
+													}
+												/>
+											))}
+										</React.Fragment>
+									)
+								)
+							)}
 						</Routes>
 					)}
 
 					{!isFetching && !user && (
 						<Suspense fallback={<Spinner />}>
-							<Routes>{AuthRoute}</Routes>
+							<Routes>
+								{AuthRoutes.map((route, index) => (
+									<Route ket={index} {...route} />
+								))}
+							</Routes>
 						</Suspense>
 					)}
 				</>
