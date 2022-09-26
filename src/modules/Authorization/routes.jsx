@@ -1,29 +1,15 @@
-import React, { lazy, Suspense } from "react";
-import { Route } from "react-router-dom";
-import { Spinner } from "components";
+import React, { lazy } from "react";
 
 const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
 
-export const AuthRoute = (
-	<>
-		<Route
-			path="/login"
-			element={
-				<Suspense fallback={<Spinner />}>
-					<Login />
-				</Suspense>
-			}
-		/>
-		,
-		<Route
-			path="/register"
-			element={
-				<Suspense fallback={<Spinner />}>
-					<Login />
-				</Suspense>
-			}
-		/>
-		,
-	</>
-);
+export const AuthRoutes = [
+	{
+		path: "/login",
+		element: <Login />,
+	},
+	{
+		path: "/register",
+		element: <Register />,
+	},
+];

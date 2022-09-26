@@ -1,1 +1,1 @@
-export { ComplexRoute } from "./routes";
+export { ComplexRoutes } from "./routes";
