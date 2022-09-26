@@ -44,7 +44,7 @@ export const MapPicker = ({ label, placeholder, btnText, field, form }) => {
 					maxWidth: "none",
 					width: "auto",
 					margin: "0",
-					transform: "translate(0, 0)",
+					transform: "translate(0, 40px)",
 				}}
 				activeClassName="modal_open_map"
 			>

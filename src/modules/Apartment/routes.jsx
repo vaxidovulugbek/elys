@@ -1,5 +1,6 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
+import { Spinner } from "components";
 
 const List = lazy(() => import("./pages/List"));
 const Create = lazy(() => import("./pages/Create"));
@@ -9,15 +10,27 @@ export const ApartmentRoute = (
 	<>
 		<Route
 			path="complex/:complexID/section/:sectionID/floor/:floorID/apartment"
-			element={<List />}
+			element={
+				<Suspense fallback={<Spinner />}>
+					<List />
+				</Suspense>
+			}
 		/>
 		<Route
 			path="complex/:complexID/section/:sectionID/floor/:floorID/apartment/create"
-			element={<Create />}
+			element={
+				<Suspense fallback={<Spinner />}>
+					<Create />
+				</Suspense>
+			}
 		/>
 		<Route
 			path="complex/:complexID/section/:sectionID/floor/:floorID/apartment/:apartmentID/update"
-			element={<Update />}
+			element={
+				<Suspense fallback={<Spinner />}>
+					<Update />
+				</Suspense>
+			}
 		/>
 	</>
 );

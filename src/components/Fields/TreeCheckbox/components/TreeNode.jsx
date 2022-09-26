@@ -48,11 +48,11 @@ const TreeNode = ({ data = {}, state, setState, index, cb, parentIndex }) => {
 	return (
 		<div className={name}>
 			<div className={`${name}-data`}>
-				<i className={cn({ arrow: children })} onClick={(e) => toggleExpend(e)}></i>
+				<i className={cn({ arrow: children })} onClick={toggleExpend}></i>
 				<div className="title">
 					<i
 						className={cn("checkbox", { checked: get(data, "checked") })}
-						onClick={(e) => handleCheck(e)}
+						onClick={handleCheck}
 					></i>
 					<Building />
 					<p>{get(data, "title")}</p>
