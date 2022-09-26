@@ -190,7 +190,7 @@ const Create = () => {
 									innerText="Cancel"
 									onClick={() => navigate("/", { replace: true })}
 								/>
-								<Button className="btn btn_green" type="submit" innerText="Save" />
+								<Button className="btn btn_green" type="submit" innerText="Add" />
 							</div>
 						</div>
 					</>

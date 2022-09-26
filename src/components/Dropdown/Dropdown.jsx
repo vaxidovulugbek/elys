@@ -53,7 +53,7 @@ export const Dropdown = ({
 				innerText={!variantSelect ? btnInnerText : value}
 				append={append}
 				prepend={prepend}
-				onClick={() => handleMenuOpen()}
+				onClick={handleMenuOpen}
 			/>
 
 			<div className={dropdown}>
