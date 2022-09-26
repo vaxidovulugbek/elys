@@ -58,7 +58,20 @@ export const Sidebar = ({ isOpen }) => {
 				>
 					<div className="d-flex align-items-center">
 						<HomeSvg />
-						<span className="sidebar__link-text">Objects</span>
+						<span className="sidebar__link-text">Complex</span>
+					</div>
+				</NavLink>
+			</div>
+			<div className="sidebar__submenu">
+				<NavLink
+					to="/room"
+					className={({ isActive }) =>
+						isActive ? "sidebar__link sidebar__link-active" : "sidebar__link"
+					}
+				>
+					<div className="d-flex align-items-center">
+						<HomeSvg />
+						<span className="sidebar__link-text">Rooms</span>
 					</div>
 				</NavLink>
 			</div>

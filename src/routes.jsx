@@ -12,6 +12,7 @@ import { AuthRoute } from "modules/Authorization";
 import { ApartmentRoute } from "modules/Apartment";
 import { FloorRoute } from "modules/Floor";
 import { CrossTabRoute } from "modules/Crosstab";
+import { RoomRoute } from "modules/Room";
 
 export const AppRoutes = () => {
 	const user = useSelector((state) => state.auth.username);
@@ -37,6 +38,7 @@ export const AppRoutes = () => {
 							<Routes>
 								<Route path="/" element={<MainLayout />}>
 									{ComplexRoute}
+									{RoomRoute}
 									{ApartmentRoute}
 									{FloorRoute}
 								</Route>
