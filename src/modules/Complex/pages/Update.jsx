@@ -268,7 +268,7 @@ const Update = () => {
 									<div className="col-lg-3 col-xl-2 col-md-4 col-sm-4 col-6 building-card">
 										<button
 											className="object__add"
-											onClick={() => createSection()}
+											onClick={createSection}
 											style={{
 												width: "236px",
 												height: "197px",

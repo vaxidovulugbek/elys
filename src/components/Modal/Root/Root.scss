@@ -1,36 +1,84 @@
 #modal-root {
 	position: relative;
+
 	z-index: var(--modal-z-index);
 }
 
 .modal {
 	&__wrapper {
-		pointer-events: none;
-
 		position: fixed;
-		top: 50%;
+		top: 0;
 		left: 50%;
-		transform: translate(-50%, calc(-50% - 50px));
 
-		overflow: auto;
+		width: 100%;
+		max-width: 500px;
+		margin: auto;
+		padding: 25px;
 
-		width: max-content;
-		height: auto;
-		padding: 24px;
+		background-color: #fff;
+
+		border: 1px solid rgb(0 0 0 / 20%);
+		border-radius: 4px;
+
+		box-shadow: 0 20px 24px -4px rgb(16 24 40 / 8%), 0 8px 8px -4px rgb(16 24 40 / 3%);
+		transform: translate(-50%, -100%);
+		transform-origin: center;
 
 		opacity: 0;
-		background-color: #fff;
-		border-radius: 12px;
-		box-shadow: 0 20px 24px -4px rgb(16 24 40 / 8%), 0 8px 8px -4px rgb(16 24 40 / 3%);
 
-		transition: 0.2s ease-in-out;
+		transition: 0.2s linear;
+
+		pointer-events: none;
 	}
 
 	&_open {
-		pointer-events: initial;
-
-		transform: translate(-50%, -50%);
-
+		transform: translate(-50%, 100px);
 		opacity: 1;
+
+		pointer-events: initial;
+	}
+
+	&_open_map {
+		transform: translateY(40px) !important;
+		opacity: 1;
+
+		pointer-events: initial;
 	}
 }
+
+// #modal-root {
+// 	position: relative;
+// 	z-index: var(--modal-z-index);
+// }
+
+// .modal {
+// 	&__wrapper {
+// 		pointer-events: none;
+
+// 		position: fixed;
+// 		top: 50%;
+// 		left: 50%;
+// 		transform: translate(-50%, calc(-50% - 50px));
+
+// 		overflow: auto;
+
+// 		width: max-content;
+// 		height: auto;
+// 		padding: 24px;
+
+// 		opacity: 0;
+// 		background-color: #fff;
+// 		border-radius: 12px;
+// 		box-shadow: 0 20px 24px -4px rgb(16 24 40 / 8%), 0 8px 8px -4px rgb(16 24 40 / 3%);
+
+// 		transition: 0.2s ease-in-out;
+// 	}
+
+// 	&_open {
+// 		pointer-events: initial;
+
+// 		transform: translate(-50%, -50%);
+
+// 		opacity: 1;
+// 	}
+// }
