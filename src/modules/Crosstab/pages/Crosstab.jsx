@@ -45,7 +45,7 @@ const Crosstab = () => {
 	return (
 		<div className="crosstab">
 			<Containers.List
-				url={`/section`}
+				url="/section"
 				dataKey={(data) => data}
 				urlSearchParams={{
 					include: "floors,floors.apartments,floors.apartments.plan.room",
