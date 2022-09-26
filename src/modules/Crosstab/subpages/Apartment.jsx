@@ -2,26 +2,23 @@ import React, { useState } from "react";
 import cn from "classnames";
 
 import ApartmentCard from "modules/Crosstab/components/ApartmentCard";
-import ApartmentForm from "modules/Crosstab/components/Apartmentform";
+import ApartmentForm from "modules/Crosstab/components/ApartmentForm";
 
 import "@fancyapps/ui/dist/fancybox.css";
 import "swiper/css";
 import "swiper/css/navigation";
 
 const Apartment = ({ setHasApartment, hasApartment, setCurrentTab }) => {
-	const [box, setBox] = useState("card");
-	const [type, setType] = useState({ card: true, form: false });
+	const [boxType, setBoxType] = useState("card");
 
 	const apartmentClass = cn("apartment", { "apartment-closed": !hasApartment });
 
 	return (
 		<aside className={apartmentClass} id="apartment">
 			<ApartmentCard
-				{...{ setHasApartment, setCurrentTab, hasApartment, setBox, box, type, setType }}
+				{...{ setHasApartment, setCurrentTab, hasApartment, boxType, setBoxType }}
 			/>
-			<ApartmentForm
-				{...{ setHasApartment, setCurrentTab, hasApartment, setBox, box, setType }}
-			/>
+			<ApartmentForm {...{ boxType, setBoxType }} />
 		</aside>
 	);
 };

@@ -13,9 +13,9 @@ import { ReactComponent as GiftBox } from "assets/images/gift.svg";
 import room from "assets/images/room.png";
 import { Navigation } from "swiper";
 
-const ApartmentCard = ({ setHasApartment, setCurrentTab, hasApartment }) => {
+const ApartmentCard = ({ setHasApartment, setCurrentTab, hasApartment, boxType, setBoxType }) => {
 	return (
-		<div className="apartment-card">
+		<div className={cn("apartment-card", { active: boxType === "card" })}>
 			<button
 				className={cn("close", { hasApartment })}
 				onClick={() => setHasApartment(false)}
@@ -91,7 +91,9 @@ const ApartmentCard = ({ setHasApartment, setCurrentTab, hasApartment }) => {
 				<span>действует до {"28.05.2020"}</span>
 			</div>
 			<div className="submit">
-				<button className="btn">Оставить заявку</button>
+				<button className="btn" onClick={() => setBoxType("form")}>
+					Оставить заявку
+				</button>
 			</div>
 			<ul>
 				<li>
