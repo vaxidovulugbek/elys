@@ -33,16 +33,14 @@ export const AppRoutes = () => {
 					{isFetching && <Spinner />}
 
 					{user && (
-						<Suspense fallback={<Spinner />}>
-							<Routes>
-								<Route path="/" element={<MainLayout />}>
-									{ComplexRoute}
-									{ApartmentRoute}
-									{FloorRoute}
-								</Route>
-								{CrossTabRoute}
-							</Routes>
-						</Suspense>
+						<Routes>
+							<Route path="/" element={<MainLayout />}>
+								{ComplexRoute}
+								{ApartmentRoute}
+								{FloorRoute}
+							</Route>
+							{CrossTabRoute}
+						</Routes>
 					)}
 
 					{!isFetching && !user && (
