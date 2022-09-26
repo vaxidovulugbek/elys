@@ -11,8 +11,8 @@ const Rooms = ({ setHasApartment }) => {
 	return (
 		<div className="flats" id="flats">
 			<Containers.List
-				url={`cross-tab/plan/${id}`}
-				urlSearchParams={{ include: "cheapest, room" }}
+				url="plan"
+				urlSearchParams={{ include: "cheapest, room", filter: { complex_id: id } }}
 			>
 				{({ data }) => {
 					return (
