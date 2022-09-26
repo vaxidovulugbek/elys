@@ -30,9 +30,9 @@ export const AppRoutes = () => {
 					/>
 					<div id="modal-root"></div>
 
-					{isFetching ? (
-						<Spinner />
-					) : user ? (
+					{isFetching && <Spinner />}
+
+					{user && (
 						<Suspense fallback={<Spinner />}>
 							<Routes>
 								<Route path="/" element={<MainLayout />}>
@@ -43,7 +43,9 @@ export const AppRoutes = () => {
 								{CrossTabRoute}
 							</Routes>
 						</Suspense>
-					) : (
+					)}
+
+					{!isFetching && !user && (
 						<Suspense fallback={<Spinner />}>
 							<Routes>{AuthRoute}</Routes>
 						</Suspense>
