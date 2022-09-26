@@ -1,4 +1,5 @@
 import React from "react";
+
 import "./Cards.scss";
 
 export const GalleryCard = ({ url, imageName = "title" }) => {

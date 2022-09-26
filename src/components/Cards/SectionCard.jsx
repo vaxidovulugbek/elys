@@ -1,11 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { get } from "lodash";
+
+import { notifications } from "services";
+import { useDelete, useFetchList } from "hooks";
 
 import { RoundCircle } from "./RoundCircle";
 import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
-import { useNavigate } from "react-router-dom";
-import { useDelete, useFetchList } from "hooks";
-import { notifications } from "services";
 
 export const SectionCard = ({ data, link = "/building/update", onClick = () => {}, complexID }) => {
 	const navigate = useNavigate();

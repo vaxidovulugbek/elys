@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { Spinner } from "components";
-import { ApartmentForm } from "../components/ApartmentForm";
 import { useFetchOne } from "hooks";
 import { notifications } from "services";
+
+import { Spinner } from "components";
+import { ApartmentForm } from "../components/ApartmentForm";
 
 const Update = () => {
 	const navigate = useNavigate();

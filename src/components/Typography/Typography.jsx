@@ -24,7 +24,7 @@ export const Typography = ({
 };
 
 Typography.propTypes = {
-	Type: PropTypes.oneOf(["h1", "h2", "h3", "h4", "h5", "h6", "p", "span"]),
+	Type: PropTypes.oneOf(["h1", "h2", "h3", "h4", "h5", "h6", "p", "span", "small", "label"]),
 	text: PropTypes.string,
 	className: PropTypes.string,
 	style: PropTypes.object,

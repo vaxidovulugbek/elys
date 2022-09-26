@@ -1,5 +1,5 @@
-import { get, isArray } from "lodash";
 import React, { useState } from "react";
+import { get, isArray } from "lodash";
 import cn from "classnames";
 
 const Chess = ({ setHasApartment, data, filterFunc }) => {

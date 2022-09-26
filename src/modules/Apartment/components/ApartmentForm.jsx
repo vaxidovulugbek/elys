@@ -1,12 +1,12 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import { FastField } from "formik";
 import { get } from "lodash";
 
+import { notifications } from "services";
+
 import { Button, Fields } from "components";
 import Containers from "containers";
-import { notifications } from "services";
 
 export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText = "Save" }) => {
 	const { sectionID, complexID, floorID } = useParams();
@@ -84,7 +84,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 					notifications.error("Something went wrong!");
 				}}
 			>
-				{() => (
+				{(formik) => (
 					<>
 						<div className="card-box">
 							<h5 className="text-muted card-sub">

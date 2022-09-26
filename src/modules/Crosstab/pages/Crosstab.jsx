@@ -1,10 +1,10 @@
-import Containers from "containers";
-import { get } from "lodash";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { get } from "lodash";
 
+import Containers from "containers";
 import { CrosstabHeader, CrosstabFilter, Tab, FlatList } from "../components";
-import Apartment from "../subpages/Appartment";
+import Apartment from "../subpages/Apartment";
 import Chess from "../subpages/Chess";
 import Interactive from "../subpages/Interactive";
 import Rooms from "../subpages/Rooms";
@@ -45,7 +45,7 @@ const Crosstab = () => {
 	return (
 		<div className="crosstab">
 			<Containers.List
-				url={`cross-tab/${id}`}
+				url={`/cross-tab/${id}`}
 				dataKey={(data) => data}
 				urlSearchParams={{
 					include: "file",

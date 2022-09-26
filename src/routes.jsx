@@ -1,17 +1,16 @@
 import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
-import { MainLayout } from "layouts";
 import { App } from "App";
+import { MainLayout } from "layouts";
+import { Overlay } from "layouts/components";
 import { Spinner } from "components";
 import { ComplexRoute } from "modules/Complex";
 import { AuthRoute } from "modules/Authorization";
 import { ApartmentRoute } from "modules/Apartment";
 import { FloorRoute } from "modules/Floor";
-import { Overlay } from "layouts/components";
-import { useSelector } from "react-redux";
-import { ToastContainer } from "react-toastify";
-
 import { CrossTabRoute } from "modules/Crosstab";
 
 export const AppRoutes = () => {
@@ -31,9 +30,9 @@ export const AppRoutes = () => {
 					/>
 					<div id="modal-root"></div>
 
-					{isFetching ? (
-						<Spinner />
-					) : user ? (
+					{isFetching && <Spinner />}
+
+					{user && (
 						<Suspense fallback={<Spinner />}>
 							<Routes>
 								<Route path="/" element={<MainLayout />}>
@@ -44,7 +43,9 @@ export const AppRoutes = () => {
 								{CrossTabRoute}
 							</Routes>
 						</Suspense>
-					) : (
+					)}
+
+					{!isFetching && !user && (
 						<Suspense fallback={<Spinner />}>
 							<Routes>{AuthRoute}</Routes>
 						</Suspense>

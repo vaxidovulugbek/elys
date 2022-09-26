@@ -7,13 +7,10 @@ import { Input } from "components/Fields/Input/Input";
 
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
 
-const AppartmentForm = ({ hasApartment, setHasApartment }) => {
+const ApartmentForm = ({ boxType, setBoxType }) => {
 	return (
-		<div className="appartment-form">
-			<button
-				className={cn("close", { hasApartment })}
-				onClick={() => setHasApartment(false)}
-			>
+		<div className={cn("apartment-form", { active: boxType === "form" })}>
+			<button className={cn("close hasApartment")} onClick={() => setBoxType("card")}>
 				<Xbtn />
 			</button>
 			<h3>Заявка</h3>
@@ -75,7 +72,9 @@ const AppartmentForm = ({ hasApartment, setHasApartment }) => {
 								<button className="btn">Отправить</button>
 							</div>
 							<div className="cencel">
-								<button className="btn--cencel">Отменить</button>
+								<button className="btn--cencel" onClick={() => setBoxType("card")}>
+									Отменить
+								</button>
 							</div>
 						</>
 					);
@@ -85,7 +84,7 @@ const AppartmentForm = ({ hasApartment, setHasApartment }) => {
 	);
 };
 
-export default AppartmentForm;
+export default ApartmentForm;
 
 const TextArea = () => {
 	return <textarea rows="5"></textarea>;

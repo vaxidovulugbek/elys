@@ -1,15 +1,14 @@
+import React, { useState } from "react";
 import cn from "classnames";
 import Slider from "rc-slider";
 import ReactSelect from "react-select";
 import { FastField, withFormik } from "formik";
-import React, { useState } from "react";
+import { debounce, get } from "lodash";
 
 import "rc-slider/assets/index.css";
-
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
 // import { ReactComponent as AngleDown } from 'assets/images/angle-down.svg'
 import { ReactComponent as Rotate } from "assets/images/rotate.svg";
-import { debounce, get } from "lodash";
 
 const usernames = [{ value: "1", label: "Abdulaziz Abdurashidov" }];
 

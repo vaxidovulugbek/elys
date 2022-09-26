@@ -1,11 +1,10 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import { get } from "lodash";
 
-import Containers from "containers";
 import { useDelete, useFetchList } from "hooks";
 
+import Containers from "containers";
 import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
 import { AddObject, FloorCard } from "components";
 

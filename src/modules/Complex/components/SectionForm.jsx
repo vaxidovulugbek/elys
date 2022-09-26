@@ -1,10 +1,10 @@
 import React from "react";
-
 import { get } from "lodash";
 
-import { Fields, ModalRoot, Modals } from "components";
 import { useFetchList } from "hooks";
 import { notifications } from "services";
+
+import { Fields, ModalRoot, Modals } from "components";
 
 const SectionForm = ({ modal, section = {}, complexID, type }) => {
 	const sectionList = useFetchList({

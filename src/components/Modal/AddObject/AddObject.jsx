@@ -1,7 +1,7 @@
 import React from "react";
-import { Button } from "components/Button/Button";
 import { FastField } from "formik";
 
+import { Button } from "components/Button/Button";
 import Containers from "containers";
 
 export const AddObject = ({

@@ -1,5 +1,5 @@
-import cn from "classnames";
 import React from "react";
+import cn from "classnames";
 import ReactSelect from "react-select";
 import { Link } from "react-router-dom";
 import { FastField } from "formik";
@@ -7,10 +7,10 @@ import { FastField } from "formik";
 import { Fields } from "components";
 import Containers from "containers";
 
+import obj from "assets/images/obj.jpg";
 import { ReactComponent as Search } from "assets/images/search.svg";
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
 import { ReactComponent as Back } from "assets/images/back.svg";
-import obj from "assets/images/obj.jpg";
 
 const usernames = [{ value: "1", label: "Abdulaziz Abdurashidov" }];
 

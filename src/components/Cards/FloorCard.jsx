@@ -1,5 +1,6 @@
-import { get } from "lodash";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import { get } from "lodash";
 
 export const FloorCard = ({ item, onClick, onDelete = () => {}, link }) => {
 	const navigate = useNavigate();

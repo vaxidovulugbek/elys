@@ -1,15 +1,14 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
 import { FastField } from "formik";
 import { get } from "lodash";
 
-import { Fields, Button } from "components";
-import Containers from "containers";
-
 import { notifications, storage } from "services";
 import { auth } from "store/actions";
+
+import { Fields, Button } from "components";
+import Containers from "containers";
 
 import logo from "assets/images/logo.svg";
 import "./../styles/Login.css";

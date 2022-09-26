@@ -1,7 +1,9 @@
+import React from "react";
 import { get } from "lodash";
 
-import { Fields, ModalRoot, Modals } from "components";
 import { notifications } from "services";
+
+import { Fields, ModalRoot, Modals } from "components";
 
 export const FloorForm = ({ sectionID, floorQuery, planModal, data }) => {
 	const onSuccess = () => {

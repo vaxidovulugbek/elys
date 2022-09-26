@@ -6,14 +6,14 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Provider } from "react-redux";
 
 import store from "store";
+import "services/i18n";
+
+import { AppRoutes } from "routes";
 
 import "assets/styles/reset.scss";
 import "assets/styles/common.css";
 import "assets/styles/index.scss";
 import "react-toastify/dist/ReactToastify.css";
-
-import "services/i18n";
-import { AppRoutes } from "routes";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const queryClient = new QueryClient({

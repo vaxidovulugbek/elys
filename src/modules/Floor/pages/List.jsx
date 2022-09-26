@@ -1,14 +1,14 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-
 import { get } from "lodash";
 
-import Containers from "containers";
 import { useDelete, useFetchList, useFetchOneWithId, useOverlay } from "hooks";
+import { notifications } from "services";
+
+import Containers from "containers";
 import { AddObject, Breadcrumb, Fields, FloorCard, ModalRoot, Modals } from "components";
 import { SectionCard } from "../components/SectionCard";
 import { FloorForm } from "../components/FloorForm";
-import { notifications } from "services";
 
 const List = () => {
 	const modal = useOverlay("modal");

@@ -1,4 +1,6 @@
 .apartment {
+	position: relative;
+
 	* {
 		font-family: "open sans", arial, sans-serif;
 	}
@@ -92,14 +94,31 @@
 		transition: 0.25s ease-out;
 	}
 
-	.appartment-form {
+	&-card {
+		display: none;
+
+		visibility: hidden;
+
+		animation: scaleDown 0.25s ease-out forwards;
+	}
+
+	&-form {
 		position: relative;
 
+		display: none;
+
 		padding: 10px 15px 20px;
+
+		visibility: hidden;
+
+		// top: 47px;
+		// width: calc(100% - 60px);
 
 		background: #fff;
 		border-radius: 5px;
 		box-shadow: 0 3px 3px 0 rgb(0 0 0 / 5%);
+
+		animation: scaleDown 0.25s ease-out forwards;
 
 		h3 {
 			margin: 10px 0;
@@ -192,10 +211,38 @@
 			border-bottom: 1px dotted;
 		}
 	}
+
+	.active {
+		display: block;
+
+		visibility: visible;
+
+		animation: scaleUp 0.25s ease-out forwards;
+	}
 }
 
 .apartment-closed {
 	margin-right: -350px;
+}
+
+@keyframes scaleUp {
+	0% {
+		transform: scale(0.1);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes scaleDown {
+	0% {
+		transform: scale(1);
+	}
+
+	100% {
+		transform: scale(0.1);
+	}
 }
 
 @media (max-width: 991px) {

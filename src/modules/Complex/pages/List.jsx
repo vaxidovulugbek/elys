@@ -20,7 +20,7 @@ const List = () => {
 			/>
 			<SearchForm onClick={() => navigate("/complex/create")} />
 			<div className="row">
-				<Containers.List url="complex">
+				<Containers.List url="/complex">
 					{({ data }) => {
 						return (
 							<>

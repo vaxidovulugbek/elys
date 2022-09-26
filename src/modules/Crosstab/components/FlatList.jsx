@@ -1,7 +1,8 @@
-import { List } from "containers/List";
-import { get } from "lodash";
 import React from "react";
 import { useParams } from "react-router-dom";
+import { get } from "lodash";
+
+import { List } from "containers/List";
 
 const FlatList = ({ data = [] }) => {
 	const { id } = useParams();

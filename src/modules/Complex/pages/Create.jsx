@@ -1,12 +1,12 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import { FastField, Field } from "formik";
 import { get } from "lodash";
 
+import { notifications } from "services";
+
 import Containers from "containers";
 import { PageHeading, Fields, Button, MapPicker } from "components";
-import { notifications } from "services";
 
 const Create = () => {
 	const navigate = useNavigate();
@@ -31,7 +31,7 @@ const Create = () => {
 				hasButton={true}
 			/>
 			<Containers.Form
-				url="complex"
+				url="/complex"
 				method="post"
 				className="row"
 				onSuccess={onSuccess}
