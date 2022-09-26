@@ -59,7 +59,10 @@ export const SectionCard = ({ data, link = "/building/update", onClick = () => {
 
 				<div className="d-flex align-items-center object__btns">
 					<button
-						onClick={(e) => onClick(e, get(data, "id"))}
+						onClick={(e) => {
+							e.stopPropagation();
+							onClick(e, get(data, "id"));
+						}}
 						className="object__action bg_green"
 					>
 						<svg width="24" height="24" viewBox="0 0 24 24">

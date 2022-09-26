@@ -24,7 +24,7 @@ export const AddObject = ({
 				url={url}
 				method={method}
 				fields={formFields}
-				className="row"
+				className="row g-3"
 				onSuccess={() => {
 					onSuccess();
 				}}
@@ -32,7 +32,7 @@ export const AddObject = ({
 					onError();
 				}}
 			>
-				{({ errors, values, isLoading }) => (
+				{({ errors, values, isLoading, resetForm }) => (
 					<>
 						<div className="modal__heading d-flex align-items-center justify-content-between">
 							<h2 className="modal__title">{title}</h2>
@@ -41,6 +41,7 @@ export const AddObject = ({
 								className="close"
 								onClick={() => {
 									onClose();
+									resetForm();
 								}}
 							>
 								×
