@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-
 import { FastField } from "formik";
 import { get } from "lodash";
+
+import { notifications } from "services";
 
 import { Button, Fields } from "components";
 import Containers from "containers";
@@ -81,7 +81,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 				onSuccess={() => onSuccess()}
 				onError={() => {
 					navigate(-1);
-					toast.error("Something went wrong!");
+					notifications.error("Something went wrong!");
 				}}
 			>
 				{(formik) => (

@@ -1,14 +1,13 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import { FastField } from "formik";
 import { get } from "lodash";
 
-import { storage } from "services";
+import { notifications, storage } from "services";
 import { auth } from "store/actions";
 
-import { Fields, Button, Typography } from "components";
+import { Fields, Button } from "components";
 import Containers from "containers";
 
 import logo from "assets/images/logo.svg";
@@ -26,10 +25,9 @@ const Login = () => {
 						<div className="logo">
 							<img src={logo} alt="logo" />
 						</div>
-						<Typography
-							className="title"
-							text="Flatris helps you to sell apartments quickly and easily."
-						/>
+						<h4 className="title">
+							Flatris helps you to sell apartments quickly and easily.
+						</h4>
 					</div>
 				</div>
 				<div className="col-lg-7 reg-content">
@@ -38,18 +36,19 @@ const Login = () => {
 					</div>
 					<div className="reg-content-main">
 						<div className="reg-form">
-							<Typography text="Log in" />
+							<h4>Log in</h4>
 							<Containers.Form
 								url="/user/login"
 								method="post"
 								onSuccess={(user) => {
-									storage.set("token", get(user, "token"));
-									dispatch(auth.success(user));
+									console.log(user, "user");
+									storage.set("token", get(user.data, "token"));
+									dispatch(auth.success(user.data));
 									navigate("/");
-									toast.success("Успех");
+									notifications.success("Успех");
 								}}
 								onError={(error, formHelpers) => {
-									toast.error("Ошибка");
+									notifications.error("Ошибка");
 									formHelpers.setErrors(get(error, "response.data.errors"));
 								}}
 								fields={[
@@ -65,16 +64,14 @@ const Login = () => {
 									},
 								]}
 							>
-								{(formik) => {
+								{(props) => {
 									return (
 										<>
 											<div className="form-group">
-												<Typography
-													text="Login"
-													append={<span className="red"> * </span>}
-													className="label-control"
-													htmlFor="username"
-												/>
+												<label htmlFor="username" className="label-control">
+													Login
+													<span className="red"> * </span>
+												</label>
 												<div>
 													<FastField
 														name="username"
@@ -83,21 +80,18 @@ const Login = () => {
 													/>
 
 													<p className="help-block">
-														<Typography
-															Type="small"
-															text="Enter the email you used while
-															registering."
-														/>
+														<small>
+															Enter the email you used while
+															registering.
+														</small>
 													</p>
 												</div>
 											</div>
 											<div className="form-group">
-												<Typography
-													text="Password"
-													append={<span className="red"> * </span>}
-													className="label-control"
-													htmlFor="password"
-												/>
+												<label htmlFor="password" className="label-control">
+													Password
+													<span className="red"> * </span>
+												</label>
 												<div>
 													<FastField
 														name="password"
@@ -106,13 +100,12 @@ const Login = () => {
 													/>
 
 													<p className="help-block">
-														<Typography
-															Type="small"
-															text="If you do not remember your password -
+														<small>
+															If you do not remember your password -
 															just leave this field blank and you will
 															receive a new one, along with an
-															activation link."
-														/>
+															activation link.
+														</small>
 													</p>
 												</div>
 											</div>

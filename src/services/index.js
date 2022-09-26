@@ -4,6 +4,7 @@ import { queryBuilder } from "./querBuilder";
 import { storage } from "./storage";
 import utils from "./utils";
 import { time } from "./time";
+import { notifications } from "./notifacations";
 import { constants } from "./constants";
 
-export { httpCLient, i18n, queryBuilder, storage, utils, time, constants };
+export { httpCLient, i18n, queryBuilder, storage, utils, time, constants, notifications };

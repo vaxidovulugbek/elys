@@ -1,6 +1,5 @@
 import React from "react";
 import cn from "classnames";
-
 import { isFunction } from "lodash";
 
 export const AddObject = ({

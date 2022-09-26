@@ -1,0 +1,192 @@
+.crosstab {
+	.filter-box {
+		overflow-y: auto;
+	}
+
+	.filter-closed {
+		margin-left: -330px;
+	}
+
+	.filters {
+		height: max-content !important;
+
+		.active {
+			color: #fff !important;
+
+			background-color: #1abc9c !important;
+		}
+
+		.select {
+			display: none !important;
+		}
+
+		.close {
+			transition: all 100ms;
+
+			scale: 0;
+		}
+
+		.hasFilter {
+			scale: 1;
+		}
+
+		@media (max-width: 991px) {
+			display: block !important;
+		}
+	}
+
+	.range-slider {
+		position: relative;
+		z-index: 1000;
+
+		margin: 20px 10px 0;
+
+		.left-border,
+		.right-border {
+			position: absolute;
+			top: 5px;
+
+			display: block;
+
+			width: 10px;
+			height: 12px;
+
+			background-color: #ebe9e9;
+		}
+
+		.left-border {
+			left: 0;
+
+			margin-left: -10px;
+
+			border-radius: 10px 0 0 10px;
+		}
+
+		.right-border {
+			right: 0;
+
+			margin-right: -10px;
+
+			border-radius: 0 10px 10px 0;
+		}
+	}
+
+	.rc-slider {
+		z-index: 2;
+	}
+
+	input[type="button"] {
+		cursor: pointer;
+		user-select: none;
+		user-select: none;
+		user-select: none;
+
+		float: left;
+
+		height: 32px;
+		padding: 0 12px;
+
+		font-size: 16px;
+		line-height: 30px;
+		color: #a0a0a0;
+		color: #444;
+
+		background: #f9f9f9;
+		border: 1px solid #d7d8da;
+		border-radius: 3px;
+	}
+
+	.tooltip {
+		position: absolute;
+		top: -20px;
+		left: 0;
+		transform: translate(-50%, 0);
+
+		width: max-content;
+		padding: 1px 5px;
+
+		font-size: 11px;
+		line-height: 1.333;
+		color: #fff;
+
+		background: #1abc9c;
+		border-radius: 2px;
+
+		&::after {
+			content: "";
+
+			position: absolute;
+			bottom: -6px;
+			left: 50%;
+
+			overflow: hidden;
+			display: block;
+
+			width: 0;
+			height: 0;
+			margin-left: -3px;
+
+			border: 3px solid transparent;
+			border-top-color: #1abc9c;
+		}
+	}
+
+	.ticks {
+		margin: 10px 10px 0 !important;
+	}
+}
+
+@media (max-width: 991px) {
+	.crosstab {
+		height: calc(100% - 56px) !important;
+		margin-top: 56px !important;
+
+		background-color: #fff !important;
+
+		form {
+			width: 100%;
+		}
+
+		.filter-closed {
+			margin-left: -100%;
+		}
+
+		#filters-box {
+			position: absolute;
+			z-index: 1000;
+			top: 0;
+			left: 0;
+
+			width: 100%;
+			height: calc(100%);
+			padding: 0;
+			padding-bottom: 20px;
+
+			background: #fff;
+
+			.filters {
+				width: 100%;
+				height: 100%;
+
+				box-shadow: none;
+
+				.select {
+					display: block !important;
+				}
+
+				.rangePicker {
+					position: relative;
+					z-index: 10;
+				}
+
+				[class*="menu"] {
+					z-index: 100;
+				}
+
+				.close {
+					display: none;
+				}
+			}
+		}
+	}
+}

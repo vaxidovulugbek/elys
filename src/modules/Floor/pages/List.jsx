@@ -1,17 +1,28 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-
 import { get } from "lodash";
 
-import Containers from "containers";
 import { useDelete, useFetchList, useFetchOneWithId, useOverlay } from "hooks";
+import { notifications } from "services";
+
+import Containers from "containers";
 import { AddObject, Breadcrumb, Fields, FloorCard, ModalRoot, Modals } from "components";
 import { SectionCard } from "../components/SectionCard";
+import { FloorForm } from "../components/FloorForm";
 
 const List = () => {
 	const modal = useOverlay("modal");
 	const planModal = useOverlay("plan");
+
+	const { sectionID, complexID } = useParams();
+	const floorQuery = useFetchList({
+		url: "floor",
+		urlSearchParams: {
+			include: "file",
+			filter: { section_id: sectionID },
+		},
+	});
+
 	const { data, setId } = useFetchOneWithId({
 		url: "floor",
 		queryOptions: {
@@ -22,24 +33,12 @@ const List = () => {
 
 	const deleteData = useDelete({
 		url: "floor",
-	});
-	const { sectionID, complexID } = useParams();
-	const floorQuery = useFetchList({
-		url: "floor",
-		urlSearchParams: {
-			include: "file",
-			filter: { section_id: sectionID },
-		},
+		queryOptions: { onSuccess: () => floorDeleted() },
 	});
 
-	const onSuccess = () => {
+	const floorDeleted = () => {
+		notifications.success("Floor delete success");
 		floorQuery.refetch();
-		planModal.handleOverlayClose();
-		toast.success(data ? "floor is updated" : "floor is created");
-	};
-
-	const onClose = () => {
-		planModal.handleOverlayClose();
 	};
 
 	const onDelete = (id) => {
@@ -128,7 +127,10 @@ const List = () => {
 
 								<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 									<AddObject
-										onClick={planModal.handleOverlayOpen}
+										onClick={() => {
+											setId(null);
+											planModal.handleOverlayOpen();
+										}}
 										src={require("assets/images/section-img1.png")}
 										innerText="ADD A FLOOR PLAN"
 										className={"p-3"}
@@ -145,7 +147,7 @@ const List = () => {
 							</h5>
 
 							<div className="row g-4">
-								{new Array(1, 2, 3, 4, 5).map((el) => (
+								{new Array(5).fill(1).map((el) => (
 									<div
 										className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card"
 										key={el}
@@ -185,67 +187,7 @@ const List = () => {
 				/>
 			</ModalRoot>
 
-			<ModalRoot isOpen={planModal.isOpen} style={{ maxWidth: "500px" }}>
-				<Modals.AddObject
-					onClose={onClose}
-					title={"Adding plan of floor"}
-					onSuccess={onSuccess}
-					fields={[
-						{
-							name: "name.en",
-							component: Fields.Input,
-							label: ["Floor name", <span>*</span>],
-							placeholder: "1 floor",
-						},
-						{
-							name: "name.ru",
-							component: Fields.Input,
-							label: ["Название этажа", <span>*</span>],
-							placeholder: "1 этаж",
-						},
-						{
-							name: "name.uz",
-							component: Fields.Input,
-							label: ["Qavat nomi", <span>*</span>],
-							placeholder: "1 qavat",
-						},
-						{
-							name: "file_id",
-							component: Fields.Upload,
-							placeholder: "Select Image",
-							btnText: "Upload",
-							className: "mt-4",
-						},
-					]}
-					formFields={[
-						{
-							name: "name",
-							validationType: "object",
-							validations: [{ type: "lng" }],
-							value: {
-								en: get(data, "name.en", ""),
-								uz: get(data, "name.uz", ""),
-								ru: get(data, "name.ru", ""),
-							},
-						},
-						{
-							name: "file_id",
-							validationType: "number",
-							value: get(data, "file_id"),
-							// validations: [{ type: "required" }],
-						},
-						{
-							name: "section_id",
-							validationType: "number",
-							value: Number(sectionID),
-							validations: [{ type: "required" }],
-						},
-					]}
-					url={get(data, "id") ? `floor/${data.id}` : "floor"}
-					submitText={get(data, "id") ? "Save" : "Add"}
-					method={get(data, "id") ? "put" : "post"}
-				/>
-			</ModalRoot>
+			<FloorForm {...{ data, planModal, floorQuery, sectionID }} />
 		</>
 	);
 };

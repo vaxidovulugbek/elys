@@ -1,14 +1,19 @@
 import { useState, useRef, useEffect } from "react";
 
-export const useOutsideClick = (initialIsVisible, handler) => {
+export const useOutsideClick = ({ initialIsVisible, onOpen, onClose = () => {} } = {}) => {
 	const [isVisible, setIsVisible] = useState(initialIsVisible);
 	const ref = useRef(null);
 
 	const handleClickOutside = (event) => {
 		if (ref.current && !ref.current.contains(event.target)) {
 			setIsVisible(false);
-			handler && handler(event);
+			onClose(event);
 		}
+	};
+
+	const handleMenuOpen = (event) => {
+		setIsVisible((prev) => !prev);
+		onOpen && onOpen(event);
 	};
 
 	useEffect(() => {
@@ -16,7 +21,8 @@ export const useOutsideClick = (initialIsVisible, handler) => {
 		return () => {
 			document.removeEventListener("click", handleClickOutside, true);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	return { ref, isVisible, setIsVisible };
+	return { ref, isVisible, handleMenuOpen };
 };

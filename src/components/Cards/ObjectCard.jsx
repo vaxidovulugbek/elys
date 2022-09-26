@@ -1,24 +1,27 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { get } from "lodash";
 
+import { useDelete, useFetchList } from "hooks";
+import { notifications } from "services";
+
 import { RoundCircle } from "./RoundCircle";
-import { useDelete } from "hooks";
-import { useSelector } from "react-redux";
 import { Modals } from "components";
 
 export const ObjectCard = ({ data }) => {
+	const complex = useFetchList({ url: "complex", queryOptions: { enabled: false } });
 	const lngCode = useSelector((state) => state.system.lngCode);
 
 	const navigate = useNavigate();
 
 	const onSuccess = () => {
-		toast.success("Object delete success");
+		notifications.success("Object delete success");
+		complex.refetch();
 	};
 
 	const onError = (err) => {
-		toast.error("Something went wrong");
+		notifications.error("Something went wrong");
 	};
 
 	const { mutate } = useDelete({

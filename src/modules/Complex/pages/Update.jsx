@@ -36,6 +36,7 @@ const Update = () => {
 	const createSection = () => {
 		setType("Adding");
 		modal.handleOverlayOpen();
+		section.setId(null);
 	};
 
 	return (

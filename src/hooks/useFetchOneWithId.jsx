@@ -20,7 +20,7 @@ export const useFetchOneWithId = ({
 	});
 
 	useEffect(() => {
-		refetchStatus && refetch();
+		refetchStatus && id && refetch();
 	}, [refetchStatus]);
 
 	return { data, setId, remove };

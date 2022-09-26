@@ -4,8 +4,9 @@ import SelectComponent from "react-select";
 import cn from "classnames";
 import { isFunction, get } from "lodash";
 
-import "./Select.scss";
 import { ControlError, ControlLabel } from "components/common";
+
+import "./Select.scss";
 
 export const Select = ({
 	label = "",

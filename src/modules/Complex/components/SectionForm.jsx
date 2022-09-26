@@ -1,18 +1,27 @@
 import React from "react";
-
-import { toast } from "react-toastify";
 import { get } from "lodash";
+
+import { useFetchList } from "hooks";
+import { notifications } from "services";
 
 import { Fields, ModalRoot, Modals } from "components";
 
 const SectionForm = ({ modal, section = {}, complexID, type }) => {
+	const sectionList = useFetchList({
+		url: "section",
+		queryOptions: { enabled: false },
+		urlSearchParams: { filter: { complex_id: complexID } },
+	});
 	const id = get(section, "data.id", "");
+
 	const onSuccess = () => {
-		toast.success(`Section ${id ? "update" : "create"} success`);
+		notifications.success(`Section ${id ? "update" : "create"} success`);
 		modal.handleOverlayClose();
+		sectionList.refetch();
 	};
+
 	const onError = () => {
-		toast.error("Something went wrong");
+		notifications.error("Something went wrong");
 	};
 
 	const onClose = () => {
@@ -27,7 +36,6 @@ const SectionForm = ({ modal, section = {}, complexID, type }) => {
 				onClose={onClose}
 				onAdd={() => {}}
 				title={`${type} a Section`}
-				type={type}
 				onSuccess={onSuccess}
 				onError={onError}
 				fields={[

@@ -1,19 +1,31 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import { get } from "lodash";
 
-import Containers from "containers";
-import { useDelete } from "hooks";
+import { useDelete, useFetchList } from "hooks";
 
+import Containers from "containers";
 import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
 import { AddObject, FloorCard } from "components";
 
 const Apartment = () => {
 	const { floorID, complexID, sectionID } = useParams();
 	const navigate = useNavigate();
+
+	const aprtmentList = useFetchList({
+		url: "apartment",
+		urlSearchParams: {
+			filter: { floor_id: floorID, section_id: sectionID, complex_id: complexID },
+		},
+	});
+
 	const { mutate } = useDelete({
 		url: "apartment",
+		queryOptions: {
+			onSuccess: () => {
+				aprtmentList.refetch();
+			},
+		},
 	});
 
 	const onDelete = (id) => {

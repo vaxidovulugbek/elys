@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import cn from "classnames";
 import PropTypes from "prop-types";
-import { Button } from "components/Button/Button";
-import "./Dropdown.scss";
+
 import { useOutsideClick } from "hooks";
-import { useState } from "react";
+
+import { Button } from "components/Button/Button";
+
+import "./Dropdown.scss";
 
 const links = [
 	{
