@@ -1,1 +1,1 @@
-export { FloorRoute } from "./routes";
+export { FloorRoutes } from "./routes";

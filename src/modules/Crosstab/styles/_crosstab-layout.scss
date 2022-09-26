@@ -204,20 +204,48 @@ body {
 		display: none !important;
 	}
 
+	.status-0 {
+		visibility: none;
+	}
+
 	.status-1 {
 		background-color: #1abc9c;
+
+		span {
+			background-color: #1abc9c;
+		}
 	}
 
 	.status-2 {
-		background-color: #ffb400;
+		background-color: #4de601;
+
+		span {
+			background-color: #4de601;
+		}
 	}
 
 	.status-3 {
 		background-color: #ec6372;
+
+		span {
+			background-color: #ec6372;
+		}
 	}
 
 	.status-4 {
 		background-color: #5b8ec3;
+
+		span {
+			background-color: #5b8ec3;
+		}
+	}
+
+	.status-5 {
+		background-color: #ffb400;
+
+		span {
+			background-color: #ffb400;
+		}
 	}
 
 	* {
@@ -792,6 +820,8 @@ body {
 					display: flex;
 					align-items: center;
 
+					background-color: transparent !important;
+
 					span {
 						display: block;
 
@@ -803,29 +833,29 @@ body {
 					}
 				}
 
-				.color:nth-child(1) {
-					span {
-						background: #1abc9c;
-					}
-				}
+				// .color:nth-child(1) {
+				// 	span {
+				// 		background: #1abc9c;
+				// 	}
+				// }
 
-				.color:nth-child(2) {
-					span {
-						background: #ffb400;
-					}
-				}
+				// .color:nth-child(2) {
+				// 	span {
+				// 		background: #ffb400;
+				// 	}
+				// }
 
-				.color:nth-child(3) {
-					span {
-						background: #ec6372;
-					}
-				}
+				// .color:nth-child(3) {
+				// 	span {
+				// 		background: #ec6372;
+				// 	}
+				// }
 
-				.color:nth-child(4) {
-					span {
-						background: #5b8ec3;
-					}
-				}
+				// .color:nth-child(4) {
+				// 	span {
+				// 		background: #5b8ec3;
+				// 	}
+				// }
 			}
 		}
 
@@ -1312,12 +1342,6 @@ body {
 
 		[class*="menu-list"] {
 			padding: 0;
-		}
-
-		[class*="option"] {
-			&:hover {
-				// background-color: #ebedf1;
-			}
 		}
 
 		[class*="menu"] {

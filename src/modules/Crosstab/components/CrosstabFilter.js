@@ -3,12 +3,13 @@ import cn from "classnames";
 import Slider from "rc-slider";
 import ReactSelect from "react-select";
 import { FastField, withFormik } from "formik";
-import { debounce, get } from "lodash";
+import { debounce, get, isEmpty } from "lodash";
 
 import "rc-slider/assets/index.css";
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
 // import { ReactComponent as AngleDown } from 'assets/images/angle-down.svg'
 import { ReactComponent as Rotate } from "assets/images/rotate.svg";
+import { useEffect } from "react";
 
 const usernames = [{ value: "1", label: "Abdulaziz Abdurashidov" }];
 
@@ -37,14 +38,11 @@ const CrosstabFilter = ({
 	hasFilter,
 	setHasFilter,
 	handleSubmit,
-	handleChange,
 	values,
 	setFieldValue,
 	resetForm,
 	setParams,
 }) => {
-	// const [isOpen, setIsOpen] = useState(true)
-
 	window.clearFilter = () => {
 		setParams({});
 		resetForm();
@@ -116,9 +114,7 @@ const CrosstabFilter = ({
 				</div>
 				<RangePicker {...rangePickerProps(1, "Стоимость", [3200, 100000])} />
 				<RangePicker {...rangePickerProps(2, "Площадь общая", [8, 200])} />
-				{/* <RangePicker {...rangePickerProps(3, "Этаж", [0, 10])} /> */}
 				<RangePicker {...rangePickerProps(4, "Цена м", [100, 1410])} />
-				{/* <div className="switch-box" style={{ display: isOpen ? 'flex' : 'none' }}> */}
 				<div className="switch-box">
 					<label className="switch">
 						<input
@@ -149,15 +145,13 @@ const CrosstabFilter = ({
 					</label>
 					<p>только СВОБОДНЫЕ</p>
 				</div>
-				{/* <button className="expend" onClick={() => setIsOpen((prev) => !prev)}>
-                    <p>Скрыть доп. фильтры</p>
-                    <AngleDown />
-                </button> */}
 			</div>
-			<button type="button" className="filter-clear" onClick={() => window.clearFilter()}>
-				<Rotate />
-				<p>Сбросить фильтр</p>
-			</button>
+			{!isEmpty(values) && (
+				<button type="button" className="filter-clear" onClick={() => window.clearFilter()}>
+					<Rotate />
+					<p>Сбросить фильтр</p>
+				</button>
+			)}
 		</form>
 	);
 };
@@ -217,6 +211,9 @@ const RangePicker = ({
 				{`${val} M`} <sup style={{ color: "#fff" }}>2</sup>
 			</span>
 		);
+	useEffect(() => {
+		isEmpty(values) && setSlider(minMax);
+	}, [values, minMax]);
 
 	return (
 		<div className="rangePicker" style={{ display: isOpen ? "block" : "none" }}>

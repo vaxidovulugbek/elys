@@ -4,10 +4,10 @@ import { get } from "lodash";
 
 import Containers from "containers";
 import { CrosstabHeader, CrosstabFilter, Tab, FlatList } from "../components";
-import Apartment from "../subpages/Apartment";
+import Apartment from "../components/Apartment";
 import Chess from "../subpages/Chess";
 import Interactive from "../subpages/Interactive";
-import Rooms from "../subpages/Rooms";
+import Rooms from "../subpages/Plan";
 
 const Crosstab = () => {
 	const [currentTab, setCurrentTab] = useState(1);
@@ -45,10 +45,13 @@ const Crosstab = () => {
 	return (
 		<div className="crosstab">
 			<Containers.List
-				url={`/cross-tab/${id}`}
+				url="/section"
 				dataKey={(data) => data}
 				urlSearchParams={{
-					include: "file",
+					include: "floors,floors.apartments,floors.apartments.plan.room",
+					filter: {
+						section_id: id,
+					},
 				}}
 			>
 				{({ data }) => {
@@ -72,19 +75,23 @@ const Crosstab = () => {
 										<p className="count">Найдено помещений: 462</p>
 									</div>
 									<div className="right">
-										<div className="color">
+										<div className="color status-1">
 											<span></span>
 											<label>Свободно</label>
 										</div>
-										<div className="color">
+										<div className="color status-2">
+											<span></span>
+											<label>Интерес</label>
+										</div>
+										<div className="color status-5">
 											<span></span>
 											<label>Резерв</label>
 										</div>
-										<div className="color">
+										<div className="color status-3">
 											<span></span>
-											<label>Продано</label>
+											<label>Проданные</label>
 										</div>
-										<div className="color">
+										<div className="color status-4">
 											<span></span>
 											<label>Не в продаже</label>
 										</div>
@@ -92,14 +99,20 @@ const Crosstab = () => {
 								</div>
 								<div className="content-box list-content">
 									<Tab
-										{...{ setCurrentTab, currentTab, setHasFilter, hasFilter }}
+										{...{
+											setCurrentTab,
+											currentTab,
+											setHasFilter,
+											hasFilter,
+											params,
+										}}
 									/>
 									{currentTab === 1 && (
 										<Chess
 											{...{
 												hasApartment,
 												setHasApartment,
-												data: get(data, "sections", []),
+												data: get(data, "data", []),
 												filterFunc,
 											}}
 										/>

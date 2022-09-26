@@ -1,4 +1,4 @@
-export { default as FlatList } from "./FlatList";
+export { default as FlatList } from "../subpages/FlatList";
 
 export { default as Tab } from "./Tab";
 export { default as CrosstabHeader } from "./CrosstabHeader";

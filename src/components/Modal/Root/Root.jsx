@@ -9,7 +9,7 @@ export const Root = ({ children, isOpen, className, style }) => {
 	return (
 		<Portal targetId="modal-root">
 			<ModalWrapper isOpen={isOpen} className={className} style={style}>
-				{children}
+				{isOpen && children}
 			</ModalWrapper>
 		</Portal>
 	);
