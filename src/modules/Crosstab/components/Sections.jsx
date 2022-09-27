@@ -2,7 +2,7 @@ import React from "react";
 
 import sections from "assets/images/sections.jpg";
 
-const Sections = ({ setCurrentStep }) => {
+export const Sections = ({ setCurrentStep }) => {
 	return (
 		<div className="sections">
 			<svg
@@ -92,5 +92,3 @@ const Sections = ({ setCurrentStep }) => {
 		</div>
 	);
 };
-
-export default Sections;

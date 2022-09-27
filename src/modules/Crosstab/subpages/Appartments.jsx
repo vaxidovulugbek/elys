@@ -4,7 +4,7 @@ import { get } from "lodash";
 
 import { List } from "containers/List";
 
-const FlatList = ({ data = [] }) => {
+const Appartments = ({ data = [] }) => {
 	const { id } = useParams();
 
 	return (
@@ -156,4 +156,4 @@ const FlatList = ({ data = [] }) => {
 	);
 };
 
-export default FlatList;
+export default Appartments;

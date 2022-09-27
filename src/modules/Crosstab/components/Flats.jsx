@@ -2,7 +2,7 @@ import React from "react";
 
 import interaktivePng from "assets/images/interactive.png";
 
-const Flats = ({ setHasApartment }) => {
+export const Flats = ({ setHasApartment }) => {
 	return (
 		<div className="interactive-flats">
 			<svg
@@ -72,5 +72,3 @@ const Flats = ({ setHasApartment }) => {
 		</div>
 	);
 };
-
-export default Flats;

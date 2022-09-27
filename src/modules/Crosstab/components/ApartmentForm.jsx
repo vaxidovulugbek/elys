@@ -7,7 +7,7 @@ import { Input } from "components/Fields/Input/Input";
 
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
 
-const ApartmentForm = ({ boxType, setBoxType }) => {
+export const ApartmentForm = ({ boxType, setBoxType }) => {
 	return (
 		<div className={cn("apartment-form", { active: boxType === "form" })}>
 			<button className={cn("close hasApartment")} onClick={() => setBoxType("card")}>
@@ -83,8 +83,6 @@ const ApartmentForm = ({ boxType, setBoxType }) => {
 		</div>
 	);
 };
-
-export default ApartmentForm;
 
 const TextArea = () => {
 	return <textarea rows="5"></textarea>;

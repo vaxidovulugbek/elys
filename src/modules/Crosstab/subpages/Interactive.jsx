@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import cn from "classnames";
 
-import Buildings from "../components/Buildings";
-import Flats from "../components/Flats";
-import Sections from "../components/Sections";
+import { Buildings } from "../components";
+import { Flats } from "../components";
+import { Sections } from "../components";
 
 const Interactive = ({ setHasApartment }) => {
 	const [currentStep, setCurrentStep] = useState(1);

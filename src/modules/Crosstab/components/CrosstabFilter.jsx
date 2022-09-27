@@ -34,7 +34,7 @@ const setFieldDebounce = debounce((handleSubmit) => {
 	handleSubmit();
 }, 300);
 
-const CrosstabFilter = ({
+export const CrosstabFilter = ({
 	hasFilter,
 	setHasFilter,
 	handleSubmit,
@@ -163,8 +163,6 @@ const EnhancedForm = withFormik({
 		setParams(values);
 	},
 })(CrosstabFilter);
-
-export default EnhancedForm;
 
 const Checkbox = ({ toogleSelect, number, filter }) => {
 	return (
