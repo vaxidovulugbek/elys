@@ -93,7 +93,7 @@ const Update = () => {
 						value:
 							get(data, "lat") &&
 							get(data, "lon") &&
-							`${get(data, "lat")}, ${get(data, "lon")}`,
+							`${get(data, "lat")},  ${get(data, "lon")}`,
 					},
 					{
 						name: "lat",
