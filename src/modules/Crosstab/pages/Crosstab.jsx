@@ -3,11 +3,9 @@ import { useParams } from "react-router-dom";
 import { get } from "lodash";
 
 import Containers from "containers";
-import { CrosstabHeader, CrosstabFilter, Tab, FlatList } from "../components";
-import Apartment from "../components/Apartment";
-import Chess from "../subpages/Chess";
-import Interactive from "../subpages/Interactive";
-import Rooms from "../subpages/Plan";
+import { CrosstabHeader, CrosstabFilter, Tab } from "../components";
+import { Appartments, Chess, Interactive, Plan } from "../subpages";
+import { Apartment } from "../components";
 
 const Crosstab = () => {
 	const [currentTab, setCurrentTab] = useState(1);
@@ -118,7 +116,7 @@ const Crosstab = () => {
 										/>
 									)}
 									{currentTab === 2 && (
-										<Rooms
+										<Plan
 											{...{
 												hasApartment,
 												setHasApartment,
@@ -133,7 +131,7 @@ const Crosstab = () => {
 										/>
 									)}
 									{currentTab === 4 && (
-										<FlatList
+										<Appartments
 											{...{
 												hasApartment,
 												setHasApartment,

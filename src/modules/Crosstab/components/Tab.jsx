@@ -8,7 +8,7 @@ import { ReactComponent as Justify } from "assets/images/justify.svg";
 import { ReactComponent as Search } from "assets/images/search.svg";
 import { ReactComponent as Rotate } from "assets/images/rotate.svg";
 
-const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter, params }) => {
+export const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter, params }) => {
 	const changeTab = (id) => {
 		setCurrentTab(id);
 	};
@@ -67,7 +67,7 @@ const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter, params }) => 
 					<Justify />
 					<p>Список</p>
 				</button>
-				<button onClick={() => setHasFilter(true)}>
+				<button onClick={() => setHasFilter((prev) => !prev)}>
 					<Search />
 					<p>Фильтр</p>
 				</button>
@@ -75,5 +75,3 @@ const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter, params }) => 
 		</div>
 	);
 };
-
-export default Tab;

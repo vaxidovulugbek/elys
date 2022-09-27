@@ -13,7 +13,13 @@ import { ReactComponent as GiftBox } from "assets/images/gift.svg";
 import room from "assets/images/room.png";
 import { Navigation } from "swiper";
 
-const ApartmentCard = ({ setHasApartment, setCurrentTab, hasApartment, boxType, setBoxType }) => {
+export const ApartmentCard = ({
+	setHasApartment,
+	setCurrentTab,
+	hasApartment,
+	boxType,
+	setBoxType,
+}) => {
 	return (
 		<div className={cn("apartment-card", { active: boxType === "card" })}>
 			<button
@@ -172,8 +178,6 @@ const ApartmentCard = ({ setHasApartment, setCurrentTab, hasApartment, boxType, 
 		</div>
 	);
 };
-
-export default ApartmentCard;
 
 const Fancybox = (props) => {
 	const delegate = props.delegate || "[data-fancybox]";
