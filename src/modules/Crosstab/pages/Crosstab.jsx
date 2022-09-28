@@ -22,7 +22,9 @@ const Crosstab = () => {
 
 	const filterFunc = (apartment) => {
 		let active = true;
-		const { room_count, price, discount, square_meter, status } = apartment;
+		const { price, discount, status } = apartment;
+		const room_count = get(apartment, "room.count", 0);
+		const square_meter = get(apartment, "plan.area", 0);
 		const meter_price = price / square_meter;
 
 		const filter = {
@@ -41,7 +43,7 @@ const Crosstab = () => {
 		if (filter.meter_price[0] > meter_price || filter.meter_price[1] < meter_price)
 			active = false;
 		if (filter.discount && !discount) active = false;
-		if (filter.status && status !== 1) active = false;
+		if (filter.status && status !== STATUS_FREE) active = false;
 
 		return active;
 	};
