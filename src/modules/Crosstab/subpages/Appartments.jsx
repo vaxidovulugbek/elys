@@ -121,31 +121,38 @@ const Appartments = ({ data = [], filterFunc }) => {
 							return (
 								<>
 									{Array.isArray(data) &&
-										data.map((item, index) => (
-											<tr key={index}>
-												<td>{get(item, "id")}</td>
-												{/* <td>1</td> */}
-												{/* <td>P1</td> */}
-												<td>{get(item, "room_count")}</td>
-												<td>
-													{get(item, "square_meter")} м<sup>2</sup>
-												</td>
-												<td>{get(item, "sort")}</td>
-												<td>{get(item, "section.sort")}</td>
-												<td>{get(item, "floor.sort")}</td>
-												<td>
-													{meterPrice(item)} $/м<sup>2</sup>
-												</td>
-												<td>{get(item, "price")} $</td>
-												<td>
-													<span
-														className={`status-${get(item, "status")}`}
-													>
-														Свободно
-													</span>
-												</td>
-											</tr>
-										))}
+										data.map(
+											(item, index) =>
+												filterFunc(item) && (
+													<tr key={index}>
+														<td>{get(item, "id")}</td>
+														{/* <td>1</td> */}
+														{/* <td>P1</td> */}
+														<td>{get(item, "room_count")}</td>
+														<td>
+															{get(item, "square_meter")} м
+															<sup>2</sup>
+														</td>
+														<td>{get(item, "sort")}</td>
+														<td>{get(item, "section.sort")}</td>
+														<td>{get(item, "floor.sort")}</td>
+														<td>
+															{meterPrice(item)} $/м<sup>2</sup>
+														</td>
+														<td>{get(item, "price")} $</td>
+														<td>
+															<span
+																className={`status-${get(
+																	item,
+																	"status"
+																)}`}
+															>
+																Свободно
+															</span>
+														</td>
+													</tr>
+												)
+										)}
 								</>
 							);
 						}}
