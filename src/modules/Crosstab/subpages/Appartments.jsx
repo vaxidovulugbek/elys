@@ -4,8 +4,12 @@ import { get } from "lodash";
 
 import { List } from "containers/List";
 
-const Appartments = ({ data = [] }) => {
+const Appartments = ({ data = [], filterFunc }) => {
 	const { id } = useParams();
+	const meterPrice = (item) => {
+		const price = Math.floor(get(item, "price") / get(item, "plan.area"));
+		if (price) return price;
+	};
 
 	return (
 		<div className="list">
@@ -108,44 +112,47 @@ const Appartments = ({ data = [] }) => {
 				</thead>
 				<tbody>
 					<List
-						url={`cross-tab/list/${id}`}
+						url="apartment"
 						urlSearchParams={{
-							include: "floor,section",
+							include: "plan, room",
 						}}
 					>
 						{({ data }) => {
 							return (
 								<>
 									{Array.isArray(data) &&
-										data.map((item, index) => (
-											<tr key={index}>
-												<td>{get(item, "id")}</td>
-												{/* <td>1</td> */}
-												{/* <td>P1</td> */}
-												<td>{get(item, "room_count")}</td>
-												<td>
-													{get(item, "square_meter")} м<sup>2</sup>
-												</td>
-												<td>{get(item, "sort")}</td>
-												<td>{get(item, "section.sort")}</td>
-												<td>{get(item, "floor.sort")}</td>
-												<td>
-													{Math.floor(
-														get(item, "price") /
-															get(item, "square_meter")
-													)}{" "}
-													$/м<sup>2</sup>
-												</td>
-												<td>{get(item, "price")} $</td>
-												<td>
-													<span
-														className={`status-${get(item, "status")}`}
-													>
-														Свободно
-													</span>
-												</td>
-											</tr>
-										))}
+										data.map(
+											(item, index) =>
+												filterFunc(item) && (
+													<tr key={index}>
+														<td>{get(item, "id")}</td>
+														{/* <td>1</td> */}
+														{/* <td>P1</td> */}
+														<td>{get(item, "room_count")}</td>
+														<td>
+															{get(item, "square_meter")} м
+															<sup>2</sup>
+														</td>
+														<td>{get(item, "sort")}</td>
+														<td>{get(item, "section.sort")}</td>
+														<td>{get(item, "floor.sort")}</td>
+														<td>
+															{meterPrice(item)} $/м<sup>2</sup>
+														</td>
+														<td>{get(item, "price")} $</td>
+														<td>
+															<span
+																className={`status-${get(
+																	item,
+																	"status"
+																)}`}
+															>
+																Свободно
+															</span>
+														</td>
+													</tr>
+												)
+										)}
 								</>
 							);
 						}}
