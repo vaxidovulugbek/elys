@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 
 import room from "assets/images/room.png";
 import Containers from "containers";
+import { isArray } from "lodash";
+import { functions } from "services";
 
 const Plan = ({ setHasApartment, filterFunc }) => {
 	const [cardIndex, setCardIndex] = useState(-1);
@@ -12,7 +14,11 @@ const Plan = ({ setHasApartment, filterFunc }) => {
 		<div className="flats" id="flats">
 			<Containers.List
 				url="plan"
-				urlSearchParams={{ include: "cheapest, room", filter: { complex_id: id } }}
+				urlSearchParams={{
+					include:
+						"apartments, apartments.complex, apartments.floor,apartments.plan.room, apartments.plan ,room, files",
+					filter: { complex_id: id },
+				}}
 			>
 				{({ data }) => {
 					return (
@@ -22,12 +28,11 @@ const Plan = ({ setHasApartment, filterFunc }) => {
 									<>
 										<div
 											className="card"
-											onClick={() => setHasApartment(true)}
+											onClick={() => setHasApartment(item)}
 											key={index}
 										>
 											<div className="top">
 												<h2>{get(item, "name.ru")}</h2>
-												{/* <p>Дом 1, Секция 1</p> */}
 											</div>
 											<div className="center">
 												<img src={room} alt="room plan" />
@@ -79,25 +84,63 @@ const Plan = ({ setHasApartment, filterFunc }) => {
 															cardIndex === index ? "block" : "none",
 													}}
 												>
-													{Array(10)
-														.fill(1)
-														.map((item, index) => (
-															<div className="flat" key={index}>
-																<div className="position">
-																	<div className="number">
-																		<span className="status-1"></span>
-																		<span>№5</span>
+													{isArray(get(item, "apartments")) &&
+														get(item, "apartments").map(
+															(apartment, index) => (
+																<div
+																	className="flat"
+																	key={index}
+																	onClick={(e) => {
+																		e.stopPropagation();
+																		setHasApartment(apartment);
+																	}}
+																>
+																	<div className="position">
+																		<div className="number">
+																			<span
+																				className={`status-${get(
+																					apartment,
+																					"status"
+																				)}`}
+																			></span>
+																			<span>
+																				№
+																				{get(
+																					apartment,
+																					"sort"
+																				)}
+																			</span>
+																		</div>
+																		<p className="floor">
+																			Этаж -
+																			{get(
+																				apartment,
+																				"floor.sort"
+																			)}
+																		</p>
 																	</div>
-																	<p className="floor">Этаж -1</p>
+																	<div className="price">
+																		<p className="total">
+																			{functions.convertToReadable(
+																				get(
+																					apartment,
+																					"price"
+																				)
+																			)}{" "}
+																			$
+																		</p>
+																		<p className="by-metr">
+																			{functions.convertToReadable(
+																				functions.meterPrice(
+																					apartment
+																				)
+																			)}{" "}
+																			$/м
+																		</p>
+																	</div>
 																</div>
-																<div className="price">
-																	<p className="total">3 420 $</p>
-																	<p className="by-metr">
-																		427.5 $/м
-																	</p>
-																</div>
-															</div>
-														))}
+															)
+														)}
 												</div>
 											</div>
 										</div>

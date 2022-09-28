@@ -10,6 +10,12 @@ export const constants = {
 	STATUS_NOT_FOR_SALE: 4,
 	STATUS_CONSTRUCTION: 5,
 
+	STATUS_FREE_TEXT: "Свободно",
+	STATUS_INTEREST_TEXT: "Интерес",
+	STATUS_SOLD_TEXT: "Проданные",
+	STATUS_NOT_FOR_SALE_TEXT: "Не в продаже",
+	STATUS_CONSTRUCTION_TEXT: "Резерв",
+
 	TYPE_FLAT: 1,
 	TYPE_COMMERCIAL: 2,
 

@@ -13,7 +13,7 @@ import { Apartment } from "../components";
 const Crosstab = () => {
 	const [currentTab, setCurrentTab] = useState(1);
 	const [hasFilter, setHasFilter] = useState(window.innerWidth < 991 ? false : true);
-	const [hasApartment, setHasApartment] = useState(false);
+	const [hasApartment, setHasApartment] = useState(null);
 	const { id } = useParams();
 	const [params, setParams] = useState({});
 
@@ -54,7 +54,8 @@ const Crosstab = () => {
 				url="/section"
 				dataKey={(data) => data}
 				urlSearchParams={{
-					include: "floors,floors.apartments,floors.apartments.plan.room",
+					include:
+						"floors,floors.apartments,floors.apartments.plan.room, floors.apartments.complex",
 					filter: {
 						section_id: id,
 					},
