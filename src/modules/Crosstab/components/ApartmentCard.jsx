@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Fancybox as NativeFancybox } from "@fancyapps/ui/dist/fancybox.esm.js";
 import cn from "classnames";
+import { Navigation } from "swiper";
+import { Fancybox } from "components";
 
 import { ReactComponent as Clock } from "assets/images/clock-rotate-left.svg";
 import { ReactComponent as Click } from "assets/images/click.svg";
@@ -11,7 +12,6 @@ import { ReactComponent as Xbtn } from "assets/images/x.svg";
 import { ReactComponent as GiftBox } from "assets/images/gift.svg";
 
 import room from "assets/images/room.png";
-import { Navigation } from "swiper";
 
 export const ApartmentCard = ({
 	setHasApartment,
@@ -179,19 +179,19 @@ export const ApartmentCard = ({
 	);
 };
 
-const Fancybox = (props) => {
-	const delegate = props.delegate || "[data-fancybox]";
+// const Fancybox = (props) => {
+// 	const delegate = props.delegate || "[data-fancybox]";
 
-	useEffect(() => {
-		const opts = props.options || {};
+// 	useEffect(() => {
+// 		const opts = props.options || {};
 
-		NativeFancybox.bind(delegate, opts);
+// 		NativeFancybox.bind(delegate, opts);
 
-		return () => {
-			NativeFancybox.destroy();
-		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+// 		return () => {
+// 			NativeFancybox.destroy();
+// 		};
+// 		// eslint-disable-next-line react-hooks/exhaustive-deps
+// 	}, []);
 
-	return <>{props.children}</>;
-};
+// 	return <>{props.children}</>;
+// };

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+
 import { get } from "lodash";
 
 import Containers from "containers";
+import { constants } from "services";
+
 import { CrosstabHeader, CrosstabFilter, Tab } from "../components";
 import { Appartments, Chess, Interactive, Plan } from "../subpages";
 import { Apartment } from "../components";
@@ -13,6 +16,9 @@ const Crosstab = () => {
 	const [hasApartment, setHasApartment] = useState(false);
 	const { id } = useParams();
 	const [params, setParams] = useState({});
+
+	const { STATUS_FREE, STATUS_INTEREST, STATUS_SOLD, STATUS_NOT_FOR_SALE, STATUS_CONSTRUCTION } =
+		constants;
 
 	const filterFunc = (apartment) => {
 		let active = true;
@@ -73,23 +79,23 @@ const Crosstab = () => {
 										<p className="count">Найдено помещений: 462</p>
 									</div>
 									<div className="right">
-										<div className="color status-1">
+										<div className={`color status-${STATUS_FREE}`}>
 											<span></span>
 											<label>Свободно</label>
 										</div>
-										<div className="color status-2">
+										<div className={`color status-${STATUS_INTEREST}`}>
 											<span></span>
 											<label>Интерес</label>
 										</div>
-										<div className="color status-5">
+										<div className={`color status-${STATUS_CONSTRUCTION}`}>
 											<span></span>
 											<label>Резерв</label>
 										</div>
-										<div className="color status-3">
+										<div className={`color status-${STATUS_SOLD}`}>
 											<span></span>
 											<label>Проданные</label>
 										</div>
-										<div className="color status-4">
+										<div className={`color status-${STATUS_NOT_FOR_SALE}`}>
 											<span></span>
 											<label>Не в продаже</label>
 										</div>
