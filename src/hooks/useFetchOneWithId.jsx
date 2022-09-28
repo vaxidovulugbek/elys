@@ -10,7 +10,7 @@ export const useFetchOneWithId = ({
 	urlSearchParams,
 	refetchStatus,
 }) => {
-	const [id, setId] = useState();
+	const [id, setId] = useState(null);
 	const { data, refetch, remove } = useFetchOne({
 		url: `${url}/${id}`,
 		dataKey,
