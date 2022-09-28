@@ -12,11 +12,12 @@ import { AuthRoutes } from "modules/Authorization";
 import { ApartmentRoutes } from "modules/Apartment";
 import { FloorRoutes } from "modules/Floor";
 import { CrossTabRoutes } from "modules/Crosstab";
+import { RoomRoute } from "modules/Room";
 
 const loggedInRoutes = [
 	{
 		layout: <MainLayout />,
-		routes: [...ComplexRoutes, ...ApartmentRoutes, ...FloorRoutes],
+		routes: [...ComplexRoutes, ...ApartmentRoutes, ...FloorRoutes, ...RoomRoute],
 	},
 	{
 		layout: false,

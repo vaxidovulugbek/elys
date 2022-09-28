@@ -53,16 +53,6 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 						value: get(formData, "discount"),
 					},
 					{
-						name: "room_count",
-						validationType: "number",
-						value: get(formData, "room_count"),
-					},
-					{
-						name: "square_meter",
-						validationType: "number",
-						value: get(formData, "square_meter"),
-					},
-					{
 						name: "floor_id",
 						validationType: "number",
 						value: Number(floorID),
@@ -156,22 +146,6 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										component={Fields.Input}
 										type="number"
 										label="Discount"
-									/>
-								</div>
-								<div className="col-12">
-									<FastField
-										name="room_count"
-										component={Fields.Input}
-										type="number"
-										label="Room count"
-									/>
-								</div>
-								<div className="col-12">
-									<FastField
-										name="square_meter"
-										component={Fields.Input}
-										type="number"
-										label="Square meter"
 									/>
 								</div>
 							</div>

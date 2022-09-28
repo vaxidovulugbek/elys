@@ -21,7 +21,7 @@ const sections = [
 	{ value: 4, label: "Все секции" },
 ];
 
-const CrosstabHeader = ({ hasApartment, setHasApartment, setHasFilter, hasFilter }) => {
+export const CrosstabHeader = ({ hasApartment, setHasApartment, setHasFilter, hasFilter }) => {
 	return (
 		<header className="crosstab-header" id="crosstab-header">
 			<div className="left">
@@ -76,5 +76,3 @@ const CrosstabHeader = ({ hasApartment, setHasApartment, setHasFilter, hasFilter
 		</header>
 	);
 };
-
-export default CrosstabHeader;

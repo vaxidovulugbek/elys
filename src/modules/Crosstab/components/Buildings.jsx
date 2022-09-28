@@ -4,7 +4,7 @@ import React from "react";
 
 import buildings from "assets/images/buildings.jpg";
 
-const Buildings = ({ setCurrentStep }) => {
+export const Buildings = ({ setCurrentStep }) => {
 	return (
 		<div className="buildings">
 			<svg
@@ -108,5 +108,3 @@ const Buildings = ({ setCurrentStep }) => {
 		</div>
 	);
 };
-
-export default Buildings;

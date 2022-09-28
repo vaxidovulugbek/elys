@@ -5,14 +5,14 @@ import { useParams } from "react-router-dom";
 import room from "assets/images/room.png";
 import Containers from "containers";
 
-const Rooms = ({ setHasApartment }) => {
+const Plan = ({ setHasApartment }) => {
 	const [cardIndex, setCardIndex] = useState(-1);
 	const { id } = useParams();
 	return (
 		<div className="flats" id="flats">
 			<Containers.List
-				url={`cross-tab/plan/${id}`}
-				urlSearchParams={{ include: "cheapest, room" }}
+				url="plan"
+				urlSearchParams={{ include: "cheapest, room", filter: { complex_id: id } }}
 			>
 				{({ data }) => {
 					return (
@@ -104,4 +104,4 @@ const Rooms = ({ setHasApartment }) => {
 	);
 };
 
-export default Rooms;
+export default Plan;
