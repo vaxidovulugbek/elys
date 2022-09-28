@@ -3,7 +3,7 @@ import { Input } from "./Input/Input";
 import { Select } from "./Select/Select";
 import { Upload } from "./Upload/Upload";
 import { Radiobutton } from "./Radiobutton/Radiobutton";
-import { LayoutUpdateUpload } from "./Upload/LayoutUpdateUpload";
+import { MultiUpload } from "./Upload/MultiUpload";
 import { TreeCheckbox } from "./TreeCheckbox/TreeCheckbox";
 import AsyncSelect from "./AsyncSelect/AsyncSelect";
 
@@ -12,7 +12,7 @@ export default {
 	Select,
 	Upload,
 	Radiobutton,
-	LayoutUpdateUpload,
+	MultiUpload,
 	TreeCheckbox,
 	AsyncSelect,
 };

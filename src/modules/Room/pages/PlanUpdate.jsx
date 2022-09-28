@@ -1,17 +1,16 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { useFetchOne } from "hooks";
 import { notifications } from "services";
-
+import { useFetchOne } from "hooks";
 import { Spinner } from "components";
-import { ApartmentForm } from "../components/ApartmentForm";
+import { PlanForm } from "../components/PlanForm";
 
-const Update = () => {
+const PlanUpdate = () => {
 	const navigate = useNavigate();
-	const { apartmentID } = useParams();
+	const { planID } = useParams();
 	const { data, refetch, isLoading } = useFetchOne({
-		url: `apartment/${apartmentID}`,
+		url: `plan/${planID}`,
 		queryOptions: {
 			enabled: false,
 		},
@@ -20,25 +19,20 @@ const Update = () => {
 
 	const onSuccess = () => {
 		navigate(-1);
-		notifications.success("Apartment is updated!");
+		notifications.success("Plan is updated!");
 	};
 
 	useEffect(() => {
 		refetch();
-	}, [apartmentID, refetch]);
+	}, [planID, refetch]);
 
 	if (isLoading) return <Spinner />;
 
 	return (
 		<>
-			<ApartmentForm
-				method="put"
-				url={`apartment/${apartmentID}`}
-				formData={data}
-				onSuccess={onSuccess}
-			/>
+			<PlanForm method="put" url={`plan/${planID}`} formData={data} onSuccess={onSuccess} />
 		</>
 	);
 };
 
-export default Update;
+export default PlanUpdate;

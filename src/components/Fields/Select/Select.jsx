@@ -1,4 +1,5 @@
 import React from "react";
+
 import PropTypes from "prop-types";
 import SelectComponent from "react-select";
 import cn from "classnames";
@@ -10,6 +11,7 @@ import "./Select.scss";
 
 export const Select = ({
 	label = "",
+	value,
 	placeholder = "",
 	options = [],
 	size = "sm",
@@ -29,20 +31,20 @@ export const Select = ({
 	const classNames = cn(className, size);
 
 	const handleChange = (option, action) => {
-		form.setFieldValue(field.name, option);
+		form.setFieldValue(field.name, option[optionValue]);
 		onValueChange && onValueChange(option);
 	};
 
 	const handleBlur = (event) => {
 		form.setFieldTouched(field.name, true);
 	};
-
 	return (
 		<>
 			<ControlLabel label={label} />
 			<div className="form-select">
 				<SelectComponent
 					defaultValue={defaultValue}
+					value={options ? options.find((option) => option.value === field.value) : ""}
 					placeholder={placeholder}
 					className={classNames}
 					getOptionLabel={(option) =>
