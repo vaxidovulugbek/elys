@@ -18,7 +18,7 @@ export const Apartment = ({ setHasApartment, hasApartment, setCurrentTab }) => {
 			<ApartmentCard
 				{...{ setHasApartment, setCurrentTab, hasApartment, boxType, setBoxType }}
 			/>
-			<ApartmentForm {...{ boxType, setBoxType }} />
+			<ApartmentForm {...{ boxType, setBoxType, hasApartment }} />
 		</aside>
 	);
 };

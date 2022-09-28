@@ -1,11 +1,31 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import { get } from "lodash";
+import cn from "classnames";
 
 import { List } from "containers/List";
+import { constants, functions } from "services";
 
-const Appartments = ({ data = [] }) => {
-	const { id } = useParams();
+const Appartments = ({ data = [], filterFunc, setHasApartment, hasApartment }) => {
+	const {
+		STATUS_CONSTRUCTION,
+		STATUS_CONSTRUCTION_TEXT,
+		STATUS_FREE,
+		STATUS_FREE_TEXT,
+		STATUS_INTEREST,
+		STATUS_INTEREST_TEXT,
+		STATUS_NOT_FOR_SALE,
+		STATUS_NOT_FOR_SALE_TEXT,
+		STATUS_SOLD,
+		STATUS_SOLD_TEXT,
+	} = constants;
+
+	const status = {
+		[`${STATUS_FREE}`]: STATUS_FREE_TEXT,
+		[`${STATUS_CONSTRUCTION}`]: STATUS_CONSTRUCTION_TEXT,
+		[`${STATUS_INTEREST}`]: STATUS_INTEREST_TEXT,
+		[`${STATUS_NOT_FOR_SALE}`]: STATUS_NOT_FOR_SALE_TEXT,
+		[`${STATUS_SOLD}`]: STATUS_SOLD_TEXT,
+	};
 
 	return (
 		<div className="list">
@@ -108,44 +128,58 @@ const Appartments = ({ data = [] }) => {
 				</thead>
 				<tbody>
 					<List
-						url={`cross-tab/list/${id}`}
+						url="apartment"
 						urlSearchParams={{
-							include: "floor,section",
+							include: "plan, plan.room, section, floor, complex",
 						}}
 					>
 						{({ data }) => {
 							return (
 								<>
 									{Array.isArray(data) &&
-										data.map((item, index) => (
-											<tr key={index}>
-												<td>{get(item, "id")}</td>
-												{/* <td>1</td> */}
-												{/* <td>P1</td> */}
-												<td>{get(item, "room_count")}</td>
-												<td>
-													{get(item, "square_meter")} м<sup>2</sup>
-												</td>
-												<td>{get(item, "sort")}</td>
-												<td>{get(item, "section.sort")}</td>
-												<td>{get(item, "floor.sort")}</td>
-												<td>
-													{Math.floor(
-														get(item, "price") /
-															get(item, "square_meter")
-													)}{" "}
-													$/м<sup>2</sup>
-												</td>
-												<td>{get(item, "price")} $</td>
-												<td>
-													<span
-														className={`status-${get(item, "status")}`}
+										data.map(
+											(item, index) =>
+												filterFunc(item) && (
+													<tr
+														key={index}
+														onClick={() => setHasApartment(item)}
+														className={cn({
+															active_row:
+																get(item, "id") ===
+																get(hasApartment, "id"),
+														})}
 													>
-														Свободно
-													</span>
-												</td>
-											</tr>
-										))}
+														<td>{get(item, "id")}</td>
+														{/* <td>1</td> */}
+														{/* <td>P1</td> */}
+														<td>{get(item, "plan.room.count")}</td>
+														<td>
+															{get(item, "plan.area")} м<sup>2</sup>
+														</td>
+														<td>{get(item, "sort")}</td>
+														<td>{get(item, "section.sort")}</td>
+														<td>{get(item, "floor.sort")}</td>
+														<td>
+															{functions.meterPrice(item)} $/м
+															<sup>2</sup>
+														</td>
+														<td>{get(item, "price")} $</td>
+														<td>
+															<span
+																className={`status-${get(
+																	item,
+																	"status"
+																)}`}
+															>
+																{get(
+																	status,
+																	`${get(item, "status")}`
+																)}
+															</span>
+														</td>
+													</tr>
+												)
+										)}
 								</>
 							);
 						}}

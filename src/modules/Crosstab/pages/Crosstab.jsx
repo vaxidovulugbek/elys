@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+
 import { get } from "lodash";
 
 import Containers from "containers";
+import { constants } from "services";
+
 import { CrosstabHeader, CrosstabFilter, Tab } from "../components";
 import { Appartments, Chess, Interactive, Plan } from "../subpages";
 import { Apartment } from "../components";
@@ -10,13 +13,18 @@ import { Apartment } from "../components";
 const Crosstab = () => {
 	const [currentTab, setCurrentTab] = useState(1);
 	const [hasFilter, setHasFilter] = useState(window.innerWidth < 991 ? false : true);
-	const [hasApartment, setHasApartment] = useState(false);
+	const [hasApartment, setHasApartment] = useState(null);
 	const { id } = useParams();
 	const [params, setParams] = useState({});
 
+	const { STATUS_FREE, STATUS_INTEREST, STATUS_SOLD, STATUS_NOT_FOR_SALE, STATUS_CONSTRUCTION } =
+		constants;
+
 	const filterFunc = (apartment) => {
 		let active = true;
-		const { room_count, price, discount, square_meter, status } = apartment;
+		const { price, discount, status } = apartment;
+		const room_count = get(apartment, "room.count", 0);
+		const square_meter = get(apartment, "plan.area", 0);
 		const meter_price = price / square_meter;
 
 		const filter = {
@@ -35,7 +43,7 @@ const Crosstab = () => {
 		if (filter.meter_price[0] > meter_price || filter.meter_price[1] < meter_price)
 			active = false;
 		if (filter.discount && !discount) active = false;
-		if (filter.status && status !== 1) active = false;
+		if (filter.status && status !== STATUS_FREE) active = false;
 
 		return active;
 	};
@@ -46,7 +54,8 @@ const Crosstab = () => {
 				url="/section"
 				dataKey={(data) => data}
 				urlSearchParams={{
-					include: "floors,floors.apartments,floors.apartments.plan.room",
+					include:
+						"floors,floors.apartments,floors.apartments.plan.room, floors.apartments.complex",
 					filter: {
 						section_id: id,
 					},
@@ -73,23 +82,23 @@ const Crosstab = () => {
 										<p className="count">Найдено помещений: 462</p>
 									</div>
 									<div className="right">
-										<div className="color status-1">
+										<div className={`color status-${STATUS_FREE}`}>
 											<span></span>
 											<label>Свободно</label>
 										</div>
-										<div className="color status-2">
+										<div className={`color status-${STATUS_INTEREST}`}>
 											<span></span>
 											<label>Интерес</label>
 										</div>
-										<div className="color status-5">
+										<div className={`color status-${STATUS_CONSTRUCTION}`}>
 											<span></span>
 											<label>Резерв</label>
 										</div>
-										<div className="color status-3">
+										<div className={`color status-${STATUS_SOLD}`}>
 											<span></span>
 											<label>Проданные</label>
 										</div>
-										<div className="color status-4">
+										<div className={`color status-${STATUS_NOT_FOR_SALE}`}>
 											<span></span>
 											<label>Не в продаже</label>
 										</div>

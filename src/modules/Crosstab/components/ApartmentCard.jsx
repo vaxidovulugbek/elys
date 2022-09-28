@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Fancybox as NativeFancybox } from "@fancyapps/ui/dist/fancybox.esm.js";
 import cn from "classnames";
+import { Navigation } from "swiper";
+import { Fancybox } from "components";
 
 import { ReactComponent as Clock } from "assets/images/clock-rotate-left.svg";
 import { ReactComponent as Click } from "assets/images/click.svg";
@@ -11,7 +12,8 @@ import { ReactComponent as Xbtn } from "assets/images/x.svg";
 import { ReactComponent as GiftBox } from "assets/images/gift.svg";
 
 import room from "assets/images/room.png";
-import { Navigation } from "swiper";
+import { get } from "lodash";
+import { functions } from "services";
 
 export const ApartmentCard = ({
 	setHasApartment,
@@ -20,6 +22,7 @@ export const ApartmentCard = ({
 	boxType,
 	setBoxType,
 }) => {
+	const langCode = "ru";
 	return (
 		<div className={cn("apartment-card", { active: boxType === "card" })}>
 			<button
@@ -41,11 +44,11 @@ export const ApartmentCard = ({
 			<div className="apartment-number">
 				<div className="left">
 					<strong>
-						Квартира № <span>75</span>
+						Квартира № <span>{get(hasApartment, "sort")}</span>
 					</strong>
 				</div>
 				<div className="right">
-					<strong>ID 89</strong>
+					<strong>ID {get(hasApartment, "id")}</strong>
 				</div>
 			</div>
 			<div className="img-carousel">
@@ -84,16 +87,19 @@ export const ApartmentCard = ({
 				<dl>
 					<dt>
 						<p className="name">Стоимость</p>
-						<p className="value">43 428 $</p>
+						<p className="value">
+							{functions.convertToReadable(get(hasApartment, "price"))} $
+						</p>
 					</dt>
 					<dd>
-						1 410 $/м<sup>2</sup>
+						{functions.convertToReadable(functions.meterPrice(hasApartment))} $/м
+						<sup>2</sup>
 					</dd>
 				</dl>
 			</div>
 			<div className="discount">
 				<GiftBox />
-				<span>Cкидка {5}%</span>
+				<span>Cкидка {get(hasApartment, "discount", "")}%</span>
 				<span>действует до {"28.05.2020"}</span>
 			</div>
 			<div className="submit">
@@ -105,7 +111,7 @@ export const ApartmentCard = ({
 				<li>
 					<dt className="name">Площадь общая</dt>
 					<dd className="value">
-						30.8 м<sup>2</sup>
+						{get(hasApartment, "plan.area")} м<sup>2</sup>
 					</dd>
 				</li>
 				<li>
@@ -122,11 +128,11 @@ export const ApartmentCard = ({
 				</li>
 				<li>
 					<dt className="name">Кол-во комнат</dt>
-					<dd className="value">1</dd>
+					<dd className="value">{get(hasApartment, "plan.room.count")}</dd>
 				</li>
 				<li>
 					<dt className="name">Тип планировки</dt>
-					<dd className="value">C1</dd>
+					<dd className="value">{get(hasApartment, `name.${langCode}`)}</dd>
 				</li>
 				<li>
 					<dt className="name">Кол-во балконов</dt>
@@ -139,7 +145,7 @@ export const ApartmentCard = ({
 				<li>
 					<div>
 						<dt className="name">Этаж</dt>
-						<dd className="value">6</dd>
+						<dd className="value">{get(hasApartment, "floor.sort")}</dd>
 					</div>
 					<button className="plan" onClick={() => setCurrentTab(3)}>
 						<Click />
@@ -148,11 +154,11 @@ export const ApartmentCard = ({
 				</li>
 				<li>
 					<dt className="name">Секция</dt>
-					<dd className="value">1</dd>
+					<dd className="value">{get(hasApartment, "section.sort")}</dd>
 				</li>
 				<li>
 					<dt className="name">Дом</dt>
-					<dd className="value">1</dd>
+					<dd className="value">{get(hasApartment, "complex.sort")}</dd>
 				</li>
 				<li>
 					<dt className="name">Объект</dt>
@@ -179,19 +185,19 @@ export const ApartmentCard = ({
 	);
 };
 
-const Fancybox = (props) => {
-	const delegate = props.delegate || "[data-fancybox]";
+// const Fancybox = (props) => {
+// 	const delegate = props.delegate || "[data-fancybox]";
 
-	useEffect(() => {
-		const opts = props.options || {};
+// 	useEffect(() => {
+// 		const opts = props.options || {};
 
-		NativeFancybox.bind(delegate, opts);
+// 		NativeFancybox.bind(delegate, opts);
 
-		return () => {
-			NativeFancybox.destroy();
-		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+// 		return () => {
+// 			NativeFancybox.destroy();
+// 		};
+// 		// eslint-disable-next-line react-hooks/exhaustive-deps
+// 	}, []);
 
-	return <>{props.children}</>;
-};
+// 	return <>{props.children}</>;
+// };

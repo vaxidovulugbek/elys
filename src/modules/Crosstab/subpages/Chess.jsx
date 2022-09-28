@@ -54,7 +54,7 @@ const Chess = ({ setHasApartment, data, filterFunc }) => {
 																			)}`}
 																			onClick={() =>
 																				setHasApartment(
-																					true
+																					apartment
 																				)
 																			}
 																		>
@@ -89,7 +89,9 @@ const Chess = ({ setHasApartment, data, filterFunc }) => {
 																>
 																	<span
 																		onClick={() =>
-																			setHasApartment(true)
+																			setHasApartment(
+																				apartment
+																			)
 																		}
 																		className={`status-${get(
 																			apartment,
