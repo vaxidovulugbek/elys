@@ -42,7 +42,17 @@ const Form = ({
 	setFieldValue,
 	resetForm,
 	setParams,
+	apartments,
 }) => {
+	const room_counts =
+		Array.isArray(apartments) &&
+		apartments.reduce((prev, curr) => {
+			const count = get(curr, "plan.room.count");
+			!prev.includes(count) && count && prev.push(count);
+			return prev;
+		}, []);
+	room_counts?.sort((a, b) => a - b);
+
 	window.clearFilter = () => {
 		setParams({});
 		resetForm();
@@ -59,11 +69,10 @@ const Form = ({
 
 	const filterBoxClass = cn("filters-box", { "filter-closed": !hasFilter });
 
-	const checkboxProps = (number, type) => ({
+	const checkboxProps = (number) => ({
 		toogleSelect,
 		number,
 		filter: get(values, "room_count", []),
-		type,
 		setFieldValue,
 	});
 
@@ -106,10 +115,13 @@ const Form = ({
 				<div className="rooms">
 					<h3 className="rooms__title">Кол-во комнат</h3>
 					<div className="btns">
-						<Checkbox {...checkboxProps(1)} />
-						<Checkbox {...checkboxProps(2)} />
+						{room_counts?.map((item, index) => (
+							<Checkbox {...checkboxProps(item)} />
+						))}
+
+						{/* <Checkbox {...checkboxProps(2)} />
 						<Checkbox {...checkboxProps(3)} />
-						<Checkbox {...checkboxProps(4)} />
+						<Checkbox {...checkboxProps(4)} /> */}
 					</div>
 				</div>
 				<RangePicker {...rangePickerProps(1, "Стоимость", [3200, 100000])} />
