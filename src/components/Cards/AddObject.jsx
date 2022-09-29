@@ -8,10 +8,11 @@ export const AddObject = ({
 	innerText = "ADD OBJECT",
 	className,
 	imageStyle = {},
+	...props
 }) => {
 	const classNames = cn("object__add", className);
 	return (
-		<button className={classNames} onClick={isFunction(onClick) ? onClick : null}>
+		<button {...props} className={classNames} onClick={isFunction(onClick) ? onClick : null}>
 			<img src={src} alt="object-add" style={imageStyle} />
 			{innerText}
 		</button>

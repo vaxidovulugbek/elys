@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
 import { FastField } from "formik";
 import { get } from "lodash";
 
@@ -41,7 +42,6 @@ const Login = () => {
 								url="/user/login"
 								method="post"
 								onSuccess={(user) => {
-									console.log(user, "user");
 									storage.set("token", get(user.data, "token"));
 									dispatch(auth.success(user.data));
 									navigate("/");

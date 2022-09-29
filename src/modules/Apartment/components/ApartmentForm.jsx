@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { FastField } from "formik";
 import { get } from "lodash";
 
-import { notifications } from "services";
+import { constants, notifications } from "services";
 
 import { Button, Fields } from "components";
 import Containers from "containers";
@@ -19,6 +19,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 	return (
 		<>
 			<Containers.Form
+				className="row"
 				method={method}
 				url={url}
 				fields={[
@@ -45,12 +46,43 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 					{
 						name: "price",
 						validationType: "number",
-						value: get(formData, "price"),
+						value: Number(get(formData, "price")),
 					},
 					{
 						name: "discount",
 						validationType: "number",
-						value: get(formData, "discount"),
+						value: Number(get(formData, "discount")),
+					},
+					{
+						name: "sort",
+						validationType: "number",
+						value: Number(get(formData, "sort")),
+					},
+					{
+						name: "type",
+						validationType: "number",
+						value: Number(get(formData, "type")),
+					},
+					{
+						name: "construction_type",
+						validationType: "number",
+						value: Number(get(formData, "construction_type")),
+					},
+					{
+						name: "class",
+						validationType: "number",
+						value: Number(get(formData, "class")),
+					},
+					{
+						name: "status",
+						validationType: "number",
+						value: Number(get(formData, "status")),
+					},
+					{
+						name: "file_ids",
+						validationType: "array",
+						value: formData && get(formData, "files").map((item) => item.id),
+						// validations: [{ type: "required" }],
 					},
 					{
 						name: "floor_id",
@@ -76,7 +108,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 			>
 				{(formik) => (
 					<>
-						<div className="card-box">
+						<div className="card-box col-6">
 							<h5 className="text-muted card-sub">
 								<b>Section</b>
 								<small className="text-muted"> ID 2714</small>
@@ -148,9 +180,63 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										label="Discount"
 									/>
 								</div>
+								<div className="col-12">
+									<FastField
+										name="sort"
+										component={Fields.Input}
+										type="number"
+										label="Sort"
+									/>
+								</div>
+								<div className="col-12">
+									<FastField
+										name="status"
+										component={Fields.Select}
+										options={constants.statusOptions}
+										label="Status"
+									/>
+								</div>
+								<div className="col-12">
+									<FastField
+										name="type"
+										component={Fields.Select}
+										options={constants.typeOptions}
+										label="Type"
+									/>
+								</div>
+								<div className="col-12">
+									<FastField
+										name="construction_type"
+										component={Fields.Select}
+										options={constants.constructionOptions}
+										label="Construction type"
+									/>
+								</div>
+								<div className="col-12">
+									<FastField
+										name="class"
+										component={Fields.Select}
+										options={constants.classOptions}
+										label="Class"
+									/>
+								</div>
 							</div>
 						</div>
-
+						<div className="col-6">
+							<div className="col-12 card-box">
+								<FastField
+									name="file_ids"
+									component={Fields.MultiUpload}
+									files={get(formData, "files")}
+									formData={formData}
+									queryData={[
+										"GET",
+										`apartment/${get(formData, "id")}`,
+										{ include: "files" },
+									]}
+								/>
+							</div>
+						</div>
 						<div className="bottom-buttons">
 							<hr />
 							<div className="d-flex align-items-center justify-content-center">

@@ -1,15 +1,17 @@
-import { AddObject, Modals } from "components";
-import Containers from "containers";
-import { useDelete, useFetchList, useFetchOneWithId, useOverlay } from "hooks";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
+import { get } from "lodash";
+
+import Containers from "containers";
 import { notifications } from "services";
-import { PlanForm } from "../components/PlanForm";
+import { useDelete, useFetchList } from "hooks";
+import { AddObject, Modals } from "components";
 import { RoomCard } from "../components/RoomCard";
 
 const Plan = () => {
 	const { roomID } = useParams();
-	const planRoom = useOverlay("planRoom");
+	const navigate = useNavigate();
 
 	const planList = useFetchList({
 		url: "plan",
@@ -18,13 +20,6 @@ const Plan = () => {
 		},
 	});
 
-	const { data, setId } = useFetchOneWithId({
-		url: "plan",
-		queryOptions: {
-			enabled: false,
-		},
-		refetchStatus: planRoom.isOpen,
-	});
 	const deleteData = useDelete({
 		url: "plan",
 		queryOptions: { onSuccess: () => planDeleted() },
@@ -47,11 +42,6 @@ const Plan = () => {
 		});
 	};
 
-	const fetchFormData = (id) => {
-		setId(id);
-		planRoom.handleOverlayOpen();
-	};
-
 	return (
 		<>
 			<div className="row">
@@ -68,7 +58,7 @@ const Plan = () => {
 									<RoomCard
 										key={index}
 										item={item}
-										onClick={fetchFormData}
+										link={`/room/${roomID}/plan/${get(item, "id")}/update`}
 										onDelete={onDelete}
 									/>
 								))}
@@ -78,8 +68,7 @@ const Plan = () => {
 				<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 					<AddObject
 						onClick={() => {
-							setId(null);
-							planRoom.handleOverlayOpen();
+							navigate(`/room/${roomID}/plan/create`);
 						}}
 						src={require("assets/images/section-img1.png")}
 						innerText="ADD A ROOM PLAN"
@@ -87,7 +76,6 @@ const Plan = () => {
 					/>
 				</div>
 			</div>
-			<PlanForm {...{ planRoom, roomID, data, planList }} />
 		</>
 	);
 };

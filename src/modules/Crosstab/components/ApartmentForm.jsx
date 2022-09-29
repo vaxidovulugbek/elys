@@ -6,15 +6,16 @@ import { FormContainer } from "containers/Form";
 import { Input } from "components/Fields/Input/Input";
 
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
+import { get } from "lodash";
 
-export const ApartmentForm = ({ boxType, setBoxType }) => {
+export const ApartmentForm = ({ boxType, setBoxType, hasApartment }) => {
 	return (
 		<div className={cn("apartment-form", { active: boxType === "form" })}>
 			<button className={cn("close hasApartment")} onClick={() => setBoxType("card")}>
 				<Xbtn />
 			</button>
 			<h3>Заявка</h3>
-			<p className="subtitle">Квартира №{111}</p>
+			<p className="subtitle">Квартира №{get(hasApartment, "sort")}</p>
 			<FormContainer
 				fields={[
 					{

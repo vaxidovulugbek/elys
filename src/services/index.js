@@ -6,5 +6,16 @@ import utils from "./utils";
 import { time } from "./time";
 import { notifications } from "./notifacations";
 import { constants } from "./constants";
+import { functions } from "./functions";
 
-export { httpCLient, i18n, queryBuilder, storage, utils, time, constants, notifications };
+export {
+	functions,
+	httpCLient,
+	i18n,
+	queryBuilder,
+	storage,
+	utils,
+	time,
+	constants,
+	notifications,
+};
