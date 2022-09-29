@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 
+import { ScrollTop } from "hooks";
 import { App } from "App";
 import { MainLayout } from "layouts";
 import { Overlay } from "layouts/components";
@@ -13,11 +14,18 @@ import { ApartmentRoutes } from "modules/Apartment";
 import { FloorRoutes } from "modules/Floor";
 import { CrossTabRoutes } from "modules/Crosstab";
 import { RoomRoute } from "modules/Room";
+import { SettingsRoutes } from "modules/Settings";
 
 const loggedInRoutes = [
 	{
 		layout: <MainLayout />,
-		routes: [...ComplexRoutes, ...ApartmentRoutes, ...FloorRoutes, ...RoomRoute],
+		routes: [
+			...ComplexRoutes,
+			...ApartmentRoutes,
+			...FloorRoutes,
+			...RoomRoute,
+			...SettingsRoutes,
+		],
 	},
 	{
 		layout: false,
@@ -47,18 +55,14 @@ export const AppRoutes = () => {
 					{user && (
 						<Routes>
 							{loggedInRoutes.map((item, outerIndex) =>
-								item.routes.map((route, innerIndex) =>
-									item.layout ? (
+								item.routes.map((route, innerIndex) => {
+									const Page = ScrollTop(
+										<Suspense fallback={<Spinner />}>{route.element}</Suspense>
+									);
+									console.log(<Page />);
+									return item.layout ? (
 										<Route key={outerIndex} path="/" element={item.layout}>
-											<Route
-												key={innerIndex}
-												{...route}
-												element={
-													<Suspense fallback={<Spinner />}>
-														{route.element}
-													</Suspense>
-												}
-											/>
+											<Route key={innerIndex} {...route} element={<Page />} />
 										</Route>
 									) : (
 										<React.Fragment key={outerIndex}>
@@ -67,16 +71,12 @@ export const AppRoutes = () => {
 													key={innerIndex}
 													index={route.index}
 													path={route.path}
-													element={
-														<Suspense fallback={<Spinner />}>
-															{route.element}
-														</Suspense>
-													}
+													element={<Page />}
 												/>
 											))}
 										</React.Fragment>
-									)
-								)
+									);
+								})
 							)}
 						</Routes>
 					)}

@@ -5,6 +5,7 @@ import { useFetchInfinite } from "./useFetchInfinite";
 import { useDelete } from "./useDelete";
 import { useOutsideClick } from "./useOutsideClick";
 import { useOverlay } from "./useOverlay";
+import { ScrollTop } from "./ScrollTop";
 
 export {
 	useFetchInfinite,
@@ -14,4 +15,5 @@ export {
 	useOutsideClick,
 	useOverlay,
 	useFetchOneWithId,
+	ScrollTop,
 };

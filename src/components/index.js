@@ -1,10 +1,11 @@
 export { default as Fields } from "./Fields";
+export { default as Modals } from "./Modal";
 export { Button } from "./Button/Button";
 export { Spinner } from "./Spinner";
 export { ModalRoot } from "./Modal";
-export { default as Modals } from "./Modal";
 export { Typography } from "./Typography";
 export { Portal } from "./Portal";
+export { Table } from "./Table";
 
 export { Breadcrumb } from "./Breadcrumb/Breadcrumb";
 export { PageHeading } from "./PageHeading/PageHeading";
