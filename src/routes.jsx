@@ -85,7 +85,7 @@ export const AppRoutes = () => {
 						<Suspense fallback={<Spinner />}>
 							<Routes>
 								{AuthRoutes.map((route, index) => (
-									<Route ket={index} {...route} />
+									<Route key={index} {...route} />
 								))}
 							</Routes>
 						</Suspense>

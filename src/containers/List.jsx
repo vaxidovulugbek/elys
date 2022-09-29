@@ -2,6 +2,7 @@
 import PropTypes from "prop-types";
 
 import { useFetchList } from "hooks";
+import React from "react";
 
 export const List = ({
 	url,
@@ -31,5 +32,5 @@ List.propTypes = {
 	customQueryFn: PropTypes.func,
 	queryOptions: PropTypes.object,
 	urlSearchParams: PropTypes.object,
-	children: PropTypes.node,
+	children: PropTypes.any,
 };

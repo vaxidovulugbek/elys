@@ -20,12 +20,11 @@ const Create = () => {
 	return (
 		<>
 			<PageHeading
-				title="My objects"
+				title="Complex"
 				links={[
 					{ url: "/", name: "Control Panel" },
-					{ url: "/objects", name: "Object" },
-					{ url: "/objects/my-objects", name: "My objects" },
-					{ url: "", name: "Demo" },
+					{ url: "/", name: "My complex" },
+					{ url: "", name: "Complex" },
 				]}
 				complexID={complexID}
 				hasButton={true}

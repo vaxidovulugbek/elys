@@ -42,12 +42,11 @@ const Update = () => {
 	return (
 		<>
 			<PageHeading
-				title="My objects"
+				title={`${get(data, "name.en", "")}`}
 				links={[
 					{ url: "/", name: "Control Panel" },
-					{ url: "/objects", name: "Object" },
-					{ url: "/objects/my-objects", name: "My objects" },
-					{ url: "", name: "Demo" },
+					{ url: "/", name: "My Complex" },
+					{ url: "", name: `${get(data, "name.en", "")}` },
 				]}
 				complexID={complexID}
 				hasButton={true}
