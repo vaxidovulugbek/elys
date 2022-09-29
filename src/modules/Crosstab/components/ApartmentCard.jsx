@@ -13,7 +13,10 @@ import { ReactComponent as GiftBox } from "assets/images/gift.svg";
 
 import room from "assets/images/room.png";
 import { get } from "lodash";
-import { functions } from "services";
+import { constants, functions } from "services";
+
+const { STATUS_FREE, STATUS_INTEREST } = constants;
+const ON_SALE = [STATUS_FREE, STATUS_INTEREST];
 
 export const ApartmentCard = ({
 	setHasApartment,
@@ -102,11 +105,14 @@ export const ApartmentCard = ({
 				<span>Cкидка {get(hasApartment, "discount", "")}%</span>
 				<span>действует до {"28.05.2020"}</span>
 			</div>
-			<div className="submit">
-				<button className="btn" onClick={() => setBoxType("form")}>
-					Оставить заявку
-				</button>
-			</div>
+			{ON_SALE.includes(get(hasApartment, "status")) && (
+				<div className="submit">
+					<button className="btn" onClick={() => setBoxType("form")}>
+						Оставить заявку
+					</button>
+				</div>
+			)}
+
 			<ul>
 				<li>
 					<dt className="name">Площадь общая</dt>
@@ -184,20 +190,3 @@ export const ApartmentCard = ({
 		</div>
 	);
 };
-
-// const Fancybox = (props) => {
-// 	const delegate = props.delegate || "[data-fancybox]";
-
-// 	useEffect(() => {
-// 		const opts = props.options || {};
-
-// 		NativeFancybox.bind(delegate, opts);
-
-// 		return () => {
-// 			NativeFancybox.destroy();
-// 		};
-// 		// eslint-disable-next-line react-hooks/exhaustive-deps
-// 	}, []);
-
-// 	return <>{props.children}</>;
-// };

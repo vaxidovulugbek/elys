@@ -5,7 +5,7 @@ import cn from "classnames";
 import { List } from "containers/List";
 import { constants, functions } from "services";
 
-const Appartments = ({ data = [], filterFunc, setHasApartment, hasApartment }) => {
+const Appartments = ({ filterFunc, setHasApartment, hasApartment }) => {
 	const {
 		STATUS_CONSTRUCTION,
 		STATUS_CONSTRUCTION_TEXT,

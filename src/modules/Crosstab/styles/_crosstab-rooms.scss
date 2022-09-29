@@ -1,9 +1,9 @@
 .crosstab {
-	--auto-grid-min-size: 16rem;
+	--auto-grid-min-size: 13rem;
 
 	.flats {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr)) !important;
 		gap: 20px;
 
 		padding: 10px 30px;
@@ -63,6 +63,7 @@
 					height: auto;
 					max-height: 171px;
 					margin: 0 auto;
+					object-fit: contain;
 				}
 
 				.coast-wrap {

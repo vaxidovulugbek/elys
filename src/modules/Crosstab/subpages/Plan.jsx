@@ -7,7 +7,7 @@ import Containers from "containers";
 import { isArray } from "lodash";
 import { functions } from "services";
 
-const Plan = ({ setHasApartment, filterFunc }) => {
+const Plan = ({ setHasApartment }) => {
 	const [cardIndex, setCardIndex] = useState(-1);
 	const { id } = useParams();
 	return (
