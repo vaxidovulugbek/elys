@@ -21,7 +21,6 @@ export const MultiUpload = ({ field, form, files = null, formData, queryKey = []
 		if (files.length) {
 			const newIds = [];
 			queryClient.setQueryData(queryKey, (old) => {
-				console.log(old, "old");
 				const data = get(old, "data", {});
 				const filteredFiles = get(data, "files").filter((item) => {
 					if (item.id !== id) {
@@ -49,7 +48,6 @@ export const MultiUpload = ({ field, form, files = null, formData, queryKey = []
 				return false;
 			});
 			setImageURLs(filtredImageURLS);
-			console.log(filtredImageURLS);
 			form.setFieldValue(field.name, filtredIds);
 		}
 	};
@@ -64,7 +62,6 @@ export const MultiUpload = ({ field, form, files = null, formData, queryKey = []
 				const res = await httpCLient.post("file", formData);
 				const fetchedFiles = res?.data.map((item) => item.data);
 				setImageURLs(fetchedFiles);
-				console.log(imageURLS);
 				const ids = res?.data.reduce((prev, curr) => [curr.data.id, ...prev], []);
 				form.setFieldValue(field.name, ids);
 			};
