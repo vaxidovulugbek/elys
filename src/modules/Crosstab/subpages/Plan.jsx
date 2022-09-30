@@ -28,7 +28,11 @@ const Plan = ({ setHasApartment }) => {
 									<>
 										<div
 											className="card"
-											onClick={() => setHasApartment(item)}
+											onClick={() =>
+												setHasApartment(
+													get(data, `[${index}].apartments[0]`)
+												)
+											}
 											key={index}
 										>
 											<div className="top">
@@ -130,10 +134,8 @@ const Plan = ({ setHasApartment }) => {
 																			$
 																		</p>
 																		<p className="by-metr">
-																			{functions.convertToReadable(
-																				functions.meterPrice(
-																					apartment
-																				)
+																			{functions.meterPrice(
+																				apartment
 																			)}{" "}
 																			$/м
 																		</p>

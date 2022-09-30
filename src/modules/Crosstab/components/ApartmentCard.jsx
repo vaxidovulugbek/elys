@@ -95,16 +95,18 @@ export const ApartmentCard = ({
 						</p>
 					</dt>
 					<dd>
-						{functions.convertToReadable(functions.meterPrice(hasApartment))} $/м
+						{functions.meterPrice(hasApartment)} $/м
 						<sup>2</sup>
 					</dd>
 				</dl>
 			</div>
-			<div className="discount">
-				<GiftBox />
-				<span>Cкидка {get(hasApartment, "discount", "")}%</span>
-				<span>действует до {"28.05.2020"}</span>
-			</div>
+			{get(hasApartment, "discount") && (
+				<div className="discount">
+					<GiftBox />
+					<span>Cкидка {get(hasApartment, "discount", "")}%</span>
+					<span>действует до {"28.05.2020"}</span>
+				</div>
+			)}
 			{ON_SALE.includes(get(hasApartment, "status")) && (
 				<div className="submit">
 					<button className="btn" onClick={() => setBoxType("form")}>

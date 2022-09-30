@@ -118,10 +118,6 @@ const Form = ({
 						{room_counts?.map((item, index) => (
 							<Checkbox {...checkboxProps(item)} />
 						))}
-
-						{/* <Checkbox {...checkboxProps(2)} />
-						<Checkbox {...checkboxProps(3)} />
-						<Checkbox {...checkboxProps(4)} /> */}
 					</div>
 				</div>
 				<RangePicker {...rangePickerProps(1, "Стоимость", [3200, 100000])} />
