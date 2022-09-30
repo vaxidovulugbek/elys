@@ -248,7 +248,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 									component={Fields.MultiUpload}
 									files={get(formData, "files")}
 									formData={formData}
-									queryData={[
+									queryKey={[
 										"GET",
 										`apartment/${get(formData, "id")}`,
 										{ include: "plan,files" },

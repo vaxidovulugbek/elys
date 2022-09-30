@@ -8,7 +8,7 @@ import { GalleryCard } from "components/Cards/GalleryCard";
 import { Fancybox } from "components";
 import { AddObject } from "components";
 
-export const MultiUpload = ({ field, form, files = null, formData, queryData = [] }) => {
+export const MultiUpload = ({ field, form, files = null, formData, queryKey = [] }) => {
 	const queryClient = useQueryClient();
 	const [images, setImages] = useState([]);
 	const [imageURLS, setImageURLs] = useState([]);
@@ -20,7 +20,7 @@ export const MultiUpload = ({ field, form, files = null, formData, queryData = [
 	const onDelete = (id) => {
 		if (files.length) {
 			const newIds = [];
-			queryClient.setQueryData(queryData, (old) => {
+			queryClient.setQueryData(queryKey, (old) => {
 				console.log(old, "old");
 				const data = get(old, "data", {});
 				const filteredFiles = get(data, "files").filter((item) => {
