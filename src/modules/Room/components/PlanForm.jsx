@@ -107,7 +107,7 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 									component={Fields.MultiUpload}
 									files={get(formData, "files")}
 									formData={formData}
-									queryData={[
+									queryKey={[
 										"GET",
 										`plan/${get(formData, "id")}`,
 										{ include: "files" },

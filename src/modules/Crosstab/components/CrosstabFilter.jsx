@@ -116,7 +116,7 @@ const Form = ({
 					<h3 className="rooms__title">Кол-во комнат</h3>
 					<div className="btns">
 						{room_counts?.map((item, index) => (
-							<Checkbox {...checkboxProps(item)} />
+							<Checkbox key={index} {...checkboxProps(item)} />
 						))}
 					</div>
 				</div>
