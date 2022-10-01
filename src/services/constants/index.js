@@ -12,7 +12,7 @@ export const constants = {
 
 	STATUS_FREE_TEXT: "Свободно",
 	STATUS_INTEREST_TEXT: "Интерес",
-	STATUS_SOLD_TEXT: "Проданные",
+	STATUS_SOLD_TEXT: "Продано",
 	STATUS_NOT_FOR_SALE_TEXT: "Не в продаже",
 	STATUS_CONSTRUCTION_TEXT: "Резерв",
 
@@ -30,10 +30,10 @@ export const constants = {
 
 constants.statusOptions = [
 	{ value: constants.STATUS_INACTIVE, label: "Inactive" },
-	{ value: constants.STATUS_FREE, label: "Free" },
-	{ value: constants.STATUS_INTEREST, label: "Interest" },
-	{ value: constants.STATUS_SOLD, label: "Sold" },
-	{ value: constants.STATUS_NOT_FOR_SALE, label: "Not for sale" },
+	{ value: constants.STATUS_FREE, label: constants.STATUS_FREE_TEXT },
+	{ value: constants.STATUS_INTEREST, label: constants.STATUS_INTEREST_TEXT },
+	{ value: constants.STATUS_SOLD, label: constants.STATUS_SOLD_TEXT },
+	{ value: constants.STATUS_NOT_FOR_SALE, label: constants.STATUS_NOT_FOR_SALE_TEXT },
 ];
 
 constants.typeOptions = [

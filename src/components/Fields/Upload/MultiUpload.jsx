@@ -8,7 +8,7 @@ import { GalleryCard } from "components/Cards/GalleryCard";
 import { Fancybox } from "components";
 import { AddObject } from "components";
 
-export const MultiUpload = ({ field, form, files = null, formData, queryKey = [] }) => {
+export const MultiUpload = ({ field, form, files = [], queryKey = [] }) => {
 	const queryClient = useQueryClient();
 	const [images, setImages] = useState([]);
 	const [imageURLS, setImageURLs] = useState([]);

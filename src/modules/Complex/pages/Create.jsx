@@ -126,7 +126,7 @@ const Create = () => {
 											url="region"
 											name="region_id"
 											component={Fields.AsyncSelect}
-											optionLabel="name.ru"
+											optionLabel="name"
 											label="Region"
 											placeholder="Toshkent"
 										/>
@@ -141,7 +141,7 @@ const Create = () => {
 											isDisabled={
 												get(values, "region_id.value") ? false : true
 											}
-											optionLabel="name.uz"
+											optionLabel="name"
 											params={{
 												filter: {
 													region_id: get(values, "region_id.value", null),

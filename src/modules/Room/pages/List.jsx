@@ -56,7 +56,7 @@ const List = () => {
 				links={[
 					{ url: "/", name: "Control Panel" },
 					{ url: "/", name: "Complex" },
-					{ url: "/room", name: "Rooms" },
+					{ url: "/room", name: "Room" },
 				]}
 			/>
 			<div className="row">

@@ -70,20 +70,12 @@ const List = () => {
 								url: "/",
 							},
 							{
-								name: "Objects",
+								name: "Complex",
 								url: "/",
 							},
 							{
-								name: "My objects",
-								url: "/",
-							},
-							{
-								name: "Demo",
-								url: "/",
-							},
-							{
-								name: "Building 1",
-								url: "/",
+								name: "My complex",
+								url: `/complex/update/${complexID}`,
 							},
 							{
 								name: "Floor",

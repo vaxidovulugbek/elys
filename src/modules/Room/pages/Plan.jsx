@@ -6,7 +6,7 @@ import { get } from "lodash";
 import Containers from "containers";
 import { notifications } from "services";
 import { useDelete, useFetchList } from "hooks";
-import { AddObject, Modals } from "components";
+import { AddObject, Modals, PageHeading } from "components";
 import { RoomCard } from "../components/RoomCard";
 
 const Plan = () => {
@@ -44,6 +44,13 @@ const Plan = () => {
 
 	return (
 		<>
+			<PageHeading
+				links={[
+					{ url: "/", name: "Control Panel" },
+					{ url: "/room", name: "Room" },
+					{ url: "", name: "Plan" },
+				]}
+			/>
 			<div className="row">
 				<Containers.List
 					url="plan"

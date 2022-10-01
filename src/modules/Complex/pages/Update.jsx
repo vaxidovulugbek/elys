@@ -74,7 +74,7 @@ const Update = () => {
 						validationType: "object",
 						value: {
 							value: get(data, "region.id"),
-							label: get(data, "region.name.uz"),
+							label: get(data, "region.name"),
 						},
 						onSubmitValue: (e) => get(e, "value"),
 					},
@@ -83,7 +83,7 @@ const Update = () => {
 						validationType: "object",
 						value: {
 							value: get(data, "district.id"),
-							label: get(data, "district.name.uz"),
+							label: get(data, "district.name"),
 						},
 						onSubmitValue: (e) => get(e, "value"),
 					},
@@ -166,7 +166,7 @@ const Update = () => {
 											onValueChange={(option) =>
 												setFieldValue("district_id", null)
 											}
-											optionLabel="name.uz"
+											optionLabel="name"
 											label="Region"
 											placeholder="Moscow"
 										/>
@@ -186,7 +186,7 @@ const Update = () => {
 													region_id: get(values, "region_id.value", null),
 												},
 											}}
-											optionLabel="name.uz"
+											optionLabel="name"
 											label="District"
 											placeholder="Pushkin"
 										/>

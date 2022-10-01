@@ -103,7 +103,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 						name: "plan_id",
 						validationType: "object",
 						value: {
-							label: get(formData, "plan.name.ru"),
+							label: get(formData, "plan.name"),
 							value: get(formData, "plan.id"),
 						},
 						onSubmitValue: (option) => get(option, "value"),
@@ -201,7 +201,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 									<FastField
 										url="plan"
 										name="plan_id"
-										optionLabel="name.ru"
+										optionLabel="name"
 										component={Fields.AsyncSelect}
 										label="Plan ID"
 										placeholder=""

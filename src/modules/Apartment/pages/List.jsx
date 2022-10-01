@@ -46,7 +46,10 @@ const Apartment = () => {
 				title="My complex"
 				links={[
 					{ url: "/", name: "Control Panel" },
-					{ url: "/", name: "My Complex" },
+					{ url: "/", name: "Complex" },
+					{ url: `/complex/update/${complexID}`, name: "My complex" },
+					{ url: `/complex/${complexID}/section/${sectionID}/floor`, name: "Floor" },
+					{ url: "", name: "Apartment" },
 				]}
 			/>
 			<div className="row section-list">
