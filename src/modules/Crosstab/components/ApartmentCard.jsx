@@ -55,12 +55,12 @@ export const ApartmentCard = ({
 				</div>
 			</div>
 			<div className="img-carousel">
-				<div className="print">
+				{/* <div className="print">
 					<Print />
 				</div>
 				<div className="share">
 					<Share />
-				</div>
+				</div> */}
 				<div className="img">
 					<Fancybox options={{ infinite: false }}>
 						<Swiper spaceBetween={50} modules={[Navigation]} navigation>
@@ -140,7 +140,7 @@ export const ApartmentCard = ({
 				</li>
 				<li>
 					<dt className="name">Тип планировки</dt>
-					<dd className="value">{get(hasApartment, `name.${langCode}`)}</dd>
+					<dd className="value">{get(hasApartment, "name")}</dd>
 				</li>
 				<li>
 					<dt className="name">Кол-во балконов</dt>
