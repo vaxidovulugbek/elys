@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { get } from "lodash";
 
 import Containers from "containers";
+import { useFetchOne } from "hooks";
 import { constants } from "services";
 
 import { CrosstabHeader, CrosstabFilter, Tab } from "../components";
@@ -19,6 +20,9 @@ const Crosstab = () => {
 
 	const { STATUS_FREE, STATUS_INTEREST, STATUS_SOLD, STATUS_NOT_FOR_SALE, STATUS_CONSTRUCTION } =
 		constants;
+	const complex = useFetchOne({
+		url: "complex",
+	});
 
 	const filterFunc = (apartment) => {
 		let active = true;
@@ -69,11 +73,11 @@ const Crosstab = () => {
 					include:
 						"floors,floors.apartments,floors.apartments.plan.room, floors.apartments.complex, complex, floors.apartments.section, floors.apartments.plan, floors.apartments.plan.room",
 					filter: {
-						section_id: id,
+						complex_id: id,
 					},
 				}}
 			>
-				{({ data }) => {
+				{({ data, isFetching }) => {
 					// All apartments
 					const apartments = Array.isArray(get(data, "data"))
 						? get(data, "data").reduce((prev, curr) => {
@@ -98,6 +102,7 @@ const Crosstab = () => {
 									setParams,
 									params,
 									sections: get(data, "data", []),
+									complex: get(complex, "data"),
 								}}
 							/>
 							<CrosstabFilter

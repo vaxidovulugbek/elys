@@ -19,7 +19,7 @@ const convertToReadable = (number) => {
 };
 
 const meterPrice = (item) => {
-	const price = Math.floor(get(item, "price") / get(item, "plan.area"));
+	const price = convertToReadable(Number(get(item, "price") / get(item, "plan.area")).toFixed(1));
 	if (price) return price;
 };
 

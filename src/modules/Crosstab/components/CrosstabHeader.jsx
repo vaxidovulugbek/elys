@@ -1,7 +1,6 @@
 import React from "react";
 import cn from "classnames";
-import ReactSelect from "react-select";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FastField } from "formik";
 
 import { Fields } from "components";
@@ -11,15 +10,7 @@ import obj from "assets/images/obj.jpg";
 import { ReactComponent as Search } from "assets/images/search.svg";
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
 import { ReactComponent as Back } from "assets/images/back.svg";
-import { get } from "lodash";
-import { useFetchOne } from "hooks";
-
-const sections = [
-	{ value: 1, label: "Секция 1" },
-	{ value: 2, label: "Секция 2" },
-	{ value: 3, label: "Секция 3" },
-	{ value: 4, label: "Все секции" },
-];
+import { findIndex, get } from "lodash";
 
 export const CrosstabHeader = ({
 	hasApartment,
@@ -29,25 +20,25 @@ export const CrosstabHeader = ({
 	setParams,
 	params,
 	sections,
+	complex,
 }) => {
 	const navigate = useNavigate();
+	const { id } = useParams();
 	const lng = "ru";
-	const { data } = useFetchOne({
-		url: "complex",
-	});
-	const options_complex = data?.reduce(
-		(prev, curr) => [...prev, { label: get(curr, `name.${lng}`), value: get(curr, "id") }],
-		[]
-	);
-	const options_section =
-		Array.isArray(sections) &&
-		sections.reduce(
-			(prev, curr) => [...prev, { label: get(curr, `name.${lng}`), value: get(curr, "id") }],
-			[]
-		);
-	options_section.unshift({ label: "Все секции", value: null });
-	const handleComplexChange = (option) => navigate(`/crosstab/${get(option, "value")}`);
+	const getOptions = (data, defaultValue) => {
+		const options = Array.isArray(data)
+			? data?.reduce(
+					(prev, curr) => [...prev, { label: get(curr, "name"), value: get(curr, "id") }],
+					[]
+			  )
+			: [];
+		defaultValue && options.unshift(defaultValue);
+		return options;
+	};
+	const options_complex = getOptions(complex);
+	const options_section = getOptions(sections, { label: "Все секции", value: null });
 
+	const handleComplexChange = (option) => navigate(`/crosstab/${get(option, "value")}`);
 	return (
 		<header className="crosstab-header" id="crosstab-header">
 			<div className="left">
@@ -61,21 +52,22 @@ export const CrosstabHeader = ({
 								<FastField
 									name="complex"
 									component={Fields.Select}
-									key={Math.random()}
-									defaultValue={get(options_complex, "[0]")}
-									className="crosstab__select"
+									key={complex}
+									defaultValue={get(
+										options_complex,
+										`[${findIndex(options_complex, { value: Number(id) })}]`
+									)}
 									options={options_complex}
 									isSearchable={false}
-									onValueChange={handleComplexChange}
+									onValueChange={(option) => handleComplexChange(option)}
 								/>
 							</div>
 							<div className="select section-select">
 								<FastField
 									name="section"
 									component={Fields.Select}
-									key={Math.random()}
+									key={sections}
 									defaultValue={get(options_section, "[0]")}
-									className="crosstab__select"
 									options={options_section}
 									isSearchable={false}
 									onValueChange={(option) =>

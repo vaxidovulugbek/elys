@@ -7,7 +7,7 @@ import Containers from "containers";
 import { isArray } from "lodash";
 import { functions } from "services";
 
-const Plan = ({ setHasApartment }) => {
+const Plan = ({ setHasApartment, filterFunc }) => {
 	const [cardIndex, setCardIndex] = useState(-1);
 	const { id } = useParams();
 	return (
@@ -21,18 +21,37 @@ const Plan = ({ setHasApartment }) => {
 				}}
 			>
 				{({ data }) => {
+					const plans = Array.isArray(data)
+						? data.map((plan) => {
+								const apartments = get(plan, "apartments", []);
+								let filteredApartments = [];
+								if (Array.isArray(apartments))
+									filteredApartments = apartments.filter((apartment) =>
+										filterFunc(apartment)
+									);
+								return {
+									...plan,
+									apartments: filteredApartments,
+								};
+						  })
+						: [];
 					return (
 						<>
-							{Array.isArray(data) &&
-								data.map((item, index) => (
-									<>
+							{plans.map((item, planIndex) =>
+								get(item, "apartments", []).length ? (
+									<span key={planIndex}>
 										<div
 											className="card"
-											onClick={() => setHasApartment(item)}
-											key={index}
+											onClick={() =>
+												setHasApartment(
+													filterFunc(
+														get(data, `[${planIndex}].apartments[0]`)
+													)
+												)
+											}
 										>
 											<div className="top">
-												<h2>{get(item, "name.ru")}</h2>
+												<h2>{get(item, "name")}</h2>
 											</div>
 											<div className="center">
 												<img src={room} alt="room plan" />
@@ -63,9 +82,9 @@ const Plan = ({ setHasApartment }) => {
 											<div
 												className="floors"
 												onClick={() => {
-													cardIndex === index
+													cardIndex === planIndex
 														? setCardIndex(-1)
-														: setCardIndex(index);
+														: setCardIndex(planIndex);
 												}}
 											>
 												<button>
@@ -81,7 +100,9 @@ const Plan = ({ setHasApartment }) => {
 													className="flats-modal"
 													style={{
 														display:
-															cardIndex === index ? "block" : "none",
+															cardIndex === planIndex
+																? "block"
+																: "none",
 													}}
 												>
 													{isArray(get(item, "apartments")) &&
@@ -130,10 +151,8 @@ const Plan = ({ setHasApartment }) => {
 																			$
 																		</p>
 																		<p className="by-metr">
-																			{functions.convertToReadable(
-																				functions.meterPrice(
-																					apartment
-																				)
+																			{functions.meterPrice(
+																				apartment
 																			)}{" "}
 																			$/м
 																		</p>
@@ -144,8 +163,9 @@ const Plan = ({ setHasApartment }) => {
 												</div>
 											</div>
 										</div>
-									</>
-								))}
+									</span>
+								) : null
+							)}
 						</>
 					);
 				}}

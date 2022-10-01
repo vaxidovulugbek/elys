@@ -55,12 +55,12 @@ export const ApartmentCard = ({
 				</div>
 			</div>
 			<div className="img-carousel">
-				<div className="print">
+				{/* <div className="print">
 					<Print />
 				</div>
 				<div className="share">
 					<Share />
-				</div>
+				</div> */}
 				<div className="img">
 					<Fancybox options={{ infinite: false }}>
 						<Swiper spaceBetween={50} modules={[Navigation]} navigation>
@@ -95,16 +95,18 @@ export const ApartmentCard = ({
 						</p>
 					</dt>
 					<dd>
-						{functions.convertToReadable(functions.meterPrice(hasApartment))} $/м
+						{functions.meterPrice(hasApartment)} $/м
 						<sup>2</sup>
 					</dd>
 				</dl>
 			</div>
-			<div className="discount">
-				<GiftBox />
-				<span>Cкидка {get(hasApartment, "discount", "")}%</span>
-				<span>действует до {"28.05.2020"}</span>
-			</div>
+			{get(hasApartment, "discount") && (
+				<div className="discount">
+					<GiftBox />
+					<span>Cкидка {get(hasApartment, "discount", "")}%</span>
+					<span>действует до {"28.05.2020"}</span>
+				</div>
+			)}
 			{ON_SALE.includes(get(hasApartment, "status")) && (
 				<div className="submit">
 					<button className="btn" onClick={() => setBoxType("form")}>
@@ -138,7 +140,7 @@ export const ApartmentCard = ({
 				</li>
 				<li>
 					<dt className="name">Тип планировки</dt>
-					<dd className="value">{get(hasApartment, `name.${langCode}`)}</dd>
+					<dd className="value">{get(hasApartment, "name")}</dd>
 				</li>
 				<li>
 					<dt className="name">Кол-во балконов</dt>
