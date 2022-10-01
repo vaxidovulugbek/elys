@@ -13,6 +13,7 @@ export const FormContainer = ({
 	isFormData = false,
 	fields = [],
 	axiosConfig = {},
+	normalizeFormData,
 	onSuccess = () => {},
 	onError = () => {},
 	onFinal = () => {},
@@ -27,7 +28,11 @@ export const FormContainer = ({
 
 		const requestUrl = isFunction(url) ? url(formValues) : url;
 
-		httpCLient[method](requestUrl, formValues, axiosConfig)
+		httpCLient[method](
+			requestUrl,
+			isFunction(normalizeFormData) ? normalizeFormData(values) : formValues,
+			axiosConfig
+		)
 			.then(({ data }) => onSuccess(data, formHelpers))
 			.catch((error) => onError(error, formHelpers))
 			.finally(onFinal);
@@ -64,6 +69,7 @@ FormContainer.propTypes = {
 	onSuccess: PropTypes.func,
 	onError: PropTypes.func,
 	onFinal: PropTypes.func,
+	normalizeFormData: PropTypes.func,
 };
 
 /*

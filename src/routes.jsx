@@ -59,10 +59,9 @@ export const AppRoutes = () => {
 									const Page = ScrollTop(
 										<Suspense fallback={<Spinner />}>{route.element}</Suspense>
 									);
-									console.log(<Page />);
 									return item.layout ? (
 										<Route key={outerIndex} path="/" element={item.layout}>
-											<Route key={innerIndex} {...route} element={<Page />} />
+											<Route {...route} element={<Page />} />
 										</Route>
 									) : (
 										<React.Fragment key={outerIndex}>

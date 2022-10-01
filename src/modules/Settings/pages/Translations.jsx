@@ -1,9 +1,21 @@
-import React from "react";
-import { Button, PageHeading, Table } from "components";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FastField } from "formik";
+import { get } from "lodash";
+
+import Containers from "containers";
+import { Button, ListPagination, PageHeading, Table, Fields } from "components";
+import { useFetchList } from "hooks";
 
 const Translations = () => {
+	const [page, setPage] = useState(1);
 	const navigate = useNavigate();
+	const translations = useFetchList({
+		url: "/message",
+		urlSearchParams: {
+			page,
+		},
+	});
 
 	return (
 		<>
@@ -15,79 +27,93 @@ const Translations = () => {
 				]}
 			/>
 
-			<Table
-				columns={[
+			<Containers.Form
+				url="/message"
+				method="post"
+				normalizeFormData={(formData) =>
+					formData.translations.map((item, index) => {
+						const { category, message, ...other } = item;
+						return other;
+					})
+				}
+				fields={[
 					{
-						title: "ID",
-						dataKey: "id",
-						render: (value) => value,
-					},
-					{
-						title: "Source",
-						dataKey: "source",
-						render: (value) => value,
-					},
-					{
-						title: "Uz",
-						dataKey: "uz",
-						render: (value) => <input type="text" defaultValue={value} />,
-					},
-					{
-						title: "Ru",
-						dataKey: "ru",
-						render: (value) => <input type="text" defaultValue={value} />,
-					},
-					{
-						title: "En",
-						dataKey: "en",
-						render: (value) => <input type="text" defaultValue={value} />,
+						name: "translations",
+						validationType: "array",
+						value: translations.data,
 					},
 				]}
-				deleteAction={() => {}}
-				items={[
-					{
-						id: 1,
-						source: "Test1",
-						uz: "Test1",
-						ru: "Test1",
-						en: "Test1",
-					},
-					{
-						id: 2,
-						source: "Test2",
-						uz: "Test2",
-						ru: "Test2",
-						en: "Test2",
-					},
-					{
-						id: 3,
-						source: "Test3",
-						uz: "Test3",
-						ru: "Test3",
-						en: "Test3",
-					},
-					{
-						id: 4,
-						source: "Test4",
-						uz: "Test4",
-						ru: "Test4",
-						en: "Test4",
-					},
-				]}
-			/>
+			>
+				{(formik) => (
+					<>
+						<Table
+							columns={[
+								{
+									title: "ID",
+									dataKey: "id",
+									render: (value) => value,
+								},
+								{
+									title: "Message",
+									dataKey: "message",
+									render: (value) => value,
+								},
+								{
+									title: "Uz",
+									dataKey: "translate.uz",
+									render: (value, values, index) => (
+										<FastField
+											name={`$translations.${index}.translate.uz`}
+											component={Fields.Input}
+										/>
+									),
+								},
+								{
+									title: "Ru",
+									dataKey: "translate.ru",
+									render: (value, values, index) => (
+										<FastField
+											name={`translations.${index}.translate.ru`}
+											component={Fields.Input}
+										/>
+									),
+								},
+								{
+									title: "En",
+									dataKey: "translate.en",
+									render: (value, values, index) => (
+										<FastField
+											name={`translations.${index}.translate.en`}
+											component={Fields.Input}
+										/>
+									),
+								},
+							]}
+							items={translations.data}
+						/>
+						<ListPagination
+							pageCount={get(translations, "meta.pageCount")}
+							onPageChange={(page) => {
+								setPage(page + 1);
+							}}
+						/>
 
-			<div className="bottom-buttons">
-				<hr />
-				<div className="d-flex align-items-center justify-content-center">
-					<Button
-						className="btn btn_outlined"
-						type="reset"
-						innerText="Cancel"
-						onClick={() => navigate("/", { replace: true })}
-					/>
-					<Button className="btn btn_green" type="submit" innerText="Save" />
-				</div>
-			</div>
+						<div className="bottom-buttons">
+							<hr />
+							<div className="d-flex align-items-center justify-content-center">
+								<Button
+									className="btn btn_outlined"
+									type="reset"
+									innerText="Cancel"
+									onClick={() => navigate("/", { replace: true })}
+								/>
+
+								<Button className="btn btn_green" type="submit" innerText="Save" />
+							</div>
+						</div>
+					</>
+				)}
+			</Containers.Form>
 		</>
 	);
 };
