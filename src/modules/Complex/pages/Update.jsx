@@ -38,7 +38,7 @@ const Update = () => {
 		modal.handleOverlayOpen();
 		section.setId(null);
 	};
-
+	console.log(get(data, "name.uz"));
 	return (
 		<>
 			<PageHeading
@@ -52,7 +52,7 @@ const Update = () => {
 				hasButton={true}
 			/>
 			<Containers.Form
-				url={`/complex/${complexID}`}
+				url={`complex/${complexID}`}
 				method="put"
 				className="row"
 				onSuccess={() => navigate(-1)}
@@ -74,7 +74,7 @@ const Update = () => {
 						validationType: "object",
 						value: {
 							value: get(data, "region.id"),
-							label: get(data, "region.name"),
+							label: get(data, "region.name.uz"),
 						},
 						onSubmitValue: (e) => get(e, "value"),
 					},
@@ -83,9 +83,20 @@ const Update = () => {
 						validationType: "object",
 						value: {
 							value: get(data, "district.id"),
-							label: get(data, "district.name"),
+							label: get(data, "district.name.uz"),
 						},
 						onSubmitValue: (e) => get(e, "value"),
+					},
+					{
+						name: "background_id",
+						validationType: "number",
+						value: get(data, "id", null),
+					},
+					{
+						name: "svg",
+						validationType: "string",
+						value: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>`,
+						// validations: [{ type: "file" }],
 					},
 					{
 						name: "map",
@@ -106,6 +117,7 @@ const Update = () => {
 			>
 				{({ errors, values, setFieldValue }) => (
 					<>
+						{console.log(values)}
 						<div className="col-lg-6">
 							<div className="card-box">
 								<h5 className="text-muted card-sub">
@@ -138,6 +150,15 @@ const Update = () => {
 											component={Fields.Input}
 											label={["Name of the Object UZ", <span>*</span>]}
 											placeholder="Object"
+										/>
+									</div>
+
+									<div className="col-12">
+										<FastField
+											name="svg"
+											component={Fields.SvgUpload}
+											label="Svg"
+											btnText="Upload"
 										/>
 									</div>
 								</div>

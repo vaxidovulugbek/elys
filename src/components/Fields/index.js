@@ -6,11 +6,13 @@ import { Radiobutton } from "./Radiobutton/Radiobutton";
 import { MultiUpload } from "./Upload/MultiUpload";
 import { TreeCheckbox } from "./TreeCheckbox/TreeCheckbox";
 import AsyncSelect from "./AsyncSelect/AsyncSelect";
+import { SvgUpload } from "./Upload/SvgUpload";
 
 export default {
 	Input,
 	Select,
 	Upload,
+	SvgUpload,
 	Radiobutton,
 	MultiUpload,
 	TreeCheckbox,

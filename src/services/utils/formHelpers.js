@@ -25,7 +25,11 @@ const createYupSchema = (field) => {
 					en: yup.string().required(),
 				});
 				break;
-
+			case "file":
+				validator = validator.shape({
+					File: yup.mixed().required("file is requared"),
+				});
+				break;
 			default:
 				if (isArray(params)) validator = validator[type](...params);
 				else validator = validator[type](params);

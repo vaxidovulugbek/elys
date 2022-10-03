@@ -30,7 +30,7 @@ const Create = () => {
 				hasButton={true}
 			/>
 			<Containers.Form
-				url="/complex"
+				url="complex"
 				method="post"
 				className="row"
 				onSuccess={onSuccess}
@@ -45,6 +45,15 @@ const Create = () => {
 						name: "address",
 						validationType: "object",
 						validations: [{ type: "lng" }],
+					},
+					{
+						name: "background_id",
+						validationType: "number",
+					},
+					{
+						name: "category_id",
+						validationType: "object",
+						onSubmitValue: (e) => get(e, "value"),
 					},
 					{
 						name: "region_id",
@@ -69,10 +78,12 @@ const Create = () => {
 			>
 				{({ errors, values }) => (
 					<>
+						{console.log(errors)}
+						{console.log(values)}
 						<div className="col-lg-6">
 							<div className="card-box">
 								<h5 className="text-muted card-sub">
-									<b>Object</b>
+									<b>Complex</b>
 									<small className="text-muted"> ID {complexID}</small>
 								</h5>
 
@@ -103,6 +114,15 @@ const Create = () => {
 											placeholder="Object"
 										/>
 									</div>
+									<div className="col-12">
+										<FastField
+											name="background_id"
+											component={Fields.Upload}
+											label={"Backround"}
+											placeholder="Select File"
+											btnText="Upload"
+										/>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -120,13 +140,23 @@ const Create = () => {
 										label="Coordinates"
 										btnText="Choose on the map"
 									/>
+									<div className="col-12">
+										<FastField
+											url="category"
+											name="category_id"
+											component={Fields.AsyncSelect}
+											optionLabel="name.uz"
+											label="Category"
+											placeholder="Category"
+										/>
+									</div>
 
 									<div className="col-12">
 										<FastField
 											url="region"
 											name="region_id"
 											component={Fields.AsyncSelect}
-											optionLabel="name"
+											optionLabel="name.uz"
 											label="Region"
 											placeholder="Toshkent"
 										/>
@@ -141,7 +171,7 @@ const Create = () => {
 											isDisabled={
 												get(values, "region_id.value") ? false : true
 											}
-											optionLabel="name"
+											optionLabel="name.uz"
 											params={{
 												filter: {
 													region_id: get(values, "region_id.value", null),
