@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { get } from "lodash";
 
-export const FloorCard = ({ item, onClick, onDelete = () => {}, link }) => {
+export const CategoryCard = ({ item, onClick, onDelete = () => {}, link }) => {
 	const navigate = useNavigate();
 	return (
 		<div
@@ -49,7 +49,7 @@ export const FloorCard = ({ item, onClick, onDelete = () => {}, link }) => {
 
 				<div className="object__content">
 					<h3 href="#" className="object__title">
-						{get(item, "name")}
+						name: {get(item, "name.uz")}
 					</h3>
 				</div>
 			</div>
