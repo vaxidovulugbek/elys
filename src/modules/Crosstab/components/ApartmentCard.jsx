@@ -109,8 +109,8 @@ export const ApartmentCard = ({
 			)}
 			{ON_SALE.includes(get(hasApartment, "status")) && (
 				<div className="submit">
-					<button className="btn" onClick={() => setBoxType("form")}>
-						Оставить заявку
+					<button className="btn" onClick={() => setCurrentTab(5)}>
+						продать
 					</button>
 				</div>
 			)}
@@ -140,7 +140,7 @@ export const ApartmentCard = ({
 				</li>
 				<li>
 					<dt className="name">Тип планировки</dt>
-					<dd className="value">{get(hasApartment, "name")}</dd>
+					<dd className="value">{get(hasApartment, `name.${langCode}`)}</dd>
 				</li>
 				<li>
 					<dt className="name">Кол-во балконов</dt>

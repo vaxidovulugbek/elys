@@ -30,7 +30,7 @@ export const CrosstabHeader = ({
 			? data?.reduce(
 					(prev, curr) => [
 						...prev,
-						{ label: get(curr, "name.uz"), value: get(curr, "id") },
+						{ label: get(curr, `name.${lng}`), value: get(curr, "id") },
 					],
 					[]
 			  )

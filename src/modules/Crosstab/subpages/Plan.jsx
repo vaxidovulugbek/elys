@@ -10,13 +10,14 @@ import { functions } from "services";
 const Plan = ({ setHasApartment, filterFunc }) => {
 	const [cardIndex, setCardIndex] = useState(-1);
 	const { id } = useParams();
+	const lng = "ru";
 	return (
 		<div className="flats" id="flats">
 			<Containers.List
 				url="plan"
 				urlSearchParams={{
 					include:
-						"apartments, apartments.complex, apartments.floor,apartments.plan.room, apartments.plan ,room, files",
+						"apartments, apartments.complex, apartments.floor,apartments.plan.room, apartments.plan, apartments.files ,room, files",
 					filter: { complex_id: id },
 				}}
 			>
@@ -46,15 +47,21 @@ const Plan = ({ setHasApartment, filterFunc }) => {
 												setHasApartment(
 													filterFunc(
 														get(data, `[${planIndex}].apartments[0]`)
-													)
+													) && get(data, `[${planIndex}].apartments[0]`)
 												)
 											}
 										>
 											<div className="top">
-												<h2>{get(item, "name")}</h2>
+												<h2>{get(item, `name.${lng}`)}</h2>
 											</div>
 											<div className="center">
-												<img src={room} alt="room plan" />
+												<img
+													src={get(item, "files[0].thumbnails.small")}
+													alt="room plan"
+												/>
+												{console.log(
+													get(item, "files[0].thumbnails.small")
+												)}
 												<div className="coast-wrap">
 													<div className="coast">
 														от{" "}
