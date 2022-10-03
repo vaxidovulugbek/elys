@@ -10,6 +10,7 @@ import { constants } from "services";
 import { CrosstabHeader, CrosstabFilter, Tab } from "../components";
 import { Appartments, Chess, Interactive, Plan } from "../subpages";
 import { Apartment } from "../components";
+import { PaymentType } from "../subpages/PaymentType";
 
 const Crosstab = () => {
 	const [currentTab, setCurrentTab] = useState(1);
@@ -21,7 +22,7 @@ const Crosstab = () => {
 	const { STATUS_FREE, STATUS_INTEREST, STATUS_SOLD, STATUS_NOT_FOR_SALE, STATUS_CONSTRUCTION } =
 		constants;
 	const complex = useFetchOne({
-		url: "complex",
+		url: "user/complex",
 	});
 
 	const filterFunc = (apartment) => {
@@ -178,6 +179,13 @@ const Crosstab = () => {
 												hasApartment,
 												setHasApartment,
 												filterFunc,
+											}}
+										/>
+									)}
+									{currentTab === 5 && (
+										<PaymentType
+											{...{
+												setCurrentTab,
 											}}
 										/>
 									)}

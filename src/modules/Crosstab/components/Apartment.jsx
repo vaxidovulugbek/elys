@@ -12,7 +12,6 @@ export const Apartment = ({ setHasApartment, hasApartment, setCurrentTab }) => {
 	const [boxType, setBoxType] = useState("card");
 
 	const apartmentClass = cn("apartment", { "apartment-closed": !hasApartment });
-
 	return (
 		<aside className={apartmentClass} id="apartment">
 			<ApartmentCard

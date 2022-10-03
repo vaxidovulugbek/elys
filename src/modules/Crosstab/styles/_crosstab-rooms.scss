@@ -3,6 +3,7 @@
 
 	.flats {
 		display: grid;
+		grid-auto-rows: minmax(min-content, max-content);
 		grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr)) !important;
 		gap: 20px;
 
@@ -14,7 +15,10 @@
 
 			position: relative;
 
+			display: grid;
+
 			width: 100%;
+			height: 100%;
 
 			color: black;
 			text-align: center;
@@ -27,6 +31,7 @@
 			transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s;
 
 			.top {
+				height: max-content;
 				padding: 10px 0;
 
 				border-bottom: 1px solid #d7d8da;
@@ -53,6 +58,7 @@
 			}
 
 			.center {
+				min-height: 200px;
 				padding: 15px 5px 0;
 
 				border-bottom: 1px solid #d7d8da;
@@ -72,6 +78,7 @@
 					justify-content: flex-end;
 
 					width: 100%;
+					margin-top: 10px;
 					padding: 0 10px 15px;
 				}
 
@@ -97,6 +104,7 @@
 				display: flex;
 
 				width: 100%;
+				height: max-content;
 
 				border-bottom: 1px solid #d7d8da;
 
@@ -148,6 +156,7 @@
 				display: flex;
 
 				width: 100%;
+				height: max-content;
 
 				word-break: break-all;
 

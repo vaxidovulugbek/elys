@@ -28,7 +28,10 @@ export const CrosstabHeader = ({
 	const getOptions = (data, defaultValue) => {
 		const options = Array.isArray(data)
 			? data?.reduce(
-					(prev, curr) => [...prev, { label: get(curr, "name"), value: get(curr, "id") }],
+					(prev, curr) => [
+						...prev,
+						{ label: get(curr, `name.${lng}`), value: get(curr, "id") },
+					],
 					[]
 			  )
 			: [];
