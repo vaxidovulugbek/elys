@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { get } from "lodash";
 import { useParams } from "react-router-dom";
 
-import room from "assets/images/room.png";
 import Containers from "containers";
 import { isArray } from "lodash";
 import { functions } from "services";
@@ -59,9 +58,6 @@ const Plan = ({ setHasApartment, filterFunc }) => {
 													src={get(item, "files[0].thumbnails.small")}
 													alt="room plan"
 												/>
-												{console.log(
-													get(item, "files[0].thumbnails.small")
-												)}
 												<div className="coast-wrap">
 													<div className="coast">
 														от{" "}

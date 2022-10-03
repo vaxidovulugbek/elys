@@ -12,6 +12,10 @@ import { Appartments, Chess, Interactive, Plan } from "../subpages";
 import { Apartment } from "../components";
 import { PaymentType } from "../subpages/PaymentType";
 
+import "@fancyapps/ui/dist/fancybox.css";
+import "swiper/css";
+import "swiper/css/navigation";
+
 const Crosstab = () => {
 	const [currentTab, setCurrentTab] = useState(1);
 	const [hasFilter, setHasFilter] = useState(window.innerWidth < 991 ? false : true);
@@ -23,6 +27,9 @@ const Crosstab = () => {
 		constants;
 	const complex = useFetchOne({
 		url: "user/complex",
+		urlSearchParams: {
+			include: "place,file,background",
+		},
 	});
 
 	const filterFunc = (apartment) => {
@@ -170,7 +177,12 @@ const Crosstab = () => {
 									)}
 									{currentTab === 3 && (
 										<Interactive
-											{...{ hasApartment, setHasApartment, filterFunc }}
+											{...{
+												hasApartment,
+												setHasApartment,
+												filterFunc,
+												complex,
+											}}
 										/>
 									)}
 									{currentTab === 4 && (
@@ -186,6 +198,7 @@ const Crosstab = () => {
 										<PaymentType
 											{...{
 												setCurrentTab,
+												hasApartment,
 											}}
 										/>
 									)}
