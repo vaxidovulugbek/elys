@@ -8,9 +8,8 @@ import { useFetchOne } from "hooks";
 import { constants } from "services";
 
 import { CrosstabHeader, CrosstabFilter, Tab } from "../components";
-import { Appartments, Chess, Interactive, Plan } from "../subpages";
+import { Apartments, Chess, Interactive, Plan, Payment } from "../subpages";
 import { Apartment } from "../components";
-import { PaymentType } from "../subpages/PaymentType";
 
 import "@fancyapps/ui/dist/fancybox.css";
 import "swiper/css";
@@ -18,7 +17,7 @@ import "swiper/css/navigation";
 
 const Crosstab = () => {
 	const [currentTab, setCurrentTab] = useState(1);
-	const [hasFilter, setHasFilter] = useState(window.innerWidth < 991 ? false : true);
+	const [hasFilter, setHasFilter] = useState(window.innerWidth < 991);
 	const [hasApartment, setHasApartment] = useState(null);
 	const { id } = useParams();
 	const [params, setParams] = useState({});
@@ -26,7 +25,7 @@ const Crosstab = () => {
 	const { STATUS_FREE, STATUS_INTEREST, STATUS_SOLD, STATUS_NOT_FOR_SALE, STATUS_CONSTRUCTION } =
 		constants;
 	const complex = useFetchOne({
-		url: "user/complex",
+		url: "/user/complex",
 		urlSearchParams: {
 			include: "place,file,background",
 		},
@@ -186,7 +185,7 @@ const Crosstab = () => {
 										/>
 									)}
 									{currentTab === 4 && (
-										<Appartments
+										<Apartments
 											{...{
 												hasApartment,
 												setHasApartment,
@@ -195,7 +194,7 @@ const Crosstab = () => {
 										/>
 									)}
 									{currentTab === 5 && (
-										<PaymentType
+										<Payment
 											{...{
 												setCurrentTab,
 												hasApartment,

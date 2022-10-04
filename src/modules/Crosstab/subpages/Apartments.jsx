@@ -2,10 +2,10 @@ import React from "react";
 import { get } from "lodash";
 import cn from "classnames";
 
-import { List } from "containers/List";
+import Containers from "containers";
 import { constants, functions } from "services";
 
-const Appartments = ({ filterFunc, setHasApartment, hasApartment }) => {
+const Apartments = ({ filterFunc, setHasApartment, hasApartment }) => {
 	const {
 		STATUS_CONSTRUCTION,
 		STATUS_CONSTRUCTION_TEXT,
@@ -127,7 +127,7 @@ const Appartments = ({ filterFunc, setHasApartment, hasApartment }) => {
 					</tr>
 				</thead>
 				<tbody>
-					<List
+					<Containers.List
 						url="apartment"
 						urlSearchParams={{
 							include: "plan, plan.room, section, floor, complex",
@@ -183,11 +183,11 @@ const Appartments = ({ filterFunc, setHasApartment, hasApartment }) => {
 								</>
 							);
 						}}
-					</List>
+					</Containers.List>
 				</tbody>
 			</table>
 		</div>
 	);
 };
 
-export default Appartments;
+export default Apartments;

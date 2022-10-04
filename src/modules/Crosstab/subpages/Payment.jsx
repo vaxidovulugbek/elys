@@ -1,12 +1,11 @@
-import { Fancybox, Fields } from "components";
-import Containers from "containers";
+import React, { useState, useEffect } from "react";
 import { FastField } from "formik";
-import { get } from "lodash";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { get } from "lodash";
+
+import Containers from "containers";
+import { Fancybox, Fields } from "components";
 
 const payment_types = [
 	{ value: 1, label: "разсрочка" },
@@ -19,7 +18,7 @@ const month = [
 	{ value: 24, label: "24 месяцев" },
 ];
 
-export const PaymentType = ({ hasApartment }) => {
+const Payment = ({ hasApartment }) => {
 	const [initialFee, setInitialFee] = useState(0);
 	const [apartment, setApartment] = useState();
 	const images = Array.isArray(get(apartment, "files"))
@@ -53,7 +52,7 @@ export const PaymentType = ({ hasApartment }) => {
 			</Fancybox>
 			<div className="choice">
 				<Containers.Form>
-					{() => {
+					{(formik) => {
 						return (
 							<>
 								<FastField
@@ -75,3 +74,5 @@ export const PaymentType = ({ hasApartment }) => {
 		</div>
 	);
 };
+
+export default Payment;

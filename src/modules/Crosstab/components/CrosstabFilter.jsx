@@ -58,7 +58,7 @@ const Form = ({
 		resetForm();
 	};
 
-	const toogleSelect = (number, type) => {
+	const toggleSelect = (number, type) => {
 		let newFilter;
 		const filter = get(values, "room_count", []);
 		if (filter.includes(number)) newFilter = filter.filter((num) => num !== number);
@@ -70,7 +70,7 @@ const Form = ({
 	const filterBoxClass = cn("filters-box", { "filter-closed": !hasFilter });
 
 	const checkboxProps = (number) => ({
-		toogleSelect,
+		toggleSelect,
 		number,
 		filter: get(values, "room_count", []),
 		setFieldValue,
@@ -172,12 +172,12 @@ export const CrosstabFilter = withFormik({
 	},
 })(Form);
 
-const Checkbox = ({ toogleSelect, number, filter }) => {
+const Checkbox = ({ toggleSelect, number, filter }) => {
 	return (
 		<>
 			<button
 				type="button"
-				onClick={() => toogleSelect(number)}
+				onClick={() => toggleSelect(number)}
 				className={cn({ active: filter.includes(number) })}
 			>
 				{number}

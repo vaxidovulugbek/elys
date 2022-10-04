@@ -97,7 +97,7 @@ export const CrosstabHeader = ({
 				</Containers.Form>
 			</div>
 			<div className="right">
-				<Link to="/" className={cn("close", { invisiable: hasApartment || hasFilter })}>
+				<Link to="/" className={cn("close", { invisible: hasApartment || hasFilter })}>
 					<Xbtn />
 					<p className="text">Закрыть</p>
 				</Link>

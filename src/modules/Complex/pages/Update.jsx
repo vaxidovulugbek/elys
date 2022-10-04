@@ -38,7 +38,6 @@ const Update = () => {
 		modal.handleOverlayOpen();
 		section.setId(null);
 	};
-	console.log(get(data, "name.uz"));
 	return (
 		<>
 			<PageHeading

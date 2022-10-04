@@ -61,7 +61,7 @@ export const AppRoutes = () => {
 									);
 									return item.layout ? (
 										<Route key={outerIndex} path="/" element={item.layout}>
-											<Route key={innerIndex} {...route} element={<Page />} />
+											<Route {...route} element={<Page />} />
 										</Route>
 									) : (
 										<React.Fragment key={outerIndex}>
