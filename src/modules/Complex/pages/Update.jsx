@@ -17,7 +17,7 @@ const Update = () => {
 
 	const { data } = useFetchOne({
 		url: `complex/${complexID}`,
-		urlSearchParams: { include: "region,district" },
+		urlSearchParams: { include: "region,district,files" },
 	});
 
 	const section = useFetchOneWithId({
@@ -38,7 +38,6 @@ const Update = () => {
 		modal.handleOverlayOpen();
 		section.setId(null);
 	};
-	console.log(get(data, "name.uz"));
 	return (
 		<>
 			<PageHeading
@@ -90,13 +89,17 @@ const Update = () => {
 					{
 						name: "background_id",
 						validationType: "number",
-						value: get(data, "id", null),
+						value: get(data, "background_id", null),
 					},
 					{
 						name: "svg",
-						validationType: "string",
-						value: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>`,
-						// validations: [{ type: "file" }],
+						value: get(data, "svg"),
+					},
+					{
+						name: "file_ids",
+						validationType: "array",
+						value: data && get(data, "files", []).map((item) => item.id),
+						// validations: [{ type: "required" }],
 					},
 					{
 						name: "map",
@@ -117,7 +120,6 @@ const Update = () => {
 			>
 				{({ errors, values, setFieldValue }) => (
 					<>
-						{console.log(values)}
 						<div className="col-lg-6">
 							<div className="card-box">
 								<h5 className="text-muted card-sub">
@@ -155,10 +157,31 @@ const Update = () => {
 
 									<div className="col-12">
 										<FastField
+											name="background_id"
+											component={Fields.Upload}
+											label="Backround"
+											btnText="Upload"
+										/>
+									</div>
+									<div className="col-12">
+										<FastField
 											name="svg"
 											component={Fields.SvgUpload}
 											label="Svg"
 											btnText="Upload"
+										/>
+									</div>
+									<div className="col-12 card-box">
+										<FastField
+											name="file_ids"
+											component={Fields.MultiUpload}
+											files={get(data, "files")}
+											formData={data}
+											queryKey={[
+												"GET",
+												`complex/${complexID}`,
+												{ include: "region,district,files" },
+											]}
 										/>
 									</div>
 								</div>

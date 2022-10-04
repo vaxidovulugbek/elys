@@ -9,6 +9,8 @@ import { notifications } from "services";
 import { RoundCircle } from "./RoundCircle";
 import { Modals } from "components";
 
+import "./Cards.scss";
+
 export const ObjectCard = ({ data }) => {
 	const complex = useFetchList({ url: "user/complex", queryOptions: { enabled: false } });
 	const navigate = useNavigate();
@@ -23,7 +25,7 @@ export const ObjectCard = ({ data }) => {
 	};
 
 	const { mutate } = useDelete({
-		url: `complex/${get(data, "id")}`,
+		url: `/complex/${get(data, "id")}`,
 		queryOptions: {
 			onSuccess,
 			onError,
@@ -47,10 +49,19 @@ export const ObjectCard = ({ data }) => {
 	return (
 		<div onClick={() => navigate(`complex/update/${get(data, "id")}`)} className="object__card">
 			<div className="object__img">
-				<img src={require("assets/images/object-image.jpg")} alt="object" />
+				<img
+					src={
+						get(data, "files[0].thumbnails.full") ||
+						require("assets/images/object-image.jpg")
+					}
+					alt="object"
+				/>
 				<RoundCircle title="462" subtitle="accommodation" />
-				<div className="d-flex align-items-center object__btns">
-					<Link to="/crosstab" className="object__action bg_purple">
+				<div
+					className="d-flex align-items-center object__btns"
+					onClick={(e) => e.stopPropagation()}
+				>
+					<Link to={`/crosstab/${get(data, "id")}`} className="object__action bg_purple">
 						<svg fill="#fff" width="24" height="24" viewBox="0 0 24 24">
 							<path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
 						</svg>

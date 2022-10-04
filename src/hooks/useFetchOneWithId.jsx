@@ -11,6 +11,7 @@ export const useFetchOneWithId = ({
 	refetchStatus,
 }) => {
 	const [id, setId] = useState(null);
+
 	const { data, refetch, remove } = useFetchOne({
 		url: `${url}/${id}`,
 		dataKey,

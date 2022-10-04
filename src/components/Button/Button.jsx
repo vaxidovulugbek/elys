@@ -28,9 +28,9 @@ export const Button = React.memo(
 				disabled={isDisabled}
 				{...buttonProps}
 			>
-				{append}
-				{innerText}
 				{prepend}
+				{innerText}
+				{append}
 			</button>
 		);
 	}

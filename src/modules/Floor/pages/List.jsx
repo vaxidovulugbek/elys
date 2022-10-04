@@ -164,9 +164,6 @@ const List = () => {
 			<ModalRoot isOpen={modal.isOpen} style={{ maxWidth: "500px" }}>
 				<Modals.AddObject
 					onClose={modal.handleOverlayClose}
-					onSuccess={() => {
-						console.log("Submited");
-					}}
 					title={"Adding a layout"}
 					fields={[
 						{

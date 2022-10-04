@@ -7,7 +7,15 @@ import { Button } from "components/index";
 import { ReactComponent as DeleteIcon } from "assets/images/delete-icon.svg";
 import { ReactComponent as EditIcon } from "assets/images/edit-icon.svg";
 
-export const TableRow = ({ row, columns, deleteAction, editAction, onRowClick, renderButtons }) => {
+export const TableRow = ({
+	row,
+	columns,
+	deleteAction,
+	editAction,
+	onRowClick,
+	renderButtons,
+	index,
+}) => {
 	return (
 		<tr
 			className={cn("main-table-tr", { cursor_pointer: onRowClick })}
@@ -18,7 +26,7 @@ export const TableRow = ({ row, columns, deleteAction, editAction, onRowClick, r
 			{columns.map((col, innerIndex) => {
 				return (
 					<td key={innerIndex} className={`table__td ${get(col, "className")}`}>
-						{col.render(row[col.dataKey], row)}
+						{col.render(get(row, col.dataKey), row, index)}
 					</td>
 				);
 			})}

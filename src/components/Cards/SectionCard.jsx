@@ -81,7 +81,7 @@ export const SectionCard = ({ data, link = "/building/update", onClick = () => {
 
 			<div className="object__content">
 				<h3 href="#" className="object__title">
-					{get(data, "name", "")}
+					{get(data, "name.uz", "")}
 				</h3>
 			</div>
 		</div>

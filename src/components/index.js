@@ -6,6 +6,7 @@ export { ModalRoot } from "./Modal";
 export { Typography } from "./Typography";
 export { Portal } from "./Portal";
 export { Table } from "./Table";
+export { ListPagination } from "./ListPagination/ListPagination";
 
 export { Breadcrumb } from "./Breadcrumb/Breadcrumb";
 export { PageHeading } from "./PageHeading/PageHeading";

@@ -40,9 +40,7 @@ export const Table = ({
 					</tr>
 				) : !items.length ? (
 					<tr>
-						<td colSpan="100%">
-							<NoData />
-						</td>
+						<td colSpan="100%">{/*<NoData />*/}</td>
 					</tr>
 				) : (
 					items.map((row, index) => (
@@ -54,6 +52,7 @@ export const Table = ({
 							editAction={editAction}
 							onRowClick={onRowClick}
 							renderButtons={renderButtons}
+							index={index}
 						/>
 					))
 				)}

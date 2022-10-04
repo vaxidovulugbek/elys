@@ -2,3 +2,14 @@
 @import "./reset";
 @import "./responsive";
 @import "./common";
+
+.translate {
+	&__input {
+		padding: 10px;
+
+		color: #000;
+
+		border: 1px solid var(--main-grey);
+		border-radius: 5px;
+	}
+}

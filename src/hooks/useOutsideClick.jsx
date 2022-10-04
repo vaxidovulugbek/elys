@@ -21,7 +21,6 @@ export const useOutsideClick = ({ initialIsVisible, onOpen, onClose = () => {} }
 		return () => {
 			document.removeEventListener("click", handleClickOutside, true);
 		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return { ref, isVisible, handleMenuOpen };

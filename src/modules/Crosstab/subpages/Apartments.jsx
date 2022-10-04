@@ -2,7 +2,7 @@ import React from "react";
 import { get } from "lodash";
 import cn from "classnames";
 
-import { List } from "containers/List";
+import Containers from "containers";
 import { constants, functions } from "services";
 
 const Appartments = ({ filterFunc, setActiveApartment, activeApartment }) => {
@@ -127,7 +127,7 @@ const Appartments = ({ filterFunc, setActiveApartment, activeApartment }) => {
 					</tr>
 				</thead>
 				<tbody>
-					<List
+					<Containers.List
 						url="apartment"
 						urlSearchParams={{
 							include: "plan, plan.room, section, floor, complex",
@@ -183,7 +183,7 @@ const Appartments = ({ filterFunc, setActiveApartment, activeApartment }) => {
 								</>
 							);
 						}}
-					</List>
+					</Containers.List>
 				</tbody>
 			</table>
 		</div>

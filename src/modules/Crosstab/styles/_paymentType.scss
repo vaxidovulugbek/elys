@@ -1,59 +1,62 @@
 .row-gap {
-    display: grid;
-    row-gap: 15px;
+	display: grid;
+	row-gap: 15px;
 }
 
 .payment-type {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
-    padding-bottom: 40px;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
 
-    .left {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 10px;
-        height: max-content;
-    }
+	padding-bottom: 40px;
 
-    .right {
-        padding: 10px;
-        border-radius: 3px;
-    }
+	.left {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 10px;
 
-    &__swiper {
-        margin: 0 !important;
-    }
+		height: max-content;
+	}
 
-    &__choice {
-        @extend .row-gap;
-        padding: 10px;
-        height: max-content;
+	.right {
+		padding: 10px;
 
-    }
+		border-radius: 3px;
+	}
 
-    form {
-        @extend .row-gap;
-    }
+	&__swiper {
+		margin: 0 !important;
+	}
 
-    &__table {
-        width: 100%;
-    }
+	&__choice {
+		@extend .row-gap;
+		height: max-content;
+		padding: 10px;
+	}
 
-    .initial-fee {
-        text-align: left;
-    }
+	form {
+		@extend .row-gap;
+	}
 
-    .btn {
-        &--next {
-            padding: 7px 15px;
-            font-size: 16px;
+	&__table {
+		width: 100%;
+	}
 
-            background-color: #1abc9c;
-            color: #fff;
-        }
-    }
+	.initial-fee {
+		text-align: left;
+	}
 
-    @media (max-width: 991px) {
-        grid-template-columns: 1fr;
-    }
+	.btn {
+		&--next {
+			padding: 7px 15px;
+
+			font-size: 16px;
+			color: #fff;
+
+			background-color: #1abc9c;
+		}
+	}
+
+	@media (max-width: 991px) {
+		grid-template-columns: 1fr;
+	}
 }

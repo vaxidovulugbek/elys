@@ -15,7 +15,6 @@ import { FloorRoutes } from "modules/Floor";
 import { CrossTabRoutes } from "modules/Crosstab";
 import { RoomRoute } from "modules/Room";
 import { SettingsRoutes } from "modules/Settings";
-import { CategoryRoute } from "modules/Room/Category";
 
 const loggedInRoutes = [
 	{
@@ -25,7 +24,6 @@ const loggedInRoutes = [
 			...ApartmentRoutes,
 			...FloorRoutes,
 			...RoomRoute,
-			...CategoryRoute,
 			...SettingsRoutes,
 		],
 	},
@@ -63,7 +61,7 @@ export const AppRoutes = () => {
 									);
 									return item.layout ? (
 										<Route key={outerIndex} path="/" element={item.layout}>
-											<Route key={innerIndex} {...route} element={<Page />} />
+											<Route {...route} element={<Page />} />
 										</Route>
 									) : (
 										<React.Fragment key={outerIndex}>

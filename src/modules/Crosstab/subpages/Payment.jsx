@@ -22,7 +22,7 @@ const option_month = [
 	{ value: 24, label: "24 месяцев" },
 ];
 
-export const PaymentType = ({ activeApartment, setCurrentTab, setPaymentDetails }) => {
+export const Payment = ({ activeApartment, setCurrentTab, setPaymentDetails }) => {
 	const { t } = useTranslation();
 
 	const [initialFee, setInitialFee] = useState(0);
@@ -142,3 +142,5 @@ export const PaymentType = ({ activeApartment, setCurrentTab, setPaymentDetails 
 		</div>
 	);
 };
+
+export default Payment;
