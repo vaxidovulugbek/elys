@@ -2,11 +2,6 @@ import React, { useState } from "react";
 import cn from "classnames";
 
 import { ApartmentCard } from "modules/Crosstab/components/ApartmentCard";
-import { ApartmentForm } from "modules/Crosstab/components/ApartmentForm";
-
-import "@fancyapps/ui/dist/fancybox.css";
-import "swiper/css";
-import "swiper/css/navigation";
 
 export const Apartment = ({ setHasApartment, hasApartment, setCurrentTab }) => {
 	const [boxType, setBoxType] = useState("card");
@@ -17,7 +12,6 @@ export const Apartment = ({ setHasApartment, hasApartment, setCurrentTab }) => {
 			<ApartmentCard
 				{...{ setHasApartment, setCurrentTab, hasApartment, boxType, setBoxType }}
 			/>
-			<ApartmentForm {...{ boxType, setBoxType, hasApartment }} />
 		</aside>
 	);
 };
