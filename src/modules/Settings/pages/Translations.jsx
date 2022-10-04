@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { FastField } from "formik";
 import { get } from "lodash";
 
+import { useFetchList } from "hooks";
+
 import Containers from "containers";
 import { Button, ListPagination, PageHeading, Table, Fields } from "components";
-import { useFetchList } from "hooks";
 
 const Translations = () => {
 	const [page, setPage] = useState(1);

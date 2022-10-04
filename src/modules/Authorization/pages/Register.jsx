@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import cn from "classnames";
 
+import { Button } from "components";
+import Containers from "containers";
 import StepOne from "../components/StepOne";
 import StepTwo from "../components/StepTwo";
 import StepThree from "../components/StepThree";
-import { Button } from "components";
-import Containers from "containers";
 
 import "./../styles/Register.css";
 import "../styles/Login.css";

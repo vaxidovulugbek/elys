@@ -7,7 +7,7 @@ export const SectionCard = () => {
 			<div className="object__img">
 				<img
 					src={require("assets/images/section-img2.png")}
-					alt="objectimage"
+					alt="object image"
 					style={{
 						maxWidth: "180px",
 						marginRight: "auto",
@@ -36,9 +36,7 @@ export const SectionCard = () => {
 			</div>
 
 			<div className="object__content">
-				<h3 href="#" className="object__title mb-2">
-					A
-				</h3>
+				<h3 className="object__title mb-2">A</h3>
 
 				<div className="d-flex align-items-center justify-content-between">
 					<span className="color_transparent">1-к </span>

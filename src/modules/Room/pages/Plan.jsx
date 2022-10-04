@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import { get } from "lodash";
 
-import Containers from "containers";
 import { notifications } from "services";
 import { useDelete, useFetchList } from "hooks";
+
+import Containers from "containers";
 import { AddObject, Modals, PageHeading } from "components";
 import { RoomCard } from "../components/RoomCard";
 
