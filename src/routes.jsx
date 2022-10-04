@@ -15,6 +15,7 @@ import { FloorRoutes } from "modules/Floor";
 import { CrossTabRoutes } from "modules/Crosstab";
 import { RoomRoute } from "modules/Room";
 import { SettingsRoutes } from "modules/Settings";
+import { CategoryRoute } from "modules/Room/Category";
 
 const loggedInRoutes = [
 	{
@@ -24,6 +25,7 @@ const loggedInRoutes = [
 			...ApartmentRoutes,
 			...FloorRoutes,
 			...RoomRoute,
+			...CategoryRoute,
 			...SettingsRoutes,
 		],
 	},
@@ -84,7 +86,7 @@ export const AppRoutes = () => {
 						<Suspense fallback={<Spinner />}>
 							<Routes>
 								{AuthRoutes.map((route, index) => (
-									<Route ket={index} {...route} />
+									<Route key={index} {...route} />
 								))}
 							</Routes>
 						</Suspense>

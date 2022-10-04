@@ -1,7 +1,6 @@
 import React from "react";
 import cn from "classnames";
-import ReactSelect from "react-select";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FastField } from "formik";
 
 import { Fields } from "components";
@@ -11,17 +10,38 @@ import obj from "assets/images/obj.jpg";
 import { ReactComponent as Search } from "assets/images/search.svg";
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
 import { ReactComponent as Back } from "assets/images/back.svg";
+import { findIndex, get } from "lodash";
 
-const usernames = [{ value: "1", label: "Abdulaziz Abdurashidov" }];
+export const CrosstabHeader = ({
+	hasApartment,
+	setHasApartment,
+	setHasFilter,
+	hasFilter,
+	setParams,
+	params,
+	sections,
+	complex,
+}) => {
+	const navigate = useNavigate();
+	const { id } = useParams();
+	const lng = "ru";
+	const getOptions = (data, defaultValue) => {
+		const options = Array.isArray(data)
+			? data?.reduce(
+					(prev, curr) => [
+						...prev,
+						{ label: get(curr, `name.${lng}`), value: get(curr, "id") },
+					],
+					[]
+			  )
+			: [];
+		defaultValue && options.unshift(defaultValue);
+		return options;
+	};
+	const options_complex = getOptions(complex);
+	const options_section = getOptions(sections, { label: "Все секции", value: null });
 
-const sections = [
-	{ value: 1, label: "Секция 1" },
-	{ value: 2, label: "Секция 2" },
-	{ value: 3, label: "Секция 3" },
-	{ value: 4, label: "Все секции" },
-];
-
-export const CrosstabHeader = ({ hasApartment, setHasApartment, setHasFilter, hasFilter }) => {
+	const handleComplexChange = (option) => navigate(`/crosstab/${get(option, "value")}`);
 	return (
 		<header className="crosstab-header" id="crosstab-header">
 			<div className="left">
@@ -34,23 +54,42 @@ export const CrosstabHeader = ({ hasApartment, setHasApartment, setHasFilter, ha
 							<div className="select">
 								<FastField
 									name="complex"
-									component={Fields.AsyncSelect}
-									defaultValue={usernames[0]}
-									className="crosstab__select"
-									options={usernames}
+									component={Fields.Select}
+									key={complex}
+									defaultValue={get(
+										options_complex,
+										`[${findIndex(options_complex, { value: Number(id) })}]`
+									)}
+									options={options_complex}
 									isSearchable={false}
+									onValueChange={(option) => handleComplexChange(option)}
 								/>
 							</div>
 							<div className="select section-select">
-								<ReactSelect
-									defaultValue={sections[3]}
-									className="crosstab__select"
-									options={sections}
+								<FastField
+									name="section"
+									component={Fields.Select}
+									key={sections}
+									defaultValue={get(options_section, "[0]")}
+									options={options_section}
 									isSearchable={false}
+									onValueChange={(option) =>
+										setParams((prev) => ({
+											...prev,
+											section_id: get(option, "value"),
+										}))
+									}
 								/>
 							</div>
 							<div className="search">
-								<input type="text" placeholder="Поиск помещения" />
+								<input
+									type="text"
+									placeholder="Поиск помещения"
+									value={get(params, "search", "")}
+									onChange={(e) =>
+										setParams((prev) => ({ ...prev, search: e.target.value }))
+									}
+								/>
 								<Search />
 							</div>
 						</>

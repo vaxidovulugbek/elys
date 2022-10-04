@@ -6,7 +6,7 @@ import { useDelete, useFetchList } from "hooks";
 
 import Containers from "containers";
 import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
-import { AddObject, FloorCard } from "components";
+import { AddObject, FloorCard, PageHeading } from "components";
 
 const Apartment = () => {
 	const { floorID, complexID, sectionID } = useParams();
@@ -42,6 +42,16 @@ const Apartment = () => {
 
 	return (
 		<>
+			<PageHeading
+				title="My complex"
+				links={[
+					{ url: "/", name: "Control Panel" },
+					{ url: "/", name: "Complex" },
+					{ url: `/complex/update/${complexID}`, name: "My complex" },
+					{ url: `/complex/${complexID}/section/${sectionID}/floor`, name: "Floor" },
+					{ url: "", name: "Apartment" },
+				]}
+			/>
 			<div className="row section-list">
 				<Containers.List
 					url="apartment"

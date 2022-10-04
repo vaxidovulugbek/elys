@@ -1113,7 +1113,6 @@
 /*! purgecss start ignore */
 .sidebar__submenu_active.sidebar__submenu-content {
 	transform: scaleY(1);
-	transform: scaleY(1);
 
 	height: auto;
 }
@@ -2027,7 +2026,6 @@ hr {
 	top: calc(100% + 15px);
 	right: 0;
 	transform: translateY(10px);
-	transform: translateY(10px);
 
 	min-width: 160px;
 	padding: 5px 0;
@@ -2043,8 +2041,6 @@ hr {
 
 .drop-down__options.drop-down__options_active {
 	pointer-events: initial;
-
-	transform: translateY(0);
 	transform: translateY(0);
 
 	visibility: visible;

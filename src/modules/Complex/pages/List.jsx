@@ -11,16 +11,15 @@ const List = () => {
 	return (
 		<>
 			<PageHeading
-				title="My objects"
+				title="My complex"
 				links={[
 					{ url: "/", name: "Control Panel" },
-					{ url: "/objects", name: "Object" },
-					{ url: "", name: "My objects" },
+					{ url: "/", name: "My Complex" },
 				]}
 			/>
 			<SearchForm onClick={() => navigate("/complex/create")} />
 			<div className="row">
-				<Containers.List url="/complex">
+				<Containers.List url="user/complex" urlSearchParams={{ include: "files" }}>
 					{({ data }) => {
 						return (
 							<>

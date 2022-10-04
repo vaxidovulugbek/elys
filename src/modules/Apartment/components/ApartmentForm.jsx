@@ -99,6 +99,15 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 						validationType: "number",
 						value: Number(complexID),
 					},
+					{
+						name: "plan_id",
+						validationType: "object",
+						value: {
+							label: get(formData, "plan.name.uz"),
+							value: get(formData, "plan.id"),
+						},
+						onSubmitValue: (option) => get(option, "value"),
+					},
 				]}
 				onSuccess={() => onSuccess()}
 				onError={() => {
@@ -190,6 +199,16 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 								</div>
 								<div className="col-12">
 									<FastField
+										url="plan"
+										name="plan_id"
+										optionLabel="name.uz"
+										component={Fields.AsyncSelect}
+										label="Plan ID"
+										placeholder=""
+									/>
+								</div>
+								<div className="col-12">
+									<FastField
 										name="status"
 										component={Fields.Select}
 										options={constants.statusOptions}
@@ -229,10 +248,10 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 									component={Fields.MultiUpload}
 									files={get(formData, "files")}
 									formData={formData}
-									queryData={[
+									queryKey={[
 										"GET",
 										`apartment/${get(formData, "id")}`,
-										{ include: "files" },
+										{ include: "plan,files" },
 									]}
 								/>
 							</div>

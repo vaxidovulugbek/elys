@@ -20,19 +20,19 @@ const Create = () => {
 	return (
 		<>
 			<PageHeading
-				title="My objects"
+				title="Complex"
 				links={[
 					{ url: "/", name: "Control Panel" },
-					{ url: "/objects", name: "Object" },
-					{ url: "/objects/my-objects", name: "My objects" },
-					{ url: "", name: "Demo" },
+					{ url: "/", name: "My complex" },
+					{ url: "", name: "Complex" },
 				]}
 				complexID={complexID}
 				hasButton={true}
 			/>
 			<Containers.Form
-				url="/complex"
+				url="complex"
 				method="post"
+				isFormData
 				className="row"
 				onSuccess={onSuccess}
 				onError={() => notifications.error("Something went wrong")}
@@ -46,6 +46,27 @@ const Create = () => {
 						name: "address",
 						validationType: "object",
 						validations: [{ type: "lng" }],
+					},
+					{
+						name: "background_id",
+						validationType: "number",
+					},
+					{
+						name: "status",
+						validationType: "number",
+						value: 10,
+					},
+					{
+						name: "svg",
+					},
+					{
+						name: "file_ids",
+						validationType: "array",
+					},
+					{
+						name: "category_id",
+						validationType: "object",
+						onSubmitValue: (e) => get(e, "value"),
 					},
 					{
 						name: "region_id",
@@ -70,10 +91,12 @@ const Create = () => {
 			>
 				{({ errors, values }) => (
 					<>
+						{console.log(errors)}
+						{console.log(values)}
 						<div className="col-lg-6">
 							<div className="card-box">
 								<h5 className="text-muted card-sub">
-									<b>Object</b>
+									<b>Complex</b>
 									<small className="text-muted"> ID {complexID}</small>
 								</h5>
 
@@ -104,6 +127,27 @@ const Create = () => {
 											placeholder="Object"
 										/>
 									</div>
+									<div className="col-12">
+										<FastField
+											name="background_id"
+											component={Fields.Upload}
+											label={"Backround"}
+											placeholder="Select File"
+											btnText="Upload"
+										/>
+									</div>
+									<div className="col-12">
+										<FastField
+											name="svg"
+											component={Fields.SvgUpload}
+											label={"Svg"}
+											placeholder="Select File"
+											btnText="Upload"
+										/>
+									</div>
+									<div className="col-12">
+										<FastField name="file_ids" component={Fields.MultiUpload} />
+									</div>
 								</div>
 							</div>
 						</div>
@@ -121,13 +165,23 @@ const Create = () => {
 										label="Coordinates"
 										btnText="Choose on the map"
 									/>
+									<div className="col-12">
+										<FastField
+											url="category"
+											name="category_id"
+											component={Fields.AsyncSelect}
+											optionLabel="name.uz"
+											label="Category"
+											placeholder="Category"
+										/>
+									</div>
 
 									<div className="col-12">
 										<FastField
 											url="region"
 											name="region_id"
 											component={Fields.AsyncSelect}
-											optionLabel="name.ru"
+											optionLabel="name.uz"
 											label="Region"
 											placeholder="Toshkent"
 										/>

@@ -5,7 +5,7 @@ import { Buildings } from "../components";
 import { Flats } from "../components";
 import { Sections } from "../components";
 
-const Interactive = ({ setHasApartment }) => {
+const Interactive = ({ setHasApartment, complex }) => {
 	const [currentStep, setCurrentStep] = useState(1);
 	const classNames = (num) => {
 		return cn("step", {
@@ -14,6 +14,7 @@ const Interactive = ({ setHasApartment }) => {
 			current: currentStep === num + 1,
 		});
 	};
+
 	return (
 		<div className="interactive">
 			<div className="steps">

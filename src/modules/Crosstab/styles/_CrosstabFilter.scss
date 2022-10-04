@@ -8,6 +8,8 @@
 	}
 
 	.filters {
+		z-index: 1;
+
 		height: max-content !important;
 
 		.active {
@@ -77,7 +79,6 @@
 
 	input[type="button"] {
 		cursor: pointer;
-		user-select: none;
 		user-select: none;
 		user-select: none;
 

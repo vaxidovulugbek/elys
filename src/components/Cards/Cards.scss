@@ -35,3 +35,9 @@
 	text-overflow: ellipsis;
 	text-transform: none;
 }
+
+.object__img {
+	img {
+		max-height: 205px;
+	}
+}

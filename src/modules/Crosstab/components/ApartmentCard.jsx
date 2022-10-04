@@ -13,7 +13,10 @@ import { ReactComponent as GiftBox } from "assets/images/gift.svg";
 
 import room from "assets/images/room.png";
 import { get } from "lodash";
-import { functions } from "services";
+import { constants, functions } from "services";
+
+const { STATUS_FREE, STATUS_INTEREST } = constants;
+const ON_SALE = [STATUS_FREE, STATUS_INTEREST];
 
 export const ApartmentCard = ({
 	setHasApartment,
@@ -52,12 +55,12 @@ export const ApartmentCard = ({
 				</div>
 			</div>
 			<div className="img-carousel">
-				<div className="print">
+				{/* <div className="print">
 					<Print />
 				</div>
 				<div className="share">
 					<Share />
-				</div>
+				</div> */}
 				<div className="img">
 					<Fancybox options={{ infinite: false }}>
 						<Swiper spaceBetween={50} modules={[Navigation]} navigation>
@@ -92,21 +95,26 @@ export const ApartmentCard = ({
 						</p>
 					</dt>
 					<dd>
-						{functions.convertToReadable(functions.meterPrice(hasApartment))} $/м
+						{functions.meterPrice(hasApartment)} $/м
 						<sup>2</sup>
 					</dd>
 				</dl>
 			</div>
-			<div className="discount">
-				<GiftBox />
-				<span>Cкидка {get(hasApartment, "discount", "")}%</span>
-				<span>действует до {"28.05.2020"}</span>
-			</div>
-			<div className="submit">
-				<button className="btn" onClick={() => setBoxType("form")}>
-					Оставить заявку
-				</button>
-			</div>
+			{get(hasApartment, "discount") && (
+				<div className="discount">
+					<GiftBox />
+					<span>Cкидка {get(hasApartment, "discount", "")}%</span>
+					<span>действует до {"28.05.2020"}</span>
+				</div>
+			)}
+			{ON_SALE.includes(get(hasApartment, "status")) && (
+				<div className="submit">
+					<button className="btn" onClick={() => setCurrentTab(5)}>
+						продать
+					</button>
+				</div>
+			)}
+
 			<ul>
 				<li>
 					<dt className="name">Площадь общая</dt>
@@ -184,20 +192,3 @@ export const ApartmentCard = ({
 		</div>
 	);
 };
-
-// const Fancybox = (props) => {
-// 	const delegate = props.delegate || "[data-fancybox]";
-
-// 	useEffect(() => {
-// 		const opts = props.options || {};
-
-// 		NativeFancybox.bind(delegate, opts);
-
-// 		return () => {
-// 			NativeFancybox.destroy();
-// 		};
-// 		// eslint-disable-next-line react-hooks/exhaustive-deps
-// 	}, []);
-
-// 	return <>{props.children}</>;
-// };

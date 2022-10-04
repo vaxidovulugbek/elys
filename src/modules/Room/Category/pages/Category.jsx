@@ -1,35 +1,31 @@
 import React from "react";
 
-import { get } from "lodash";
-
 import { useDelete, useFetchList, useFetchOneWithId, useOverlay } from "hooks";
-import { AddObject, Modals, PageHeading } from "components";
+import { CategoryCard } from "../components/CategoryCard";
+import { AddObject, Modals } from "components";
 import Containers from "containers";
+import CategoryForm from "../components/CategoryForm";
 import { notifications } from "services";
-import { RoomCard } from "../components/RoomCard";
-import { RoomForm } from "../components/RoomForm";
 
-const List = () => {
-	const roomModal = useOverlay("room");
-
-	const roomList = useFetchList({ url: "room" });
+const Category = () => {
+	const categoryModal = useOverlay("category");
+	const categoryList = useFetchList({ url: "category" });
 
 	const { data, setId } = useFetchOneWithId({
-		url: "room",
+		url: "category",
 		queryOptions: {
 			enabled: false,
 		},
-		refetchStatus: roomModal.isOpen,
+		refetchStatus: categoryModal.isOpen,
 	});
-
 	const deleteData = useDelete({
 		url: "room",
 		queryOptions: { onSuccess: () => roomDeleted() },
 	});
 
 	const roomDeleted = () => {
-		notifications.success("Room delete success");
-		roomList.refetch();
+		notifications.success("Category delete success");
+		categoryList.refetch();
 	};
 
 	const onDelete = (id) => {
@@ -37,41 +33,31 @@ const List = () => {
 			deleteData.mutate(id);
 		};
 		Modals.deletePermission({
-			title: "Delete a room?",
+			title: "Delete a category?",
 			icon: "error",
-			text: "All data concerning this room will be deleted.",
+			text: "All data concerning this category will be deleted.",
 			receivePermission,
 		});
 	};
 
 	const fetchFormData = (id) => {
 		setId(id);
-		roomModal.handleOverlayOpen();
+		categoryModal.handleOverlayOpen();
 	};
-
 	return (
 		<>
-			<PageHeading
-				title="My rooms"
-				links={[
-					{ url: "/", name: "Control Panel" },
-					{ url: "/", name: "Complex" },
-					{ url: "/room", name: "Room" },
-				]}
-			/>
 			<div className="row">
-				<Containers.List url="room">
+				<Containers.List url="category">
 					{({ data }) => {
 						return (
 							<>
 								{Array.isArray(data) &&
 									data.map((item, index) => (
-										<RoomCard
-											key={index}
+										<CategoryCard
 											item={item}
-											onClick={fetchFormData}
+											key={index}
 											onDelete={onDelete}
-											link={`/room/${get(item, "id")}/plan`}
+											onClick={fetchFormData}
 										/>
 									))}
 							</>
@@ -82,17 +68,17 @@ const List = () => {
 					<AddObject
 						onClick={() => {
 							setId(null);
-							roomModal.handleOverlayOpen();
+							categoryModal.handleOverlayOpen();
 						}}
 						src={require("assets/images/section-img1.png")}
-						innerText="ADD A ROOM"
+						innerText="ADD A CATEGORY"
 						className={"p-3"}
 					/>
 				</div>
 			</div>
-			<RoomForm {...{ roomList, data, roomModal }} />
+			<CategoryForm {...{ categoryList, categoryModal, data }} />
 		</>
 	);
 };
 
-export default List;
+export default Category;

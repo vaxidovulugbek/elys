@@ -53,7 +53,7 @@ export const FormContainer = ({
 FormContainer.propTypes = {
 	url: PropTypes.string,
 	method: PropTypes.oneOf(["post", "put"]),
-	children: PropTypes.node,
+	children: PropTypes.any,
 	isFormData: PropTypes.bool,
 	fields: PropTypes.arrayOf(
 		PropTypes.shape({

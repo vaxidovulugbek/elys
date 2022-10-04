@@ -77,6 +77,19 @@ export const Sidebar = ({ isOpen }) => {
 			</div>
 			<div className="sidebar__submenu">
 				<NavLink
+					to="/category"
+					className={({ isActive }) =>
+						isActive ? "sidebar__link sidebar__link-active" : "sidebar__link"
+					}
+				>
+					<div className="d-flex align-items-center">
+						<HomeSvg />
+						<span className="sidebar__link-text">Category</span>
+					</div>
+				</NavLink>
+			</div>
+			<div className="sidebar__submenu">
+				<NavLink
 					to="settings/"
 					onClick={handleSubMenu}
 					className={cn("sidebar__link", {

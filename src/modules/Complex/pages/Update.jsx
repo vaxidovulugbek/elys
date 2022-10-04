@@ -17,7 +17,7 @@ const Update = () => {
 
 	const { data } = useFetchOne({
 		url: `complex/${complexID}`,
-		urlSearchParams: { include: "region,district" },
+		urlSearchParams: { include: "region,district,files" },
 	});
 
 	const section = useFetchOneWithId({
@@ -38,22 +38,21 @@ const Update = () => {
 		modal.handleOverlayOpen();
 		section.setId(null);
 	};
-
+	console.log(get(data, "name.uz"));
 	return (
 		<>
 			<PageHeading
-				title="My objects"
+				title={`${get(data, "name.en", "")}`}
 				links={[
 					{ url: "/", name: "Control Panel" },
-					{ url: "/objects", name: "Object" },
-					{ url: "/objects/my-objects", name: "My objects" },
-					{ url: "", name: "Demo" },
+					{ url: "/", name: "My Complex" },
+					{ url: "", name: `${get(data, "name.en", "")}` },
 				]}
 				complexID={complexID}
 				hasButton={true}
 			/>
 			<Containers.Form
-				url={`/complex/${complexID}`}
+				url={`complex/${complexID}`}
 				method="put"
 				className="row"
 				onSuccess={() => navigate(-1)}
@@ -87,6 +86,21 @@ const Update = () => {
 							label: get(data, "district.name.uz"),
 						},
 						onSubmitValue: (e) => get(e, "value"),
+					},
+					{
+						name: "background_id",
+						validationType: "number",
+						value: get(data, "background_id", null),
+					},
+					{
+						name: "svg",
+						value: get(data, "svg"),
+					},
+					{
+						name: "file_ids",
+						validationType: "array",
+						value: data && get(data, "files", []).map((item) => item.id),
+						// validations: [{ type: "required" }],
 					},
 					{
 						name: "map",
@@ -141,6 +155,36 @@ const Update = () => {
 											placeholder="Object"
 										/>
 									</div>
+
+									<div className="col-12">
+										<FastField
+											name="background_id"
+											component={Fields.Upload}
+											label="Backround"
+											btnText="Upload"
+										/>
+									</div>
+									<div className="col-12">
+										<FastField
+											name="svg"
+											component={Fields.SvgUpload}
+											label="Svg"
+											btnText="Upload"
+										/>
+									</div>
+									<div className="col-12 card-box">
+										<FastField
+											name="file_ids"
+											component={Fields.MultiUpload}
+											files={get(data, "files")}
+											formData={data}
+											queryKey={[
+												"GET",
+												`complex/${complexID}`,
+												{ include: "region,district,files" },
+											]}
+										/>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -167,7 +211,7 @@ const Update = () => {
 											onValueChange={(option) =>
 												setFieldValue("district_id", null)
 											}
-											optionLabel="name.uz"
+											optionLabel="name"
 											label="Region"
 											placeholder="Moscow"
 										/>
@@ -187,7 +231,7 @@ const Update = () => {
 													region_id: get(values, "region_id.value", null),
 												},
 											}}
-											optionLabel="name.uz"
+											optionLabel="name"
 											label="District"
 											placeholder="Pushkin"
 										/>
