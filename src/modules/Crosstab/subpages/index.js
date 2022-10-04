@@ -1,6 +1,7 @@
-import Appartments from "./Appartments";
+import Apartments from "./Apartments";
 import Chess from "./Chess";
 import Interactive from "./Interactive";
 import Plan from "./Plan";
+import Payment from "./Payment";
 
-export { Appartments, Chess, Interactive, Plan };
+export { Apartments, Chess, Interactive, Plan, Payment };

@@ -91,8 +91,6 @@ const Create = () => {
 			>
 				{({ errors, values }) => (
 					<>
-						{console.log(errors)}
-						{console.log(values)}
 						<div className="col-lg-6">
 							<div className="card-box">
 								<h5 className="text-muted card-sub">
