@@ -50,6 +50,7 @@ const Payment = ({ hasApartment }) => {
 					)}
 				</Swiper>
 			</Fancybox>
+
 			<div className="choice">
 				<Containers.Form>
 					{(formik) => {
