@@ -1,0 +1,59 @@
+.row-gap {
+    display: grid;
+    row-gap: 15px;
+}
+
+.payment-type {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+    padding-bottom: 40px;
+
+    .left {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 10px;
+        height: max-content;
+    }
+
+    .right {
+        padding: 10px;
+        border-radius: 3px;
+    }
+
+    &__swiper {
+        margin: 0 !important;
+    }
+
+    &__choice {
+        @extend .row-gap;
+        padding: 10px;
+        height: max-content;
+
+    }
+
+    form {
+        @extend .row-gap;
+    }
+
+    &__table {
+        width: 100%;
+    }
+
+    .initial-fee {
+        text-align: left;
+    }
+
+    .btn {
+        &--next {
+            padding: 7px 15px;
+            font-size: 16px;
+
+            background-color: #1abc9c;
+            color: #fff;
+        }
+    }
+
+    @media (max-width: 991px) {
+        grid-template-columns: 1fr;
+    }
+}

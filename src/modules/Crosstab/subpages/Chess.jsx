@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { get, isArray } from "lodash";
 import cn from "classnames";
 
-const Chess = ({ setHasApartment, data, filterFunc }) => {
+const Chess = ({ setActiveApartment, data, filterFunc }) => {
 	const [floorsCount, setFloorsCount] = useState(0);
 	return (
 		<div className="chess-box">
@@ -53,7 +53,7 @@ const Chess = ({ setHasApartment, data, filterFunc }) => {
 																				"status"
 																			)}`}
 																			onClick={() =>
-																				setHasApartment(
+																				setActiveApartment(
 																					apartment
 																				)
 																			}
@@ -89,7 +89,7 @@ const Chess = ({ setHasApartment, data, filterFunc }) => {
 																>
 																	<span
 																		onClick={() =>
-																			setHasApartment(
+																			setActiveApartment(
 																				apartment
 																			)
 																		}

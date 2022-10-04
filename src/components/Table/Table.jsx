@@ -18,7 +18,6 @@ export const Table = ({
 	deleteAction,
 	editAction,
 	onRowClick,
-	emptyUi,
 	renderButtons,
 }) => {
 	const classNames = cn("table", className);

@@ -8,7 +8,7 @@ import { useFetchOne } from "hooks";
 import { constants } from "services";
 
 import { CrosstabHeader, CrosstabFilter, Tab } from "../components";
-import { Appartments, Chess, Interactive, Plan } from "../subpages";
+import { Appartments, Chess, ClientDetails, Interactive, Plan } from "../subpages";
 import { Apartment } from "../components";
 import { PaymentType } from "../subpages/PaymentType";
 
@@ -17,11 +17,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 const Crosstab = () => {
-	const [currentTab, setCurrentTab] = useState(1);
+	const [currentTab, setCurrentTab] = useState(5);
 	const [hasFilter, setHasFilter] = useState(window.innerWidth < 991 ? false : true);
-	const [hasApartment, setHasApartment] = useState(null);
+	const [activeApartment, setActiveApartment] = useState(null);
 	const { id } = useParams();
 	const [params, setParams] = useState({});
+	const [paymentDetails, setPaymentDetails] = useState();
 
 	const { STATUS_FREE, STATUS_INTEREST, STATUS_SOLD, STATUS_NOT_FOR_SALE, STATUS_CONSTRUCTION } =
 		constants;
@@ -105,8 +106,8 @@ const Crosstab = () => {
 								{...{
 									setHasFilter,
 									hasFilter,
-									setHasApartment,
-									hasApartment,
+									setActiveApartment,
+									activeApartment,
 									setParams,
 									params,
 									sections: get(data, "data", []),
@@ -159,8 +160,8 @@ const Crosstab = () => {
 									{currentTab === 1 && (
 										<Chess
 											{...{
-												hasApartment,
-												setHasApartment,
+												activeApartment,
+												setActiveApartment,
 												data: get(data, "data", []),
 												filterFunc,
 											}}
@@ -169,8 +170,8 @@ const Crosstab = () => {
 									{currentTab === 2 && (
 										<Plan
 											{...{
-												hasApartment,
-												setHasApartment,
+												activeApartment,
+												setActiveApartment,
 												filterFunc,
 											}}
 										/>
@@ -178,8 +179,8 @@ const Crosstab = () => {
 									{currentTab === 3 && (
 										<Interactive
 											{...{
-												hasApartment,
-												setHasApartment,
+												activeApartment,
+												setActiveApartment,
 												filterFunc,
 												complex,
 											}}
@@ -188,8 +189,8 @@ const Crosstab = () => {
 									{currentTab === 4 && (
 										<Appartments
 											{...{
-												hasApartment,
-												setHasApartment,
+												activeApartment,
+												setActiveApartment,
 												filterFunc,
 											}}
 										/>
@@ -198,13 +199,25 @@ const Crosstab = () => {
 										<PaymentType
 											{...{
 												setCurrentTab,
-												hasApartment,
+												activeApartment,
+												setPaymentDetails,
+											}}
+										/>
+									)}
+									{currentTab === 6 && (
+										<ClientDetails
+											{...{
+												setCurrentTab,
+												activeApartment,
+												paymentDetails,
 											}}
 										/>
 									)}
 								</div>
 							</div>
-							<Apartment {...{ hasApartment, setHasApartment, setCurrentTab }} />
+							<Apartment
+								{...{ activeApartment, setActiveApartment, setCurrentTab }}
+							/>
 						</>
 					);
 				}}

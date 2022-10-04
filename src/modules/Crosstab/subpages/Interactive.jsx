@@ -5,7 +5,7 @@ import { Buildings } from "../components";
 import { Flats } from "../components";
 import { Sections } from "../components";
 
-const Interactive = ({ setHasApartment, complex }) => {
+const Interactive = ({ setActiveApartment, complex }) => {
 	const [currentStep, setCurrentStep] = useState(1);
 	const classNames = (num) => {
 		return cn("step", {
@@ -31,7 +31,7 @@ const Interactive = ({ setHasApartment, complex }) => {
 			</div>
 			{currentStep === 1 && <Buildings {...{ setCurrentStep }} />}
 			{currentStep === 2 && <Sections {...{ setCurrentStep }} />}
-			{currentStep === 3 && <Flats {...{ setHasApartment }} />}
+			{currentStep === 3 && <Flats {...{ setActiveApartment }} />}
 		</div>
 	);
 };
