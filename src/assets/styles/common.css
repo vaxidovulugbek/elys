@@ -2041,6 +2041,7 @@ hr {
 
 .drop-down__options.drop-down__options_active {
 	pointer-events: initial;
+
 	transform: translateY(0);
 
 	visibility: visible;
