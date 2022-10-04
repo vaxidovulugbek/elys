@@ -1,13 +1,12 @@
 /* eslint-disable no-extend-native */
 import { Fields } from "components";
 import Containers from "containers";
-import { FastField } from "formik";
+import { FastField, Field } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 const ClientDetails = ({ paymentDetails }) => {
 	const { t } = useTranslation();
-	console.log(paymentDetails);
 	return (
 		<div className="client-details">
 			<Containers.Form
@@ -69,8 +68,8 @@ const ClientDetails = ({ paymentDetails }) => {
 								name="passport"
 								label={t("passport seria and number")}
 							/>
-							<FastField
-								component={Fields.Input}
+							<Field
+								component={Fields.DatePicker}
 								type="text"
 								name="birthdate"
 								label={t("birthdate")}
@@ -87,7 +86,9 @@ const ClientDetails = ({ paymentDetails }) => {
 								name="mail"
 								label={t("email")}
 							/>
-							<button type="submit">Submit</button>
+							<button type="submit" className="printToDoc">
+								Submit
+							</button>
 						</>
 					);
 				}}
