@@ -4,10 +4,12 @@
 @import "./common";
 
 .translate {
-    &__input {
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid var(--main-grey);
-        color: #000;
-    }
+	&__input {
+		padding: 10px;
+
+		color: #000;
+
+		border: 1px solid var(--main-grey);
+		border-radius: 5px;
+	}
 }

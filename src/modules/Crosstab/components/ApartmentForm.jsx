@@ -8,14 +8,14 @@ import { Input } from "components/Fields/Input/Input";
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
 import { get } from "lodash";
 
-export const ApartmentForm = ({ boxType, setBoxType, hasApartment }) => {
+export const ApartmentForm = ({ boxType, setBoxType, activeApartment }) => {
 	return (
 		<div className={cn("apartment-form", { active: boxType === "form" })}>
-			<button className={cn("close hasApartment")} onClick={() => setBoxType("card")}>
+			<button className={cn("close activeApartment")} onClick={() => setBoxType("card")}>
 				<Xbtn />
 			</button>
 			<h3>Заявка</h3>
-			<p className="subtitle">Квартира №{get(hasApartment, "sort")}</p>
+			<p className="subtitle">Квартира №{get(activeApartment, "sort")}</p>
 			<FormContainer
 				fields={[
 					{

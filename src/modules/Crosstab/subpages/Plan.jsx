@@ -6,7 +6,7 @@ import Containers from "containers";
 import { isArray } from "lodash";
 import { functions } from "services";
 
-const Plan = ({ setHasApartment, filterFunc }) => {
+const Plan = ({ setActiveApartment, filterFunc }) => {
 	const [cardIndex, setCardIndex] = useState(-1);
 	const { id } = useParams();
 	const lng = "ru";
@@ -43,7 +43,7 @@ const Plan = ({ setHasApartment, filterFunc }) => {
 										<div
 											className="card"
 											onClick={() =>
-												setHasApartment(
+												setActiveApartment(
 													filterFunc(
 														get(data, `[${planIndex}].apartments[0]`)
 													) && get(data, `[${planIndex}].apartments[0]`)
@@ -116,7 +116,9 @@ const Plan = ({ setHasApartment, filterFunc }) => {
 																	key={index}
 																	onClick={(e) => {
 																		e.stopPropagation();
-																		setHasApartment(apartment);
+																		setActiveApartment(
+																			apartment
+																		);
 																	}}
 																>
 																	<div className="position">

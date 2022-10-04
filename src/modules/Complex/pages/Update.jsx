@@ -53,6 +53,7 @@ const Update = () => {
 			<Containers.Form
 				url={`complex/${complexID}`}
 				method="put"
+				isFormData
 				className="row"
 				onSuccess={() => navigate(-1)}
 				fields={[

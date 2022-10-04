@@ -5,7 +5,7 @@ import cn from "classnames";
 import Containers from "containers";
 import { constants, functions } from "services";
 
-const Apartments = ({ filterFunc, setHasApartment, hasApartment }) => {
+const Appartments = ({ filterFunc, setActiveApartment, activeApartment }) => {
 	const {
 		STATUS_CONSTRUCTION,
 		STATUS_CONSTRUCTION_TEXT,
@@ -142,11 +142,11 @@ const Apartments = ({ filterFunc, setHasApartment, hasApartment }) => {
 												filterFunc(item) && (
 													<tr
 														key={index}
-														onClick={() => setHasApartment(item)}
+														onClick={() => setActiveApartment(item)}
 														className={cn({
 															active_row:
 																get(item, "id") ===
-																get(hasApartment, "id"),
+																get(activeApartment, "id"),
 														})}
 													>
 														<td>{get(item, "id")}</td>
@@ -190,4 +190,4 @@ const Apartments = ({ filterFunc, setHasApartment, hasApartment }) => {
 	);
 };
 
-export default Apartments;
+export default Appartments;

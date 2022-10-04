@@ -8,7 +8,7 @@ import { useFetchOne } from "hooks";
 import { constants } from "services";
 
 import { CrosstabHeader, CrosstabFilter, Tab } from "../components";
-import { Apartments, Chess, Interactive, Plan, Payment } from "../subpages";
+import { Appartments, Chess, ClientDetails, Interactive, Payment, Plan } from "../subpages";
 import { Apartment } from "../components";
 
 import "@fancyapps/ui/dist/fancybox.css";
@@ -16,11 +16,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 const Crosstab = () => {
-	const [currentTab, setCurrentTab] = useState(1);
-	const [hasFilter, setHasFilter] = useState(window.innerWidth < 991);
-	const [hasApartment, setHasApartment] = useState(null);
+	const [currentTab, setCurrentTab] = useState(5);
+	const [hasFilter, setHasFilter] = useState(window.innerWidth < 991 ? false : true);
+	const [activeApartment, setActiveApartment] = useState(null);
 	const { id } = useParams();
 	const [params, setParams] = useState({});
+	const [paymentDetails, setPaymentDetails] = useState();
 
 	const { STATUS_FREE, STATUS_INTEREST, STATUS_SOLD, STATUS_NOT_FOR_SALE, STATUS_CONSTRUCTION } =
 		constants;
@@ -78,7 +79,7 @@ const Crosstab = () => {
 				dataKey={(data) => data}
 				urlSearchParams={{
 					include:
-						"floors,floors.apartments,floors.apartments.plan.room, floors.apartments.complex, complex, floors.apartments.section, floors.apartments.plan, floors.apartments.plan.room",
+						"floors,floors.apartments,floors.apartments.plan.room, floors.apartments.complex, complex, floors.apartments.section, floors.apartments.plan, floors.apartments.plan.room,floors.apartments.files",
 					filter: {
 						complex_id: id,
 					},
@@ -104,8 +105,8 @@ const Crosstab = () => {
 								{...{
 									setHasFilter,
 									hasFilter,
-									setHasApartment,
-									hasApartment,
+									setActiveApartment,
+									activeApartment,
 									setParams,
 									params,
 									sections: get(data, "data", []),
@@ -158,8 +159,8 @@ const Crosstab = () => {
 									{currentTab === 1 && (
 										<Chess
 											{...{
-												hasApartment,
-												setHasApartment,
+												activeApartment,
+												setActiveApartment,
 												data: get(data, "data", []),
 												filterFunc,
 											}}
@@ -168,8 +169,8 @@ const Crosstab = () => {
 									{currentTab === 2 && (
 										<Plan
 											{...{
-												hasApartment,
-												setHasApartment,
+												activeApartment,
+												setActiveApartment,
 												filterFunc,
 											}}
 										/>
@@ -177,18 +178,18 @@ const Crosstab = () => {
 									{currentTab === 3 && (
 										<Interactive
 											{...{
-												hasApartment,
-												setHasApartment,
+												activeApartment,
+												setActiveApartment,
 												filterFunc,
 												complex,
 											}}
 										/>
 									)}
 									{currentTab === 4 && (
-										<Apartments
+										<Appartments
 											{...{
-												hasApartment,
-												setHasApartment,
+												activeApartment,
+												setActiveApartment,
 												filterFunc,
 											}}
 										/>
@@ -197,13 +198,25 @@ const Crosstab = () => {
 										<Payment
 											{...{
 												setCurrentTab,
-												hasApartment,
+												activeApartment,
+												setPaymentDetails,
+											}}
+										/>
+									)}
+									{currentTab === 6 && (
+										<ClientDetails
+											{...{
+												setCurrentTab,
+												activeApartment,
+												paymentDetails,
 											}}
 										/>
 									)}
 								</div>
 							</div>
-							<Apartment {...{ hasApartment, setHasApartment, setCurrentTab }} />
+							<Apartment
+								{...{ activeApartment, setActiveApartment, setCurrentTab }}
+							/>
 						</>
 					);
 				}}

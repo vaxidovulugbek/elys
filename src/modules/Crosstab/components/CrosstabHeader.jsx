@@ -13,8 +13,8 @@ import { ReactComponent as Back } from "assets/images/back.svg";
 import { findIndex, get } from "lodash";
 
 export const CrosstabHeader = ({
-	hasApartment,
-	setHasApartment,
+	activeApartment,
+	setActiveApartment,
 	setHasFilter,
 	hasFilter,
 	setParams,
@@ -97,15 +97,15 @@ export const CrosstabHeader = ({
 				</Containers.Form>
 			</div>
 			<div className="right">
-				<Link to="/" className={cn("close", { invisible: hasApartment || hasFilter })}>
+				<Link to="/" className={cn("close", { invisiable: activeApartment || hasFilter })}>
 					<Xbtn />
 					<p className="text">Закрыть</p>
 				</Link>
 				<button
-					className={cn("back", { hide: !hasApartment && !hasFilter })}
+					className={cn("back", { hide: !activeApartment && !hasFilter })}
 					onClick={() => {
 						setHasFilter(false);
-						setHasApartment(false);
+						setActiveApartment(false);
 					}}
 				>
 					<Back />

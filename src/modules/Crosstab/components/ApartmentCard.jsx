@@ -19,9 +19,9 @@ const { STATUS_FREE, STATUS_INTEREST } = constants;
 const ON_SALE = [STATUS_FREE, STATUS_INTEREST];
 
 export const ApartmentCard = ({
-	setHasApartment,
+	setActiveApartment,
 	setCurrentTab,
-	hasApartment,
+	activeApartment,
 	boxType,
 	setBoxType,
 }) => {
@@ -29,8 +29,8 @@ export const ApartmentCard = ({
 	return (
 		<div className={cn("apartment-card", { active: boxType === "card" })}>
 			<button
-				className={cn("close", { hasApartment })}
-				onClick={() => setHasApartment(false)}
+				className={cn("close", { activeApartment })}
+				onClick={() => setActiveApartment(false)}
 			>
 				<Xbtn />
 			</button>
@@ -47,11 +47,11 @@ export const ApartmentCard = ({
 			<div className="apartment-number">
 				<div className="left">
 					<strong>
-						Квартира № <span>{get(hasApartment, "sort")}</span>
+						Квартира № <span>{get(activeApartment, "sort")}</span>
 					</strong>
 				</div>
 				<div className="right">
-					<strong>ID {get(hasApartment, "id")}</strong>
+					<strong>ID {get(activeApartment, "id")}</strong>
 				</div>
 			</div>
 			<div className="img-carousel">
@@ -91,23 +91,23 @@ export const ApartmentCard = ({
 					<dt>
 						<p className="name">Стоимость</p>
 						<p className="value">
-							{functions.convertToReadable(get(hasApartment, "price"))} $
+							{functions.convertToReadable(get(activeApartment, "price"))} $
 						</p>
 					</dt>
 					<dd>
-						{functions.meterPrice(hasApartment)} $/м
+						{functions.meterPrice(activeApartment)} $/м
 						<sup>2</sup>
 					</dd>
 				</dl>
 			</div>
-			{get(hasApartment, "discount") && (
+			{get(activeApartment, "discount") && (
 				<div className="discount">
 					<GiftBox />
-					<span>Cкидка {get(hasApartment, "discount", "")}%</span>
+					<span>Cкидка {get(activeApartment, "discount", "")}%</span>
 					<span>действует до {"28.05.2020"}</span>
 				</div>
 			)}
-			{ON_SALE.includes(get(hasApartment, "status")) && (
+			{ON_SALE.includes(get(activeApartment, "status")) && (
 				<div className="submit">
 					<button className="btn" onClick={() => setCurrentTab(5)}>
 						продать
@@ -119,7 +119,7 @@ export const ApartmentCard = ({
 				<li>
 					<dt className="name">Площадь общая</dt>
 					<dd className="value">
-						{get(hasApartment, "plan.area")} м<sup>2</sup>
+						{get(activeApartment, "plan.area")} м<sup>2</sup>
 					</dd>
 				</li>
 				<li>
@@ -136,11 +136,11 @@ export const ApartmentCard = ({
 				</li>
 				<li>
 					<dt className="name">Кол-во комнат</dt>
-					<dd className="value">{get(hasApartment, "plan.room.count")}</dd>
+					<dd className="value">{get(activeApartment, "plan.room.count")}</dd>
 				</li>
 				<li>
 					<dt className="name">Тип планировки</dt>
-					<dd className="value">{get(hasApartment, `name.${langCode}`)}</dd>
+					<dd className="value">{get(activeApartment, `name.${langCode}`)}</dd>
 				</li>
 				<li>
 					<dt className="name">Кол-во балконов</dt>
@@ -153,7 +153,7 @@ export const ApartmentCard = ({
 				<li>
 					<div>
 						<dt className="name">Этаж</dt>
-						<dd className="value">{get(hasApartment, "floor.sort")}</dd>
+						<dd className="value">{get(activeApartment, "floor.sort")}</dd>
 					</div>
 					<button className="plan" onClick={() => setCurrentTab(3)}>
 						<Click />
@@ -162,11 +162,11 @@ export const ApartmentCard = ({
 				</li>
 				<li>
 					<dt className="name">Секция</dt>
-					<dd className="value">{get(hasApartment, "section.sort")}</dd>
+					<dd className="value">{get(activeApartment, "section.sort")}</dd>
 				</li>
 				<li>
 					<dt className="name">Дом</dt>
-					<dd className="value">{get(hasApartment, "complex.sort")}</dd>
+					<dd className="value">{get(activeApartment, "complex.sort")}</dd>
 				</li>
 				<li>
 					<dt className="name">Объект</dt>
