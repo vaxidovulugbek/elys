@@ -19,7 +19,7 @@ const List = () => {
 			/>
 			<SearchForm onClick={() => navigate("/complex/create")} />
 			<div className="row">
-				<Containers.List url="user/complex">
+				<Containers.List url="user/complex" urlSearchParams={{ include: "files" }}>
 					{({ data }) => {
 						return (
 							<>

@@ -49,7 +49,7 @@ export const FloorCard = ({ item, onClick, onDelete = () => {}, link }) => {
 
 				<div className="object__content">
 					<h3 href="#" className="object__title">
-						{get(item, "name")}
+						{get(item, "name.uz")}
 					</h3>
 				</div>
 			</div>

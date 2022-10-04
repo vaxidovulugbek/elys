@@ -32,6 +32,7 @@ const Create = () => {
 			<Containers.Form
 				url="complex"
 				method="post"
+				isFormData
 				className="row"
 				onSuccess={onSuccess}
 				onError={() => notifications.error("Something went wrong")}
@@ -49,6 +50,18 @@ const Create = () => {
 					{
 						name: "background_id",
 						validationType: "number",
+					},
+					{
+						name: "status",
+						validationType: "number",
+						value: 10,
+					},
+					{
+						name: "svg",
+					},
+					{
+						name: "file_ids",
+						validationType: "array",
 					},
 					{
 						name: "category_id",
@@ -122,6 +135,18 @@ const Create = () => {
 											placeholder="Select File"
 											btnText="Upload"
 										/>
+									</div>
+									<div className="col-12">
+										<FastField
+											name="svg"
+											component={Fields.SvgUpload}
+											label={"Svg"}
+											placeholder="Select File"
+											btnText="Upload"
+										/>
+									</div>
+									<div className="col-12">
+										<FastField name="file_ids" component={Fields.MultiUpload} />
 									</div>
 								</div>
 							</div>

@@ -9,6 +9,8 @@ import { notifications } from "services";
 import { RoundCircle } from "./RoundCircle";
 import { Modals } from "components";
 
+import "./Cards.scss";
+
 export const ObjectCard = ({ data }) => {
 	const complex = useFetchList({ url: "user/complex", queryOptions: { enabled: false } });
 	const navigate = useNavigate();
@@ -47,7 +49,13 @@ export const ObjectCard = ({ data }) => {
 	return (
 		<div onClick={() => navigate(`complex/update/${get(data, "id")}`)} className="object__card">
 			<div className="object__img">
-				<img src={require("assets/images/object-image.jpg")} alt="object" />
+				<img
+					src={
+						get(data, "files[0].thumbnails.full") ||
+						require("assets/images/object-image.jpg")
+					}
+					alt="object"
+				/>
 				<RoundCircle title="462" subtitle="accommodation" />
 				<div className="d-flex align-items-center object__btns">
 					<Link to="/crosstab" className="object__action bg_purple">
