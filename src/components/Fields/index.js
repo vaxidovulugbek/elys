@@ -10,6 +10,7 @@ import { TreeCheckbox } from "./TreeCheckbox/TreeCheckbox";
 import AsyncSelect from "./AsyncSelect/AsyncSelect";
 import { SvgUpload } from "./Upload/SvgUpload";
 import { PhoneInput } from "./PhoneInput/PhoneInput";
+import { ReactQuillComponent } from "./ReactQuill/ReactQuillComponent";
 
 export default {
 	Input,
@@ -23,4 +24,5 @@ export default {
 	TreeCheckbox,
 	AsyncSelect,
 	PhoneInput,
+	ReactQuillComponent,
 };
