@@ -9,6 +9,7 @@ import { MultiUpload } from "./Upload/MultiUpload";
 import { TreeCheckbox } from "./TreeCheckbox/TreeCheckbox";
 import AsyncSelect from "./AsyncSelect/AsyncSelect";
 import { SvgUpload } from "./Upload/SvgUpload";
+import { PhoneInput } from "./PhoneInput/PhoneInput";
 
 export default {
 	Input,
@@ -21,4 +22,5 @@ export default {
 	MultiUpload,
 	TreeCheckbox,
 	AsyncSelect,
+	PhoneInput,
 };

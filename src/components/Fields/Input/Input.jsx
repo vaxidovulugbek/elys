@@ -17,6 +17,7 @@ export const Input = ({
 	inputProps = {},
 	field,
 	form,
+	onInput,
 }) => {
 	const outerClasses = cn("form-wrapper", outerClass, size, {
 		form_disabled: isDisabled,
@@ -29,6 +30,7 @@ export const Input = ({
 			<label className="form-control cursor_text">
 				<input
 					type={type}
+					onInput={onInput}
 					disabled={isDisabled}
 					placeholder={placeholder}
 					className="form-control__input"

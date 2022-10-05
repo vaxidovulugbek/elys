@@ -5,8 +5,24 @@ import { FastField, Field } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-const ClientDetails = ({ paymentDetails }) => {
+import { time } from "services";
+
+const PassportInformation = ({ paymentDetails }) => {
 	const { t } = useTranslation();
+	const fixPassportInput = (e) => {
+		const letters = /[A-Z]/;
+		const numbers = /[0-9]/;
+		const charArray = e.target.value.toUpperCase().split("");
+		const correctCharArray = charArray.filter((char, i) => {
+			if (i < 2) {
+				return char.match(letters);
+			} else if (i >= 2) {
+				console.log(char);
+				return char.match(numbers);
+			} else return false;
+		});
+		e.target.value = correctCharArray.join("");
+	};
 	return (
 		<div className="client-details">
 			<Containers.Form
@@ -33,11 +49,12 @@ const ClientDetails = ({ paymentDetails }) => {
 					},
 					{
 						name: "birthdate",
-						value: "",
+						value: Date.now(),
 					},
 					{
 						name: "mail",
 						value: "",
+						validations: [{ type: "email" }],
 					},
 				]}
 			>
@@ -67,15 +84,17 @@ const ClientDetails = ({ paymentDetails }) => {
 								type="text"
 								name="passport"
 								label={t("passport seria and number")}
+								onInput={fixPassportInput}
+								placeholder="AB1234567"
 							/>
 							<Field
 								component={Fields.DatePicker}
-								type="text"
+								// type="text"
 								name="birthdate"
 								label={t("birthdate")}
 							/>
 							<FastField
-								component={Fields.Input}
+								component={Fields.PhoneInput}
 								type="text"
 								name="phone"
 								label={t("phone")}
@@ -85,6 +104,7 @@ const ClientDetails = ({ paymentDetails }) => {
 								type="text"
 								name="mail"
 								label={t("email")}
+								placeholder="example@gmail.com"
 							/>
 							<button type="submit" className="printToDoc">
 								Submit
@@ -97,4 +117,4 @@ const ClientDetails = ({ paymentDetails }) => {
 	);
 };
 
-export default ClientDetails;
+export default PassportInformation;
