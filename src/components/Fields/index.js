@@ -8,6 +8,7 @@ import { MultiUpload } from "./Upload/MultiUpload";
 import { TreeCheckbox } from "./TreeCheckbox/TreeCheckbox";
 import AsyncSelect from "./AsyncSelect/AsyncSelect";
 import { SvgUpload } from "./Upload/SvgUpload";
+import { ReactQuillComponent } from "./ReactQuill/ReactQuillComponent";
 
 export default {
 	Input,
@@ -19,4 +20,5 @@ export default {
 	MultiUpload,
 	TreeCheckbox,
 	AsyncSelect,
+	ReactQuillComponent,
 };

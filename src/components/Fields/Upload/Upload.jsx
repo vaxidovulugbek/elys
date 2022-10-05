@@ -19,6 +19,7 @@ export const Upload = ({
 	form,
 	className,
 	imgClick = null,
+	accept = "image/*",
 }) => {
 	const classNames = cn("form-wrapper form_disabled", className);
 	const imgBlock = cn("form-wrapper", { max__content: hasDelete });
@@ -78,7 +79,7 @@ export const Upload = ({
 							type="file"
 							hidden={true}
 							onChange={handleFileUpload}
-							accept="image/*"
+							accept={accept}
 						/>
 						{loading ? "Loading..." : btnText}
 					</label>

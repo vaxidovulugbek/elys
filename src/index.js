@@ -14,6 +14,7 @@ import "assets/styles/reset.scss";
 import "assets/styles/common.css";
 import "assets/styles/index.scss";
 import "react-toastify/dist/ReactToastify.css";
+import "react-quill/dist/quill.snow.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const queryClient = new QueryClient({
