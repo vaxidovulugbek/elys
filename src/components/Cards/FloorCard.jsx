@@ -25,7 +25,7 @@ export const FloorCard = ({ item, onClick, onDelete = () => {}, link }) => {
 							className="object__action bg_green"
 							onClick={(e) => {
 								onClick && e.stopPropagation();
-								onClick && onClick(get(item, "id"));
+								onClick && onClick();
 							}}
 						>
 							<svg width="24" height="24" viewBox="0 0 24 24">

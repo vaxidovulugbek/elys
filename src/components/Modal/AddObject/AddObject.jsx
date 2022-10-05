@@ -16,6 +16,7 @@ export const AddObject = ({
 	method = "post",
 	modal,
 	submitText = "Add",
+	isFormData,
 	...props
 }) => {
 	return (
@@ -24,6 +25,7 @@ export const AddObject = ({
 				url={url}
 				method={method}
 				fields={formFields}
+				isFormData={isFormData}
 				className="row g-3"
 				onSuccess={() => {
 					onSuccess();

@@ -63,7 +63,7 @@ export const SvgUpload = ({
 							type="file"
 							hidden={true}
 							onChange={handleFileUpload}
-							accept="image/*"
+							accept="image/svg+xml"
 						/>
 						{loading ? "Loading..." : btnText}
 					</label>

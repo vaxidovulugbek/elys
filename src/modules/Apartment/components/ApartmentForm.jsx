@@ -115,7 +115,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 					notifications.error("Something went wrong!");
 				}}
 			>
-				{(formik) => (
+				{({ errors }) => (
 					<>
 						<div className="card-box col-6">
 							<h5 className="text-muted card-sub">

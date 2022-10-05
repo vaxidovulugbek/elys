@@ -1,15 +1,38 @@
 import React, { useState } from "react";
 
-import { Fields, PageHeading } from "components";
-import Containers from "containers";
 import { FastField } from "formik";
+import cn from "classnames";
+
+import Containers from "containers";
+import { Button, Fields, PageHeading } from "components";
+
+import "./../styles/Document.scss";
+import { useNavigate } from "react-router-dom";
 
 const Document = () => {
-	const [contentLng, setContentLng] = useState("content.en");
+	const navigate = useNavigate();
+	const [contentLng, setContentLng] = useState("en");
 
 	const contentHandleChange = (lng) => {
 		setContentLng(lng);
 	};
+
+	console.log(contentLng, "lng");
+
+	const tabData = [
+		{
+			navLabel: "en",
+			navValue: "content.en",
+		},
+		{
+			navLabel: "ru",
+			navValue: "content.ru",
+		},
+		{
+			navLabel: "uz",
+			navValue: "content.uz",
+		},
+	];
 	return (
 		<>
 			<PageHeading
@@ -24,6 +47,7 @@ const Document = () => {
 			<Containers.Form
 				url="document"
 				method="post"
+				key={"document"}
 				className="row"
 				fields={[
 					{
@@ -44,7 +68,7 @@ const Document = () => {
 			>
 				{({ values }) => (
 					<>
-						{console.log(values)}
+						{console.log(values.content)}
 						<div className="col-lg-12">
 							<div className="card-box">
 								<h5 className="text-muted card-sub">
@@ -78,23 +102,6 @@ const Document = () => {
 											placeholder="Name"
 										/>
 									</div>
-									<div className="document__tab">
-										<span onClick={() => contentHandleChange("content.en")}>
-											en
-										</span>
-										<span onClick={() => contentHandleChange("content.ru")}>
-											ru
-										</span>
-										<span onClick={() => contentHandleChange("content.uz")}>
-											uz
-										</span>
-									</div>
-									<div className="col-12">
-										<FastField
-											name={contentLng}
-											component={Fields.ReactQuillComponent}
-										/>
-									</div>
 									<div className="col-12">
 										<FastField
 											name="file_id"
@@ -107,7 +114,38 @@ const Document = () => {
 											}
 										/>
 									</div>
+									<div className="document__tab">
+										{tabData.map((item, index) => (
+											<span
+												key={index}
+												onClick={() => contentHandleChange(item.navLabel)}
+												className={cn("document__tab-nav", {
+													active: item.navLabel === contentLng,
+												})}
+											>
+												{item.navLabel}
+											</span>
+										))}
+									</div>
+									<div className="col-12">
+										<FastField
+											name={`content.${contentLng}`}
+											component={Fields.ReactQuillComponent}
+										/>
+									</div>
 								</div>
+							</div>
+						</div>
+						<div className="bottom-buttons">
+							<hr />
+							<div className="d-flex align-items-center justify-content-center">
+								<Button
+									className="btn btn_outlined"
+									type="reset"
+									innerText="Cancel"
+									onClick={() => navigate("/", { replace: true })}
+								/>
+								<Button className="btn btn_green" type="submit" innerText="Add" />
 							</div>
 						</div>
 					</>
