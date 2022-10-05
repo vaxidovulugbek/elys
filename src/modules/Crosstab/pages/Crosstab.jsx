@@ -8,7 +8,7 @@ import { useFetchOne } from "hooks";
 import { constants } from "services";
 
 import { CrosstabHeader, CrosstabFilter, Tab } from "../components";
-import { Appartments, Chess, ClientDetails, Interactive, Payment, Plan } from "../subpages";
+import { Appartments, Chess, PassportInformation, Interactive, Payment, Plan } from "../subpages";
 import { Apartment } from "../components";
 
 import "@fancyapps/ui/dist/fancybox.css";
@@ -79,7 +79,7 @@ const Crosstab = () => {
 				dataKey={(data) => data}
 				urlSearchParams={{
 					include:
-						"floors,floors.apartments,floors.apartments.plan.room, floors.apartments.complex, complex, floors.apartments.section, floors.apartments.plan, floors.apartments.plan.room,floors.apartments.files",
+						"background,floors, floors.background,floors.apartments,floors.apartments.plan.room, floors.apartments.complex, complex, floors.apartments.section, floors.apartments.plan, floors.apartments.plan.room,floors.apartments.files",
 					filter: {
 						complex_id: id,
 					},
@@ -204,7 +204,7 @@ const Crosstab = () => {
 										/>
 									)}
 									{currentTab === 6 && (
-										<ClientDetails
+										<PassportInformation
 											{...{
 												setCurrentTab,
 												activeApartment,
