@@ -17,6 +17,10 @@ const settingSubLinks = [
 		name: "Translations",
 	},
 	{
+		url: "/document",
+		name: "Document",
+	},
+	{
 		url: "/statuses-replacement",
 		name: "Substitution of statuses",
 	},
