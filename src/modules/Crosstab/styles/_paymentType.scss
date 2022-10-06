@@ -4,9 +4,6 @@
 }
 
 .payment-type {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
-
 	padding-bottom: 40px;
 
 	.left {
@@ -38,13 +35,14 @@
 	}
 
 	&__choice {
-		display: flex;
+		display: grid;
 		height: max-content;
 		padding: 10px;
 	}
 
 	form {
-		display: flex;
+		display: grid;
+		grid-template-columns: 1fr 1fr 200px 200px;
 	}
 
 	&__table {

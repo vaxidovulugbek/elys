@@ -29,16 +29,16 @@ export const Payment = ({ activeApartment, setCurrentTab, setPaymentDetails }) =
 	const [apartment, setApartment] = useState({});
 	const [type, setType] = useState(1);
 	const [month, setMonth] = useState(12);
+	const [items, setItems] = useState([]);
 
 	const price = get(apartment, "price", 0);
 
-	const items = Array(month || 1)
-		.fill(1)
-		.map((_, index) => ({ month: index + 1, fee: (price / month).toFixed(2) }));
-
-	const images = Array.isArray(get(apartment, "files"))
-		? apartment.files.reduce((prev, curr) => [...prev, get(curr, "thumbnails.small")], [])
-		: [];
+	const calculate = () => {
+		const newItems = Array(month || 1)
+			.fill(1)
+			.map((_, index) => ({ month: index + 1, fee: (price / month).toFixed(2) }));
+		setItems(newItems);
+	};
 
 	useEffect(() => {
 		if (activeApartment) setApartment(activeApartment);
@@ -80,19 +80,21 @@ export const Payment = ({ activeApartment, setCurrentTab, setPaymentDetails }) =
 											}
 										/>
 									)}
+									<p className="initial-fee">
+										{t("initial fee")}:{" "}
+										{functions.convertToReadable(
+											type === 1 ? initialFee : price
+										)}
+									</p>
+									<div className="submit">
+										<button className="btn btn--next" onClick={calculate}>
+											{t("calculate")}
+										</button>
+									</div>
 								</>
 							);
 						}}
 					</Containers.Form>
-					<p className="initial-fee">
-						{t("initial fee")}:{" "}
-						{functions.convertToReadable(type === 1 ? initialFee : price)}
-					</p>
-					<div className="submit">
-						<button className="btn btn--next" onClick={setNext}>
-							Next
-						</button>
-					</div>
 				</div>
 			</div>
 			<div className="right">
@@ -122,6 +124,10 @@ export const Payment = ({ activeApartment, setCurrentTab, setPaymentDetails }) =
 export default Payment;
 
 // appartment images
+
+// const images = Array.isArray(get(apartment, "files"))
+// 	? apartment.files.reduce((prev, curr) => [...prev, get(curr, "thumbnails.small")], [])
+// 	: [];
 
 // <div className="payment-type__slider">
 // 	<Fancybox options={{ infinite: false }}>

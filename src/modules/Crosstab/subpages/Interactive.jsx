@@ -3,11 +3,14 @@ import cn from "classnames";
 
 import { Buildings } from "../components";
 import { Flats } from "../components";
-import { Sections } from "../components";
+import { useParams } from "react-router-dom";
+
+const stepUrls = ["complex", "section", "floor"];
 
 const Interactive = ({ setActiveApartment, complex }) => {
+	const { id } = useParams();
 	const [currentStep, setCurrentStep] = useState(1);
-	const [activePathID, setActivePathID] = useState(0);
+	const [activePathID, setActivePathID] = useState([id]);
 	const classNames = (num) => {
 		return cn("step", {
 			"has-angle": currentStep > num,
@@ -30,9 +33,24 @@ const Interactive = ({ setActiveApartment, complex }) => {
 				</div>
 				{/* <div className="step currentStep"></div> */}
 			</div>
-			{currentStep === 1 && <Buildings {...{ setCurrentStep, setActivePathID }} />}
-			{currentStep === 2 && <Sections {...{ setCurrentStep, setActivePathID }} />}
-			{currentStep === 3 && <Flats {...{ setActiveApartment, activePathID }} />}
+			{/* {currentStep === 1 && ( */}
+			<Buildings
+				{...{
+					setCurrentStep,
+					setActivePathID,
+					activePathID,
+					stepUrls,
+					setActiveApartment,
+					step: currentStep,
+				}}
+			/>
+			{/* )} */}
+			{/* {currentStep === 2 && (
+				<Buildings {...{ setCurrentStep, setActivePathID, url: "section/", step: 2 }} />
+			)} */}
+			{/* {currentStep === 3 && (
+				<Flats {...{ setActiveApartment, activePathID, url: "floor/", step: 3 }} />
+			)} */}
 		</div>
 	);
 };
