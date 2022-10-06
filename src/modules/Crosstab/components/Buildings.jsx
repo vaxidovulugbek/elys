@@ -13,24 +13,28 @@ export const Buildings = ({ setCurrentStep, setActivePathID }) => {
 	const complex = useFetchOne({
 		url: `complex/${id}`,
 		urlSearchParams: {
-			include: "files,place,category,district,region,background",
+			include: "files,place,category,district,region,background, svg",
 		},
 	});
-	const stringSvg = get(complex, "data.background");
-
-	useEffect(() => {
-		if (svgWrap.current) {
-			svgWrap.current.innerHTML = stringSvg;
-			const paths = svgWrap.current.querySelectorAll("path");
-			paths?.forEach((path) => {
-				path?.addEventListener("click", (e) => {
-					if (path.getAttribute("data-section-id")) {
-						setActivePathID(path.getAttribute("data-section-id"));
-						setCurrentStep(2);
-					}
-				});
-			});
-		}
-	}, [complex, svgWrap, stringSvg]);
+	const background = get(complex, "data.background.thumbnails.full");
+	const svgUrl = get(complex, "data.svg.thumbnails.full");
+	const svgFile = useFetchOne({
+		url: svgUrl,
+	});
+	console.log(svgFile.data);
+	// useEffect(() => {
+	// 	if (svgWrap.current) {
+	// 		svgWrap.current.innerHTML = stringSvg;
+	// 		const paths = svgWrap.current.querySelectorAll("path");
+	// 		paths?.forEach((path) => {
+	// 			path?.addEventListener("click", (e) => {
+	// 				if (path.getAttribute("data-section-id")) {
+	// 					setActivePathID(path.getAttribute("data-section-id"));
+	// 					setCurrentStep(2);
+	// 				}
+	// 			});
+	// 		});
+	// 	}
+	// }, [complex, svgWrap, stringSvg]);
 	return <div className="buildings" ref={svgWrap}></div>;
 };
