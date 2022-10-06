@@ -15,8 +15,22 @@
 		text-align: left;
 	}
 
+	.react-tel-input {
+		width: 100%;
+	}
+
 	.form-control {
 		height: 40px;
+		width: 100%;
+	}
+
+	.form-label {
+		text-align: left;
+		text-transform: capitalize;
+	}
+
+	.form-wrapper {
+		max-height: 67px;
 	}
 
 	.printToDoc {

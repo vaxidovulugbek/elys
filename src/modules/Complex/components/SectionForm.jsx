@@ -33,6 +33,7 @@ const SectionForm = ({ modal, section = {}, complexID, type }) => {
 			<Modals.AddObject
 				url={`section${id && `/${id}`}`}
 				method={id ? "put" : "post"}
+				isFormData={id ? false : true}
 				onClose={onClose}
 				onAdd={() => {}}
 				title={`${type} a Section`}
@@ -57,6 +58,18 @@ const SectionForm = ({ modal, section = {}, complexID, type }) => {
 						label: ["Section Name UZ", <span>*</span>],
 						placeholder: "Name",
 					},
+					{
+						name: "background_id",
+						component: Fields.Upload,
+						label: "Background",
+						placeholder: "Select image",
+					},
+					{
+						name: "svg",
+						component: Fields.SvgUpload,
+						label: "Svg",
+						placeholder: "Select svg image",
+					},
 				]}
 				formFields={[
 					{
@@ -69,6 +82,15 @@ const SectionForm = ({ modal, section = {}, complexID, type }) => {
 						name: "complex_id",
 						validationType: "number",
 						value: Number(complexID),
+					},
+					{
+						name: "background_id",
+						validationType: "number",
+						value: get(section, "data.background_id"),
+					},
+					{
+						name: "svg",
+						value: get(section, "data.svg"),
 					},
 				]}
 			/>

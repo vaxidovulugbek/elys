@@ -7,6 +7,7 @@ import { Sections } from "../components";
 
 const Interactive = ({ setActiveApartment, complex }) => {
 	const [currentStep, setCurrentStep] = useState(1);
+	const [activePathID, setActivePathID] = useState(0);
 	const classNames = (num) => {
 		return cn("step", {
 			"has-angle": currentStep > num,
@@ -29,9 +30,9 @@ const Interactive = ({ setActiveApartment, complex }) => {
 				</div>
 				{/* <div className="step currentStep"></div> */}
 			</div>
-			{currentStep === 1 && <Buildings {...{ setCurrentStep }} />}
-			{currentStep === 2 && <Sections {...{ setCurrentStep }} />}
-			{currentStep === 3 && <Flats {...{ setActiveApartment }} />}
+			{currentStep === 1 && <Buildings {...{ setCurrentStep, setActivePathID }} />}
+			{currentStep === 2 && <Sections {...{ setCurrentStep, setActivePathID }} />}
+			{currentStep === 3 && <Flats {...{ setActiveApartment, activePathID }} />}
 		</div>
 	);
 };

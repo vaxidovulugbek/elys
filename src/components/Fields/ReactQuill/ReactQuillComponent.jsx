@@ -4,6 +4,7 @@ import ReactQuill from "react-quill";
 import "./ReactQuillComponent.scss";
 
 export const ReactQuillComponent = ({ form, field }) => {
+	console.log(field);
 	return (
 		<ReactQuill
 			theme="snow"
