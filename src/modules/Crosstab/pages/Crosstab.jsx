@@ -16,7 +16,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 const Crosstab = () => {
-	const [currentTab, setCurrentTab] = useState(5);
+	const [currentTab, setCurrentTab] = useState(3);
 	const [hasFilter, setHasFilter] = useState(window.innerWidth < 991 ? false : true);
 	const [activeApartment, setActiveApartment] = useState(null);
 	const { id } = useParams();

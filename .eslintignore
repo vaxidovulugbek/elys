@@ -1,6 +1,7 @@
 # Third party
 **/node_modules
 .prettierrc
+package-lock.json
 package.json
 
 # Build products
