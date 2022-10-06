@@ -47,7 +47,7 @@ export const TableRow = ({
 						{isFunction(deleteAction) && (
 							<Button
 								className="table__action border_radius"
-								onClick={deleteAction}
+								onClick={(event) => deleteAction(event, row)}
 								append={<DeleteIcon />}
 							/>
 						)}

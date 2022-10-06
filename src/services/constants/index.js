@@ -2,7 +2,7 @@ export const constants = {
 	KEYCODE_TAB: 9,
 	KEYCODE_ESC: 27,
 
-	// appartment status
+	// apartment status
 	STATUS_INACTIVE: 0,
 	STATUS_FREE: 1,
 	STATUS_INTEREST: 2,
