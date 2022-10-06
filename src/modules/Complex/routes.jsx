@@ -5,6 +5,7 @@ const List = lazy(() => import("./pages/List"));
 const Update = lazy(() => import("./pages/Update"));
 const Category = lazy(() => import("./pages/Category"));
 const Tariff = lazy(() => import("./pages/Tariff"));
+const Document = lazy(() => import("./pages/Document"));
 
 export const ComplexRoutes = [
 	{
@@ -26,5 +27,9 @@ export const ComplexRoutes = [
 	{
 		path: "tariff/:complexID",
 		element: <Tariff />,
+	},
+	{
+		path: "complex/:complexID/document",
+		element: <Document />,
 	},
 ];

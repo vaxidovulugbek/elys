@@ -65,10 +65,11 @@ const SectionForm = ({ modal, section = {}, complexID, type }) => {
 						placeholder: "Select image",
 					},
 					{
-						name: "svg",
-						component: Fields.SvgUpload,
+						name: "svg_id",
+						component: Fields.Upload,
 						label: "Svg",
 						placeholder: "Select svg image",
+						accept: "image/svg+xml",
 					},
 				]}
 				formFields={[
@@ -89,8 +90,8 @@ const SectionForm = ({ modal, section = {}, complexID, type }) => {
 						value: get(section, "data.background_id"),
 					},
 					{
-						name: "svg",
-						value: get(section, "data.svg"),
+						name: "svg_id",
+						value: get(section, "data.svg_id"),
 					},
 				]}
 			/>

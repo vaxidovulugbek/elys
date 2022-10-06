@@ -1,7 +1,7 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { FastField } from "formik";
+import { FastField, FieldArray } from "formik";
 import { get } from "lodash";
 
 import Containers from "containers";
@@ -50,6 +50,16 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 						value: formData && get(formData, "files").map((item) => item.id),
 						// validations: [{ type: "required" }],
 					},
+					{
+						name: "fields",
+						validationType: "array",
+						value: get(formData, "fields"),
+						onSubmitValue: (fields) =>
+							fields.map((item) => ({
+								...item,
+								plan_field_id: item.plan_field_id.value,
+							})),
+					},
 				]}
 				onSuccess={() => onSuccess()}
 				onError={() => {
@@ -57,7 +67,7 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 					notifications.error("Something went wrong!");
 				}}
 			>
-				{(formik) => (
+				{({ values }) => (
 					<>
 						<div className="card-box col-6">
 							<h5 className="text-muted card-sub">
@@ -98,6 +108,72 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 										label="Area"
 									/>
 								</div>
+								<FieldArray name="fields">
+									{({ remove, push }) => (
+										<>
+											{values.fields.length > 0 &&
+												values.fields.map((field, index) => (
+													<Fragment key={index}>
+														<div className="col-12">
+															<FastField
+																name={`fields[${index}].value.en`}
+																component={Fields.Input}
+																type="text"
+																label="Field en"
+															/>
+														</div>
+														<div className="col-12">
+															<FastField
+																name={`fields[${index}].value.ru`}
+																component={Fields.Input}
+																type="text"
+																label="Field ru"
+															/>
+														</div>
+														<div className="col-12">
+															<FastField
+																name={`fields[${index}].value.uz`}
+																component={Fields.Input}
+																type="text"
+																label="Field uz"
+															/>
+														</div>
+														<div className="col-12">
+															<FastField
+																url="plan-field"
+																name={`fields[${index}].plan_field_id`}
+																optionLabel="name.uz"
+																component={Fields.AsyncSelect}
+																label="Plan Field ID"
+																placeholder=""
+															/>
+														</div>
+														<div className="col-12">
+															<Button
+																className="btn bg_red"
+																type="button"
+																onClick={() => remove(index)}
+																innerText="Delete field"
+																style={{ color: "#fff" }}
+															/>
+														</div>
+													</Fragment>
+												))}
+											<Button
+												className="btn btn_green"
+												type="button"
+												innerText="Add field"
+												onClick={() =>
+													push({ value: { en: "", ru: "", uz: "" } })
+												}
+												style={{
+													maxWidth: "fit-content",
+													marginLeft: "auto",
+												}}
+											/>
+										</>
+									)}
+								</FieldArray>
 							</div>
 						</div>
 						<div className="col-6">
@@ -110,7 +186,7 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 									queryKey={[
 										"GET",
 										`plan/${get(formData, "id")}`,
-										{ include: "files" },
+										{ include: "files,fields" },
 									]}
 								/>
 							</div>

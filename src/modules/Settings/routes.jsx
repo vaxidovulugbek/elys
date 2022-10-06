@@ -1,7 +1,7 @@
 import React, { lazy } from "react";
 
 const Translations = lazy(() => import("./pages/Translations"));
-const Document = lazy(() => import("./pages/Document"));
+const PlanField = lazy(() => import("./pages/PlanField"));
 
 export const SettingsRoutes = [
 	{
@@ -9,7 +9,7 @@ export const SettingsRoutes = [
 		element: <Translations />,
 	},
 	{
-		path: "/document",
-		element: <Document />,
+		path: "/plan-field",
+		element: <PlanField />,
 	},
 ];

@@ -17,7 +17,7 @@ const Update = () => {
 
 	const { data } = useFetchOne({
 		url: `complex/${complexID}`,
-		urlSearchParams: { include: "region,district,files" },
+		urlSearchParams: { include: "region,district,files,svg,background" },
 	});
 
 	const section = useFetchOneWithId({
@@ -53,7 +53,6 @@ const Update = () => {
 			<Containers.Form
 				url={`complex/${complexID}`}
 				method="put"
-				isFormData
 				className="row"
 				onSuccess={() => navigate(-1)}
 				fields={[
@@ -93,8 +92,8 @@ const Update = () => {
 						value: get(data, "background_id", null),
 					},
 					{
-						name: "svg",
-						value: get(data, "svg"),
+						name: "svg_id",
+						value: get(data, "svg_id"),
 					},
 					{
 						name: "file_ids",
@@ -162,14 +161,17 @@ const Update = () => {
 											component={Fields.Upload}
 											label="Backround"
 											btnText="Upload"
+											imageTitle={get(data, "background.title")}
 										/>
 									</div>
 									<div className="col-12">
 										<FastField
-											name="svg"
-											component={Fields.SvgUpload}
+											name="svg_id"
+											component={Fields.Upload}
 											label="Svg"
 											btnText="Upload"
+											accept={"image/svg+xml"}
+											imageTitle={get(data, "svg.title")}
 										/>
 									</div>
 									<div className="col-12 card-box">
@@ -181,7 +183,7 @@ const Update = () => {
 											queryKey={[
 												"GET",
 												`complex/${complexID}`,
-												{ include: "region,district,files" },
+												{ include: "region,district,files,svg,background" },
 											]}
 										/>
 									</div>
