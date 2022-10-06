@@ -12,7 +12,11 @@ import { Modals } from "components";
 import "./Cards.scss";
 
 export const ObjectCard = ({ data }) => {
-	const complex = useFetchList({ url: "user/complex", queryOptions: { enabled: false } });
+	const complex = useFetchList({
+		url: "user/complex",
+		urlSearchParams: { include: "files" },
+		queryOptions: { enabled: false },
+	});
 	const navigate = useNavigate();
 
 	const onSuccess = () => {

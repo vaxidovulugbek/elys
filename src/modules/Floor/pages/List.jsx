@@ -1,21 +1,20 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { get } from "lodash";
-
-import { useDelete, useFetchList, useFetchOneWithId, useOverlay } from "hooks";
-import { notifications } from "services";
 
 import Containers from "containers";
 import { AddObject, Breadcrumb, Fields, FloorCard, ModalRoot, Modals } from "components";
+import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
 import { SectionCard } from "../components/SectionCard";
-import { FloorForm } from "../components/FloorForm";
+import { useDelete, useFetchList, useOverlay } from "hooks";
 
 const List = () => {
 	const modal = useOverlay("modal");
-	const planModal = useOverlay("plan");
+	const navigate = useNavigate();
 
 	const { sectionID, complexID } = useParams();
-	const floorQuery = useFetchList({
+
+	const floorList = useFetchList({
 		url: "floor",
 		urlSearchParams: {
 			include: "file",
@@ -23,39 +22,25 @@ const List = () => {
 		},
 	});
 
-	const { data, setId } = useFetchOneWithId({
+	const { mutate } = useDelete({
 		url: "floor",
 		queryOptions: {
-			enabled: false,
+			onSuccess: () => {
+				floorList.refetch();
+			},
 		},
-		refetchStatus: planModal.isOpen,
 	});
-
-	const deleteData = useDelete({
-		url: "floor",
-		queryOptions: { onSuccess: () => floorDeleted() },
-	});
-
-	const floorDeleted = () => {
-		notifications.success("Floor delete success");
-		floorQuery.refetch();
-	};
 
 	const onDelete = (id) => {
 		const receivePermission = () => {
-			deleteData.mutate(id);
+			mutate(id);
 		};
-		Modals.deletePermission({
-			title: "Delete a floor?",
+		deletePermission({
+			title: "Delete a Floor?",
 			icon: "error",
 			text: "All data concerning this floor will be deleted.",
 			receivePermission,
 		});
-	};
-
-	const fetchFormData = (id) => {
-		setId(id);
-		planModal.handleOverlayOpen();
 	};
 
 	return (
@@ -105,7 +90,14 @@ const List = () => {
 										return data?.map((item) => (
 											<FloorCard
 												onDelete={onDelete}
-												onClick={fetchFormData}
+												onClick={() =>
+													navigate(
+														`/complex/${complexID}/section/${sectionID}/floor/${get(
+															item,
+															"id"
+														)}/update`
+													)
+												}
 												key={item.id}
 												item={item}
 												link={`/complex/${complexID}/section/${sectionID}/floor/${get(
@@ -120,8 +112,9 @@ const List = () => {
 								<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 									<AddObject
 										onClick={() => {
-											setId(null);
-											planModal.handleOverlayOpen();
+											navigate(
+												`/complex/${complexID}/section/${sectionID}/floor/create`
+											);
 										}}
 										src={require("assets/images/section-img1.png")}
 										innerText="ADD A FLOOR PLAN"
@@ -175,8 +168,6 @@ const List = () => {
 					]}
 				/>
 			</ModalRoot>
-
-			<FloorForm {...{ data, planModal, floorQuery, sectionID }} />
 		</>
 	);
 };

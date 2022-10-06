@@ -1,69 +1,59 @@
-import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { get } from "lodash";
 
-import { notifications } from "services";
+import Containers from "containers";
+import { Button, Fields } from "components";
+import { FastField } from "formik";
 
-import { Fields, ModalRoot, Modals } from "components";
-
-export const FloorForm = ({ sectionID, floorQuery, planModal, data }) => {
-	const onSuccess = () => {
-		floorQuery.refetch();
-		planModal.handleOverlayClose();
-		notifications.success(data ? "floor is updated" : "floor is created");
-	};
+export const FloorForm = ({
+	method,
+	url,
+	formData,
+	onSuccess,
+	btnSubmitText = "Save",
+	isFormData = false,
+}) => {
+	const { sectionID } = useParams();
+	const navigate = useNavigate();
 
 	const onClose = () => {
-		planModal.handleOverlayClose();
+		navigate(-1);
 	};
 	return (
-		<ModalRoot isOpen={planModal.isOpen} style={{ maxWidth: "500px" }}>
-			<Modals.AddObject
-				onClose={onClose}
-				title={"Adding plan of floor"}
-				onSuccess={onSuccess}
+		<>
+			<Containers.Form
+				method={method}
+				url={url}
+				isFormData={isFormData}
 				fields={[
-					{
-						name: "name.en",
-						component: Fields.Input,
-						label: ["Floor name", <span>*</span>],
-						placeholder: "1 floor",
-					},
-					{
-						name: "name.ru",
-						component: Fields.Input,
-						label: ["Название этажа", <span>*</span>],
-						placeholder: "1 этаж",
-					},
-					{
-						name: "name.uz",
-						component: Fields.Input,
-						label: ["Qavat nomi", <span>*</span>],
-						placeholder: "1 qavat",
-					},
-					{
-						name: "file_id",
-						component: Fields.Upload,
-						placeholder: "Select Image",
-						btnText: "Upload",
-						className: "mt-4",
-					},
-				]}
-				formFields={[
 					{
 						name: "name",
 						validationType: "object",
 						validations: [{ type: "lng" }],
 						value: {
-							en: get(data, "name.en", ""),
-							uz: get(data, "name.uz", ""),
-							ru: get(data, "name.ru", ""),
+							en: get(formData, "name.en", ""),
+							uz: get(formData, "name.uz", ""),
+							ru: get(formData, "name.ru", ""),
 						},
 					},
 					{
 						name: "file_id",
 						validationType: "number",
-						value: get(data, "file_id"),
-						// validations: [{ type: "required" }],
+						value: get(formData, "file_id"),
+					},
+					{
+						name: "background_id",
+						validationType: "number",
+						value: get(formData, "background_id"),
+					},
+					{
+						name: "svg",
+						value: get(formData, "svg"),
+					},
+					{
+						name: "sort",
+						validationType: "number",
+						value: get(formData, "sort"),
 					},
 					{
 						name: "section_id",
@@ -72,10 +62,98 @@ export const FloorForm = ({ sectionID, floorQuery, planModal, data }) => {
 						validations: [{ type: "required" }],
 					},
 				]}
-				url={get(data, "id") ? `floor/${data.id}` : "floor"}
-				submitText={get(data, "id") ? "Save" : "Add"}
-				method={get(data, "id") ? "put" : "post"}
-			/>
-		</ModalRoot>
+				onSuccess={() => onSuccess()}
+			>
+				{({ errors }) => (
+					<>
+						<div className="card-box col-12">
+							<h5 className="text-muted card-sub">
+								<b>Floor</b>
+								<small className="text-muted"> ID {sectionID}</small>
+							</h5>
+							<div className="row g-4">
+								<div className="col-12">
+									<FastField
+										name="name.uz"
+										component={Fields.Input}
+										type="text"
+										label="Name uz"
+									/>
+								</div>
+								<div className="col-12">
+									<FastField
+										name="name.ru"
+										component={Fields.Input}
+										type="text"
+										label="Name ru"
+									/>
+								</div>
+
+								<div className="col-12">
+									<FastField
+										name="name.en"
+										component={Fields.Input}
+										type="text"
+										label="Name en"
+									/>
+								</div>
+
+								<div className="col-12">
+									<FastField
+										name="sort"
+										component={Fields.Input}
+										type="number"
+										label="Sort"
+									/>
+								</div>
+								<div className="col-12">
+									<FastField
+										name="background_id"
+										component={Fields.Upload}
+										label="Backround"
+										placeholder="Select image"
+										btnText="Upload"
+									/>
+								</div>
+								<div className="col-12">
+									<FastField
+										name="svg"
+										component={Fields.SvgUpload}
+										label="Svg"
+										placeholder="Select svg image"
+										btnText="Upload"
+									/>
+								</div>
+								<div className="col-12">
+									<FastField
+										name="file_id"
+										component={Fields.Upload}
+										label="File"
+										placeholder="Select image"
+										btnText="Upload"
+									/>
+								</div>
+							</div>
+						</div>
+						<div className="bottom-buttons">
+							<hr />
+							<div className="d-flex align-items-center justify-content-center">
+								<Button
+									onClick={onClose}
+									className="btn btn_outlined"
+									type="button"
+									innerText="Cancel"
+								/>
+								<Button
+									className="btn btn_green"
+									type="submit"
+									innerText={btnSubmitText}
+								/>
+							</div>
+						</div>
+					</>
+				)}
+			</Containers.Form>
+		</>
 	);
 };
