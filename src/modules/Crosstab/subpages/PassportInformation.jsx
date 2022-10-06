@@ -5,8 +5,6 @@ import { FastField, Field } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { time } from "services";
-
 const PassportInformation = ({ paymentDetails }) => {
 	const { t } = useTranslation();
 	const fixPassportInput = (e) => {
@@ -17,7 +15,6 @@ const PassportInformation = ({ paymentDetails }) => {
 			if (i < 2) {
 				return char.match(letters);
 			} else if (i >= 2) {
-				console.log(char);
 				return char.match(numbers);
 			} else return false;
 		});

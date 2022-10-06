@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { useFetchOne } from "hooks";
 import { get } from "lodash";
+import { find } from "lodash";
 
 export const Buildings = ({
 	setCurrentStep,
@@ -11,39 +12,30 @@ export const Buildings = ({
 	step,
 	setActiveApartment,
 	stepUrls = [],
-	filter,
 }) => {
 	const svgWrap = useRef();
-	const [appartmentID, setAppartmentID] = useState(0);
 
-	const complex = useFetchOne({
+	const { data } = useFetchOne({
 		url: `${stepUrls[step - 1]}/${activePathID[step - 1]}`,
 		urlSearchParams: {
 			include: "files,place,category,district,region,background,svg,vector,apartments",
-			filter,
 		},
 	});
-	const stringSvg = get(complex, "data.vector");
-
-	const appartment = useFetchOne({
-		url: appartmentID && `apartment/${appartmentID}`,
-		queryOptions: {
-			onSuccess: (data) => {
-				setActiveApartment(data);
-			},
-			enabled: false,
-		},
-	});
-
-	useEffect(() => {
-		appartmentID && appartment.refetch();
-	}, [appartmentID]);
+	const stringSvg = get(data, "vector");
 
 	useEffect(() => {
 		if (svgWrap.current) {
 			svgWrap.current.innerHTML = stringSvg;
 			const paths = svgWrap.current.querySelectorAll("path");
 			paths?.forEach((path) => {
+				const appartmentID = path.getAttribute("data-apartment-id");
+				const appartment = find(get(data, "apartments"), {
+					id: Number(appartmentID),
+				});
+				if (appartmentID) {
+					// status colors in the _crosstab-layout.scss file
+					path.classList.add(`status-${get(appartment, "status")}`);
+				}
 				path?.addEventListener("click", (e) => {
 					const pathID = path.getAttribute(`data-${stepUrls[step]}-id`);
 
@@ -52,13 +44,11 @@ export const Buildings = ({
 							setActivePathID((prev) => [...prev, pathID]);
 						setCurrentStep(step + 1);
 					} else if (step === 3) {
-						const pathID = path.getAttribute("data-apartment-id");
-						setAppartmentID(pathID);
-						appartmentID && setActiveApartment(appartment.data);
+						setActiveApartment(appartment);
 					}
 				});
 			});
 		}
-	}, [complex, svgWrap, stringSvg]);
+	}, [data, svgWrap, stringSvg]);
 	return <div className="buildings" ref={svgWrap}></div>;
 };

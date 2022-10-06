@@ -30,25 +30,35 @@
 		}
 	}
 
+	polygon {
+		opacity: 0;
+
+		fill: #fff;
+
+		transition: all 300ms;
+
+		&:hover {
+			opacity: 0.5;
+		}
+	}
+
+	[class*="status-"] {
+		opacity: .2;
+
+		&:hover {
+			opacity: .7;
+		}
+	}
+
 	.buildings,
 	.sections {
 		image {
 			width: 100%;
 			height: 100%;
 		}
-
-		polygon {
-			opacity: 0;
-
-			fill: #fff;
-
-			transition: all 300ms;
-
-			&:hover {
-				opacity: 0.5;
-			}
-		}
 	}
+
+
 
 	.steps {
 		position: relative;

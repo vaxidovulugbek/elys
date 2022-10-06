@@ -195,20 +195,11 @@ const Crosstab = () => {
 										/>
 									)}
 									{currentTab === 5 && (
-										<Payment
-											{...{
-												setCurrentTab,
-												activeApartment,
-												setPaymentDetails,
-											}}
-										/>
-									)}
-									{currentTab === 6 && (
 										<PassportInformation
 											{...{
 												setCurrentTab,
 												activeApartment,
-												paymentDetails,
+												setPaymentDetails,
 											}}
 										/>
 									)}
