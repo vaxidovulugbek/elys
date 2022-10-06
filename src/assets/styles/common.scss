@@ -522,4 +522,9 @@ a {
 	}
 }
 
-// Sidebar
+// Utility classes
+
+.gap {
+	row-gap: var(--row-gap, 20px);
+	column-gap: var(--column-gap, 20px);
+}

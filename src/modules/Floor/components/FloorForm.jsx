@@ -47,8 +47,9 @@ export const FloorForm = ({
 						value: get(formData, "background_id"),
 					},
 					{
-						name: "svg",
-						value: get(formData, "svg"),
+						name: "svg_id",
+						validationType: "number",
+						value: Number(get(formData, "svg_id")),
 					},
 					{
 						name: "sort",
@@ -113,15 +114,18 @@ export const FloorForm = ({
 										label="Backround"
 										placeholder="Select image"
 										btnText="Upload"
+										imageTitle={get(formData, "background.title")}
 									/>
 								</div>
 								<div className="col-12">
 									<FastField
-										name="svg"
-										component={Fields.SvgUpload}
+										name="svg_id"
+										component={Fields.Upload}
 										label="Svg"
 										placeholder="Select svg image"
 										btnText="Upload"
+										accept={"image/svg+xml"}
+										imageTitle={get(formData, "svg.title")}
 									/>
 								</div>
 								<div className="col-12">
@@ -131,6 +135,7 @@ export const FloorForm = ({
 										label="File"
 										placeholder="Select image"
 										btnText="Upload"
+										imageTitle={get(formData, "file.title")}
 									/>
 								</div>
 							</div>

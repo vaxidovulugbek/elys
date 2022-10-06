@@ -11,7 +11,7 @@ import { Modals } from "components";
 
 import "./Cards.scss";
 
-export const ObjectCard = ({ data }) => {
+export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument = () => {} }) => {
 	const complex = useFetchList({
 		url: "user/complex",
 		urlSearchParams: { include: "files" },
@@ -71,13 +71,19 @@ export const ObjectCard = ({ data }) => {
 						</svg>
 					</Link>
 
-					<button className="object__action bg_blue">
+					<button
+						className="object__action bg_blue"
+						onClick={() => handleDocument(get(data, "id"))}
+					>
 						<svg width="16" height="16" viewBox="0 0 16 16" fill="#fff">
 							<path d="M0 2C0 1.46957 0.210714 0.960859 0.585786 0.585786C0.960859 0.210714 1.46957 0 2 0L14 0C14.5304 0 15.0391 0.210714 15.4142 0.585786C15.7893 0.960859 16 1.46957 16 2V14C16 14.5304 15.7893 15.0391 15.4142 15.4142C15.0391 15.7893 14.5304 16 14 16H2C1.46957 16 0.960859 15.7893 0.585786 15.4142C0.210714 15.0391 0 14.5304 0 14V2ZM15 4H11V7H15V4ZM15 8H11V11H15V8ZM15 12H11V15H14C14.2652 15 14.5196 14.8946 14.7071 14.7071C14.8946 14.5196 15 14.2652 15 14V12ZM10 15V12H6V15H10ZM5 15V12H1V14C1 14.2652 1.10536 14.5196 1.29289 14.7071C1.48043 14.8946 1.73478 15 2 15H5ZM1 11H5V8H1V11ZM1 7H5V4H1V7ZM6 4V7H10V4H6ZM10 8H6V11H10V8Z" />
 						</svg>
 					</button>
 
-					<button className="object__action bg_green">
+					<button
+						className="object__action bg_green"
+						onClick={() => navigate(`complex/update/${get(data, "id")}`)}
+					>
 						<svg width="24" height="24" viewBox="0 0 24 24">
 							<path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
 						</svg>
@@ -143,7 +149,10 @@ export const ObjectCard = ({ data }) => {
 						Edit
 					</button>
 
-					<button className="btn btn_outlined btn_small">
+					<button
+						className="btn btn_outlined btn_small"
+						onClick={() => handleViewDocument(get(data, "id"))}
+					>
 						<svg
 							fill="#fff"
 							width="16"

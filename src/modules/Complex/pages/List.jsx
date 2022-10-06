@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Containers from "containers";
 
 import { AddObject, ObjectCard, PageHeading } from "components";
 import { SearchForm } from "./../components/SearchForm";
+import { useOverlay } from "hooks";
+import { DocumentForm } from "../components/DocumentForm";
 
 const List = () => {
 	const navigate = useNavigate();
+	const documentModal = useOverlay("documentModal");
+	const [complexId, setComplexId] = useState();
 
+	const handleDocument = (id) => {
+		setComplexId(id);
+		documentModal.handleOverlayOpen();
+	};
+
+	const handleViewDocument = (id) => {
+		navigate(`/complex/${id}/document`);
+	};
 	return (
 		<>
 			<PageHeading
@@ -32,7 +44,12 @@ const List = () => {
 												style={{ marginBottom: "20px" }}
 												key={index}
 											>
-												<ObjectCard data={item} key={index} />
+												<ObjectCard
+													data={item}
+													key={index}
+													handleDocument={handleDocument}
+													handleViewDocument={handleViewDocument}
+												/>
 											</div>
 										);
 									})}
@@ -48,6 +65,7 @@ const List = () => {
 					/>
 				</div>
 			</div>
+			<DocumentForm {...{ documentModal, complexId }} />
 		</>
 	);
 };

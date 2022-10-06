@@ -17,8 +17,8 @@ const settingSubLinks = [
 		name: "Translations",
 	},
 	{
-		url: "/document",
-		name: "Document",
+		url: "/plan-field",
+		name: "Plan Field",
 	},
 	{
 		url: "/statuses-replacement",

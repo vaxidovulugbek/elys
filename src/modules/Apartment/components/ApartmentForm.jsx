@@ -59,6 +59,11 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 						value: Number(get(formData, "sort")),
 					},
 					{
+						name: "status",
+						validationType: "number",
+						value: 1,
+					},
+					{
 						name: "type",
 						validationType: "number",
 						value: Number(get(formData, "type")),

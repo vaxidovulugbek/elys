@@ -57,7 +57,8 @@ const Create = () => {
 						value: 10,
 					},
 					{
-						name: "svg",
+						name: "svg_id",
+						validationType: "number",
 					},
 					{
 						name: "file_ids",
@@ -136,11 +137,12 @@ const Create = () => {
 									</div>
 									<div className="col-12">
 										<FastField
-											name="svg"
-											component={Fields.SvgUpload}
+											name="svg_id"
+											component={Fields.Upload}
 											label={"Svg"}
 											placeholder="Select File"
 											btnText="Upload"
+											accept={"image/svg+xml"}
 										/>
 									</div>
 									<div className="col-12">
