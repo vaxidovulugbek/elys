@@ -10,6 +10,7 @@ export const PageHeading = ({
 	hasButton = false,
 	hasSettings = false,
 	complexID,
+	renderButtons,
 }) => {
 	return (
 		<div className="page-heading">
@@ -28,6 +29,8 @@ export const PageHeading = ({
 				</Link>
 			)}
 			{hasSettings && <Dropdown />}
+
+			{renderButtons && renderButtons()}
 		</div>
 	);
 };
@@ -36,6 +39,7 @@ PageHeading.propTypes = {
 	title: PropTypes.string,
 	hasButton: PropTypes.bool,
 	hasSettings: PropTypes.bool,
+	renderButtons: PropTypes.func,
 	links: PropTypes.arrayOf(
 		PropTypes.shape({
 			url: PropTypes.string,

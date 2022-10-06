@@ -1,4 +1,5 @@
 import React from "react";
+import { get } from "lodash";
 
 import PropTypes from "prop-types";
 import cn from "classnames";
@@ -18,6 +19,7 @@ export const Input = ({
 	field,
 	form,
 	onInput,
+	onlyNumber,
 }) => {
 	const outerClasses = cn("form-wrapper", outerClass, size, {
 		form_disabled: isDisabled,
@@ -36,6 +38,18 @@ export const Input = ({
 					className="form-control__input"
 					{...field}
 					{...inputProps}
+					onChange={(event) => {
+						const value = event.target.value;
+
+						if (onlyNumber && (value.match(/^[\s\d]+$/) || value === "")) {
+							field.onChange(event);
+							get(inputProps, "onChange", () => {})(event);
+						}
+						if (!onlyNumber) {
+							field.onChange(event);
+							get(inputProps, "onChange", () => {})(event);
+						}
+					}}
 				/>
 			</label>
 

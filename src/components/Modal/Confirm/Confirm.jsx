@@ -45,7 +45,6 @@ export const Confirm = ({
 						className="modal-confirm__cancel modal-confirm__btn"
 						onClick={onClose}
 						text={cancelText}
-						isDefaultBtn={false}
 					/>
 				</div>
 
