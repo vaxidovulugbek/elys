@@ -28,7 +28,6 @@ export const ListPagination = ({
 				previousLabel={
 					<Button
 						className="pagination__control"
-						isDefaultBtn={false}
 						prepend={<LeftArrow />}
 						innerText="Prev"
 					/>
@@ -36,7 +35,6 @@ export const ListPagination = ({
 				nextLabel={
 					<Button
 						className="pagination__control"
-						isDefaultBtn={false}
 						append={<RightArrow />}
 						innerText="Next"
 					/>

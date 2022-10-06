@@ -25,5 +25,12 @@ export const useDelete = ({ url, customQueryFn, queryOptions = {} }) => {
 					appendUrl ? `${url}/${appendUrl}` : url
 				),
 			}),
+		mutateAsync: (appendUrl) =>
+			mutation.mutateAsync({
+				queryKey: utils.apiHelpers.getQueryKey(
+					"DELETE",
+					appendUrl ? `${url}/${appendUrl}` : url
+				),
+			}),
 	};
 };

@@ -9,6 +9,7 @@ import { notifications } from "services";
 import { RoundCircle } from "./RoundCircle";
 import { Modals } from "components";
 
+import { ReactComponent as TariffIcon } from "assets/images/tariff.svg";
 import "./Cards.scss";
 
 export const ObjectCard = ({ data }) => {
@@ -83,11 +84,9 @@ export const ObjectCard = ({ data }) => {
 						</svg>
 					</button>
 
-					<button className="object__action bg_orange">
-						<svg width="24" height="24" viewBox="0 0 24 24">
-							<path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
-						</svg>
-					</button>
+					<Link to={`tariff/${get(data, "id")}`} className="object__action bg_orange">
+						<TariffIcon fill="#fff" />
+					</Link>
 
 					<button className="object__action bg_red" onClick={(e) => deleteObject(e)}>
 						<svg width="24" height="24" viewBox="0 0 24 24">
