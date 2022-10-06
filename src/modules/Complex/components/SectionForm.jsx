@@ -63,12 +63,14 @@ const SectionForm = ({ modal, section = {}, complexID, type }) => {
 						component: Fields.Upload,
 						label: "Background",
 						placeholder: "Select image",
+						btnText: "Upload",
 					},
 					{
 						name: "svg",
 						component: Fields.SvgUpload,
 						label: "Svg",
 						placeholder: "Select svg image",
+						btnText: "Upload",
 					},
 				]}
 				formFields={[

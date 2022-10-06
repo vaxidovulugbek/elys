@@ -71,7 +71,7 @@ const List = () => {
 				</div>
 
 				<div className="row">
-					<div className="col-lg-6">
+					<div className="col-lg-12">
 						<div className="card-box transparent">
 							<h5 className="text-muted card-sub">
 								<b>Floor Plans</b>
@@ -125,32 +125,32 @@ const List = () => {
 						</div>
 					</div>
 
-					<div className="col-lg-6">
-						<div className="card-box transparent">
-							<h5 className="text-muted card-sub">
-								<b>Layout of accomodations</b>
-							</h5>
+					{/*<div className="col-lg-6">*/}
+					{/*	<div className="card-box transparent">*/}
+					{/*		<h5 className="text-muted card-sub">*/}
+					{/*			<b>Layout of accomodations</b>*/}
+					{/*		</h5>*/}
 
-							<div className="row g-4">
-								{new Array(5).fill(1).map((el, index) => (
-									<div
-										className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card"
-										key={index}
-									>
-										<SectionCard />
-									</div>
-								))}
+					{/*		<div className="row g-4">*/}
+					{/*			{new Array(5).fill(1).map((el, index) => (*/}
+					{/*				<div*/}
+					{/*					className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card"*/}
+					{/*					key={index}*/}
+					{/*				>*/}
+					{/*					<SectionCard />*/}
+					{/*				</div>*/}
+					{/*			))}*/}
 
-								<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
-									<AddObject
-										onClick={modal.handleOverlayOpen}
-										src={require("assets/images/layout-add.jpg")}
-										innerText="ADD A LAYOUT"
-									/>
-								</div>
-							</div>
-						</div>
-					</div>
+					{/*			<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">*/}
+					{/*				<AddObject*/}
+					{/*					onClick={modal.handleOverlayOpen}*/}
+					{/*					src={require("assets/images/layout-add.jpg")}*/}
+					{/*					innerText="ADD A LAYOUT"*/}
+					{/*				/>*/}
+					{/*			</div>*/}
+					{/*		</div>*/}
+					{/*	</div>*/}
+					{/*</div>*/}
 				</div>
 			</div>
 
