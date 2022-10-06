@@ -57,32 +57,6 @@ export const Payment = ({ activeApartment, setCurrentTab, setPaymentDetails }) =
 	return (
 		<div className="payment-type">
 			<div className="left">
-				<div className="payment-type__slider">
-					<Fancybox options={{ infinite: false }}>
-						<Swiper
-							spaceBetween={50}
-							modules={[Navigation]}
-							navigation
-							className="payment-type__swiper"
-						>
-							{images.length ? (
-								images.map((src, index) => (
-									<SwiperSlide key={index}>
-										<img
-											src={src}
-											data-fancybox="gallery"
-											data-src={src}
-											className="button button--secondary"
-											alt="gallery"
-										/>
-									</SwiperSlide>
-								))
-							) : (
-								<SwiperSlide></SwiperSlide>
-							)}
-						</Swiper>
-					</Fancybox>
-				</div>
 				<div className="payment-type__choice">
 					<Containers.Form>
 						{() => {
@@ -146,3 +120,32 @@ export const Payment = ({ activeApartment, setCurrentTab, setPaymentDetails }) =
 };
 
 export default Payment;
+
+// appartment images
+
+// <div className="payment-type__slider">
+// 	<Fancybox options={{ infinite: false }}>
+// 		<Swiper
+// 			spaceBetween={50}
+// 			modules={[Navigation]}
+// 			navigation
+// 			className="payment-type__swiper"
+// 		>
+// 			{images.length ? (
+// 				images.map((src, index) => (
+// 					<SwiperSlide key={index}>
+// 						<img
+// 							src={src}
+// 							data-fancybox="gallery"
+// 							data-src={src}
+// 							className="button button--secondary"
+// 							alt="gallery"
+// 						/>
+// 					</SwiperSlide>
+// 				))
+// 			) : (
+// 				<SwiperSlide></SwiperSlide>
+// 			)}
+// 		</Swiper>
+// 	</Fancybox>
+// </div>

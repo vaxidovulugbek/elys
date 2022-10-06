@@ -38,13 +38,13 @@
 	}
 
 	&__choice {
-		@extend .row-gap;
+		display: flex;
 		height: max-content;
 		padding: 10px;
 	}
 
 	form {
-		@extend .row-gap;
+		display: flex;
 	}
 
 	&__table {
