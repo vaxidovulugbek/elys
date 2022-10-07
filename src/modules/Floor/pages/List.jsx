@@ -5,7 +5,6 @@ import { get } from "lodash";
 import Containers from "containers";
 import { AddObject, Breadcrumb, Fields, FloorCard, ModalRoot, Modals } from "components";
 import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
-import { SectionCard } from "../components/SectionCard";
 import { useDelete, useFetchList, useOverlay } from "hooks";
 
 const List = () => {

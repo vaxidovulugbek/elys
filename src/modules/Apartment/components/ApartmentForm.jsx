@@ -191,7 +191,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										name="discount"
 										component={Fields.Input}
 										type="number"
-										label="Discount"
+										label="Discount %"
 									/>
 								</div>
 								<div className="col-12">

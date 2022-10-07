@@ -26,7 +26,7 @@ export const DocumentCard = ({ data, onDelete }) => {
 
 				<div className="object__content">
 					<h3 href="#" className="object__title">
-						name: {get(data, "name.uz")}
+						{get(data, "name.uz")}
 					</h3>
 				</div>
 			</div>
