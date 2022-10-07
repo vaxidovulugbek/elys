@@ -30,7 +30,7 @@ const Create = () => {
 				hasButton={true}
 			/>
 			<Containers.Form
-				url="complex"
+				url="/complex"
 				method="post"
 				isFormData
 				className="row"

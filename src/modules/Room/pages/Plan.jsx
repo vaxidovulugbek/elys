@@ -14,14 +14,14 @@ const Plan = () => {
 	const navigate = useNavigate();
 
 	const planList = useFetchList({
-		url: "plan",
+		url: "/plan",
 		urlSearchParams: {
 			filter: { room_id: roomID },
 		},
 	});
 
 	const deleteData = useDelete({
-		url: "plan",
+		url: "/plan",
 		queryOptions: { onSuccess: () => planDeleted() },
 	});
 
@@ -31,20 +31,18 @@ const Plan = () => {
 	};
 
 	const onDelete = (id) => {
-		const receivePermission = () => {
-			deleteData.mutate(id);
-		};
 		Modals.deletePermission({
 			title: "Delete a plan?",
 			icon: "error",
 			text: "All data concerning this plan will be deleted.",
-			receivePermission,
+			receivePermission: () => deleteData.mutate(id),
 		});
 	};
 
 	return (
 		<>
 			<PageHeading
+				title={`Plan ${roomID}`}
 				links={[
 					{ url: "/", name: "Control Panel" },
 					{ url: "/room", name: "Room" },
@@ -53,7 +51,7 @@ const Plan = () => {
 			/>
 			<div className="row gap" style={{ "--column-gap": 0 }}>
 				<Containers.List
-					url="plan"
+					url="/plan"
 					urlSearchParams={{
 						filter: { room_id: roomID },
 					}}

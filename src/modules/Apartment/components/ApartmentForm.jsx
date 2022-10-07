@@ -5,7 +5,7 @@ import { get } from "lodash";
 
 import { constants, notifications } from "services";
 
-import { Button, Fields } from "components";
+import { Button, Fields, Typography } from "components";
 import Containers from "containers";
 
 export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText = "Save" }) => {
@@ -123,10 +123,15 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 				{({ errors }) => (
 					<>
 						<div className="card-box col-6">
-							<h5 className="text-muted card-sub">
-								<b>Section</b>
-								<small className="text-muted"> ID 2714</small>
-							</h5>
+							<Typography Type="h5" className="text-muted card-sub">
+								{() => (
+									<>
+										<b>Section</b>
+										<small className="text-muted"> ID 2714</small>
+									</>
+								)}
+							</Typography>
+
 							<div className="row g-4">
 								<div className="col-12">
 									<FastField
@@ -191,7 +196,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										name="discount"
 										component={Fields.Input}
 										type="number"
-										label="Discount"
+										label="Discount %"
 									/>
 								</div>
 								<div className="col-12">
@@ -209,7 +214,6 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										optionLabel="name.uz"
 										component={Fields.AsyncSelect}
 										label="Plan ID"
-										placeholder=""
 									/>
 								</div>
 								<div className="col-12">
@@ -218,6 +222,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										component={Fields.Select}
 										options={constants.statusOptions}
 										label="Status"
+										defaultValue={constants.statusOptions[0]}
 									/>
 								</div>
 								<div className="col-12">
@@ -226,6 +231,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										component={Fields.Select}
 										options={constants.typeOptions}
 										label="Type"
+										defaultValue={constants.typeOptions[0]}
 									/>
 								</div>
 								<div className="col-12">
@@ -234,6 +240,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										component={Fields.Select}
 										options={constants.constructionOptions}
 										label="Construction type"
+										defaultValue={constants.constructionOptions[0]}
 									/>
 								</div>
 								<div className="col-12">
@@ -242,6 +249,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										component={Fields.Select}
 										options={constants.classOptions}
 										label="Class"
+										defaultValue={constants.classOptions[0]}
 									/>
 								</div>
 							</div>
