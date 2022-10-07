@@ -34,7 +34,7 @@ export const DocumentForm = ({ complexId, documentModal }) => {
 						placeholder: "Hujjat",
 					},
 					{
-						name: "file_id",
+						name: "file_id[0]",
 						component: Fields.Upload,
 						label: "Hujjat yuklash",
 						placeholder: "Hujjat tanlang",
@@ -42,7 +42,7 @@ export const DocumentForm = ({ complexId, documentModal }) => {
 						accept: ".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 					},
 					{
-						name: "file_id",
+						name: "file_id[1]",
 						component: Fields.Upload,
 						label: "Загрузить документ",
 						placeholder: "Выберите документ",
@@ -58,11 +58,7 @@ export const DocumentForm = ({ complexId, documentModal }) => {
 					},
 					{
 						name: "file_id",
-						validationType: "number",
-					},
-					{
-						name: "file_id",
-						validationType: "number",
+						validationType: "array",
 					},
 					{
 						name: "type",

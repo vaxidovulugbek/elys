@@ -59,7 +59,7 @@ const List = () => {
 					{ url: "/room", name: "Room" },
 				]}
 			/>
-			<div className="row">
+			<div className="row gap" style={{ "--column-gap": 0 }}>
 				<Containers.List url="room">
 					{({ data }) => {
 						return (
