@@ -16,7 +16,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 const Crosstab = () => {
-	const [currentTab, setCurrentTab] = useState(5);
+	const [currentTab, setCurrentTab] = useState(3);
 	const [hasFilter, setHasFilter] = useState(window.innerWidth < 991 ? false : true);
 	const [activeApartment, setActiveApartment] = useState(null);
 	const { id } = useParams();
@@ -79,7 +79,7 @@ const Crosstab = () => {
 				dataKey={(data) => data}
 				urlSearchParams={{
 					include:
-						"background,floors, floors.background,floors.apartments,floors.apartments.plan.room, floors.apartments.complex, complex, floors.apartments.section, floors.apartments.plan, floors.apartments.plan.room,floors.apartments.files",
+						"background,floors, floors.background,floors.apartments,floors.apartments.plan.room, floors.apartments.complex, complex, floors.apartments.section, floors.apartments.plan, floors.apartments.plan.room,floors.apartments.files,floors.apartments.floor",
 					filter: {
 						complex_id: id,
 					},
@@ -197,6 +197,7 @@ const Crosstab = () => {
 									{currentTab === 5 && (
 										<PassportInformation
 											{...{
+												currentTab,
 												setCurrentTab,
 												activeApartment,
 												setPaymentDetails,

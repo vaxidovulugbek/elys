@@ -26,6 +26,9 @@ export const constants = {
 	CLASS_COMFORT: 1,
 	CLASS_PREMIUM: 2,
 	CLASS_BUSINESS: 3,
+
+	UZBEK: 3,
+	RUSSIAN: 2,
 };
 
 constants.statusOptions = [

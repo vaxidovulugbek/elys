@@ -5,7 +5,7 @@ export const time = {
 		return dayjs.unix(timestamp).year();
 	},
 	toTimestamp: (date) => {
-		return dayjs(date).unix();
+		return dayjs(date, "DD-MM-YYYY").unix();
 	},
 	current: (format = "DD.MM.YYYY") => {
 		return dayjs().format(format);

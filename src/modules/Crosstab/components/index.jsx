@@ -7,6 +7,7 @@ import { CrosstabFilter } from "./CrosstabFilter.jsx";
 import { Flats } from "./Flats";
 import { Sections } from "./Sections";
 import { Tab } from "./Tab";
+import { MaskedDateInput } from "./MaskedDateInput";
 
 export {
 	Tab,
@@ -18,4 +19,5 @@ export {
 	CrosstabFilter,
 	Flats,
 	Sections,
+	MaskedDateInput,
 };
