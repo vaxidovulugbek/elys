@@ -5,14 +5,7 @@ import Containers from "containers";
 import { Button, Fields } from "components";
 import { FastField } from "formik";
 
-export const FloorForm = ({
-	method,
-	url,
-	formData,
-	onSuccess,
-	btnSubmitText = "Save",
-	isFormData = false,
-}) => {
+export const FloorForm = ({ method, url, formData, onSuccess, btnSubmitText = "Save" }) => {
 	const { sectionID } = useParams();
 	const navigate = useNavigate();
 
@@ -24,7 +17,6 @@ export const FloorForm = ({
 			<Containers.Form
 				method={method}
 				url={url}
-				isFormData={isFormData}
 				fields={[
 					{
 						name: "name",

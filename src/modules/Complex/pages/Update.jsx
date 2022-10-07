@@ -22,6 +22,7 @@ const Update = () => {
 
 	const section = useFetchOneWithId({
 		url: "section",
+		urlSearchParams: { include: "file,svg,background" },
 		queryOptions: { enabled: false },
 		refetchStatus: modal.isOpen,
 	});

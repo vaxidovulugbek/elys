@@ -124,8 +124,8 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 					<>
 						<div className="card-box col-6">
 							<h5 className="text-muted card-sub">
-								<b>Section</b>
-								<small className="text-muted"> ID 2714</small>
+								<b>Floor</b>
+								<small className="text-muted"> ID {floorID}</small>
 							</h5>
 							<div className="row g-4">
 								<div className="col-12">
@@ -191,7 +191,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										name="discount"
 										component={Fields.Input}
 										type="number"
-										label="Discount"
+										label="Discount %"
 									/>
 								</div>
 								<div className="col-12">

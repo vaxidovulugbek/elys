@@ -1,7 +1,7 @@
 import React from "react";
 import { FastField } from "formik";
 
-import { constants } from "services";
+import { constants, notifications } from "services";
 
 import Containers from "containers";
 import { Button, ModalRoot, Fields } from "components";
@@ -18,6 +18,10 @@ export const TariffAdd = ({ isOpen, onClose, onSuccess, complexID }) => {
 				url="/tariff"
 				method="post"
 				onSuccess={onSuccess}
+				onError={() => {
+					notifications.error("Something went wrong");
+					onClose();
+				}}
 				fields={[
 					{
 						name: "payment",

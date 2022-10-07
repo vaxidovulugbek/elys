@@ -20,14 +20,6 @@ const settingSubLinks = [
 		url: "/plan-field",
 		name: "Plan Field",
 	},
-	{
-		url: "/statuses-replacement",
-		name: "Substitution of statuses",
-	},
-	{
-		url: "/permissions",
-		name: "Access rights",
-	},
 ];
 
 export const Sidebar = ({ isOpen }) => {
@@ -127,9 +119,9 @@ export const Sidebar = ({ isOpen }) => {
 				</div>
 			</div>
 
-			<h3 className="sidebar__title">Account</h3>
+			{/* <h3 className="sidebar__title">Account</h3> */}
 
-			<div className="sidebar__submenu">
+			{/* <div className="sidebar__submenu">
 				<NavLink
 					to="/profile"
 					className={({ isActive }) =>
@@ -141,7 +133,7 @@ export const Sidebar = ({ isOpen }) => {
 						<span className="sidebar__link-text">Profile</span>
 					</div>
 				</NavLink>
-			</div>
+			</div> */}
 		</aside>
 	);
 };

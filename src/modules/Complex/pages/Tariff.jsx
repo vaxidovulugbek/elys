@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { get } from "lodash";
 
+import { notifications } from "services";
+
 import { ListPagination, PageHeading, Button, Modals } from "components";
 import { TariffTable } from "../components/TariffTable";
 import { useDelete, useFetchList, useOverlay } from "hooks";
@@ -32,7 +34,10 @@ const Tariff = () => {
 			icon: "error",
 			text: "All data concerning this project will be deleted.",
 			receivePermission: () =>
-				deleteTariff.mutateAsync(get(item, "id")).then((res) => tariffs.refetch()),
+				deleteTariff.mutateAsync(get(item, "id")).then((res) => {
+					tariffs.refetch();
+					notifications.success("Deleted");
+				}),
 		});
 	};
 
@@ -45,6 +50,7 @@ const Tariff = () => {
 				onSuccess={() => {
 					tariffs.refetch();
 					modal.handleOverlayClose();
+					notifications.success("Tariff is created");
 				}}
 			/>
 
