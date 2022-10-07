@@ -44,6 +44,10 @@
 	}
 }
 
+.doc_modal.modal_open {
+	transform: translate(-50%, 0);
+}
+
 // #modal-root {
 // 	position: relative;
 // 	z-index: var(--modal-z-index);
