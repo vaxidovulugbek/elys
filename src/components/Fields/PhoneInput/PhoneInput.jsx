@@ -14,7 +14,8 @@ export const PhoneInput = ({ form, field, label }) => {
 				disableDropdown
 				enableAreaCodes={false}
 				placeholder="+998 99 876 54 32"
-				{...field}
+				value={field.value}
+				onChange={(e) => form.setFieldValue(field.name, e)}
 			/>
 		</div>
 	);

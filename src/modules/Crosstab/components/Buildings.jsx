@@ -28,6 +28,7 @@ export const Buildings = ({
 			svgWrap.current.innerHTML = stringSvg;
 			const paths = svgWrap.current.querySelectorAll("path");
 			paths?.forEach((path) => {
+				// check for appartment and set color by status
 				const appartmentID = path.getAttribute("data-apartment-id");
 				const appartment = find(get(data, "apartments"), {
 					id: Number(appartmentID),
@@ -37,6 +38,7 @@ export const Buildings = ({
 					path.classList.add(`status-${get(appartment, "status")}`);
 				}
 				path?.addEventListener("click", (e) => {
+					// get id from path tag
 					const pathID = path.getAttribute(`data-${stepUrls[step]}-id`);
 
 					if ((pathID, step < 3)) {
@@ -44,6 +46,7 @@ export const Buildings = ({
 							setActivePathID((prev) => [...prev, pathID]);
 						setCurrentStep(step + 1);
 					} else if (step === 3) {
+						// open right side appartment information
 						setActiveApartment(appartment);
 					}
 				});
