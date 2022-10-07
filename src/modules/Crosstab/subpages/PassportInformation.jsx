@@ -1,4 +1,5 @@
 /* eslint-disable no-extend-native */
+import { useQueryClient } from "@tanstack/react-query";
 import { Fields, Table } from "components";
 import Containers from "containers";
 import { FastField, Field } from "formik";
@@ -6,14 +7,20 @@ import { useFetchList } from "hooks";
 import { get } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { time } from "services";
+import { constants, functions, notifications, time } from "services";
+import { MaskedDateInput } from "../components";
 
-const PassportInformation = ({ paymentDetails, activeApartment }) => {
+const languages = [
+	{ value: constants.UZBEK, label: "Uzbek" },
+	{ value: constants.RUSSIAN, label: "Russian" },
+];
+
+const PassportInformation = ({ paymentDetails, activeApartment, setCurrentTab }) => {
 	const { t } = useTranslation();
 	const [apartment, setApartment] = useState({});
 	const [items, setItems] = useState();
-	const [month, setMonth] = useState(12);
 	const [tariff, setTariff] = useState(null);
+	const queryClient = useQueryClient();
 
 	const price = get(apartment, "price", 0);
 
@@ -31,20 +38,52 @@ const PassportInformation = ({ paymentDetails, activeApartment }) => {
 		const numbers = /[0-9]/;
 		const charArray = e.target.value.toUpperCase().split("");
 		const correctCharArray = charArray.filter((char, i) => {
-			if (i < 2) {
-				return char.match(letters);
-			} else if (i >= 2) {
-				return char.match(numbers);
-			} else return false;
+			if (i <= 10) {
+				if (i < 2) {
+					return char.match(letters);
+				} else if (i >= 2) {
+					return char.match(numbers);
+				}
+			}
 		});
 		e.target.value = correctCharArray.join("");
 	};
 
-	const calculate = () => {
-		const newItems = Array(month || 1)
+	const calculate = (formik_values) => {
+		let { month_count, initial_payment, discount } = formik_values;
+		month_count = Number(month_count);
+		initial_payment = Number(initial_payment);
+		discount = Number(discount);
+
+		const credit =
+			Number(price) -
+			(Number(price) * discount) / 100 -
+			(Number(price) * initial_payment) / 100;
+
+		const newItems = Array(month_count || 1)
 			.fill(1)
-			.map((_, index) => ({ month: index + 1, fee: (price / month).toFixed(2) }));
+			.map((_, index) => ({
+				month: index + 1,
+				fee: functions.convertToReadable((credit / month_count).toFixed(2)),
+			}));
+
+		newItems.push({ month: "Total", fee: functions.convertToReadable(credit) });
+
 		setItems(newItems);
+	};
+
+	const handleError = (data) => {
+		const errors = get(data, "response.data.errors");
+
+		errors &&
+			Object.keys(errors).includes("document_id") &&
+			notifications.error("You have to create document first");
+	};
+
+	const handleSuccess = () => {
+		notifications.success("Contract created");
+		queryClient.invalidateQueries();
+		setCurrentTab(1);
 	};
 
 	useEffect(() => {
@@ -67,6 +106,7 @@ const PassportInformation = ({ paymentDetails, activeApartment }) => {
 										<div
 											className="tariff__card tariff__card--active"
 											onClick={() => setTariff(item)}
+											key={index}
 										>
 											<p className="payment">
 												{t("Month")}:{" "}
@@ -105,18 +145,23 @@ const PassportInformation = ({ paymentDetails, activeApartment }) => {
 				method="post"
 				url="contract"
 				key={2}
+				onError={handleError}
+				onSuccess={handleSuccess}
 				fields={[
 					{
 						name: "initial_payment",
 						value: get(tariff, "payment"),
+						onSubmitValue: (value) => (value?.length > 0 ? Number(value) : 100),
 					},
 					{
 						name: "month_count",
 						value: get(tariff, "month_count"),
+						onSubmitValue: (value) => Number(value) || 0,
 					},
 					{
 						name: "discount",
-						value: get(tariff, "discount"),
+						value: Number(get(tariff, "discount")) || 0,
+						onSubmitValue: (value) => Number(value) || 0,
 					},
 					{
 						name: "first_name",
@@ -147,14 +192,47 @@ const PassportInformation = ({ paymentDetails, activeApartment }) => {
 						value: "",
 					},
 					{
+						name: "contract_number",
+						value: "",
+					},
+					{
 						name: "birthdate",
-						value: Date.now(),
-						onSubmitValue: (value) => time.toTimestamp(value),
+						value: "",
+						validationType: "number",
+						onSubmitValue: (value) =>
+							Math.floor(time.toTimestamp([value[2], value[1], value[0]])),
+					},
+					{
+						name: "monthly_payment_date",
+						value: "",
+						validationType: "number",
+						onSubmitValue: (value) =>
+							Math.floor(time.toTimestamp([value[2], value[1], value[0]])),
+					},
+					{
+						name: "passport_issued_date",
+						value: "",
+						validationType: "number",
+						onSubmitValue: (value) =>
+							Math.floor(time.toTimestamp([value[2], value[1], value[0]])),
+					},
+					{
+						name: "date",
+						value: "",
+						validationType: "number",
+						onSubmitValue: (value) =>
+							Math.floor(time.toTimestamp([value[2], value[1], value[0]])),
 					},
 					{
 						name: "mail",
 						value: "",
 						validations: [{ type: "email" }],
+					},
+					{
+						name: "language_id",
+						value: 1,
+						validationType: "number",
+						onSubmitValue: (option) => console.log(option),
 					},
 				]}
 			>
@@ -188,7 +266,7 @@ const PassportInformation = ({ paymentDetails, activeApartment }) => {
 										<button
 											type="submit"
 											className="printToDoc"
-											onClick={calculate}
+											onClick={() => calculate(values)}
 										>
 											{t("calculate")}
 										</button>
@@ -236,7 +314,7 @@ const PassportInformation = ({ paymentDetails, activeApartment }) => {
 									component={Fields.Input}
 									type="text"
 									name="address"
-									label={t("middle name")}
+									label={t("Address")}
 								/>
 								<FastField
 									component={Fields.Input}
@@ -247,7 +325,7 @@ const PassportInformation = ({ paymentDetails, activeApartment }) => {
 									placeholder="AB1234567"
 								/>
 								<Field
-									component={Fields.DatePicker}
+									component={MaskedDateInput}
 									// type="text"
 									name="birthdate"
 									label={t("birthdate")}
@@ -264,6 +342,42 @@ const PassportInformation = ({ paymentDetails, activeApartment }) => {
 									name="mail"
 									label={t("email")}
 									placeholder="example@gmail.com"
+								/>
+								<div className="lang-select">
+									<FastField
+										component={Fields.Select}
+										name="language_id"
+										label={t("Document language")}
+										options={languages}
+										placeholder="uz"
+									/>
+								</div>
+								<FastField
+									component={Fields.Input}
+									type="text"
+									name="passport_issued_by"
+									label={t("Passport issued by")}
+								/>
+								<Field
+									component={MaskedDateInput}
+									name="monthly_payment_date"
+									label={t("Monthly payment date")}
+								/>
+								<Field
+									component={MaskedDateInput}
+									name="date"
+									label={t("Contract date")}
+								/>
+								<Field
+									component={MaskedDateInput}
+									name="passport_issued_date"
+									label={t("Passport issued date")}
+								/>
+								<FastField
+									component={Fields.Input}
+									type="text"
+									name="contract_number"
+									label={t("Contract number")}
 								/>
 								<button type="submit" className="printToDoc submit">
 									Submit
