@@ -1,6 +1,6 @@
 import { Fields, ModalRoot, Modals } from "components";
 import React from "react";
-import { notifications } from "services";
+import { constants, notifications } from "services";
 
 export const DocumentForm = ({ complexId, documentModal }) => {
 	const onClose = () => {
@@ -12,7 +12,7 @@ export const DocumentForm = ({ complexId, documentModal }) => {
 		notifications.success("document is created");
 	};
 	return (
-		<ModalRoot isOpen={documentModal.isOpen}>
+		<ModalRoot isOpen={documentModal.isOpen} className={"doc_modal"}>
 			<Modals.AddObject
 				fields={[
 					{
@@ -34,7 +34,13 @@ export const DocumentForm = ({ complexId, documentModal }) => {
 						placeholder: "Hujjat",
 					},
 					{
-						name: "file_id[0]",
+						name: "type",
+						component: Fields.Select,
+						options: constants.typeOptions,
+						label: "Type",
+					},
+					{
+						name: "file_id[1]",
 						component: Fields.Upload,
 						label: "Hujjat yuklash",
 						placeholder: "Hujjat tanlang",
@@ -42,7 +48,7 @@ export const DocumentForm = ({ complexId, documentModal }) => {
 						accept: ".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 					},
 					{
-						name: "file_id[1]",
+						name: "file_id[2]",
 						component: Fields.Upload,
 						label: "Загрузить документ",
 						placeholder: "Выберите документ",
@@ -63,7 +69,6 @@ export const DocumentForm = ({ complexId, documentModal }) => {
 					{
 						name: "type",
 						validationType: "number",
-						value: 1,
 					},
 					{
 						name: "complex_id",
