@@ -22,15 +22,15 @@ export const ApartmentCard = ({
 	setActiveApartment,
 	setCurrentTab,
 	activeApartment,
+	currentTab,
 	boxType,
-	setBoxType,
 }) => {
 	const langCode = "ru";
 	return (
 		<div className={cn("apartment-card", { active: boxType === "card" })}>
 			<button
 				className={cn("close", { activeApartment })}
-				onClick={() => setActiveApartment(false)}
+				onClick={() => currentTab !== 5 && setActiveApartment(false)}
 			>
 				<Xbtn />
 			</button>
@@ -100,13 +100,13 @@ export const ApartmentCard = ({
 					</dd>
 				</dl>
 			</div>
-			{get(activeApartment, "discount") && (
+			{/* {get(activeApartment, "discount") && (
 				<div className="discount">
 					<GiftBox />
 					<span>Cкидка {get(activeApartment, "discount", "")}%</span>
 					<span>действует до {"28.05.2020"}</span>
 				</div>
-			)}
+			)} */}
 			{ON_SALE.includes(get(activeApartment, "status")) && (
 				<div className="submit">
 					<button className="btn" onClick={() => setCurrentTab(5)}>
@@ -116,23 +116,27 @@ export const ApartmentCard = ({
 			)}
 
 			<ul>
-				<li>
+				{/* <li>
 					<dt className="name">Площадь общая</dt>
 					<dd className="value">
 						{get(activeApartment, "plan.area")} м<sup>2</sup>
 					</dd>
-				</li>
-				<li>
+				</li> */}
+				{/* <li>
 					<dt className="name">Жилая площадь</dt>
 					<dd className="value">
 						11.9 м<sup>2</sup>
 					</dd>
-				</li>
-				<li>
+				</li> */}
+				{/* <li>
 					<dt className="name">Площадь кухни</dt>
 					<dd className="value">
 						7.2 м<sup>2</sup>
 					</dd>
+				</li> */}
+				<li>
+					<dt className="name">Название квартиры</dt>
+					<dd className="value">{get(activeApartment, `name.${langCode}`)}</dd>
 				</li>
 				<li>
 					<dt className="name">Кол-во комнат</dt>
@@ -140,25 +144,25 @@ export const ApartmentCard = ({
 				</li>
 				<li>
 					<dt className="name">Тип планировки</dt>
-					<dd className="value">{get(activeApartment, `name.${langCode}`)}</dd>
+					<dd className="value">{get(activeApartment, `plan.name.${langCode}`)}</dd>
 				</li>
-				<li>
+				{/* <li>
 					<dt className="name">Кол-во балконов</dt>
 					<dd className="value">1</dd>
-				</li>
-				<li>
+				</li> */}
+				{/* <li>
 					<dt className="name">Кол-во совмещенных санузлов</dt>
 					<dd className="value">1</dd>
-				</li>
+				</li> */}
 				<li>
 					<div>
 						<dt className="name">Этаж</dt>
 						<dd className="value">{get(activeApartment, "floor.sort")}</dd>
 					</div>
-					<button className="plan" onClick={() => setCurrentTab(3)}>
+					{/* <button className="plan" onClick={() => setCurrentTab(3)}>
 						<Click />
 						<span>План этажа</span>
-					</button>
+					</button> */}
 				</li>
 				<li>
 					<dt className="name">Секция</dt>
@@ -168,26 +172,26 @@ export const ApartmentCard = ({
 					<dt className="name">Дом</dt>
 					<dd className="value">{get(activeApartment, "complex.sort")}</dd>
 				</li>
-				<li>
+				{/* <li>
 					<dt className="name">Объект</dt>
 					<dd className="value">Rteco</dd>
-				</li>
-				<li>
+				</li> */}
+				{/* <li>
 					<dt className="name">Первый взнос</dt>
 					<dd className="value">16 936.92 $</dd>
-				</li>
-				<li>
+				</li> */}
+				{/* <li>
 					<dt className="name">Ежемесячный платеж</dt>
 					<dd className="value">1 766.07 $</dd>
-				</li>
-				<li>
+				</li> */}
+				{/* <li>
 					<dt className="name">Срок кредита</dt>
 					<dd className="value">15</dd>
-				</li>
-				<li>
+				</li> */}
+				{/* <li>
 					<dt className="name">Стоимость по кредиту</dt>
 					<dd className="value">43 428 $</dd>
-				</li>
+				</li> */}
 			</ul>
 		</div>
 	);
