@@ -48,7 +48,7 @@ export const RoomCard = ({ item, onClick, onDelete = () => {}, link }) => {
 
 				<div className="object__content">
 					<h3 href="#" className="object__title">
-						name: {get(item, "name.uz")}
+						{get(item, "name.uz")}
 					</h3>
 					{get(item, "count") && <span>count: {get(item, "count")}</span>}
 					{get(item, "area") && <span>area: {get(item, "area")}</span>}

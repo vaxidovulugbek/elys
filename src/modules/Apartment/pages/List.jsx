@@ -43,7 +43,7 @@ const Apartment = () => {
 	return (
 		<>
 			<PageHeading
-				title="My complex"
+				title="My Apartments"
 				links={[
 					{ url: "/", name: "Control Panel" },
 					{ url: "/", name: "Complex" },

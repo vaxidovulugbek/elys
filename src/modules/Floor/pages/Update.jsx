@@ -31,7 +31,12 @@ const Update = () => {
 
 	return (
 		<>
-			<FloorForm url={"floor"} method={"put"} formData={data} onSuccess={onSuccess} />
+			<FloorForm
+				url={`floor/${floorID}`}
+				method={"put"}
+				formData={data}
+				onSuccess={onSuccess}
+			/>
 		</>
 	);
 };
