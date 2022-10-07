@@ -1,21 +1,32 @@
-import { Modals, PageHeading } from "components";
-import Containers from "containers";
-import { useDelete, useFetchList } from "hooks";
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+
 import { notifications } from "services";
+import { useDelete, useFetchList, useOverlay } from "hooks";
+
+import Containers from "containers";
+import { Button, Modals, PageHeading } from "components";
 import { DocumentCard } from "../components/DocumentCard";
+import { DocumentForm } from "modules/Complex/components/DocumentForm";
 
 const Document = () => {
 	const { complexID } = useParams();
+	const documentModal = useOverlay("documentModal");
+	const [complexId, setComplexId] = useState();
+
+	const handleDocument = (id) => {
+		setComplexId(id);
+		documentModal.handleOverlayOpen();
+	};
 
 	const documentList = useFetchList({
-		url: "document",
+		url: "/document",
 		urlSearchParams: { filter: { complex_id: complexID } },
 		queryOptions: { enabled: false },
 	});
+
 	const { mutate } = useDelete({
-		url: "document",
+		url: "/document",
 		queryOptions: { onSuccess: () => onDeleteSuccess() },
 	});
 
@@ -42,12 +53,20 @@ const Document = () => {
 				links={[
 					{ url: "/", name: "Control Panel" },
 					{ url: "/", name: "My Complex" },
-					{ url: "/", name: "Document" },
+					{ url: "", name: "Document" },
 				]}
+				renderButtons={() => (
+					<Button
+						onClick={documentModal.handleOverlayOpen}
+						innerText="Create"
+						className="btn btn_green"
+						size="sm"
+					/>
+				)}
 			/>
 			<div className="row gap">
 				<Containers.List
-					url={"document"}
+					url="/document"
 					urlSearchParams={{ filter: { complex_id: complexID } }}
 				>
 					{({ data }) => {
@@ -71,6 +90,8 @@ const Document = () => {
 					}}
 				</Containers.List>
 			</div>
+
+			<DocumentForm documentModal={documentModal} complexId={complexId} />
 		</>
 	);
 };

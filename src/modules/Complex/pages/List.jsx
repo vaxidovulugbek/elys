@@ -30,7 +30,9 @@ const List = () => {
 					{ url: "/", name: "My Complex" },
 				]}
 			/>
+
 			<SearchForm onClick={() => navigate("/complex/create")} />
+
 			<div className="row">
 				<Containers.List url="user/complex" urlSearchParams={{ include: "files" }}>
 					{({ data }) => {
@@ -65,7 +67,8 @@ const List = () => {
 					/>
 				</div>
 			</div>
-			<DocumentForm {...{ documentModal, complexId }} />
+
+			<DocumentForm documentModal={documentModal} complexId={complexId} />
 		</>
 	);
 };

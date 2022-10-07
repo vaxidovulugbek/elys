@@ -11,11 +11,10 @@ import { RoomForm } from "../components/RoomForm";
 
 const List = () => {
 	const roomModal = useOverlay("room");
-
-	const roomList = useFetchList({ url: "room" });
+	const roomList = useFetchList({ url: "/room" });
 
 	const { data, setId } = useFetchOneWithId({
-		url: "room",
+		url: "/room",
 		queryOptions: {
 			enabled: false,
 		},
@@ -23,7 +22,7 @@ const List = () => {
 	});
 
 	const deleteData = useDelete({
-		url: "room",
+		url: "/room",
 		queryOptions: { onSuccess: () => roomDeleted() },
 	});
 
@@ -33,14 +32,11 @@ const List = () => {
 	};
 
 	const onDelete = (id) => {
-		const receivePermission = () => {
-			deleteData.mutate(id);
-		};
 		Modals.deletePermission({
 			title: "Delete a room?",
 			icon: "error",
 			text: "All data concerning this room will be deleted.",
-			receivePermission,
+			receivePermission: () => deleteData.mutate(id),
 		});
 	};
 
@@ -56,11 +52,11 @@ const List = () => {
 				links={[
 					{ url: "/", name: "Control Panel" },
 					{ url: "/", name: "Complex" },
-					{ url: "/room", name: "Room" },
+					{ url: "", name: "Room" },
 				]}
 			/>
-			<div className="row gap" style={{ "--column-gap": 0 }}>
-				<Containers.List url="room">
+			<div className="row g-4">
+				<Containers.List url="/room">
 					{({ data }) => {
 						return (
 							<>
@@ -78,6 +74,7 @@ const List = () => {
 						);
 					}}
 				</Containers.List>
+
 				<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 					<AddObject
 						onClick={() => {
@@ -90,7 +87,8 @@ const List = () => {
 					/>
 				</div>
 			</div>
-			<RoomForm {...{ roomList, data, roomModal }} />
+
+			<RoomForm roomModal={roomModal} data={data} roomList={roomList} />
 		</>
 	);
 };

@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import cn from "classnames";
 
 import { ReactComponent as HomeSvg } from "assets/images/home.svg";
-import { ReactComponent as User } from "assets/images/user.svg";
 import { ReactComponent as Settings } from "assets/images/settings.svg";
 import angleRight from "assets/images/angle-right.svg";
 import { useState } from "react";

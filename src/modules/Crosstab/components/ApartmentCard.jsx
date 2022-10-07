@@ -6,8 +6,6 @@ import { Fancybox } from "components";
 
 import { ReactComponent as Clock } from "assets/images/clock-rotate-left.svg";
 import { ReactComponent as Click } from "assets/images/click.svg";
-import { ReactComponent as Print } from "assets/images/print.svg";
-import { ReactComponent as Share } from "assets/images/share.svg";
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
 import { ReactComponent as GiftBox } from "assets/images/gift.svg";
 

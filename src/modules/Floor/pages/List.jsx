@@ -2,10 +2,19 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { get } from "lodash";
 
-import Containers from "containers";
-import { AddObject, Breadcrumb, Fields, FloorCard, ModalRoot, Modals } from "components";
-import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
 import { useDelete, useFetchList, useOverlay } from "hooks";
+
+import Containers from "containers";
+import {
+	AddObject,
+	Breadcrumb,
+	Fields,
+	FloorCard,
+	ModalRoot,
+	Modals,
+	Typography,
+} from "components";
+import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
 
 const List = () => {
 	const modal = useOverlay("modal");
@@ -14,7 +23,7 @@ const List = () => {
 	const { sectionID, complexID } = useParams();
 
 	const floorList = useFetchList({
-		url: "floor",
+		url: "/floor",
 		urlSearchParams: {
 			include: "file",
 			filter: { section_id: sectionID },
@@ -22,7 +31,7 @@ const List = () => {
 	});
 
 	const { mutate } = useDelete({
-		url: "floor",
+		url: "/floor",
 		queryOptions: {
 			onSuccess: () => {
 				floorList.refetch();
@@ -31,14 +40,11 @@ const List = () => {
 	});
 
 	const onDelete = (id) => {
-		const receivePermission = () => {
-			mutate(id);
-		};
 		deletePermission({
 			title: "Delete a Floor?",
 			icon: "error",
 			text: "All data concerning this floor will be deleted.",
-			receivePermission,
+			receivePermission: () => mutate(id),
 		});
 	};
 
@@ -46,7 +52,7 @@ const List = () => {
 		<>
 			<div className="container-fluid section__update">
 				<div className="mb-4">
-					<h1 className="page-title">Section {sectionID}</h1>
+					<Typography Type="h1" className="page-title" text={`Section ${sectionID}`} />
 					<Breadcrumb
 						links={[
 							{
@@ -58,12 +64,12 @@ const List = () => {
 								url: "/",
 							},
 							{
-								name: "My complex",
+								name: "Section",
 								url: `/complex/update/${complexID}`,
 							},
 							{
 								name: "Floor",
-								url: "/",
+								url: "",
 							},
 						]}
 					/>
@@ -72,13 +78,13 @@ const List = () => {
 				<div className="row">
 					<div className="col-lg-12">
 						<div className="card-box transparent">
-							<h5 className="text-muted card-sub">
-								<b>Floor Plans</b>
-							</h5>
+							<Typography Type="h5" className="text-muted card-sub">
+								{() => <b>Floor Plans</b>}
+							</Typography>
 
 							<div className="row section-list">
 								<Containers.List
-									url="floor"
+									url="/floor"
 									urlSearchParams={{
 										include: "file",
 										filter: { section_id: sectionID },

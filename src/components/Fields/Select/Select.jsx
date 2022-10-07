@@ -26,7 +26,6 @@ export const Select = ({
 	onValueChange,
 	field,
 	form,
-	closeMenuOnSelect = true,
 }) => {
 	const classNames = cn(className, size);
 

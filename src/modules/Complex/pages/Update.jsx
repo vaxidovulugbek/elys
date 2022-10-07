@@ -16,12 +16,12 @@ const Update = () => {
 	const [type, setType] = useState("Adding");
 
 	const { data } = useFetchOne({
-		url: `complex/${complexID}`,
+		url: `/complex/${complexID}`,
 		urlSearchParams: { include: "region,district,files,svg,background" },
 	});
 
 	const section = useFetchOneWithId({
-		url: "section",
+		url: "/section",
 		urlSearchParams: { include: "file,svg,background" },
 		queryOptions: { enabled: false },
 		refetchStatus: modal.isOpen,
@@ -52,7 +52,7 @@ const Update = () => {
 				hasButton={true}
 			/>
 			<Containers.Form
-				url={`complex/${complexID}`}
+				url={`/complex/${complexID}`}
 				method="put"
 				className="row"
 				onSuccess={() => navigate(-1)}
@@ -208,7 +208,7 @@ const Update = () => {
 
 									<div className="col-12">
 										<FastField
-											url="region"
+											url="/region"
 											name="region_id"
 											component={Fields.AsyncSelect}
 											onValueChange={(option) =>
@@ -222,7 +222,7 @@ const Update = () => {
 
 									<div className="col-12">
 										<Field
-											url="district"
+											url="/district"
 											name="district_id"
 											component={Fields.AsyncSelect}
 											key={get(values, "region_id.value")}
@@ -291,7 +291,7 @@ const Update = () => {
 
 				<div className="row" style={{ rowGap: "20px" }}>
 					<Containers.List
-						url="section"
+						url="/section"
 						urlSearchParams={{ filter: { complex_id: complexID } }}
 					>
 						{({ data }) => {

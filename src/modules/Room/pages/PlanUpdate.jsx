@@ -10,8 +10,9 @@ import { PlanForm } from "../components/PlanForm";
 const PlanUpdate = () => {
 	const navigate = useNavigate();
 	const { planID } = useParams();
+
 	const { data, refetch, isLoading } = useFetchOne({
-		url: `plan/${planID}`,
+		url: `/plan/${planID}`,
 		queryOptions: {
 			enabled: false,
 		},

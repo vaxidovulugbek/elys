@@ -6,10 +6,10 @@ import { get } from "lodash";
 
 import Containers from "containers";
 import { notifications } from "services";
-import { Button, Fields } from "components";
+import { Button, Fields, Typography } from "components";
 
 export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Save" }) => {
-	const { roomID } = useParams();
+	const { roomID, planID } = useParams();
 	const navigate = useNavigate();
 
 	const onClose = () => {
@@ -78,10 +78,15 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 				{({ values }) => (
 					<>
 						<div className="card-box col-6">
-							<h5 className="text-muted card-sub">
-								<b>Section</b>
-								<small className="text-muted"> ID 2714</small>
-							</h5>
+							<Typography Type="h5" className="text-muted card-sub">
+								{() => (
+									<>
+										<b>Plan</b>
+										<small className="text-muted">{planID}</small>
+									</>
+								)}
+							</Typography>
+
 							<div className="row g-4">
 								<div className="col-12">
 									<FastField

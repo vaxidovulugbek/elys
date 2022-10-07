@@ -12,38 +12,35 @@ const Apartment = () => {
 	const { floorID, complexID, sectionID } = useParams();
 	const navigate = useNavigate();
 
-	const aprtmentList = useFetchList({
-		url: "apartment",
+	const apartment = useFetchList({
+		url: "/apartment",
 		urlSearchParams: {
 			filter: { floor_id: floorID, section_id: sectionID, complex_id: complexID },
 		},
 	});
 
 	const { mutate } = useDelete({
-		url: "apartment",
+		url: "/apartment",
 		queryOptions: {
 			onSuccess: () => {
-				aprtmentList.refetch();
+				apartment.refetch();
 			},
 		},
 	});
 
 	const onDelete = (id) => {
-		const receivePermission = () => {
-			mutate(id);
-		};
 		deletePermission({
 			title: "Delete a Apartment?",
 			icon: "error",
 			text: "All data concerning this apartment will be deleted.",
-			receivePermission,
+			receivePermission: () => mutate(id),
 		});
 	};
 
 	return (
 		<>
 			<PageHeading
-				title="My Apartments"
+				title={`Floor ${floorID}`}
 				links={[
 					{ url: "/", name: "Control Panel" },
 					{ url: "/", name: "Complex" },
@@ -54,7 +51,7 @@ const Apartment = () => {
 			/>
 			<div className="row section-list">
 				<Containers.List
-					url="apartment"
+					url="/apartment"
 					urlSearchParams={{
 						filter: { floor_id: floorID, section_id: sectionID, complex_id: complexID },
 					}}

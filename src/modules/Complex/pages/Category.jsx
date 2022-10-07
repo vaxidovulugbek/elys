@@ -1,25 +1,26 @@
 import React from "react";
 
 import { useDelete, useFetchList, useFetchOneWithId, useOverlay } from "hooks";
-import { CategoryCard } from "../components/CategoryCard";
-import { AddObject, Modals } from "components";
-import Containers from "containers";
-import CategoryForm from "../components/CategoryForm";
 import { notifications } from "services";
+
+import Containers from "containers";
+import { CategoryCard } from "../components/CategoryCard";
+import { AddObject, Modals, PageHeading } from "components";
+import CategoryForm from "../components/CategoryForm";
 
 const Category = () => {
 	const categoryModal = useOverlay("category");
-	const categoryList = useFetchList({ url: "category" });
+	const categoryList = useFetchList({ url: "/category" });
 
 	const { data, setId } = useFetchOneWithId({
-		url: "category",
+		url: "/category",
 		queryOptions: {
 			enabled: false,
 		},
 		refetchStatus: categoryModal.isOpen,
 	});
 	const deleteData = useDelete({
-		url: "room",
+		url: "/room",
 		queryOptions: { onSuccess: () => roomDeleted() },
 	});
 
@@ -29,14 +30,11 @@ const Category = () => {
 	};
 
 	const onDelete = (id) => {
-		const receivePermission = () => {
-			deleteData.mutate(id);
-		};
 		Modals.deletePermission({
 			title: "Delete a category?",
 			icon: "error",
 			text: "All data concerning this category will be deleted.",
-			receivePermission,
+			receivePermission: () => deleteData.mutate(id),
 		});
 	};
 
@@ -46,8 +44,22 @@ const Category = () => {
 	};
 	return (
 		<>
+			<PageHeading
+				title="Categories"
+				links={[
+					{
+						url: "/",
+						name: "Complex",
+					},
+					{
+						url: "",
+						name: "Category",
+					},
+				]}
+			/>
+
 			<div className="row">
-				<Containers.List url="category">
+				<Containers.List url="/category">
 					{({ data }) => {
 						return (
 							<>
@@ -64,6 +76,7 @@ const Category = () => {
 						);
 					}}
 				</Containers.List>
+
 				<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 					<AddObject
 						onClick={() => {
@@ -76,7 +89,8 @@ const Category = () => {
 					/>
 				</div>
 			</div>
-			<CategoryForm {...{ categoryList, categoryModal, data }} />
+
+			<CategoryForm categoryList={categoryList} categoryModal={categoryModal} data={data} />
 		</>
 	);
 };

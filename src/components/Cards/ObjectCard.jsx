@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { get } from "lodash";
 
@@ -18,7 +18,6 @@ export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument
 		urlSearchParams: { include: "files" },
 		queryOptions: { enabled: false },
 	});
-	const navigate = useNavigate();
 
 	const onSuccess = () => {
 		notifications.success("Complex delete success");
@@ -52,7 +51,7 @@ export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument
 	};
 
 	return (
-		<div onClick={() => navigate(`complex/update/${get(data, "id")}`)} className="object__card">
+		<div className="object__card">
 			<div className="object__img">
 				<img
 					src={
@@ -62,10 +61,8 @@ export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument
 					alt="object"
 				/>
 				<RoundCircle title="462" subtitle="accommodation" />
-				<div
-					className="d-flex align-items-center object__btns"
-					onClick={(e) => e.stopPropagation()}
-				>
+
+				<div className="d-flex align-items-center object__btns">
 					<Link to={`/crosstab/${get(data, "id")}`} className="object__action bg_purple">
 						<svg fill="#fff" width="24" height="24" viewBox="0 0 24 24">
 							<path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
@@ -81,14 +78,14 @@ export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument
 						</svg>
 					</button>
 
-					<button
+					<Link
+						to={`complex/update/${get(data, "id")}`}
 						className="object__action bg_green"
-						onClick={() => navigate(`complex/update/${get(data, "id")}`)}
 					>
 						<svg width="24" height="24" viewBox="0 0 24 24">
 							<path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
 						</svg>
-					</button>
+					</Link>
 
 					<Link to={`tariff/${get(data, "id")}`} className="object__action bg_orange">
 						<TariffIcon fill="#fff" />
@@ -103,7 +100,9 @@ export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument
 			</div>
 
 			<div className="object__content">
-				<h3 className="object__title">{get(data, "name.uz", "")}</h3>
+				<Link to={`complex/update/${get(data, "id")}`} className="object__title">
+					{get(data, "name.uz", "")}
+				</Link>
 				<div className="d-flex align-items-center object__address">
 					<svg width="17" height="17" viewBox="0 0 17 17">
 						<g></g>
@@ -141,12 +140,15 @@ export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument
 				</div>
 
 				<div className="object__links d-flex" onClick={(e) => e.stopPropagation()}>
-					<button className="btn btn_green btn_small">
+					<Link
+						to={`complex/update/${get(data, "id")}`}
+						className="btn btn_green btn_small"
+					>
 						<svg fill="#fff" width="24" height="24" viewBox="0 0 24 24">
 							<path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
 						</svg>
 						Edit
-					</button>
+					</Link>
 
 					<button
 						className="btn btn_outlined btn_small"
