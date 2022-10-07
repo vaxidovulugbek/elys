@@ -13,13 +13,7 @@ const Create = () => {
 	};
 	return (
 		<>
-			<FloorForm
-				url={"floor"}
-				method={"post"}
-				isFormData
-				btnSubmitText={"Add"}
-				onSuccess={onSuccess}
-			/>
+			<FloorForm url={"floor"} method={"post"} btnSubmitText={"Add"} onSuccess={onSuccess} />
 		</>
 	);
 };

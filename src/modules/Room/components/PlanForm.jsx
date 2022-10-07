@@ -53,7 +53,15 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 					{
 						name: "fields",
 						validationType: "array",
-						value: get(formData, "fields"),
+						value:
+							get(formData, "fields") &&
+							get(formData, "fields").map((field) => ({
+								...field,
+								plan_field_id: {
+									label: field.plan_field.name.uz,
+									value: field.plan_field.id,
+								},
+							})),
 						onSubmitValue: (fields) =>
 							fields.map((item) => ({
 								...item,
@@ -191,7 +199,7 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 									queryKey={[
 										"GET",
 										`plan/${get(formData, "id")}`,
-										{ include: "files,fields" },
+										{ include: "files,fields,fields.plan_field" },
 									]}
 								/>
 							</div>

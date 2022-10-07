@@ -1,5 +1,5 @@
 /* eslint-disable no-extend-native */
-import { Fancybox, Fields, Table } from "components";
+import { Fields, Table } from "components";
 import Containers from "containers";
 import { FastField } from "formik";
 import { get } from "lodash";
@@ -8,8 +8,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { functions } from "services";
-import { Navigation } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
 
 const payment_types = [
 	{ value: 1, label: "рассрочка" },

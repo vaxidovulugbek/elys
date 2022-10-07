@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import cn from "classnames";
 
 import { ReactComponent as HomeSvg } from "assets/images/home.svg";
-import { ReactComponent as User } from "assets/images/user.svg";
 import { ReactComponent as Settings } from "assets/images/settings.svg";
 import angleRight from "assets/images/angle-right.svg";
 import { useState } from "react";
@@ -19,14 +18,6 @@ const settingSubLinks = [
 	{
 		url: "/plan-field",
 		name: "Plan Field",
-	},
-	{
-		url: "/statuses-replacement",
-		name: "Substitution of statuses",
-	},
-	{
-		url: "/permissions",
-		name: "Access rights",
 	},
 ];
 
@@ -127,9 +118,9 @@ export const Sidebar = ({ isOpen }) => {
 				</div>
 			</div>
 
-			<h3 className="sidebar__title">Account</h3>
+			{/* <h3 className="sidebar__title">Account</h3> */}
 
-			<div className="sidebar__submenu">
+			{/* <div className="sidebar__submenu">
 				<NavLink
 					to="/profile"
 					className={({ isActive }) =>
@@ -141,7 +132,7 @@ export const Sidebar = ({ isOpen }) => {
 						<span className="sidebar__link-text">Profile</span>
 					</div>
 				</NavLink>
-			</div>
+			</div> */}
 		</aside>
 	);
 };

@@ -63,6 +63,7 @@ const SectionForm = ({ modal, section = {}, complexID, type }) => {
 						component: Fields.Upload,
 						label: "Background",
 						placeholder: "Select image",
+						imageTitle: get(section, "data.background.title"),
 						btnText: "Upload",
 					},
 					{
@@ -71,6 +72,7 @@ const SectionForm = ({ modal, section = {}, complexID, type }) => {
 						label: "Svg",
 						placeholder: "Select svg image",
 						accept: "image/svg+xml",
+						imageTitle: get(section, "data.svg.title"),
 						btnText: "Upload",
 					},
 				]}

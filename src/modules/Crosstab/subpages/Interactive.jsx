@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import cn from "classnames";
 
 import { Buildings } from "../components";
-import { Flats } from "../components";
 import { useParams } from "react-router-dom";
 
 const stepUrls = ["complex", "section", "floor"];

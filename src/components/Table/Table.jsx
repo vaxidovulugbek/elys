@@ -5,7 +5,6 @@ import cn from "classnames";
 import { Spinner } from "components";
 import { Head } from "./components/Head";
 import { TableRow } from "./components/TableRow";
-import { NoData } from "./components/NoData";
 
 import "./Table.scss";
 

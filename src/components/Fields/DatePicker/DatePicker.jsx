@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDatePicker from "react-datepicker";
 import cn from "classnames";
-
-import { time } from "services";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./DatePicker.scss";
