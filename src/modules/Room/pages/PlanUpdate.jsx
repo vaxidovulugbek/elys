@@ -15,7 +15,7 @@ const PlanUpdate = () => {
 		queryOptions: {
 			enabled: false,
 		},
-		urlSearchParams: { include: "files" },
+		urlSearchParams: { include: "files,fields" },
 	});
 
 	const onSuccess = () => {

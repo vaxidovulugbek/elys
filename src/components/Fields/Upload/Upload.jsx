@@ -20,6 +20,7 @@ export const Upload = ({
 	className,
 	imgClick = null,
 	accept = "image/*",
+	imageTitle,
 }) => {
 	const classNames = cn("form-wrapper form_disabled", className);
 	const imgBlock = cn("form-wrapper", { max__content: hasDelete });
@@ -65,7 +66,7 @@ export const Upload = ({
 							disabled={true}
 							className="form-control__input"
 							type="text"
-							value={get(image, "name")}
+							value={get(image, "name") || imageTitle}
 							placeholder={placeholder}
 						/>
 					</label>
