@@ -42,7 +42,7 @@ export const RoomCard = ({ item, onClick = () => {}, onDelete = () => {}, link }
 
 				<div className="object__content">
 					<Link to={link} className="object__title">
-						name: {get(item, "name.uz")}
+						{get(item, "name.uz")}
 					</Link>
 					{get(item, "count") && <span>count: {get(item, "count")}</span>}
 					{get(item, "area") && <span>area: {get(item, "area")}</span>}

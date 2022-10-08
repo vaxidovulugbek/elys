@@ -18,6 +18,8 @@ const Interactive = ({ setActiveApartment, complex }) => {
 		});
 	};
 
+	console.log(complex.data, "complex");
+
 	return (
 		<div className="interactive">
 			<div className="steps">

@@ -45,13 +45,15 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 					},
 					{
 						name: "price",
-						validationType: "number",
+						validationType: "string",
 						value: Number(get(formData, "price")),
+						onSubmitValue: (value) => Number(value.replaceAll(" ", "")),
 					},
 					{
 						name: "discount",
-						validationType: "number",
+						validationType: "string",
 						value: Number(get(formData, "discount")),
+						onSubmitValue: (value) => Number(value.replaceAll(" ", "")),
 					},
 					{
 						name: "sort",
@@ -186,17 +188,21 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 								<div className="col-12">
 									<FastField
 										name="price"
-										component={Fields.Input}
-										type="number"
+										component={Fields.InputMask}
+										type="text"
 										label="Price"
+										decimalSeparator=" "
+										thousandSeparator=" "
 									/>
 								</div>
 								<div className="col-12">
 									<FastField
 										name="discount"
-										component={Fields.Input}
-										type="number"
+										component={Fields.InputMask}
+										type="text"
 										label="Discount %"
+										decimalSeparator=" "
+										thousandSeparator=" "
 									/>
 								</div>
 								<div className="col-12">

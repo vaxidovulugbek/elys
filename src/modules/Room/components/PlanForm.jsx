@@ -53,15 +53,15 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 					{
 						name: "fields",
 						validationType: "array",
-						value:
-							get(formData, "fields") &&
-							get(formData, "fields").map((field) => ({
-								...field,
-								plan_field_id: {
-									label: field.plan_field.name.uz,
-									value: field.plan_field.id,
-								},
-							})),
+						value: get(formData, "fields")
+							? get(formData, "fields").map((field) => ({
+									...field,
+									plan_field_id: {
+										label: field.plan_field.name.uz,
+										value: field.plan_field.id,
+									},
+							  }))
+							: [],
 						onSubmitValue: (fields) =>
 							fields.map((item) => ({
 								...item,

@@ -1,44 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FastField, Field } from "formik";
 import { get } from "lodash";
 
-import { useFetchOne, useFetchOneWithId, useOverlay } from "hooks";
+import { useFetchOne } from "hooks";
 
 import Containers from "containers";
-import { PageHeading, Fields, Button, MapPicker, SectionCard } from "components";
-import SectionForm from "../components/SectionForm";
+import { PageHeading, Fields, Button, MapPicker } from "components";
+import { SectionList } from "modules/Section";
 
 const Update = () => {
 	const navigate = useNavigate();
-	const modal = useOverlay("modal");
 	const { complexID } = useParams();
-	const [type, setType] = useState("Adding");
 
 	const { data } = useFetchOne({
 		url: `/complex/${complexID}`,
 		urlSearchParams: { include: "region,district,files,svg,background" },
 	});
 
-	const section = useFetchOneWithId({
-		url: "/section",
-		urlSearchParams: { include: "file,svg,background" },
-		queryOptions: { enabled: false },
-		refetchStatus: modal.isOpen,
-	});
-
-	const fetchSection = (e, id) => {
-		e.stopPropagation();
-		section.setId(id);
-		setType("Updating");
-		modal.handleOverlayOpen();
-	};
-
-	const createSection = () => {
-		setType("Adding");
-		modal.handleOverlayOpen();
-		section.setId(null);
-	};
 	return (
 		<>
 			<PageHeading
@@ -284,56 +263,7 @@ const Update = () => {
 				)}
 			</Containers.Form>
 
-			<div className="card-box transparent">
-				<h5 className="text-muted card-sub">
-					<b>Sections</b>
-				</h5>
-
-				<div className="row" style={{ rowGap: "20px" }}>
-					<Containers.List
-						url="/section"
-						urlSearchParams={{ filter: { complex_id: complexID } }}
-					>
-						{({ data }) => {
-							return (
-								<>
-									{Array.isArray(data) &&
-										data.map((item, index) => (
-											<div
-												className="col-lg-3 col-xl-2 col-md-4 col-sm-4 col-6 building-card"
-												key={index}
-											>
-												<SectionCard
-													key={index}
-													link={"/section/update"}
-													complexID={complexID}
-													data={item}
-													onClick={fetchSection}
-												/>
-											</div>
-										))}
-									<div className="col-lg-3 col-xl-2 col-md-4 col-sm-4 col-6 building-card">
-										<button
-											className="object__add"
-											onClick={createSection}
-											style={{
-												width: "236px",
-												height: "197px",
-												display: "flex",
-												justifyContent: "center",
-											}}
-										>
-											ADD SECTION
-										</button>
-									</div>
-								</>
-							);
-						}}
-					</Containers.List>
-				</div>
-			</div>
-
-			<SectionForm {...{ modal, section, complexID, type }} />
+			<SectionList complexID={complexID} />
 		</>
 	);
 };

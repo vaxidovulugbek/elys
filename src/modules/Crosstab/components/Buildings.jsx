@@ -18,9 +18,10 @@ export const Buildings = ({
 	const { data } = useFetchOne({
 		url: `${stepUrls[step - 1]}/${activePathID[step - 1]}`,
 		urlSearchParams: {
-			include: "files,place,category,district,region,background,svg,vector,apartments",
+			include: "files,place,category,district,region,background,svg,vector,apartments.plan",
 		},
 	});
+	console.log(`${stepUrls[step - 1]}/${activePathID[step - 1]}`, "apart");
 	const stringSvg = get(data, "vector");
 
 	useEffect(() => {
@@ -33,6 +34,9 @@ export const Buildings = ({
 				const appartment = find(get(data, "apartments"), {
 					id: Number(appartmentID),
 				});
+				console.log(get(data, "apartments", "apartments"));
+				console.log(appartmentID, "apartment_id");
+				console.log(appartment, "appartment");
 				if (appartmentID) {
 					// status colors in the _crosstab-layout.scss file
 					path.classList.add(`status-${get(appartment, "status")}`);

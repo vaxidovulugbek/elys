@@ -24,6 +24,7 @@ export const ApartmentCard = ({
 	boxType,
 }) => {
 	const langCode = "ru";
+	console.log(activeApartment, "activeApartment");
 	return (
 		<div className={cn("apartment-card", { active: boxType === "card" })}>
 			<button

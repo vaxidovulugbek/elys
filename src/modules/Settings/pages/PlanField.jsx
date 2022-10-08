@@ -80,7 +80,7 @@ const PlanField = () => {
 							planFieldModal.handleOverlayOpen();
 						}}
 						src={require("assets/images/section-img1.png")}
-						innerText="ADD A ROOM"
+						innerText="ADD A PLAN FIELD"
 						className={"p-3"}
 					/>
 				</div>

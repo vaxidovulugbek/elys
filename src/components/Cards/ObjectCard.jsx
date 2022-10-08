@@ -60,7 +60,7 @@ export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument
 					}
 					alt="object"
 				/>
-				<RoundCircle title="462" subtitle="accommodation" />
+				<RoundCircle title={get(data, "id")} subtitle="complex" />
 
 				<div className="d-flex align-items-center object__btns">
 					<Link to={`/crosstab/${get(data, "id")}`} className="object__action bg_purple">
