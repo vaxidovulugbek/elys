@@ -18,8 +18,12 @@ const languages = [
 	{ value: constants.RUSSIAN, label: "Russian" },
 ];
 
-const PassportInformation = ({ paymentDetails, activeApartment, setCurrentTab }) => {
-	const navigate = useNavigate();
+const PassportInformation = ({
+	paymentDetails,
+	setActiveApartment,
+	activeApartment,
+	setCurrentTab,
+}) => {
 	const { t } = useTranslation();
 	const [apartment, setApartment] = useState({});
 	const [items, setItems] = useState();
@@ -32,7 +36,7 @@ const PassportInformation = ({ paymentDetails, activeApartment, setCurrentTab })
 		url: "/tariff",
 		urlSearchParams: {
 			filter: {
-				type: get(apartment, "type"),
+				type: get(activeApartment, "type"),
 			},
 		},
 	});
@@ -85,15 +89,19 @@ const PassportInformation = ({ paymentDetails, activeApartment, setCurrentTab })
 	};
 
 	const handleSuccess = (response) => {
-		notifications.success("Contract created");
-		queryClient.invalidateQueries();
-		setCurrentTab(1);
-
 		const download = document.createElement("a");
 		download.download = true;
 		download.href = get(response, "data.destination");
-		download.click();
-		download.remove();
+		document.body.appendChild(download);
+		download.target = "_blank";
+
+		notifications.success("Contract created");
+		setActiveApartment(null);
+		setCurrentTab(1);
+		queryClient.invalidateQueries().then((res) => {
+			download.click();
+			document.body.removeChild(download);
+		});
 	};
 
 	useEffect(() => {
@@ -107,7 +115,14 @@ const PassportInformation = ({ paymentDetails, activeApartment, setCurrentTab })
 	return (
 		<div className="client-details">
 			<div className="tariff">
-				<Containers.List url="/tariff">
+				<Containers.List
+					url="/tariff"
+					urlSearchParams={{
+						filter: {
+							type: get(activeApartment, "type"),
+						},
+					}}
+				>
 					{({ data }) => (
 						<>
 							{Array.isArray(data) &&

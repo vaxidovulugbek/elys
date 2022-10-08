@@ -20,7 +20,7 @@ const Category = () => {
 		refetchStatus: categoryModal.isOpen,
 	});
 	const deleteData = useDelete({
-		url: "/room",
+		url: "/category",
 		queryOptions: { onSuccess: () => roomDeleted() },
 	});
 
