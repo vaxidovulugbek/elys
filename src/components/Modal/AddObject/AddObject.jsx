@@ -36,7 +36,6 @@ export const AddObject = ({
 			>
 				{({ errors, values, isLoading, resetForm }) => (
 					<>
-						{console.log(values)}
 						<div className="modal__heading d-flex align-items-center justify-content-between">
 							<h2 className="modal__title">{title}</h2>
 							<button

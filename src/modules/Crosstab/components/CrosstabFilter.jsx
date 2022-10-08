@@ -210,7 +210,7 @@ const RangePicker = ({
 
 	let label = (val) => <span>{val}</span>;
 
-	if (type === 1 || type === 4) label = (val) => <span>{`${val} $`}</span>;
+	if (type === 1 || type === 4) label = (val) => <span>{`${val} UZS`}</span>;
 	if (type === 2)
 		label = (val) => (
 			<span>

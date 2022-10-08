@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { get } from "lodash";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Containers from "containers";
 import { isArray } from "lodash";
 import { functions } from "services";
 
 const Plan = ({ setActiveApartment, filterFunc }) => {
+	const lngCode = useSelector((state) => state.system.lngCode);
+
 	const [cardIndex, setCardIndex] = useState(-1);
 	const { id } = useParams();
-	const lng = "ru";
 	return (
 		<div className="flats" id="flats">
 			<Containers.List
@@ -51,7 +53,7 @@ const Plan = ({ setActiveApartment, filterFunc }) => {
 											}
 										>
 											<div className="top">
-												<h2>{get(item, `name.${lng}`)}</h2>
+												<h2>{get(item, `name.${lngCode}`)}</h2>
 											</div>
 											<div className="center">
 												<img
@@ -63,8 +65,8 @@ const Plan = ({ setActiveApartment, filterFunc }) => {
 														от{" "}
 														<span className="plan-min-price-value">
 															{get(item, "cheapest")}
-														</span>{" "}
-														$
+														</span>
+														UZS
 													</div>
 												</div>
 											</div>
@@ -152,14 +154,14 @@ const Plan = ({ setActiveApartment, filterFunc }) => {
 																					apartment,
 																					"price"
 																				)
-																			)}{" "}
-																			$
+																			)}
+																			UZS
 																		</p>
 																		<p className="by-metr">
 																			{functions.meterPrice(
 																				apartment
-																			)}{" "}
-																			$/м
+																			)}
+																			UZS/м
 																		</p>
 																	</div>
 																</div>

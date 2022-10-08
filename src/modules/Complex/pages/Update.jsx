@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { FastField, Field } from "formik";
 import { get } from "lodash";
 
@@ -8,10 +9,12 @@ import { useFetchOne, useFetchOneWithId, useOverlay } from "hooks";
 import Containers from "containers";
 import { PageHeading, Fields, Button, MapPicker, SectionCard } from "components";
 import SectionForm from "../components/SectionForm";
+import { notifications } from "services";
 
 const Update = () => {
 	const navigate = useNavigate();
 	const modal = useOverlay("modal");
+	const lngCode = useSelector((state) => state.system.lngCode);
 	const { complexID } = useParams();
 	const [type, setType] = useState("Adding");
 
@@ -39,6 +42,7 @@ const Update = () => {
 		modal.handleOverlayOpen();
 		section.setId(null);
 	};
+
 	return (
 		<>
 			<PageHeading
@@ -55,7 +59,13 @@ const Update = () => {
 				url={`/complex/${complexID}`}
 				method="put"
 				className="row"
-				onSuccess={() => navigate(-1)}
+				onSuccess={() => {
+					navigate(-1);
+					notifications.success("Успешно");
+				}}
+				onError={(error) => {
+					notifications.error("Ошибка");
+				}}
 				fields={[
 					{
 						name: "name",
@@ -74,7 +84,7 @@ const Update = () => {
 						validationType: "object",
 						value: {
 							value: get(data, "region.id"),
-							label: get(data, "region.name.uz"),
+							label: get(data, `region.name.${lngCode}`),
 						},
 						onSubmitValue: (e) => get(e, "value"),
 					},
@@ -83,7 +93,7 @@ const Update = () => {
 						validationType: "object",
 						value: {
 							value: get(data, "district.id"),
-							label: get(data, "district.name.uz"),
+							label: get(data, `district.name.${lngCode}`),
 						},
 						onSubmitValue: (e) => get(e, "value"),
 					},
@@ -108,6 +118,11 @@ const Update = () => {
 							get(data, "lat") &&
 							get(data, "lon") &&
 							`${get(data, "lat")},  ${get(data, "lon")}`,
+					},
+					{
+						name: "sort",
+						validationType: "number",
+						value: get(data, "sort"),
 					},
 					{
 						name: "lat",
@@ -155,7 +170,14 @@ const Update = () => {
 											placeholder="Object"
 										/>
 									</div>
-
+									<div className="col-12">
+										<FastField
+											name="sort"
+											component={Fields.Input}
+											label="Sort"
+											placeholder="sort"
+										/>
+									</div>
 									<div className="col-12">
 										<FastField
 											name="background_id"
@@ -191,7 +213,6 @@ const Update = () => {
 								</div>
 							</div>
 						</div>
-
 						<div className="col-lg-6">
 							<div className="card-box">
 								<h5 className="text-muted card-sub">
@@ -214,9 +235,14 @@ const Update = () => {
 											onValueChange={(option) =>
 												setFieldValue("district_id", null)
 											}
-											optionLabel="name"
+											optionLabel={`name.${lngCode}`}
 											label="Region"
 											placeholder="Moscow"
+											urlSearchParams={(search) => ({
+												filter: {
+													name: search,
+												},
+											})}
 										/>
 									</div>
 
@@ -226,15 +252,14 @@ const Update = () => {
 											name="district_id"
 											component={Fields.AsyncSelect}
 											key={get(values, "region_id.value")}
-											isDisabled={
-												get(values, "region_id.value") ? false : true
-											}
-											params={{
+											isDisabled={!get(values, "region_id.value")}
+											urlSearchParams={(search) => ({
 												filter: {
+													name: search,
 													region_id: get(values, "region_id.value", null),
 												},
-											}}
-											optionLabel="name"
+											})}
+											optionLabel={`name.${lngCode}`}
 											label="District"
 											placeholder="Pushkin"
 										/>
@@ -244,7 +269,7 @@ const Update = () => {
 										<FastField
 											name="address.en"
 											component={Fields.Input}
-											label="Object address EN"
+											label="Complex address EN"
 											placeholder="Address"
 										/>
 									</div>
@@ -252,7 +277,7 @@ const Update = () => {
 										<FastField
 											name="address.ru"
 											component={Fields.Input}
-											label="Object address RU"
+											label="Complex address RU"
 											placeholder="Address"
 										/>
 									</div>
@@ -260,7 +285,7 @@ const Update = () => {
 										<FastField
 											name="address.uz"
 											component={Fields.Input}
-											label="Object address UZ"
+											label="Complex address UZ"
 											placeholder="Address"
 										/>
 									</div>

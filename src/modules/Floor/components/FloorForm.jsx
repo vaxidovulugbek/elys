@@ -61,7 +61,7 @@ export const FloorForm = ({ method, url, formData, onSuccess, btnSubmitText = "S
 					<>
 						<div className="card-box col-12">
 							<h5 className="text-muted card-sub">
-								<b>Floor</b>
+								<b>Section</b>
 								<small className="text-muted"> ID {sectionID}</small>
 							</h5>
 							<div className="row g-4">

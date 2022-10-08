@@ -6,7 +6,7 @@ import { useDelete, useFetchList } from "hooks";
 
 import Containers from "containers";
 import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
-import { AddObject, FloorCard, PageHeading } from "components";
+import { AddObject, FloorCard, PageHeading, Typography } from "components";
 
 const Apartment = () => {
 	const { floorID, complexID, sectionID } = useParams();
@@ -49,40 +49,54 @@ const Apartment = () => {
 					{ url: "", name: "Apartment" },
 				]}
 			/>
-			<div className="row section-list">
-				<Containers.List
-					url="/apartment"
-					urlSearchParams={{
-						filter: { floor_id: floorID, section_id: sectionID, complex_id: complexID },
-					}}
-				>
-					{({ data }) => {
-						if (!data) return "";
-						return data?.map((item) => (
-							<FloorCard
-								onDelete={onDelete}
-								key={item.id}
-								item={item}
-								link={`/complex/${complexID}/section/${sectionID}/floor/${floorID}/apartment/${get(
-									item,
-									"id"
-								)}/update`}
-							/>
-						));
-					}}
-				</Containers.List>
 
-				<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
-					<AddObject
-						onClick={() =>
-							navigate(
-								`/complex/${complexID}/section/${sectionID}/floor/${floorID}/apartment/create`
-							)
-						}
-						src={require("assets/images/section-img1.png")}
-						innerText="ADD A FLOOR APARTMENT"
-						className={"p-3"}
-					/>
+			<div className="card-box transparent">
+				<Typography Type="h5" className="text-muted card-sub">
+					{() => <b>Apartments</b>}
+				</Typography>
+				<div className="row section-list">
+					<Containers.List
+						url="/apartment"
+						urlSearchParams={{
+							filter: {
+								floor_id: floorID,
+								section_id: sectionID,
+								complex_id: complexID,
+							},
+						}}
+					>
+						{({ data }) => {
+							if (!data) return "";
+							return data?.map((item) => (
+								<FloorCard
+									onDelete={onDelete}
+									key={item.id}
+									item={item}
+									onClick={(event) =>
+										navigate(
+											`/complex/${complexID}/section/${sectionID}/floor/${floorID}/apartment/${get(
+												item,
+												"id"
+											)}/update`
+										)
+									}
+								/>
+							));
+						}}
+					</Containers.List>
+
+					<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
+						<AddObject
+							onClick={() =>
+								navigate(
+									`/complex/${complexID}/section/${sectionID}/floor/${floorID}/apartment/create`
+								)
+							}
+							src={require("assets/images/section-img1.png")}
+							innerText="ADD A FLOOR APARTMENT"
+							className={"p-3"}
+						/>
+					</div>
 				</div>
 			</div>
 		</>

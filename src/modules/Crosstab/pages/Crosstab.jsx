@@ -8,7 +8,7 @@ import { useFetchOne } from "hooks";
 import { constants } from "services";
 
 import { CrosstabHeader, CrosstabFilter, Tab } from "../components";
-import { Appartments, Chess, PassportInformation, Interactive, Payment, Plan } from "../subpages";
+import { Apartments, Chess, PassportInformation, Interactive, Payment, Plan } from "../subpages";
 import { Apartment } from "../components";
 
 import "@fancyapps/ui/dist/fancybox.css";
@@ -186,11 +186,12 @@ const Crosstab = () => {
 										/>
 									)}
 									{currentTab === 4 && (
-										<Appartments
+										<Apartments
 											{...{
 												activeApartment,
 												setActiveApartment,
 												filterFunc,
+												complexID: id,
 											}}
 										/>
 									)}

@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FastField, Field } from "formik";
+import { useSelector } from "react-redux";
 import { get } from "lodash";
 
 import { notifications } from "services";
@@ -11,9 +12,10 @@ import { PageHeading, Fields, Button, MapPicker } from "components";
 const Create = () => {
 	const navigate = useNavigate();
 	const { complexID } = useParams();
+	const lngCode = useSelector((state) => state.system.lngCode);
 
 	const onSuccess = () => {
-		notifications.success("Object create success");
+		notifications.success("Complex create success");
 		navigate(-1);
 	};
 
@@ -80,7 +82,10 @@ const Create = () => {
 						validationType: "object",
 						onSubmitValue: (e) => get(e, "value"),
 					},
-
+					{
+						name: "sort",
+						validationType: "number",
+					},
 					{
 						name: "lat",
 						validationType: "string",
@@ -91,7 +96,7 @@ const Create = () => {
 					},
 				]}
 			>
-				{({ errors, values }) => (
+				{({ errors, values, setFieldValue }) => (
 					<>
 						<div className="col-lg-6">
 							<div className="card-box">
@@ -105,8 +110,8 @@ const Create = () => {
 										<FastField
 											name="name.en"
 											component={Fields.Input}
-											label={["Name of the Object EN", <span>*</span>]}
-											placeholder="Object"
+											label={["Name of the Complex EN", <span>*</span>]}
+											placeholder="Complex"
 										/>
 									</div>
 
@@ -114,8 +119,8 @@ const Create = () => {
 										<FastField
 											name="name.ru"
 											component={Fields.Input}
-											label={["Name of the Object RU", <span>*</span>]}
-											placeholder="Object"
+											label={["Name of the Complex RU", <span>*</span>]}
+											placeholder="Complex"
 										/>
 									</div>
 
@@ -123,10 +128,19 @@ const Create = () => {
 										<FastField
 											name="name.uz"
 											component={Fields.Input}
-											label={["Name of the Object UZ", <span>*</span>]}
-											placeholder="Object"
+											label={["Name of the Complex UZ", <span>*</span>]}
+											placeholder="Complex"
 										/>
 									</div>
+									<div className="col-12">
+										<FastField
+											name="sort"
+											component={Fields.Input}
+											label="Sort"
+											placeholder="sort"
+										/>
+									</div>
+
 									<div className="col-12">
 										<FastField
 											name="background_id"
@@ -171,9 +185,14 @@ const Create = () => {
 											url="category"
 											name="category_id"
 											component={Fields.AsyncSelect}
-											optionLabel="name.uz"
+											optionLabel={`name.${lngCode}`}
 											label="Category"
 											placeholder="Category"
+											urlSearchParams={(search) => ({
+												filter: {
+													name: search,
+												},
+											})}
 										/>
 									</div>
 
@@ -182,9 +201,15 @@ const Create = () => {
 											url="region"
 											name="region_id"
 											component={Fields.AsyncSelect}
-											optionLabel="name.uz"
+											optionLabel={`name.${lngCode}`}
+											onValueChange={() => setFieldValue("district_id", null)}
 											label="Region"
 											placeholder="Toshkent"
+											urlSearchParams={(search) => ({
+												filter: {
+													name: search,
+												},
+											})}
 										/>
 									</div>
 
@@ -194,15 +219,14 @@ const Create = () => {
 											name="district_id"
 											component={Fields.AsyncSelect}
 											key={get(values, "region_id.value")}
-											isDisabled={
-												get(values, "region_id.value") ? false : true
-											}
-											optionLabel="name.uz"
-											params={{
+											isDisabled={!get(values, "region_id.value")}
+											optionLabel={`name.${lngCode}`}
+											urlSearchParams={(search) => ({
 												filter: {
+													name: search,
 													region_id: get(values, "region_id.value", null),
 												},
-											}}
+											})}
 											label="District"
 											placeholder="Yunusobod"
 										/>
@@ -212,7 +236,7 @@ const Create = () => {
 										<FastField
 											name="address.en"
 											component={Fields.Input}
-											label="Object address EN"
+											label="Complex address EN"
 											placeholder="Address"
 										/>
 									</div>
@@ -221,7 +245,7 @@ const Create = () => {
 										<FastField
 											name="address.ru"
 											component={Fields.Input}
-											label="Object address RU"
+											label="Complex address RU"
 											placeholder="Address"
 										/>
 									</div>
@@ -230,7 +254,7 @@ const Create = () => {
 										<FastField
 											name="address.uz"
 											component={Fields.Input}
-											label="Object address UZ"
+											label="Complex address UZ"
 											placeholder="Address"
 										/>
 									</div>

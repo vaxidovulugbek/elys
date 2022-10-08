@@ -12,25 +12,33 @@ import "../Select/Select.scss";
 const AsyncSelect = ({
 	url,
 	label,
-	optionValue,
-	optionLabel,
+	optionValue = "id",
+	optionLabel = "name",
 	form,
 	field,
 	onValueChange = () => {},
-	params = {},
+	urlSearchParams = () => {},
+	searchKey,
 	...props
 }) => {
-	const loadOptions = async () => {
-		const res = await httpCLient.get(queryBuilder(url, params));
+	const loadOptions = async (search, prevOptions, params) => {
+		const { data } = await httpCLient.get(
+			queryBuilder(url, {
+				page: get(params, "page", 1),
+				...urlSearchParams(search),
+			})
+		);
 
-		const options = get(res, "data.data", []).map((item) => {
+		const options = get(data, "data", []).map((item) => {
 			return {
-				value: get(item, optionValue || "id", ""),
-				label: get(item, optionLabel || "name", ""),
+				value: get(item, optionValue, ""),
+				label: get(item, optionLabel, ""),
 			};
 		});
 		return {
 			options,
+			hasMore: get(data, "meta.currentPage", 1) < get(data, "meta.pageCount", 1),
+			additional: { page: get(data, "meta.currentPage", 1) + 1 },
 		};
 	};
 

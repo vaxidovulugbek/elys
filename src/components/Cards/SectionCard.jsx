@@ -25,7 +25,7 @@ export const SectionCard = ({ data, onClick = () => {}, complexID }) => {
 		notifications.error("Something went wrong");
 	};
 
-	const { mutate } = useDelete({
+	const { mutateAsync } = useDelete({
 		url: `/section/${get(data, "id")}`,
 		queryOptions: {
 			onSuccess,
@@ -33,17 +33,13 @@ export const SectionCard = ({ data, onClick = () => {}, complexID }) => {
 		},
 	});
 
-	const receivePermission = () => {
-		mutate();
-	};
-
 	const deleteSection = (e) => {
 		e.stopPropagation();
 		deletePermission({
 			title: "Delete a section?",
 			icon: "error",
 			text: "All data concerning this section will be deleted.",
-			receivePermission,
+			receivePermission: () => mutateAsync().then((res) => sectionList.refetch()),
 		});
 	};
 

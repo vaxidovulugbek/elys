@@ -1,11 +1,23 @@
 import React from "react";
-import { get } from "lodash";
+import { get, isArray } from "lodash";
 import cn from "classnames";
 
-import Containers from "containers";
 import { constants, functions } from "services";
+import { useFetchInfinite, useScroll } from "hooks";
 
-const Appartments = ({ filterFunc, setActiveApartment, activeApartment }) => {
+const Apartments = ({ filterFunc, setActiveApartment, activeApartment, complexID }) => {
+	const apartments = useFetchInfinite({
+		url: "/apartment",
+		urlSearchParams: {
+			include: "plan, plan.room, section, floor, complex",
+			filter: {
+				complex_id: complexID,
+			},
+		},
+	});
+
+	useScroll(document.querySelector(".crosstab .content"), apartments.fetchNextPage, 100);
+
 	const {
 		STATUS_CONSTRUCTION,
 		STATUS_CONSTRUCTION_TEXT,
@@ -127,67 +139,45 @@ const Appartments = ({ filterFunc, setActiveApartment, activeApartment }) => {
 					</tr>
 				</thead>
 				<tbody>
-					<Containers.List
-						url="apartment"
-						urlSearchParams={{
-							include: "plan, plan.room, section, floor, complex",
-						}}
-					>
-						{({ data }) => {
-							return (
-								<>
-									{Array.isArray(data) &&
-										data.map(
-											(item, index) =>
-												filterFunc(item) && (
-													<tr
-														key={index}
-														onClick={() => setActiveApartment(item)}
-														className={cn({
-															active_row:
-																get(item, "id") ===
-																get(activeApartment, "id"),
-														})}
-													>
-														<td>{get(item, "id")}</td>
-														{/* <td>1</td> */}
-														{/* <td>P1</td> */}
-														<td>{get(item, "plan.room.count")}</td>
-														<td>
-															{get(item, "plan.area")} м<sup>2</sup>
-														</td>
-														<td>{get(item, "sort")}</td>
-														<td>{get(item, "section.sort")}</td>
-														<td>{get(item, "floor.sort")}</td>
-														<td>
-															{functions.meterPrice(item)} $/м
-															<sup>2</sup>
-														</td>
-														<td>{get(item, "price")} $</td>
-														<td>
-															<span
-																className={`status-${get(
-																	item,
-																	"status"
-																)}`}
-															>
-																{get(
-																	status,
-																	`${get(item, "status")}`
-																)}
-															</span>
-														</td>
-													</tr>
-												)
-										)}
-								</>
-							);
-						}}
-					</Containers.List>
+					{isArray(apartments.data) &&
+						apartments.data.map(
+							(item, index) =>
+								filterFunc(item) && (
+									<tr
+										key={index}
+										onClick={() => setActiveApartment(item)}
+										className={cn({
+											active_row:
+												get(item, "id") === get(activeApartment, "id"),
+										})}
+									>
+										<td>{get(item, "id")}</td>
+										{/* <td>1</td> */}
+										{/* <td>P1</td> */}
+										<td>{get(item, "plan.room.count")}</td>
+										<td>
+											{get(item, "plan.area")} м<sup>2</sup>
+										</td>
+										<td>{get(item, "sort")}</td>
+										<td>{get(item, "section.sort")}</td>
+										<td>{get(item, "floor.sort")}</td>
+										<td>
+											{functions.meterPrice(item)} UZS/м
+											<sup>2</sup>
+										</td>
+										<td>{get(item, "price")} UZS</td>
+										<td>
+											<span className={`status-${get(item, "status")}`}>
+												{get(status, `${get(item, "status")}`)}
+											</span>
+										</td>
+									</tr>
+								)
+						)}
 				</tbody>
 			</table>
 		</div>
 	);
 };
 
-export default Appartments;
+export default Apartments;

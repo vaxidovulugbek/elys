@@ -4,14 +4,14 @@ import cn from "classnames";
 import { Navigation } from "swiper";
 import { Fancybox } from "components";
 
+import { get } from "lodash";
+import { constants, functions } from "services";
+
+import room from "assets/images/room.png";
 import { ReactComponent as Clock } from "assets/images/clock-rotate-left.svg";
 import { ReactComponent as Click } from "assets/images/click.svg";
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
 import { ReactComponent as GiftBox } from "assets/images/gift.svg";
-
-import room from "assets/images/room.png";
-import { get } from "lodash";
-import { constants, functions } from "services";
 
 const { STATUS_FREE, STATUS_INTEREST } = constants;
 const ON_SALE = [STATUS_FREE, STATUS_INTEREST];
@@ -35,12 +35,12 @@ export const ApartmentCard = ({
 			<div className="status">
 				<div className="left">
 					<span className="status-1"></span>
-					<p>Продано</p>
+					<p></p>
 					<Clock />
 				</div>
-				<div className="right">
-					<div className="fid">FID 543803</div>
-				</div>
+				{/*<div className="right">*/}
+				{/*	<div className="fid">FID 543803</div>*/}
+				{/*</div>*/}
 			</div>
 			<div className="apartment-number">
 				<div className="left">
@@ -89,11 +89,11 @@ export const ApartmentCard = ({
 					<dt>
 						<p className="name">Стоимость</p>
 						<p className="value">
-							{functions.convertToReadable(get(activeApartment, "price"))} $
+							{functions.convertToReadable(get(activeApartment, "price"))} UZS
 						</p>
 					</dt>
 					<dd>
-						{functions.meterPrice(activeApartment)} $/м
+						{functions.meterPrice(activeApartment)} UZS/м
 						<sup>2</sup>
 					</dd>
 				</dl>
@@ -114,24 +114,6 @@ export const ApartmentCard = ({
 			)}
 
 			<ul>
-				{/* <li>
-					<dt className="name">Площадь общая</dt>
-					<dd className="value">
-						{get(activeApartment, "plan.area")} м<sup>2</sup>
-					</dd>
-				</li> */}
-				{/* <li>
-					<dt className="name">Жилая площадь</dt>
-					<dd className="value">
-						11.9 м<sup>2</sup>
-					</dd>
-				</li> */}
-				{/* <li>
-					<dt className="name">Площадь кухни</dt>
-					<dd className="value">
-						7.2 м<sup>2</sup>
-					</dd>
-				</li> */}
 				<li>
 					<dt className="name">Название квартиры</dt>
 					<dd className="value">{get(activeApartment, `name.${langCode}`)}</dd>
@@ -144,52 +126,43 @@ export const ApartmentCard = ({
 					<dt className="name">Тип планировки</dt>
 					<dd className="value">{get(activeApartment, `plan.name.${langCode}`)}</dd>
 				</li>
-				{/* <li>
-					<dt className="name">Кол-во балконов</dt>
-					<dd className="value">1</dd>
-				</li> */}
-				{/* <li>
-					<dt className="name">Кол-во совмещенных санузлов</dt>
-					<dd className="value">1</dd>
-				</li> */}
+
 				<li>
-					<div>
-						<dt className="name">Этаж</dt>
-						<dd className="value">{get(activeApartment, "floor.sort")}</dd>
-					</div>
-					{/* <button className="plan" onClick={() => setCurrentTab(3)}>
-						<Click />
-						<span>План этажа</span>
-					</button> */}
+					<dt className="name">Комплекс</dt>
+					<dd className="value">{get(activeApartment, "complex.sort")}</dd>
 				</li>
 				<li>
 					<dt className="name">Секция</dt>
 					<dd className="value">{get(activeApartment, "section.sort")}</dd>
 				</li>
 				<li>
-					<dt className="name">Дом</dt>
-					<dd className="value">{get(activeApartment, "complex.sort")}</dd>
+					<div>
+						<dt className="name">Этаж</dt>
+						<dd className="value">{get(activeApartment, "floor.sort")}</dd>
+					</div>
 				</li>
-				{/* <li>
-					<dt className="name">Объект</dt>
-					<dd className="value">Rteco</dd>
-				</li> */}
-				{/* <li>
-					<dt className="name">Первый взнос</dt>
-					<dd className="value">16 936.92 $</dd>
-				</li> */}
-				{/* <li>
-					<dt className="name">Ежемесячный платеж</dt>
-					<dd className="value">1 766.07 $</dd>
-				</li> */}
-				{/* <li>
-					<dt className="name">Срок кредита</dt>
-					<dd className="value">15</dd>
-				</li> */}
-				{/* <li>
-					<dt className="name">Стоимость по кредиту</dt>
-					<dd className="value">43 428 $</dd>
-				</li> */}
+
+				<li>
+					<dt className="name">Тип</dt>
+					<dd className="value">
+						{
+							constants.typeOptions.find(
+								(item) => item.value === get(activeApartment, "type")
+							)?.label
+						}
+					</dd>
+				</li>
+
+				<li>
+					<dt className="name">Класс</dt>
+					<dd className="value">
+						{
+							constants.classOptions.find(
+								(item) => item.value === get(activeApartment, "class")
+							)?.label
+						}
+					</dd>
+				</li>
 			</ul>
 		</div>
 	);

@@ -232,7 +232,6 @@ const PassportInformation = ({ paymentDetails, activeApartment, setCurrentTab })
 						name: "language_id",
 						value: 1,
 						validationType: "number",
-						onSubmitValue: (option) => console.log(option),
 					},
 				]}
 			>
@@ -264,7 +263,7 @@ const PassportInformation = ({ paymentDetails, activeApartment, setCurrentTab })
 											onlyNumber={true}
 										/>
 										<button
-											type="submit"
+											type="button"
 											className="printToDoc"
 											onClick={() => calculate(values)}
 										>
@@ -316,14 +315,6 @@ const PassportInformation = ({ paymentDetails, activeApartment, setCurrentTab })
 									name="address"
 									label={t("Address")}
 								/>
-								<FastField
-									component={Fields.Input}
-									type="text"
-									name="passport"
-									label={t("passport seria and number")}
-									onInput={fixPassportInput}
-									placeholder="AB1234567"
-								/>
 								<Field
 									component={MaskedDateInput}
 									// type="text"
@@ -352,12 +343,6 @@ const PassportInformation = ({ paymentDetails, activeApartment, setCurrentTab })
 										placeholder="uz"
 									/>
 								</div>
-								<FastField
-									component={Fields.Input}
-									type="text"
-									name="passport_issued_by"
-									label={t("Passport issued by")}
-								/>
 								<Field
 									component={MaskedDateInput}
 									name="monthly_payment_date"
@@ -367,6 +352,20 @@ const PassportInformation = ({ paymentDetails, activeApartment, setCurrentTab })
 									component={MaskedDateInput}
 									name="date"
 									label={t("Contract date")}
+								/>
+								<FastField
+									component={Fields.Input}
+									type="text"
+									name="passport"
+									label={t("passport seria and number")}
+									onInput={fixPassportInput}
+									placeholder="AB1234567"
+								/>
+								<FastField
+									component={Fields.Input}
+									type="text"
+									name="passport_issued_by"
+									label={t("Passport issued by")}
 								/>
 								<Field
 									component={MaskedDateInput}

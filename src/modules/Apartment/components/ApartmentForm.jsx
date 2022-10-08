@@ -59,29 +59,26 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 						value: Number(get(formData, "sort")),
 					},
 					{
-						name: "status",
-						validationType: "number",
-						value: 1,
-					},
-					{
 						name: "type",
 						validationType: "number",
-						value: Number(get(formData, "type")),
+						value: Number(get(formData, "type")) || constants.typeOptions[0].value,
 					},
 					{
 						name: "construction_type",
 						validationType: "number",
-						value: Number(get(formData, "construction_type")),
+						value:
+							Number(get(formData, "construction_type")) ||
+							constants.constructionOptions[0].value,
 					},
 					{
 						name: "class",
 						validationType: "number",
-						value: Number(get(formData, "class")),
+						value: Number(get(formData, "class")) || constants.classOptions[0].value,
 					},
 					{
 						name: "status",
 						validationType: "number",
-						value: Number(get(formData, "status")),
+						value: Number(get(formData, "status")) || constants.typeOptions[0].value,
 					},
 					{
 						name: "file_ids",
@@ -120,14 +117,15 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 					notifications.error("Something went wrong!");
 				}}
 			>
-				{({ errors }) => (
+				{({ errors, values }) => (
 					<>
+						{console.log(values)}
 						<div className="card-box col-6">
 							<Typography Type="h5" className="text-muted card-sub">
 								{() => (
 									<>
-										<b>Section</b>
-										<small className="text-muted"> ID 2714</small>
+										<b>Floor</b>
+										<small className="text-muted"> ID {floorID}</small>
 									</>
 								)}
 							</Typography>
@@ -214,6 +212,11 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										optionLabel="name.uz"
 										component={Fields.AsyncSelect}
 										label="Plan ID"
+										urlSearchParams={(search) => ({
+											filter: {
+												name: search,
+											},
+										})}
 									/>
 								</div>
 								<div className="col-12">

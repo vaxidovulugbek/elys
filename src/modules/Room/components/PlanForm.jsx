@@ -158,7 +158,11 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 																optionLabel="name.uz"
 																component={Fields.AsyncSelect}
 																label="Plan Field ID"
-																placeholder=""
+																urlSearchParams={(search) => ({
+																	filter: {
+																		name: search,
+																	},
+																})}
 															/>
 														</div>
 														<div className="col-12">
