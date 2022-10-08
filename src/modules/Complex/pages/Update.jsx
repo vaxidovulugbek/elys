@@ -126,8 +126,8 @@ const Update = () => {
 										<FastField
 											name="name.en"
 											component={Fields.Input}
-											label={["Name of the Object EN", <span>*</span>]}
-											placeholder="Object"
+											label={["Name of the Complex EN", <span>*</span>]}
+											placeholder="Complex"
 										/>
 									</div>
 
@@ -135,8 +135,8 @@ const Update = () => {
 										<FastField
 											name="name.ru"
 											component={Fields.Input}
-											label={["Name of the Object RU", <span>*</span>]}
-											placeholder="Object"
+											label={["Name of the Complex RU", <span>*</span>]}
+											placeholder="Complex"
 										/>
 									</div>
 
@@ -144,8 +144,8 @@ const Update = () => {
 										<FastField
 											name="name.uz"
 											component={Fields.Input}
-											label={["Name of the Object UZ", <span>*</span>]}
-											placeholder="Object"
+											label={["Name of the Complex UZ", <span>*</span>]}
+											placeholder="Complex"
 										/>
 									</div>
 									<div className="col-12">

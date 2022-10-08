@@ -1,13 +1,16 @@
 /* eslint-disable no-extend-native */
-import { useQueryClient } from "@tanstack/react-query";
-import { Fields, Table } from "components";
-import Containers from "containers";
-import { FastField, Field } from "formik";
-import { useFetchList } from "hooks";
-import { get } from "lodash";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { FastField, Field } from "formik";
+import { get } from "lodash";
+
+import { useFetchList } from "hooks";
 import { constants, functions, notifications, time } from "services";
+
+import Containers from "containers";
+import { Fields, Table } from "components";
 import { MaskedDateInput } from "../components";
 
 const languages = [
@@ -16,6 +19,7 @@ const languages = [
 ];
 
 const PassportInformation = ({ paymentDetails, activeApartment, setCurrentTab }) => {
+	const navigate = useNavigate();
 	const { t } = useTranslation();
 	const [apartment, setApartment] = useState({});
 	const [items, setItems] = useState();
@@ -25,7 +29,7 @@ const PassportInformation = ({ paymentDetails, activeApartment, setCurrentTab })
 	const price = get(apartment, "price", 0);
 
 	const { data } = useFetchList({
-		url: "tariff",
+		url: "/tariff",
 		urlSearchParams: {
 			filter: {
 				type: get(apartment, "type"),
@@ -80,10 +84,16 @@ const PassportInformation = ({ paymentDetails, activeApartment, setCurrentTab })
 			notifications.error("You have to create document first");
 	};
 
-	const handleSuccess = () => {
+	const handleSuccess = (response) => {
 		notifications.success("Contract created");
 		queryClient.invalidateQueries();
 		setCurrentTab(1);
+
+		const download = document.createElement("a");
+		download.download = true;
+		download.href = get(response, "data.destination");
+		download.click();
+		download.remove();
 	};
 
 	useEffect(() => {
@@ -97,7 +107,7 @@ const PassportInformation = ({ paymentDetails, activeApartment, setCurrentTab })
 	return (
 		<div className="client-details">
 			<div className="tariff">
-				<Containers.List url="tariff">
+				<Containers.List url="/tariff">
 					{({ data }) => (
 						<>
 							{Array.isArray(data) &&
@@ -143,7 +153,7 @@ const PassportInformation = ({ paymentDetails, activeApartment, setCurrentTab })
 			</div>
 			<Containers.Form
 				method="post"
-				url="contract"
+				url="/contract"
 				key={2}
 				onError={handleError}
 				onSuccess={handleSuccess}
