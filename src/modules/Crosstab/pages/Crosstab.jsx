@@ -42,8 +42,8 @@ const Crosstab = () => {
 		// Filter apartments
 		const filter = {
 			room_count: get(params, "room_count", []),
-			price: get(params, "price", [0, 100000000000]),
-			square_meter: get(params, "square_meter", [0, 100000000000]),
+			price: get(params, "price", [0, Infinity]),
+			square_meter: get(params, "square_meter", [0, Infinity]),
 			meter_price: get(params, "meter_price", ""),
 			discount: get(params, "discount", ""),
 			status: get(params, "status", ""),
@@ -67,7 +67,6 @@ const Crosstab = () => {
 			String(square_meter).match(search) ||
 			String(id).match(search) ||
 			String(sort).match(search);
-
 		if (!hasMatchWithSearch) active = false;
 		return active;
 	};
