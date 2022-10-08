@@ -11,6 +11,7 @@ import AsyncSelect from "./AsyncSelect/AsyncSelect";
 import { SvgUpload } from "./Upload/SvgUpload";
 import { PhoneInput } from "./PhoneInput/PhoneInput";
 import { ReactQuillComponent } from "./ReactQuill/ReactQuillComponent";
+import { InputMask } from "./InputMask/InputMask";
 
 export default {
 	Input,
@@ -25,4 +26,5 @@ export default {
 	AsyncSelect,
 	PhoneInput,
 	ReactQuillComponent,
+	InputMask,
 };

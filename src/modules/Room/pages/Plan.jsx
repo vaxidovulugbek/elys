@@ -39,6 +39,10 @@ const Plan = () => {
 		});
 	};
 
+	const onUpdate = (id) => {
+		navigate(`/room/${roomID}/plan/${id}/update`);
+	};
+
 	return (
 		<>
 			<PageHeading
@@ -65,6 +69,7 @@ const Plan = () => {
 										item={item}
 										link={`/room/${roomID}/plan/${get(item, "id")}/update`}
 										onDelete={onDelete}
+										onClick={onUpdate}
 									/>
 								))}
 						</>

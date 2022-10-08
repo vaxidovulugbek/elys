@@ -15,6 +15,7 @@ import { FloorRoutes } from "modules/Floor";
 import { CrossTabRoutes } from "modules/Crosstab";
 import { RoomRoute } from "modules/Room";
 import { SettingsRoutes } from "modules/Settings";
+import { SectionsRoute } from "modules/Section";
 
 const loggedInRoutes = [
 	{
@@ -25,6 +26,7 @@ const loggedInRoutes = [
 			...FloorRoutes,
 			...RoomRoute,
 			...SettingsRoutes,
+			...SectionsRoute,
 		],
 	},
 	{

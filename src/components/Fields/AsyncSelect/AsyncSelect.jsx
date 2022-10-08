@@ -50,6 +50,7 @@ const AsyncSelect = ({
 					defaultOptions={field.value}
 					value={field.value}
 					blurInputOnSelect={true}
+					isSearchable
 					classNamePrefix="select"
 					loadOptions={loadOptions}
 					debounceTimeout={300}

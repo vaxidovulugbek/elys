@@ -1,26 +1,23 @@
 import React from "react";
-import { get } from "lodash";
-
 import PropTypes from "prop-types";
+import { NumericFormat } from "react-number-format";
 import cn from "classnames";
 
-import { ControlLabel, ControlError } from "../../common";
+import "./InputMask.scss";
+import { ControlError, ControlLabel } from "components/common";
 
-import "./Input.scss";
-
-export const Input = ({
+export const InputMask = ({
 	label = "",
 	placeholder = "",
 	type = "text",
 	isDisabled = false,
 	size = "sm",
 	outerClass = "",
+	thousandSeparator,
+	decimalScale = 10,
 	inputProps = {},
 	field,
 	form,
-	onInput,
-	onlyNumber,
-	seporate,
 }) => {
 	const outerClasses = cn("form-wrapper", outerClass, size, {
 		form_disabled: isDisabled,
@@ -31,40 +28,34 @@ export const Input = ({
 			<ControlLabel label={label} />
 
 			<label className="form-control cursor_text">
-				<input
+				<NumericFormat
 					type={type}
-					onInput={onInput}
 					disabled={isDisabled}
 					placeholder={placeholder}
 					className="form-control__input"
+					displayType="input"
+					thousandSeparator={thousandSeparator}
+					allowNegative={false}
+					decimalScale={decimalScale}
+					allowedDecimalSeparators={[","]}
+					allowLeadingZeros
 					{...field}
 					{...inputProps}
-					onChange={(event) => {
-						const value = event.target.value;
-
-						if (onlyNumber && (value.match(/^[\s\d]+$/) || value === "")) {
-							field.onChange(event);
-							get(inputProps, "onChange", () => {})(event);
-						}
-						if (!onlyNumber) {
-							field.onChange(event);
-							get(inputProps, "onChange", () => {})(event);
-						}
-					}}
 				/>
 			</label>
 
-			<ControlError field={field} form={form} />
+			<ControlError form={form} field={field} />
 		</div>
 	);
 };
 
-Input.propTypes = {
-	label: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+InputMask.propTypes = {
+	label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 	placeholder: PropTypes.string,
 	type: PropTypes.string,
 	disabled: PropTypes.bool,
 	outerClass: PropTypes.string,
+	mask: PropTypes.string,
 	inputProps: PropTypes.object,
 	field: PropTypes.object,
 	form: PropTypes.object,
