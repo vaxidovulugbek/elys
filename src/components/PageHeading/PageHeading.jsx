@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import { Breadcrumb, Dropdown } from "components";
+import { Breadcrumb, Dropdown, Typography } from "components";
 
 export const PageHeading = ({
 	title,
@@ -15,9 +15,10 @@ export const PageHeading = ({
 	return (
 		<div className="page-heading">
 			<div className="page-control">
-				<h1 className="page-title">{title}</h1>
+				<Typography Type="h1" className="page-title" text={title} />
 				<Breadcrumb links={links} />
 			</div>
+
 			{hasButton && (
 				<Link to={`/crosstab/${complexID}`} className="btn__crosstab bg_purple">
 					<span>
@@ -25,9 +26,11 @@ export const PageHeading = ({
 							<path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
 						</svg>
 					</span>
-					<span>Crosstab</span>
+
+					<Typography Type="span" text="Crosstab" />
 				</Link>
 			)}
+
 			{hasSettings && <Dropdown />}
 
 			{renderButtons && renderButtons()}

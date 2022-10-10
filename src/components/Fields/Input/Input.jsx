@@ -7,6 +7,7 @@ import cn from "classnames";
 import { ControlLabel, ControlError } from "../../common";
 
 import "./Input.scss";
+import { useTranslation } from "react-i18next";
 
 export const Input = ({
 	label = "",
@@ -20,8 +21,9 @@ export const Input = ({
 	form,
 	onInput,
 	onlyNumber,
-	seporate,
 }) => {
+	const { t } = useTranslation();
+
 	const outerClasses = cn("form-wrapper", outerClass, size, {
 		form_disabled: isDisabled,
 	});
@@ -35,7 +37,7 @@ export const Input = ({
 					type={type}
 					onInput={onInput}
 					disabled={isDisabled}
-					placeholder={placeholder}
+					placeholder={t(placeholder)}
 					className="form-control__input"
 					{...field}
 					{...inputProps}
