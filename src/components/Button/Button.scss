@@ -114,4 +114,32 @@
 
 		fill: #fff;
 	}
+
+	&_spinning {
+		display: flex;
+		align-items: center;
+	}
+
+	&-spinner {
+		display: block;
+		margin-left: 10px;
+		min-width: 15px;
+		height: 15px;
+		border-radius: 100%;
+		border: 2px solid #fff;
+		border-top-color: rgba(255, 255, 255, 0.4);
+		animation: loading 1s linear infinite;
+	}
 }
+
+
+@keyframes loading {
+	0% {
+		transform: rotate(0);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+

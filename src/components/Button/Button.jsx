@@ -11,6 +11,7 @@ export const Button = React.memo(
 		innerText,
 		append,
 		prepend,
+		isLoading,
 		className = "",
 		isDisabled = false,
 		size = "sm",
@@ -18,19 +19,24 @@ export const Button = React.memo(
 		onClick,
 		...buttonProps
 	}) => {
-		const classNames = cn(className, `btn_${size}`, { btn_disabled: isDisabled });
+		const classNames = cn(className, `btn_${size}`, {
+			btn_disabled: isDisabled,
+			btn_spinning: isLoading,
+		});
 
 		return (
 			<button
 				className={classNames}
 				type={type}
 				onClick={isFunction(onClick) ? onClick : null}
-				disabled={isDisabled}
+				disabled={isDisabled || isLoading}
 				{...buttonProps}
 			>
 				{prepend}
 				{innerText}
 				{append}
+
+				{isLoading && <span className="btn-spinner"></span>}
 			</button>
 		);
 	}

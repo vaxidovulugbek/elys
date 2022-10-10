@@ -1,15 +1,17 @@
-import { AddObject, Modals, PageHeading } from "components";
-import Containers from "containers";
-import { useDelete, useFetchList, useFetchOneWithId, useOverlay } from "hooks";
 import React from "react";
+import { isArray } from "lodash";
+
+import { useDelete, useFetchInfinite, useFetchOneWithId, useOverlay } from "hooks";
 import { notifications } from "services";
+
+import { AddObject, Modals, PageHeading } from "components";
 import { PlanFieldCard } from "../components/PlanFieldCard";
 import { PlanFieldForm } from "../components/PlanFieldForm";
 
 const PlanField = () => {
 	const planFieldModal = useOverlay("planField");
 
-	const planFieldList = useFetchList({ url: "plan-field" });
+	const planFieldList = useFetchInfinite({ url: "plan-field" });
 
 	const { data, setId } = useFetchOneWithId({
 		url: "plan-field",
@@ -55,24 +57,8 @@ const PlanField = () => {
 					{ name: "Plan fields", url: "" },
 				]}
 			/>
+
 			<div className="row">
-				<Containers.List url="plan-field">
-					{({ data }) => {
-						return (
-							<>
-								{Array.isArray(data) &&
-									data.map((item) => (
-										<PlanFieldCard
-											key={item.id}
-											item={item}
-											onDelete={onDelete}
-											onClick={fetchFormData}
-										/>
-									))}
-							</>
-						);
-					}}
-				</Containers.List>
 				<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 					<AddObject
 						onClick={() => {
@@ -84,8 +70,23 @@ const PlanField = () => {
 						className={"p-3"}
 					/>
 				</div>
+
+				{isArray(planFieldList.data) &&
+					planFieldList.data.map((item) => (
+						<PlanFieldCard
+							key={item.id}
+							item={item}
+							onDelete={onDelete}
+							onClick={fetchFormData}
+						/>
+					))}
 			</div>
-			<PlanFieldForm {...{ data, planFieldModal, planFieldList }} />
+
+			<PlanFieldForm
+				planFieldList={planFieldList}
+				planFieldModal={planFieldModal}
+				data={data}
+			/>
 		</>
 	);
 };

@@ -2,7 +2,7 @@ import { Fields, ModalRoot, Modals } from "components";
 import React from "react";
 import { constants, notifications } from "services";
 
-export const DocumentForm = ({ complexId, documentModal }) => {
+export const DocumentForm = ({ complexId, documentModal, documentRefetch }) => {
 	const onClose = () => {
 		documentModal.handleOverlayClose();
 	};
@@ -10,6 +10,7 @@ export const DocumentForm = ({ complexId, documentModal }) => {
 	const onSuccess = () => {
 		documentModal.handleOverlayClose();
 		notifications.success("document is created");
+		documentRefetch && documentRefetch();
 	};
 	return (
 		<ModalRoot isOpen={documentModal.isOpen} className={"doc_modal"}>

@@ -91,7 +91,11 @@ const Document = () => {
 				</Containers.List>
 			</div>
 
-			<DocumentForm documentModal={documentModal} complexId={complexId} />
+			<DocumentForm
+				documentModal={documentModal}
+				complexId={complexID}
+				documentRefetch={documentList.refetch}
+			/>
 		</>
 	);
 };

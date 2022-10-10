@@ -7,7 +7,7 @@ import { get } from "lodash";
 import { useFetchOne } from "hooks";
 
 import Containers from "containers";
-import { PageHeading, Fields, Button, MapPicker } from "components";
+import { PageHeading, Fields, Button, MapPicker, Typography } from "components";
 import { SectionList } from "modules/Section";
 import { notifications } from "services";
 
@@ -112,22 +112,26 @@ const Update = () => {
 					},
 				]}
 			>
-				{({ errors, values, setFieldValue }) => (
+				{({ values, setFieldValue, isSubmitting }) => (
 					<>
 						<div className="col-lg-6">
 							<div className="card-box">
-								<h5 className="text-muted card-sub">
-									<b>Complex</b>
-									<small className="text-muted"> ID {complexID}</small>
-								</h5>
+								<Typography Type="h5" className="text-muted card-sub">
+									{() => (
+										<>
+											<b>Complex</b>
+											<small className="text-muted"> ID {complexID}</small>
+										</>
+									)}
+								</Typography>
 
 								<div className="row g-4">
 									<div className="col-12">
 										<FastField
 											name="name.en"
 											component={Fields.Input}
-											label={["Name of the Object EN", <span>*</span>]}
-											placeholder="Object"
+											label={["Name of the Complex EN", <span>*</span>]}
+											placeholder="Complex"
 										/>
 									</div>
 
@@ -135,8 +139,8 @@ const Update = () => {
 										<FastField
 											name="name.ru"
 											component={Fields.Input}
-											label={["Name of the Object RU", <span>*</span>]}
-											placeholder="Object"
+											label={["Name of the Complex RU", <span>*</span>]}
+											placeholder="Complex"
 										/>
 									</div>
 
@@ -144,8 +148,8 @@ const Update = () => {
 										<FastField
 											name="name.uz"
 											component={Fields.Input}
-											label={["Name of the Object UZ", <span>*</span>]}
-											placeholder="Object"
+											label={["Name of the Complex UZ", <span>*</span>]}
+											placeholder="Complex"
 										/>
 									</div>
 									<div className="col-12">
@@ -194,9 +198,9 @@ const Update = () => {
 
 						<div className="col-lg-6">
 							<div className="card-box">
-								<h5 className="text-muted card-sub">
-									<b>Location</b>
-								</h5>
+								<Typography Type="h5" className="text-muted card-sub">
+									{() => <b>Location</b>}
+								</Typography>
 
 								<div className="row g-4">
 									<FastField
@@ -281,7 +285,13 @@ const Update = () => {
 									innerText="Cancel"
 									onClick={() => navigate("/", { replace: true })}
 								/>
-								<Button className="btn btn_green" type="submit" innerText="Save" />
+
+								<Button
+									className="btn btn_green"
+									type="submit"
+									innerText="Save"
+									isLoading={isSubmitting}
+								/>
 							</div>
 						</div>
 					</>

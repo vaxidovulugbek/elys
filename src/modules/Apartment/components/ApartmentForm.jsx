@@ -119,9 +119,8 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 					notifications.error("Something went wrong!");
 				}}
 			>
-				{({ errors, values }) => (
+				{({ values, isSubmitting }) => (
 					<>
-						{console.log(values)}
 						<div className="card-box col-6">
 							<Typography Type="h5" className="text-muted card-sub">
 								{() => (
@@ -141,6 +140,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										label="Name uz"
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										name="name.ru"
@@ -167,6 +167,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										label="Description uz"
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										name="description.ru"
@@ -175,6 +176,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										label="Description ru"
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										name="description.en"
@@ -183,6 +185,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										label="Description en"
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										name="price"
@@ -193,6 +196,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										thousandSeparator=" "
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										name="discount"
@@ -203,6 +207,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										thousandSeparator=" "
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										name="sort"
@@ -211,6 +216,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										label="Sort"
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										url="plan"
@@ -225,6 +231,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										})}
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										name="status"
@@ -234,6 +241,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										defaultValue={constants.statusOptions[0]}
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										name="type"
@@ -243,6 +251,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										defaultValue={constants.typeOptions[0]}
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										name="construction_type"
@@ -252,6 +261,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										defaultValue={constants.constructionOptions[0]}
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										name="class"
@@ -278,6 +288,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 								/>
 							</div>
 						</div>
+
 						<div className="bottom-buttons">
 							<hr />
 							<div className="d-flex align-items-center justify-content-center">
@@ -291,6 +302,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 									className="btn btn_green"
 									type="submit"
 									innerText={btnSubmitText}
+									isLoading={isSubmitting}
 								/>
 							</div>
 						</div>

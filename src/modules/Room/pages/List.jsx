@@ -1,17 +1,18 @@
 import React from "react";
-import { get } from "lodash";
+import { get, isArray } from "lodash";
 
-import { useDelete, useFetchList, useFetchOneWithId, useOverlay } from "hooks";
+import { useDelete, useFetchInfinite, useScroll, useFetchOneWithId, useOverlay } from "hooks";
 import { notifications } from "services";
 
-import Containers from "containers";
-import { AddObject, Modals, PageHeading } from "components";
+import { AddObject, Button, Modals, PageHeading } from "components";
 import { RoomCard } from "../components/RoomCard";
 import { RoomForm } from "../components/RoomForm";
 
 const List = () => {
 	const roomModal = useOverlay("room");
-	const roomList = useFetchList({ url: "/room" });
+
+	const roomList = useFetchInfinite({ url: "/room" });
+	useScroll(document.documentElement, roomList.fetchNextPage, 100);
 
 	const { data, setId } = useFetchOneWithId({
 		url: "/room",
@@ -20,7 +21,6 @@ const List = () => {
 		},
 		refetchStatus: roomModal.isOpen,
 	});
-
 	const deleteData = useDelete({
 		url: "/room",
 		queryOptions: { onSuccess: () => roomDeleted() },
@@ -56,25 +56,6 @@ const List = () => {
 				]}
 			/>
 			<div className="row g-4">
-				<Containers.List url="/room">
-					{({ data }) => {
-						return (
-							<>
-								{Array.isArray(data) &&
-									data.map((item, index) => (
-										<RoomCard
-											key={index}
-											item={item}
-											onClick={fetchFormData}
-											onDelete={onDelete}
-											link={`/room/${get(item, "id")}/plan`}
-										/>
-									))}
-							</>
-						);
-					}}
-				</Containers.List>
-
 				<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 					<AddObject
 						onClick={() => {
@@ -86,6 +67,17 @@ const List = () => {
 						className={"p-3"}
 					/>
 				</div>
+
+				{isArray(roomList.data) &&
+					roomList.data.map((item, index) => (
+						<RoomCard
+							key={index}
+							item={item}
+							onClick={fetchFormData}
+							onDelete={onDelete}
+							link={`/room/${get(item, "id")}/plan`}
+						/>
+					))}
 			</div>
 
 			<RoomForm roomModal={roomModal} data={data} roomList={roomList} />

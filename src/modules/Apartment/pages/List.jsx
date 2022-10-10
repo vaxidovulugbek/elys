@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { get } from "lodash";
+import { get, isArray } from "lodash";
 
-import { useDelete, useFetchList } from "hooks";
+import { useDelete, useFetchInfinite, useScroll } from "hooks";
 
 import Containers from "containers";
 import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
@@ -12,18 +12,19 @@ const Apartment = () => {
 	const { floorID, complexID, sectionID } = useParams();
 	const navigate = useNavigate();
 
-	const apartment = useFetchList({
+	const apartmentList = useFetchInfinite({
 		url: "/apartment",
 		urlSearchParams: {
 			filter: { floor_id: floorID, section_id: sectionID, complex_id: complexID },
 		},
 	});
+	useScroll(document.documentElement, apartmentList.fetchNextPage, 300);
 
 	const { mutate } = useDelete({
 		url: "/apartment",
 		queryOptions: {
 			onSuccess: () => {
-				apartment.refetch();
+				apartmentList.refetch();
 			},
 		},
 	});
@@ -54,37 +55,8 @@ const Apartment = () => {
 				<Typography Type="h5" className="text-muted card-sub">
 					{() => <b>Apartments</b>}
 				</Typography>
-				<div className="row section-list">
-					<Containers.List
-						url="/apartment"
-						urlSearchParams={{
-							filter: {
-								floor_id: floorID,
-								section_id: sectionID,
-								complex_id: complexID,
-							},
-						}}
-					>
-						{({ data }) => {
-							if (!data) return "";
-							return data?.map((item) => (
-								<FloorCard
-									onDelete={onDelete}
-									key={item.id}
-									item={item}
-									onClick={(event) =>
-										navigate(
-											`/complex/${complexID}/section/${sectionID}/floor/${floorID}/apartment/${get(
-												item,
-												"id"
-											)}/update`
-										)
-									}
-								/>
-							));
-						}}
-					</Containers.List>
 
+				<div className="row section-list">
 					<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 						<AddObject
 							onClick={() =>
@@ -93,10 +65,27 @@ const Apartment = () => {
 								)
 							}
 							src={require("assets/images/section-img1.png")}
-							innerText="ADD A FLOOR APARTMENT"
+							innerText="ADD AN APARTMENT"
 							className={"p-3"}
 						/>
 					</div>
+
+					{isArray(apartmentList.data) &&
+						apartmentList.data.map((item) => (
+							<FloorCard
+								onDelete={onDelete}
+								key={item.id}
+								item={item}
+								onClick={(event) =>
+									navigate(
+										`/complex/${complexID}/section/${sectionID}/floor/${floorID}/apartment/${get(
+											item,
+											"id"
+										)}/update`
+									)
+								}
+							/>
+						))}
 				</div>
 			</div>
 		</>
