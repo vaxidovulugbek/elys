@@ -12,6 +12,8 @@ import { ReactComponent as Clock } from "assets/images/clock-rotate-left.svg";
 import { ReactComponent as Click } from "assets/images/click.svg";
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
 import { ReactComponent as GiftBox } from "assets/images/gift.svg";
+import { useSelector } from "react-redux";
+import { isArray } from "lodash";
 
 const { STATUS_FREE, STATUS_INTEREST } = constants;
 const ON_SALE = [STATUS_FREE, STATUS_INTEREST];
@@ -23,7 +25,9 @@ export const ApartmentCard = ({
 	currentTab,
 	boxType,
 }) => {
-	const langCode = "ru";
+	const lngCode = useSelector((state) => get(state, "system.lngCode"));
+	const files = get(activeApartment, "plan.files");
+	const images = isArray(files) && files.map((file) => get(file, "thumbnails.full"));
 	return (
 		<div className={cn("apartment-card", { active: boxType === "card" })}>
 			<button
@@ -62,24 +66,21 @@ export const ApartmentCard = ({
 				<div className="img">
 					<Fancybox options={{ infinite: false }}>
 						<Swiper spaceBetween={50} modules={[Navigation]} navigation>
-							<SwiperSlide>
-								<img
-									src={room}
-									data-fancybox="gallery"
-									data-src={room}
-									className="button button--secondary"
-									alt="gallery"
-								/>
-							</SwiperSlide>
-							<SwiperSlide>
-								<img
-									src={room}
-									data-fancybox="gallery"
-									data-src={room}
-									className="button button--secondary"
-									alt="gallery"
-								/>
-							</SwiperSlide>
+							{images.length > 0 ? (
+								images.map((img, index) => (
+									<SwiperSlide key={index}>
+										<img
+											src={img}
+											data-fancybox="gallery"
+											data-src={img}
+											className="button button--secondary"
+											alt="gallery"
+										/>
+									</SwiperSlide>
+								))
+							) : (
+								<SwiperSlide></SwiperSlide>
+							)}
 						</Swiper>
 					</Fancybox>
 				</div>
@@ -116,7 +117,7 @@ export const ApartmentCard = ({
 			<ul>
 				<li>
 					<dt className="name">Название квартиры</dt>
-					<dd className="value">{get(activeApartment, `name.${langCode}`)}</dd>
+					<dd className="value">{get(activeApartment, `name.${lngCode}`)}</dd>
 				</li>
 				<li>
 					<dt className="name">Кол-во комнат</dt>
@@ -124,7 +125,7 @@ export const ApartmentCard = ({
 				</li>
 				<li>
 					<dt className="name">Тип планировки</dt>
-					<dd className="value">{get(activeApartment, `plan.name.${langCode}`)}</dd>
+					<dd className="value">{get(activeApartment, `plan.name.${lngCode}`)}</dd>
 				</li>
 
 				<li>

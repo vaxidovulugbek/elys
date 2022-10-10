@@ -3,22 +3,19 @@ import cn from "classnames";
 import Slider from "rc-slider";
 import ReactSelect from "react-select";
 import { FastField, withFormik } from "formik";
-import { debounce, get, isEmpty } from "lodash";
+import { debounce, findIndex, get, isEmpty } from "lodash";
 
 import "rc-slider/assets/index.css";
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
 // import { ReactComponent as AngleDown } from 'assets/images/angle-down.svg'
 import { ReactComponent as Rotate } from "assets/images/rotate.svg";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { constants } from "services";
 
-const usernames = [{ value: "1", label: "Abdulaziz Abdurashidov" }];
-
-const sections = [
-	{ value: 1, label: "Секция 1" },
-	{ value: 2, label: "Секция 2" },
-	{ value: 3, label: "Секция 3" },
-	{ value: 4, label: "Все секции" },
-];
+import "components/Fields/Select/Select.scss";
+import { Fields } from "components";
+import { useParams } from "react-router-dom";
 
 const thumb = {
 	border: "none",
@@ -29,6 +26,9 @@ const thumb = {
 	top: "7.5px",
 	boxShadow: "none",
 };
+
+constants.classOptions.unshift({ value: "", label: "All" });
+constants.typeOptions.unshift({ value: "", label: "All" });
 
 const setFieldDebounce = debounce((handleSubmit) => {
 	handleSubmit();
@@ -43,7 +43,12 @@ const Form = ({
 	resetForm,
 	setParams,
 	apartments,
+	complex,
+	sections,
 }) => {
+	const { id } = useParams();
+	const lngCode = useSelector((state) => get(state, "system.lngCode"));
+
 	const room_counts =
 		Array.isArray(apartments) &&
 		apartments.reduce((prev, curr) => {
@@ -86,26 +91,45 @@ const Form = ({
 		isOpen,
 	});
 
+	const getOptions = (data, defaultValue) => {
+		const options = Array.isArray(data)
+			? data?.reduce(
+					(prev, curr) => [
+						...prev,
+						{ label: get(curr, `name.${lngCode}`), value: get(curr, "id") },
+					],
+					[]
+			  )
+			: [];
+		defaultValue && options.unshift(defaultValue);
+		return options;
+	};
+	const options_complex = getOptions(complex);
+	const options_section = getOptions(sections, { label: "Все секции", value: null });
 	return (
 		<form id="filters-box" className={filterBoxClass} onSubmit={handleSubmit}>
 			<div className="filters">
 				<div className="select">
 					<FastField
 						name="username"
-						component={ReactSelect}
-						defaultValue={usernames[0]}
+						component={Fields.Select}
+						defaultValue={get(
+							options_complex,
+							`[${findIndex(options_complex, { value: Number(id) })}]`
+						)}
 						className="crosstab__select"
-						options={usernames}
+						options={options_complex}
 						isSearchable={false}
+						classNamePrefix="select"
 					/>
 				</div>
 				<div className="select">
 					<FastField
 						name="section"
-						component={ReactSelect}
-						defaultValue={sections[3]}
+						component={Fields.Select}
+						defaultValue={get(options_section, "[0]")}
 						className="crosstab__select"
-						options={sections}
+						options={options_section}
 						isSearchable={false}
 					/>
 				</div>
@@ -152,6 +176,38 @@ const Form = ({
 						<span className="switch-slider round"></span>
 					</label>
 					<p>только СВОБОДНЫЕ</p>
+				</div>
+				<div className="select-box">
+					<div className="form-select">
+						<ReactSelect
+							name="type"
+							key={get(values, "type.value")}
+							component={ReactSelect}
+							options={constants.typeOptions}
+							placeholder="Appartment type"
+							classNamePrefix="select"
+							value={get(values, "type")}
+							onChange={(option) => {
+								setFieldValue("type", option);
+								handleSubmit();
+							}}
+						/>
+					</div>
+					<div className="form-select">
+						<ReactSelect
+							name="class"
+							key={get(values, "class.value")}
+							component={ReactSelect}
+							options={constants.classOptions}
+							placeholder="Apparment classes"
+							classNamePrefix="select"
+							value={get(values, "class")}
+							onChange={(option) => {
+								setFieldValue("class", option);
+								handleSubmit();
+							}}
+						/>
+					</div>
 				</div>
 			</div>
 			{!isEmpty(values) && (

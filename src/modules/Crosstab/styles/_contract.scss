@@ -4,7 +4,8 @@
 	padding-bottom: 50px;
 
 	form {
-		display: grid;
+		display: flex;
+		flex-direction: column;
 		gap: 15px;
 
 		height: max-content;
@@ -13,9 +14,17 @@
 
 	.user-details {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: repeat(auto-fit, minmax(200px, calc(50% - 15px)));
 		column-gap: 30px;
 		row-gap: 20px;
+
+		@media (max-width: 991px) {
+			padding-bottom: 50px;
+		}
+
+		@media (max-width: 510px) {
+			grid-template-columns: 1fr;
+		}
 	}
 
 	input {
@@ -55,6 +64,11 @@
 		padding: 30px;
 		display: flex;
 		gap: 30px;
+		overflow-y: scroll;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
 
 		&__card {
 			width: max-content;
@@ -79,15 +93,17 @@
 	}
 
 	.calculator {
+		width: 100%;
+
 		&__numbers {
 			display: grid;
-			grid-template-columns: repeat(4, 1fr);
+			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 			gap: 30px;
 			margin-bottom: 30px;
 		}
 
 		button {
-			width: 200px;
+			width: 100%;
 			justify-self: center;
 		}
 	}

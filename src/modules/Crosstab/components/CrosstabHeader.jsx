@@ -2,6 +2,7 @@ import React from "react";
 import cn from "classnames";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FastField } from "formik";
+import { useSelector } from "react-redux";
 
 import { Fields } from "components";
 import Containers from "containers";
@@ -24,13 +25,13 @@ export const CrosstabHeader = ({
 }) => {
 	const navigate = useNavigate();
 	const { id } = useParams();
-	const lng = "ru";
+	const lngCode = useSelector((state) => get(state, "system.lngCode"));
 	const getOptions = (data, defaultValue) => {
 		const options = Array.isArray(data)
 			? data?.reduce(
 					(prev, curr) => [
 						...prev,
-						{ label: get(curr, `name.${lng}`), value: get(curr, "id") },
+						{ label: get(curr, `name.${lngCode}`), value: get(curr, "id") },
 					],
 					[]
 			  )
