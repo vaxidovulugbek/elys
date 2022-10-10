@@ -1,13 +1,16 @@
-import { Button, Fields } from "components";
-import Containers from "containers";
-import { FastField } from "formik";
-import { get } from "lodash";
 import React from "react";
 import { useParams } from "react-router-dom";
+import { FastField } from "formik";
+import { get } from "lodash";
+
 import { constants } from "services";
 
+import { Button, Fields, Typography } from "components";
+import Containers from "containers";
+
 export const SectionForm = ({ method, url, formData, onSuccess, btnSubmitText, onClose }) => {
-	const { complexID } = useParams();
+	const { complexID, sectionID } = useParams();
+
 	return (
 		<>
 			<Containers.Form
@@ -55,15 +58,20 @@ export const SectionForm = ({ method, url, formData, onSuccess, btnSubmitText, o
 						value: Number(complexID),
 					},
 				]}
-				onSuccess={() => onSuccess()}
+				onSuccess={onSuccess}
 			>
-				{({ errors }) => (
+				{({ errors, isSubmitting }) => (
 					<>
 						<div className="card-box col-12">
-							<h5 className="text-muted card-sub">
-								<b>Section</b>
-								<small className="text-muted"> ID </small>
-							</h5>
+							<Typography Type="h5" className="text-muted card-sub">
+								{() => (
+									<>
+										<b>Section</b>
+										<small className="text-muted"> ID {sectionID}</small>
+									</>
+								)}
+							</Typography>
+
 							<div className="row g-4">
 								<div className="col-12">
 									<FastField
@@ -73,6 +81,7 @@ export const SectionForm = ({ method, url, formData, onSuccess, btnSubmitText, o
 										label="Name uz"
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										name="name.ru"
@@ -99,6 +108,7 @@ export const SectionForm = ({ method, url, formData, onSuccess, btnSubmitText, o
 										label="Sort"
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										name="status"
@@ -108,6 +118,7 @@ export const SectionForm = ({ method, url, formData, onSuccess, btnSubmitText, o
 										defaultValue={constants.statusOptions[0]}
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										name="background_id"
@@ -118,6 +129,7 @@ export const SectionForm = ({ method, url, formData, onSuccess, btnSubmitText, o
 										imageTitle={get(formData, "background.title")}
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										name="svg_id"
@@ -131,8 +143,10 @@ export const SectionForm = ({ method, url, formData, onSuccess, btnSubmitText, o
 								</div>
 							</div>
 						</div>
+
 						<div className="bottom-buttons">
 							<hr />
+
 							<div className="d-flex align-items-center justify-content-center">
 								<Button
 									onClick={onClose}
@@ -140,10 +154,12 @@ export const SectionForm = ({ method, url, formData, onSuccess, btnSubmitText, o
 									type="button"
 									innerText="Cancel"
 								/>
+
 								<Button
 									className="btn btn_green"
 									type="submit"
 									innerText={btnSubmitText}
+									isLoading={isSubmitting}
 								/>
 							</div>
 						</div>

@@ -34,7 +34,7 @@ export const AddObject = ({
 					onError();
 				}}
 			>
-				{({ errors, values, isLoading, resetForm }) => (
+				{({ errors, values, isLoading, resetForm, isSubmitting }) => (
 					<>
 						<div className="modal__heading d-flex align-items-center justify-content-between">
 							<h2 className="modal__title">{title}</h2>
@@ -68,6 +68,7 @@ export const AddObject = ({
 								innerText={submitText}
 								className="btn btn_green"
 								type="submit"
+								isLoading={isSubmitting}
 								isDisabled={isLoading}
 							/>
 						</div>

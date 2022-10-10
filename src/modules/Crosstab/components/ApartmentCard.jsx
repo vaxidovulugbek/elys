@@ -24,7 +24,6 @@ export const ApartmentCard = ({
 	boxType,
 }) => {
 	const langCode = "ru";
-	console.log(activeApartment, "activeApartment");
 	return (
 		<div className={cn("apartment-card", { active: boxType === "card" })}>
 			<button
@@ -108,7 +107,7 @@ export const ApartmentCard = ({
 			)} */}
 			{ON_SALE.includes(get(activeApartment, "status")) && (
 				<div className="submit">
-					<button className="btn" onClick={() => setCurrentTab(5)}>
+					<button className="btn" onClick={() => setCurrentTab(5)} type="button">
 						продать
 					</button>
 				</div>

@@ -9,7 +9,7 @@ const stepUrls = ["complex", "section", "floor"];
 const Interactive = ({ setActiveApartment, complex }) => {
 	const { id } = useParams();
 	const [currentStep, setCurrentStep] = useState(1);
-	const [activePathID, setActivePathID] = useState([id]);
+	const [activePathID, setActivePathID] = useState([id, 0, 0]);
 	const classNames = (num) => {
 		return cn("step", {
 			"has-angle": currentStep > num,
@@ -17,8 +17,6 @@ const Interactive = ({ setActiveApartment, complex }) => {
 			current: currentStep === num + 1,
 		});
 	};
-
-	console.log(complex.data, "complex");
 
 	return (
 		<div className="interactive">

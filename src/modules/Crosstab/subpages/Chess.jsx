@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { get, isArray } from "lodash";
 import cn from "classnames";
+import { useSelector } from "react-redux";
 
 const Chess = ({ setActiveApartment, data, filterFunc }) => {
 	const [floorsCount, setFloorsCount] = useState(0);
+	const lngCode = useSelector((state) => get(state, "system.lngCode"));
 	return (
 		<div className="chess-box">
 			<div className="chess-table">
@@ -27,8 +29,8 @@ const Chess = ({ setActiveApartment, data, filterFunc }) => {
 							return (
 								<div className="table" key={index}>
 									<div className="titles top">
-										<h3>Дом 1</h3>
-										<h5>Секция {index + 1}</h5>
+										{/* <h3>Дом 1</h3> */}
+										<h5>{get(section, `name.${lngCode}`)}</h5>
 									</div>
 									<table>
 										<tbody>
@@ -125,8 +127,8 @@ const Chess = ({ setActiveApartment, data, filterFunc }) => {
 										</tbody>
 									</table>
 									<div className="titles bottom">
-										<h5>Секция 1</h5>
-										<h3>Дом 1</h3>
+										<h5>{get(section, `name.${lngCode}`)}</h5>
+										{/* <h3>Дом 1</h3> */}
 									</div>
 								</div>
 							);

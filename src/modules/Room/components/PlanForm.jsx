@@ -1,11 +1,11 @@
 import React, { Fragment } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import { FastField, FieldArray } from "formik";
 import { get } from "lodash";
 
-import Containers from "containers";
 import { notifications } from "services";
+
+import Containers from "containers";
 import { Button, Fields, Typography } from "components";
 
 export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Save" }) => {
@@ -75,7 +75,7 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 					notifications.error("Something went wrong!");
 				}}
 			>
-				{({ values }) => (
+				{({ values, isSubmitting }) => (
 					<>
 						<div className="card-box col-6">
 							<Typography Type="h5" className="text-muted card-sub">
@@ -220,6 +220,7 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 								<Button
 									className="btn btn_green"
 									type="submit"
+									isLoading={isSubmitting}
 									innerText={btnSubmitText}
 								/>
 							</div>

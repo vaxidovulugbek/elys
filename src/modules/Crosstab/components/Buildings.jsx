@@ -21,22 +21,19 @@ export const Buildings = ({
 			include: "files,place,category,district,region,background,svg,vector,apartments.plan",
 		},
 	});
-	console.log(`${stepUrls[step - 1]}/${activePathID[step - 1]}`, "apart");
 	const stringSvg = get(data, "vector");
 
 	useEffect(() => {
 		if (svgWrap.current) {
 			svgWrap.current.innerHTML = stringSvg;
 			const paths = svgWrap.current.querySelectorAll("path");
+
 			paths?.forEach((path) => {
 				// check for appartment and set color by status
 				const appartmentID = path.getAttribute("data-apartment-id");
 				const appartment = find(get(data, "apartments"), {
 					id: Number(appartmentID),
 				});
-				console.log(get(data, "apartments", "apartments"));
-				console.log(appartmentID, "apartment_id");
-				console.log(appartment, "appartment");
 				if (appartmentID) {
 					// status colors in the _crosstab-layout.scss file
 					path.classList.add(`status-${get(appartment, "status")}`);
@@ -46,8 +43,10 @@ export const Buildings = ({
 					const pathID = path.getAttribute(`data-${stepUrls[step]}-id`);
 
 					if ((pathID, step < 3)) {
-						!activePathID.includes(pathID) &&
-							setActivePathID((prev) => [...prev, pathID]);
+						const PathsId = activePathID;
+						PathsId[step] = pathID;
+						setActivePathID(PathsId);
+
 						setCurrentStep(step + 1);
 					} else if (step === 3) {
 						// open right side appartment information

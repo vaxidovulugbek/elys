@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { get } from "lodash";
+import { get, isArray } from "lodash";
 
-import { useDelete, useFetchList, useOverlay } from "hooks";
+import { useDelete, useFetchInfinite, useOverlay, useScroll } from "hooks";
 
 import Containers from "containers";
 import {
@@ -22,13 +22,14 @@ const List = () => {
 
 	const { sectionID, complexID } = useParams();
 
-	const floorList = useFetchList({
+	const floorList = useFetchInfinite({
 		url: "/floor",
 		urlSearchParams: {
 			include: "file",
 			filter: { section_id: sectionID },
 		},
 	});
+	useScroll(document.documentElement, floorList.fetchNextPage, 300);
 
 	const { mutate } = useDelete({
 		url: "/floor",
@@ -79,41 +80,10 @@ const List = () => {
 					<div className="col-lg-12">
 						<div className="card-box transparent">
 							<Typography Type="h5" className="text-muted card-sub">
-								{() => <b>Floor Plans</b>}
+								{() => <b>Floor</b>}
 							</Typography>
 
 							<div className="row section-list">
-								<Containers.List
-									url="/floor"
-									urlSearchParams={{
-										include: "file",
-										filter: { section_id: sectionID },
-									}}
-								>
-									{({ data }) => {
-										if (!data) return "";
-										return data?.map((item) => (
-											<FloorCard
-												onDelete={onDelete}
-												onClick={() =>
-													navigate(
-														`/complex/${complexID}/section/${sectionID}/floor/${get(
-															item,
-															"id"
-														)}/update`
-													)
-												}
-												key={item.id}
-												item={item}
-												link={`/complex/${complexID}/section/${sectionID}/floor/${get(
-													item,
-													"id"
-												)}/apartment`}
-											/>
-										));
-									}}
-								</Containers.List>
-
 								<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 									<AddObject
 										onClick={() => {
@@ -126,6 +96,27 @@ const List = () => {
 										className={"p-3"}
 									/>
 								</div>
+
+								{isArray(floorList.data) &&
+									floorList.data.map((item) => (
+										<FloorCard
+											onDelete={onDelete}
+											onClick={() =>
+												navigate(
+													`/complex/${complexID}/section/${sectionID}/floor/${get(
+														item,
+														"id"
+													)}/update`
+												)
+											}
+											key={item.id}
+											item={item}
+											link={`/complex/${complexID}/section/${sectionID}/floor/${get(
+												item,
+												"id"
+											)}/apartment`}
+										/>
+									))}
 							</div>
 						</div>
 					</div>

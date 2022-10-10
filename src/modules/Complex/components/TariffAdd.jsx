@@ -4,13 +4,15 @@ import { FastField } from "formik";
 import { constants, notifications } from "services";
 
 import Containers from "containers";
-import { Button, ModalRoot, Fields } from "components";
+import { Button, ModalRoot, Fields, Typography } from "components";
 
 export const TariffAdd = ({ isOpen, onClose, onSuccess, complexID }) => {
+	console.log(constants.typeOptions);
+
 	return (
 		<ModalRoot isOpen={isOpen}>
 			<div className="modal__heading d-flex align-items-center justify-content-between">
-				<h2 className="modal__title">Add Tariff</h2>
+				<Typography Type="h2" className="modal__title" text="Add Tariff"></Typography>
 				<Button type="reset" className="close" append={"×"} onClick={onClose} />
 			</div>
 
@@ -34,6 +36,7 @@ export const TariffAdd = ({ isOpen, onClose, onSuccess, complexID }) => {
 					},
 					{
 						name: "type",
+						value: constants.typeOptions[0].value,
 					},
 					{
 						name: "complex_id",
@@ -90,6 +93,7 @@ export const TariffAdd = ({ isOpen, onClose, onSuccess, complexID }) => {
 								type="reset"
 								onClick={onClose}
 							/>
+
 							<Button innerText="Create" className="btn btn_green" type="submit" />
 						</div>
 					</>

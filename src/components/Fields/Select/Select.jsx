@@ -1,5 +1,4 @@
 import React from "react";
-
 import PropTypes from "prop-types";
 import SelectComponent from "react-select";
 import cn from "classnames";
