@@ -16,6 +16,10 @@ export const useOutsideClick = ({ initialIsVisible, onOpen, onClose = () => {} }
 		onOpen && onOpen(event);
 	};
 
+	const handleMenuClose = (event) => {
+		setIsVisible(false);
+	};
+
 	useEffect(() => {
 		document.addEventListener("click", handleClickOutside, true);
 		return () => {
@@ -23,5 +27,5 @@ export const useOutsideClick = ({ initialIsVisible, onOpen, onClose = () => {} }
 		};
 	}, []);
 
-	return { ref, isVisible, handleMenuOpen };
+	return { ref, isVisible, handleMenuOpen, handleMenuClose };
 };

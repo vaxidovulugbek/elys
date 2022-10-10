@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 import { isFunction } from "lodash";
 
@@ -12,13 +13,15 @@ export const Typography = ({
 	children,
 	...props
 }) => {
+	const { t } = useTranslation();
+
 	return (
 		<Type className={className} {...props}>
 			{prepend}
-			{text}
+			{t(text)}
 			{append}
 
-			{isFunction(children) && children()}
+			{isFunction(children) && children(t)}
 		</Type>
 	);
 };

@@ -11,7 +11,6 @@ const supportedLngs = ["uz", "ru", "en"];
 const options = {
 	fallbackLng,
 	supportedLngs,
-	lng: localStorage.lng,
 	keySeparator: false,
 	interpolation: {
 		escapeValue: false,
@@ -19,13 +18,13 @@ const options = {
 	},
 	saveMissing: false,
 	react: {
-		useSuspense: true,
+		useSuspense: false,
 		waiting: true,
 	},
 
 	backend: {
-		loadPath: `${config.baseUrl}/translation?_l={{lng}}`,
-		addPath: `${config.baseUrl}/translation?_l={{lng}}`,
+		loadPath: `${config.baseUrl}translation/all?_l={{lng}}`,
+		addPath: `${config.baseUrl}translation/all?_l={{lng}}`,
 		parse(data) {
 			const response = JSON.parse(data);
 			return response.data;

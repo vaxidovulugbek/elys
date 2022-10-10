@@ -2058,7 +2058,9 @@ hr {
 }
 
 .drop-down__item {
+	text-align: left;
 	display: block;
+	width: 100%;
 
 	padding: 8px 20px;
 

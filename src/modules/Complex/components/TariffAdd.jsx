@@ -7,8 +7,6 @@ import Containers from "containers";
 import { Button, ModalRoot, Fields, Typography } from "components";
 
 export const TariffAdd = ({ isOpen, onClose, onSuccess, complexID }) => {
-	console.log(constants.typeOptions);
-
 	return (
 		<ModalRoot isOpen={isOpen}>
 			<div className="modal__heading d-flex align-items-center justify-content-between">
