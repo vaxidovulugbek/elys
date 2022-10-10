@@ -19,19 +19,19 @@ export const PlanFieldForm = ({ data, planFieldModal, planFieldList }) => {
 					{
 						name: "name.en",
 						component: Fields.Input,
-						label: ["Field name", <span>*</span>],
+						label: ["Field name EN", <span>*</span>],
 						placeholder: "Name",
 					},
 					{
 						name: "name.ru",
 						component: Fields.Input,
-						label: ["Название поле", <span>*</span>],
+						label: ["Field name RU", <span>*</span>],
 						placeholder: "Название",
 					},
 					{
 						name: "name.uz",
 						component: Fields.Input,
-						label: ["Maydon nomi", <span>*</span>],
+						label: ["Field name UZ", <span>*</span>],
 						placeholder: "Nomi",
 					},
 				]}

@@ -18,19 +18,19 @@ export const DocumentForm = ({ complexId, documentModal }) => {
 					{
 						name: "name.en",
 						component: Fields.Input,
-						label: ["Document name", <span>*</span>],
+						label: ["Document name EN", <span>*</span>],
 						placeholder: "Document",
 					},
 					{
 						name: "name.ru",
 						component: Fields.Input,
-						label: ["Название документа", <span>*</span>],
+						label: ["Document name RU", <span>*</span>],
 						placeholder: "Документ",
 					},
 					{
 						name: "name.uz",
 						component: Fields.Input,
-						label: ["Hujjat nomi", <span>*</span>],
+						label: ["Document name UZ", <span>*</span>],
 						placeholder: "Hujjat",
 					},
 					{
@@ -40,9 +40,9 @@ export const DocumentForm = ({ complexId, documentModal }) => {
 						label: "Type",
 					},
 					{
-						name: "file_id[1]",
+						name: "file_id[3]",
 						component: Fields.Upload,
-						label: "Hujjat yuklash",
+						label: "Document UZ",
 						placeholder: "Hujjat tanlang",
 						btnText: "Upload",
 						accept: ".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -50,7 +50,7 @@ export const DocumentForm = ({ complexId, documentModal }) => {
 					{
 						name: "file_id[2]",
 						component: Fields.Upload,
-						label: "Загрузить документ",
+						label: "Document RU",
 						placeholder: "Выберите документ",
 						btnText: "Upload",
 						accept: ".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",

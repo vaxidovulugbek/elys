@@ -19,19 +19,19 @@ export const RoomForm = ({ data, roomModal, roomList }) => {
 					{
 						name: "name.en",
 						component: Fields.Input,
-						label: ["Room name", <span>*</span>],
+						label: ["Room name EN", <span>*</span>],
 						placeholder: "Room",
 					},
 					{
 						name: "name.ru",
 						component: Fields.Input,
-						label: ["Название комнаты", <span>*</span>],
+						label: ["Room name RU", <span>*</span>],
 						placeholder: "Комната",
 					},
 					{
 						name: "name.uz",
 						component: Fields.Input,
-						label: ["Xona nomi", <span>*</span>],
+						label: ["Room name UZ", <span>*</span>],
 						placeholder: "Xona",
 					},
 					{
