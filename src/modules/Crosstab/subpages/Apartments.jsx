@@ -9,7 +9,7 @@ const Apartments = ({ filterFunc, setActiveApartment, activeApartment, complexID
 	const apartments = useFetchInfinite({
 		url: "/apartment",
 		urlSearchParams: {
-			include: "plan, plan.room, section, floor, complex",
+			include: "plan, plan.files, plan.room, section, floor, complex",
 			filter: {
 				complex_id: complexID,
 			},

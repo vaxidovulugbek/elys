@@ -1138,8 +1138,19 @@ body {
 
 				padding: 20px 0 10px;
 
+				.swiper-slide {
+					position: relative;
+
+					height: 100%;
+				}
+
 				img {
+					user-select: none;
+
 					width: 100%;
+					height: 200px;
+
+					object-fit: cover;
 				}
 
 				.img {

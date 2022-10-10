@@ -6,28 +6,28 @@ import { FastField, Field } from "formik";
 import { get, isArray } from "lodash";
 
 import { useFetchList } from "hooks";
-import { constants, functions, notifications, time } from "services";
+import { constants, notifications, time } from "services";
 
 import Containers from "containers";
 import { Fields, Table } from "components";
 import { MaskedDateInput } from "../components";
+
+import { crosstab_functions } from "../functions";
 
 const languages = [
 	{ value: constants.UZBEK, label: "Uzbek" },
 	{ value: constants.RUSSIAN, label: "Russian" },
 ];
 
-const PassportInformation = ({
-	paymentDetails,
-	setActiveApartment,
-	activeApartment,
-	setCurrentTab,
-}) => {
+const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurrentTab }) => {
 	const { t } = useTranslation();
 	const [apartment, setApartment] = useState({});
 	const [items, setItems] = useState();
 	const [tariff, setTariff] = useState(null);
 	const queryClient = useQueryClient();
+
+	const { fixPassportInput, handleContractSuccess, calculateCredit, handleContractError } =
+		crosstab_functions;
 
 	const price = get(apartment, "price", 0);
 
@@ -40,68 +40,16 @@ const PassportInformation = ({
 		},
 	});
 
-	const fixPassportInput = (e) => {
-		const letters = /[A-Z]/;
-		const numbers = /[0-9]/;
-		const charArray = e.target.value.toUpperCase().split("");
-		const correctCharArray = charArray.filter((char, i) => {
-			if (i <= 10) {
-				if (i < 2) {
-					return char.match(letters);
-				} else if (i >= 2) {
-					return char.match(numbers);
-				}
-			}
-		});
-		e.target.value = correctCharArray.join("");
-	};
+	const calculate = calculateCredit({ price, setItems });
 
-	const calculate = (formik_values) => {
-		let { month_count, initial_payment, discount } = formik_values;
-		month_count = Number(month_count);
-		initial_payment = Number(initial_payment);
-		discount = Number(discount);
+	const handleError = handleContractError(notifications);
 
-		const credit =
-			Number(price) -
-			(Number(price) * discount) / 100 -
-			(Number(price) * initial_payment) / 100;
-
-		const newItems = Array(month_count || 1)
-			.fill(1)
-			.map((_, index) => ({
-				month: index + 1,
-				fee: functions.convertToReadable((credit / month_count).toFixed(2)),
-			}));
-
-		newItems.push({ month: "Total", fee: functions.convertToReadable(credit) });
-
-		setItems(newItems);
-	};
-
-	const handleError = (data) => {
-		const errors = get(data, "response.data.errors");
-
-		errors &&
-			Object.keys(errors).includes("document_id") &&
-			notifications.error("You have to create document first");
-	};
-
-	const handleSuccess = (response) => {
-		const download = document.createElement("a");
-		download.download = true;
-		download.href = get(response, "data.destination");
-		document.body.appendChild(download);
-		download.target = "_blank";
-
-		notifications.success("Contract created");
-		setActiveApartment(null);
-		setCurrentTab(1);
-		queryClient.invalidateQueries().then((res) => {
-			download.click();
-			document.body.removeChild(download);
-		});
-	};
+	const handleSuccess = handleContractSuccess({
+		notifications,
+		setActiveApartment,
+		setCurrentTab,
+		queryClient,
+	});
 
 	useEffect(() => {
 		if (activeApartment) setApartment(activeApartment);
@@ -364,7 +312,8 @@ const PassportInformation = ({
 										name="language_id"
 										label={t("Document language")}
 										options={languages}
-										placeholder="uz"
+										defaultValue={languages[0].value}
+										placeholder="Language"
 									/>
 								</div>
 								<Field
@@ -404,7 +353,7 @@ const PassportInformation = ({
 								/>
 
 								<button type="submit" className="printToDoc submit">
-									Submit
+									{t("Submit")}
 								</button>
 							</div>
 						</>
@@ -415,4 +364,4 @@ const PassportInformation = ({
 	);
 };
 
-export default PassportInformation;
+export default Contract;

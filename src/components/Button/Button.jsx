@@ -1,10 +1,10 @@
 import React from "react";
-
+import { useTranslation } from "react-i18next";
 import { isFunction } from "lodash";
 import PropTypes from "prop-types";
 import cn from "classnames";
 
-import "components/Button/Button.scss";
+import "./Button.scss";
 
 export const Button = React.memo(
 	({
@@ -13,13 +13,17 @@ export const Button = React.memo(
 		prepend,
 		isLoading = false,
 		className = "",
+		isDefault = true,
 		isDisabled = false,
 		size = "sm",
 		type,
 		onClick,
 		...buttonProps
 	}) => {
-		const classNames = cn(className, `btn_${size}`, {
+		const { t } = useTranslation();
+
+		const classNames = cn(className, {
+			[`btn_${size}`]: isDefault,
 			btn_disabled: isDisabled,
 			btn_spinning: isLoading,
 		});
@@ -33,7 +37,7 @@ export const Button = React.memo(
 				{...buttonProps}
 			>
 				{prepend}
-				{innerText}
+				{t(innerText)}
 				{append}
 
 				{isLoading && <span className="btn-spinner"></span>}

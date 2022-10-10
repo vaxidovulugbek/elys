@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import cn from "classnames";
@@ -6,6 +7,7 @@ import cn from "classnames";
 import "./Breadcrumb.scss";
 
 export const Breadcrumb = ({ links = [], className = "" }) => {
+	const { t } = useTranslation();
 	const classNames = cn("breadcrumb", className);
 
 	return (
@@ -15,8 +17,9 @@ export const Breadcrumb = ({ links = [], className = "" }) => {
 					return (
 						<React.Fragment key={index}>
 							<Link to={link.url} className="breadcrumb__link">
-								{link.name}
+								{t(link.name)}
 							</Link>
+
 							<img
 								src={require("assets/images/angle-right.svg").default}
 								alt="breadcrumb-separator"
@@ -27,7 +30,7 @@ export const Breadcrumb = ({ links = [], className = "" }) => {
 
 				return (
 					<span key={index} className="breadcrumb__link">
-						{link.name}
+						{t(link.name)}
 					</span>
 				);
 			})}

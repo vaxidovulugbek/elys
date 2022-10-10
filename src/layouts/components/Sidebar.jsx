@@ -1,14 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 import cn from "classnames";
+import { find } from "lodash";
 
 import { ReactComponent as HomeSvg } from "assets/images/home.svg";
 import { ReactComponent as Settings } from "assets/images/settings.svg";
 import angleRight from "assets/images/angle-right.svg";
-import { useState } from "react";
-import { useEffect } from "react";
-import { find } from "lodash";
+import { Typography } from "components";
 
 const settingSubLinks = [
 	{
@@ -22,6 +21,7 @@ const settingSubLinks = [
 ];
 
 export const Sidebar = ({ isOpen }) => {
+	const { t } = useTranslation();
 	const [isSubActive, setIsSubActive] = useState(true);
 
 	const subMenu = cn("sidebar__submenu-content", { sidebar__submenu_active: isSubActive });
@@ -42,7 +42,8 @@ export const Sidebar = ({ isOpen }) => {
 				"sidebar-close": !isOpen,
 			})}
 		>
-			<h3 className="sidebar__title">Navigation</h3>
+			<Typography Type="h3" className="sidebar__title" text="Navigation" />
+
 			<div className="sidebar__submenu">
 				<NavLink
 					to=""
@@ -53,10 +54,11 @@ export const Sidebar = ({ isOpen }) => {
 				>
 					<div className="d-flex align-items-center">
 						<HomeSvg />
-						<span className="sidebar__link-text">Complex</span>
+						<span className="sidebar__link-text">{t("Complex")}</span>
 					</div>
 				</NavLink>
 			</div>
+
 			<div className="sidebar__submenu">
 				<NavLink
 					to="/room"
@@ -66,10 +68,11 @@ export const Sidebar = ({ isOpen }) => {
 				>
 					<div className="d-flex align-items-center">
 						<HomeSvg />
-						<span className="sidebar__link-text">Rooms</span>
+						<span className="sidebar__link-text">{t("Rooms")}</span>
 					</div>
 				</NavLink>
 			</div>
+
 			<div className="sidebar__submenu">
 				<NavLink
 					to="/category"
@@ -79,10 +82,11 @@ export const Sidebar = ({ isOpen }) => {
 				>
 					<div className="d-flex align-items-center">
 						<HomeSvg />
-						<span className="sidebar__link-text">Category</span>
+						<span className="sidebar__link-text">{t("Category")}</span>
 					</div>
 				</NavLink>
 			</div>
+
 			<div className="sidebar__submenu">
 				<NavLink
 					to="settings/"
@@ -95,7 +99,7 @@ export const Sidebar = ({ isOpen }) => {
 				>
 					<div className="d-flex align-items-center">
 						<Settings />
-						<span className="sidebar__link-text">Settings</span>
+						<span className="sidebar__link-text">{t("Settings")}</span>
 					</div>
 
 					<div className="sidebar__arrow">
@@ -112,7 +116,7 @@ export const Sidebar = ({ isOpen }) => {
 								cn("sidebar__link sub__link", { "sidebar__link-active": isActive })
 							}
 						>
-							<span className="sidebar__link-text">{el.name}</span>
+							<span className="sidebar__link-text">{t(el.name)}</span>
 						</NavLink>
 					))}
 				</div>

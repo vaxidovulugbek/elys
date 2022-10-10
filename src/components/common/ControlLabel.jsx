@@ -1,18 +1,22 @@
 import React from "react";
-
-import { isArray } from "lodash";
+import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
+import { isArray, isString } from "lodash";
 
 export const ControlLabel = ({ label }) => {
+	const { t } = useTranslation();
+
 	return (
 		<>
 			{label && (
 				<span className="form-label">
 					{isArray(label)
 						? label.map((item, index) => (
-								<React.Fragment key={index}>{item}</React.Fragment>
+								<React.Fragment key={index}>
+									{isString(item) ? t(item) : item}
+								</React.Fragment>
 						  ))
-						: label}
+						: t(label)}
 				</span>
 			)}
 		</>

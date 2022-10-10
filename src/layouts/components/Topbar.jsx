@@ -1,9 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 import cn from "classnames";
 
 import { useOutsideClick } from "hooks";
+import { system } from "store/actions";
+
+import { Button } from "components";
 
 import { ReactComponent as Logo } from "assets/images/logo.svg";
 import { ReactComponent as Menu } from "assets/images/menu.svg";
@@ -12,12 +16,20 @@ import { ReactComponent as World } from "assets/images/world.svg";
 import { ReactComponent as Fullscreen } from "assets/images/fullscreen.svg";
 
 export const Topbar = ({ setIsOpen, isOpen }) => {
+	const dispatch = useDispatch();
+	const { i18n } = useTranslation();
+
 	const toggle = () => {
 		setIsOpen((prev) => !prev);
 	};
 
 	const lngDropDown = useOutsideClick();
 	const profileDropDown = useOutsideClick(false);
+
+	const changeLng = (lng) => {
+		dispatch(system.changeLanguage(lng));
+		i18n.changeLanguage(lng);
+	};
 
 	return (
 		<header className={cn("header", { close: !isOpen })}>
@@ -47,12 +59,41 @@ export const Topbar = ({ setIsOpen, isOpen }) => {
 							"drop-down__options_active": lngDropDown.isVisible,
 						})}
 					>
-						<Link to="#" className="drop-down__item drop-down__item_active">
-							EN
-						</Link>
-						<Link to="#" className="drop-down__item">
-							UZ
-						</Link>
+						<Button
+							className={cn("drop-down__item", {
+								"drop-down__item_active": i18n.language === "uz",
+							})}
+							isDefault={false}
+							innerText="UZ"
+							onClick={(event) => {
+								changeLng("uz");
+								lngDropDown.handleMenuClose();
+							}}
+						/>
+
+						<Button
+							className={cn("drop-down__item", {
+								"drop-down__item_active": i18n.language === "ru",
+							})}
+							isDefault={false}
+							innerText="RU"
+							onClick={(event) => {
+								changeLng("ru");
+								lngDropDown.handleMenuClose();
+							}}
+						/>
+
+						<Button
+							className={cn("drop-down__item", {
+								"drop-down__item_active": i18n.language === "en",
+							})}
+							isDefault={false}
+							innerText="EN"
+							onClick={(event) => {
+								changeLng("en");
+								lngDropDown.handleMenuClose();
+							}}
+						/>
 					</div>
 				</div>
 				<button className="header__action">

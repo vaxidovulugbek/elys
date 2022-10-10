@@ -18,7 +18,7 @@ const Plan = ({ setActiveApartment, filterFunc }) => {
 				url="plan"
 				urlSearchParams={{
 					include:
-						"apartments, apartments.complex, apartments.floor,apartments.plan.room, apartments.plan, apartments.files ,room, files",
+						"apartments, apartments.complex, apartments.floor,apartments.plan.room, apartments.plan, apartments.plan.files, apartments.files ,room, files",
 					filter: { complex_id: id },
 				}}
 			>

@@ -2062,10 +2062,12 @@ hr {
 .drop-down__item {
 	display: block;
 
+	width: 100%;
 	padding: 8px 20px;
 
 	font-size: 14px;
 	color: #212529;
+	text-align: left;
 	white-space: nowrap;
 }
 
