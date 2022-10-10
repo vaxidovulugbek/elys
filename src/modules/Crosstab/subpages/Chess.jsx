@@ -20,7 +20,7 @@ const Chess = ({ setActiveApartment, data, filterFunc }) => {
 						))}
 				</div>
 				<div className="tables">
-					{Array.isArray(data) &&
+					{isArray(data) &&
 						data.map((section, index) => {
 							const floors = isArray(section)
 								? section

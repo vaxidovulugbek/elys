@@ -187,7 +187,7 @@ const Update = () => {
 											formData={data}
 											queryKey={[
 												"GET",
-												`complex/${complexID}`,
+												`/complex/${complexID}`,
 												{ include: "region,district,files,svg,background" },
 											]}
 										/>

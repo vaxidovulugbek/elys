@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { FastField, Field } from "formik";
-import { get } from "lodash";
+import { get, isArray } from "lodash";
 
 import { useFetchList } from "hooks";
 import { constants, functions, notifications, time } from "services";
@@ -108,7 +108,7 @@ const PassportInformation = ({
 	}, [activeApartment]);
 
 	useEffect(() => {
-		Array.isArray(data) && setTariff(data[0]);
+		isArray(data) && setTariff(data[0]);
 	}, [data]);
 
 	return (
@@ -124,7 +124,7 @@ const PassportInformation = ({
 				>
 					{({ data }) => (
 						<>
-							{Array.isArray(data) &&
+							{isArray(data) &&
 								data.map((item, index) => {
 									return (
 										<div

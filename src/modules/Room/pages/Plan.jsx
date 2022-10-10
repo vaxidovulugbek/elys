@@ -5,7 +5,6 @@ import { get, isArray } from "lodash";
 import { notifications } from "services";
 import { useDelete, useFetchInfinite, useScroll } from "hooks";
 
-import Containers from "containers";
 import { AddObject, Modals, PageHeading } from "components";
 import { RoomCard } from "../components/RoomCard";
 

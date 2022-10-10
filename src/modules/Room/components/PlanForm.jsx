@@ -202,7 +202,7 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 									formData={formData}
 									queryKey={[
 										"GET",
-										`plan/${get(formData, "id")}`,
+										`/plan/${get(formData, "id")}`,
 										{ include: "files,fields,fields.plan_field" },
 									]}
 								/>

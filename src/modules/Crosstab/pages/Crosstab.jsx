@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { get } from "lodash";
+import { get, isArray } from "lodash";
 
 import Containers from "containers";
 import { useFetchOne } from "hooks";
@@ -86,7 +86,7 @@ const Crosstab = () => {
 			>
 				{({ data, isFetching }) => {
 					// All apartments
-					const apartments = Array.isArray(get(data, "data"))
+					const apartments = isArray(get(data, "data"))
 						? get(data, "data").reduce((prev, curr) => {
 								const arr = Object.values(get(curr, "floors", {})).reduce(
 									(prev, curr) => {

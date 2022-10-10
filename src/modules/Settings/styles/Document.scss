@@ -3,15 +3,19 @@
 	gap: 20px;
 
 	.document__tab-nav {
+		cursor: pointer;
+
 		display: flex;
 		align-items: center;
 		justify-content: center;
+
 		width: 40px;
 		height: 25px;
-		border-radius: 8px;
-		cursor: pointer;
-		background-color: #f9fafb;
+
 		color: var(--main-green);
+
+		background-color: #f9fafb;
+		border-radius: 8px;
 
 		&:hover {
 			background-color: #ebebeb;
@@ -19,7 +23,8 @@
 	}
 
 	.document__tab-nav.active {
-		background-color: var(--main-green);
 		color: #fff;
+
+		background-color: var(--main-green);
 	}
 }

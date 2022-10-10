@@ -47,13 +47,13 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 						name: "price",
 						validationType: "string",
 						value: Number(get(formData, "price")),
-						onSubmitValue: (value) => Number(value.replaceAll(" ", "")),
+						onSubmitValue: (value) => Number(String(value).replaceAll(" ", "")),
 					},
 					{
 						name: "discount",
 						validationType: "string",
 						value: Number(get(formData, "discount")),
-						onSubmitValue: (value) => Number(value.replaceAll(" ", "")),
+						onSubmitValue: (value) => Number(String(value).replaceAll(" ", "")),
 					},
 					{
 						name: "sort",
@@ -282,7 +282,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 									formData={formData}
 									queryKey={[
 										"GET",
-										`apartment/${get(formData, "id")}`,
+										`/apartment/${get(formData, "id")}`,
 										{ include: "plan,files" },
 									]}
 								/>

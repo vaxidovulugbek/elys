@@ -11,7 +11,7 @@ const Update = () => {
 	const navigate = useNavigate();
 	const { apartmentID } = useParams();
 	const { data, refetch, isLoading } = useFetchOne({
-		url: `apartment/${apartmentID}`,
+		url: `/apartment/${apartmentID}`,
 		queryOptions: {
 			enabled: false,
 		},
@@ -33,7 +33,7 @@ const Update = () => {
 		<>
 			<ApartmentForm
 				method="put"
-				url={`apartment/${apartmentID}`}
+				url={`/apartment/${apartmentID}`}
 				formData={data}
 				onSuccess={onSuccess}
 			/>

@@ -4,7 +4,6 @@ import { get, isArray } from "lodash";
 
 import { useDelete, useFetchInfinite, useScroll } from "hooks";
 
-import Containers from "containers";
 import { SectionCard, Typography } from "components";
 import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
 

@@ -122,24 +122,25 @@
 
 	&-spinner {
 		display: block;
-		margin-left: 10px;
+
 		min-width: 15px;
 		height: 15px;
-		border-radius: 100%;
+		margin-left: 10px;
+
 		border: 2px solid #fff;
-		border-top-color: rgba(255, 255, 255, 0.4);
+		border-top-color: rgb(255 255 255 / 40%);
+		border-radius: 100%;
+
 		animation: loading 1s linear infinite;
 	}
 }
-
 
 @keyframes loading {
 	0% {
 		transform: rotate(0);
 	}
+
 	100% {
 		transform: rotate(360deg);
 	}
 }
-
-

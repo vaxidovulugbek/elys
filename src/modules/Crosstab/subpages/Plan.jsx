@@ -23,11 +23,11 @@ const Plan = ({ setActiveApartment, filterFunc }) => {
 				}}
 			>
 				{({ data }) => {
-					const plans = Array.isArray(data)
+					const plans = isArray(data)
 						? data.map((plan) => {
 								const apartments = get(plan, "apartments", []);
 								let filteredApartments = [];
-								if (Array.isArray(apartments))
+								if (isArray(apartments))
 									filteredApartments = apartments.filter((apartment) =>
 										filterFunc(apartment)
 									);

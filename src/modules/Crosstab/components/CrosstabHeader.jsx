@@ -10,7 +10,7 @@ import obj from "assets/images/obj.jpg";
 import { ReactComponent as Search } from "assets/images/search.svg";
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
 import { ReactComponent as Back } from "assets/images/back.svg";
-import { findIndex, get } from "lodash";
+import { findIndex, get, isArray } from "lodash";
 
 export const CrosstabHeader = ({
 	activeApartment,
@@ -26,7 +26,7 @@ export const CrosstabHeader = ({
 	const { id } = useParams();
 	const lng = "ru";
 	const getOptions = (data, defaultValue) => {
-		const options = Array.isArray(data)
+		const options = isArray(data)
 			? data?.reduce(
 					(prev, curr) => [
 						...prev,

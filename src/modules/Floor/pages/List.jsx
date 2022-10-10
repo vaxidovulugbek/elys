@@ -4,7 +4,6 @@ import { get, isArray } from "lodash";
 
 import { useDelete, useFetchInfinite, useOverlay, useScroll } from "hooks";
 
-import Containers from "containers";
 import {
 	AddObject,
 	Breadcrumb,

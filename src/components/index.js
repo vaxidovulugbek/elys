@@ -2,6 +2,7 @@ export { default as Fields } from "./Fields";
 export { default as Modals } from "./Modal";
 export { Button } from "./Button/Button";
 export { Spinner } from "./Spinner";
+export { DownloadSpinner } from "./Spinner";
 export { ModalRoot } from "./Modal";
 export { Typography } from "./Typography";
 export { Portal } from "./Portal";

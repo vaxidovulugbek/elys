@@ -3,7 +3,7 @@ import cn from "classnames";
 import Slider from "rc-slider";
 import ReactSelect from "react-select";
 import { FastField, withFormik } from "formik";
-import { debounce, get, isEmpty } from "lodash";
+import { debounce, get, isArray, isEmpty } from "lodash";
 
 import "rc-slider/assets/index.css";
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
@@ -45,7 +45,7 @@ const Form = ({
 	apartments,
 }) => {
 	const room_counts =
-		Array.isArray(apartments) &&
+		isArray(apartments) &&
 		apartments.reduce((prev, curr) => {
 			const count = get(curr, "plan.room.count");
 			!prev.includes(count) && count && prev.push(count);

@@ -11,7 +11,7 @@ export const Button = React.memo(
 		innerText,
 		append,
 		prepend,
-		isLoading,
+		isLoading = false,
 		className = "",
 		isDisabled = false,
 		size = "sm",
@@ -29,7 +29,7 @@ export const Button = React.memo(
 				className={classNames}
 				type={type}
 				onClick={isFunction(onClick) ? onClick : null}
-				disabled={isDisabled || isLoading}
+				// disabled={isDisabled || isLoading}
 				{...buttonProps}
 			>
 				{prepend}
