@@ -200,6 +200,7 @@ const Crosstab = () => {
 												currentTab,
 												setCurrentTab,
 												activeApartment,
+												setActiveApartment,
 												setPaymentDetails,
 												setActiveApartment,
 											}}
