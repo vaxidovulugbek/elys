@@ -15,7 +15,12 @@ const languages = [
 	{ value: constants.RUSSIAN, label: "Russian" },
 ];
 
-const PassportInformation = ({ paymentDetails, activeApartment, setCurrentTab }) => {
+const PassportInformation = ({
+	paymentDetails,
+	activeApartment,
+	setCurrentTab,
+	setActiveApartment,
+}) => {
 	const { t } = useTranslation();
 	const [apartment, setApartment] = useState({});
 	const [items, setItems] = useState();
@@ -83,6 +88,7 @@ const PassportInformation = ({ paymentDetails, activeApartment, setCurrentTab })
 	const handleSuccess = () => {
 		notifications.success("Contract created");
 		queryClient.invalidateQueries();
+		setActiveApartment(null);
 		setCurrentTab(1);
 	};
 
