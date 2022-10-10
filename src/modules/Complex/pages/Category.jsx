@@ -1,16 +1,17 @@
 import React from "react";
+import { isArray } from "lodash";
 
-import { useDelete, useFetchList, useFetchOneWithId, useOverlay } from "hooks";
+import { useDelete, useFetchInfinite, useFetchOneWithId, useOverlay, useScroll } from "hooks";
 import { notifications } from "services";
 
-import Containers from "containers";
 import { CategoryCard } from "../components/CategoryCard";
 import { AddObject, Modals, PageHeading } from "components";
 import CategoryForm from "../components/CategoryForm";
 
 const Category = () => {
 	const categoryModal = useOverlay("category");
-	const categoryList = useFetchList({ url: "/category" });
+	const categoryList = useFetchInfinite({ url: "/category" });
+	useScroll(document.documentElement, categoryList.fetchNextPage, 100);
 
 	const { data, setId } = useFetchOneWithId({
 		url: "/category",
@@ -28,7 +29,6 @@ const Category = () => {
 		notifications.success("Category delete success");
 		categoryList.refetch();
 	};
-
 	const onDelete = (id) => {
 		Modals.deletePermission({
 			title: "Delete a category?",
@@ -37,11 +37,11 @@ const Category = () => {
 			receivePermission: () => deleteData.mutate(id),
 		});
 	};
-
 	const fetchFormData = (id) => {
 		setId(id);
 		categoryModal.handleOverlayOpen();
 	};
+
 	return (
 		<>
 			<PageHeading
@@ -59,24 +59,6 @@ const Category = () => {
 			/>
 
 			<div className="row">
-				<Containers.List url="/category">
-					{({ data }) => {
-						return (
-							<>
-								{Array.isArray(data) &&
-									data.map((item, index) => (
-										<CategoryCard
-											item={item}
-											key={index}
-											onDelete={onDelete}
-											onClick={fetchFormData}
-										/>
-									))}
-							</>
-						);
-					}}
-				</Containers.List>
-
 				<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 					<AddObject
 						onClick={() => {
@@ -88,6 +70,16 @@ const Category = () => {
 						className={"p-3"}
 					/>
 				</div>
+
+				{isArray(categoryList.data) &&
+					categoryList.data.map((item, index) => (
+						<CategoryCard
+							item={item}
+							key={index}
+							onDelete={onDelete}
+							onClick={fetchFormData}
+						/>
+					))}
 			</div>
 
 			<CategoryForm categoryList={categoryList} categoryModal={categoryModal} data={data} />

@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { get } from "lodash";
+import { get, isArray } from "lodash";
 
 import { notifications } from "services";
-import { useDelete, useFetchList } from "hooks";
+import { useDelete, useFetchInfinite, useScroll } from "hooks";
 
 import Containers from "containers";
 import { AddObject, Modals, PageHeading } from "components";
@@ -13,12 +13,13 @@ const Plan = () => {
 	const { roomID } = useParams();
 	const navigate = useNavigate();
 
-	const planList = useFetchList({
+	const planList = useFetchInfinite({
 		url: "/plan",
 		urlSearchParams: {
 			filter: { room_id: roomID },
 		},
 	});
+	useScroll(document.documentElement, planList.fetchNextPage, 100);
 
 	const deleteData = useDelete({
 		url: "/plan",
@@ -53,28 +54,8 @@ const Plan = () => {
 					{ url: "", name: "Plan" },
 				]}
 			/>
+
 			<div className="row gap" style={{ "--column-gap": 0 }}>
-				<Containers.List
-					url="/plan"
-					urlSearchParams={{
-						filter: { room_id: roomID },
-					}}
-				>
-					{({ data }) => (
-						<>
-							{Array.isArray(data) &&
-								data.map((item, index) => (
-									<RoomCard
-										key={index}
-										item={item}
-										link={`/room/${roomID}/plan/${get(item, "id")}/update`}
-										onDelete={onDelete}
-										onClick={onUpdate}
-									/>
-								))}
-						</>
-					)}
-				</Containers.List>
 				<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 					<AddObject
 						onClick={() => {
@@ -85,6 +66,17 @@ const Plan = () => {
 						className={"p-3"}
 					/>
 				</div>
+
+				{isArray(planList.data) &&
+					planList.data.map((item, index) => (
+						<RoomCard
+							key={index}
+							item={item}
+							link={`/room/${roomID}/plan/${get(item, "id")}/update`}
+							onDelete={onDelete}
+							onClick={onUpdate}
+						/>
+					))}
 			</div>
 		</>
 	);

@@ -7,7 +7,7 @@ import { get } from "lodash";
 import { useFetchOne } from "hooks";
 
 import Containers from "containers";
-import { PageHeading, Fields, Button, MapPicker } from "components";
+import { PageHeading, Fields, Button, MapPicker, Typography } from "components";
 import { SectionList } from "modules/Section";
 import { notifications } from "services";
 
@@ -112,14 +112,18 @@ const Update = () => {
 					},
 				]}
 			>
-				{({ errors, values, setFieldValue }) => (
+				{({ values, setFieldValue, isSubmitting }) => (
 					<>
 						<div className="col-lg-6">
 							<div className="card-box">
-								<h5 className="text-muted card-sub">
-									<b>Complex</b>
-									<small className="text-muted"> ID {complexID}</small>
-								</h5>
+								<Typography Type="h5" className="text-muted card-sub">
+									{() => (
+										<>
+											<b>Complex</b>
+											<small className="text-muted"> ID {complexID}</small>
+										</>
+									)}
+								</Typography>
 
 								<div className="row g-4">
 									<div className="col-12">
@@ -194,9 +198,9 @@ const Update = () => {
 
 						<div className="col-lg-6">
 							<div className="card-box">
-								<h5 className="text-muted card-sub">
-									<b>Location</b>
-								</h5>
+								<Typography Type="h5" className="text-muted card-sub">
+									{() => <b>Location</b>}
+								</Typography>
 
 								<div className="row g-4">
 									<FastField
@@ -281,7 +285,13 @@ const Update = () => {
 									innerText="Cancel"
 									onClick={() => navigate("/", { replace: true })}
 								/>
-								<Button className="btn btn_green" type="submit" innerText="Save" />
+
+								<Button
+									className="btn btn_green"
+									type="submit"
+									innerText="Save"
+									isLoading={isSubmitting}
+								/>
 							</div>
 						</div>
 					</>

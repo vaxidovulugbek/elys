@@ -2,11 +2,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { get } from "lodash";
 
 import Containers from "containers";
-import { Button, Fields } from "components";
+import { Button, Fields, Typography } from "components";
 import { FastField } from "formik";
 
 export const FloorForm = ({ method, url, formData, onSuccess, btnSubmitText = "Save" }) => {
-	const { sectionID } = useParams();
+	const { sectionID, floorID } = useParams();
 	const navigate = useNavigate();
 
 	const onClose = () => {
@@ -57,13 +57,18 @@ export const FloorForm = ({ method, url, formData, onSuccess, btnSubmitText = "S
 				]}
 				onSuccess={() => onSuccess()}
 			>
-				{({ errors }) => (
+				{({ errors, isSubmitting }) => (
 					<>
 						<div className="card-box col-12">
-							<h5 className="text-muted card-sub">
-								<b>Section</b>
-								<small className="text-muted"> ID {sectionID}</small>
-							</h5>
+							<Typography Type="h5" className="text-muted card-sub">
+								{() => (
+									<>
+										<b>Section</b>
+										<small className="text-muted"> ID {floorID}</small>
+									</>
+								)}
+							</Typography>
+
 							<div className="row g-4">
 								<div className="col-12">
 									<FastField
@@ -73,6 +78,7 @@ export const FloorForm = ({ method, url, formData, onSuccess, btnSubmitText = "S
 										label="Name uz"
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										name="name.ru"
@@ -99,16 +105,18 @@ export const FloorForm = ({ method, url, formData, onSuccess, btnSubmitText = "S
 										label="Sort"
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										name="background_id"
 										component={Fields.Upload}
-										label="Backround"
+										label="Background"
 										placeholder="Select image"
 										btnText="Upload"
 										imageTitle={get(formData, "background.title")}
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										name="svg_id"
@@ -120,6 +128,7 @@ export const FloorForm = ({ method, url, formData, onSuccess, btnSubmitText = "S
 										imageTitle={get(formData, "svg.title")}
 									/>
 								</div>
+
 								<div className="col-12">
 									<FastField
 										name="file_id"
@@ -132,6 +141,7 @@ export const FloorForm = ({ method, url, formData, onSuccess, btnSubmitText = "S
 								</div>
 							</div>
 						</div>
+
 						<div className="bottom-buttons">
 							<hr />
 							<div className="d-flex align-items-center justify-content-center">
@@ -145,6 +155,7 @@ export const FloorForm = ({ method, url, formData, onSuccess, btnSubmitText = "S
 									className="btn btn_green"
 									type="submit"
 									innerText={btnSubmitText}
+									isLoading={isSubmitting}
 								/>
 							</div>
 						</div>

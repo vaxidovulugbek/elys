@@ -1,6 +1,5 @@
 /* eslint-disable no-extend-native */
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { FastField, Field } from "formik";
@@ -403,6 +402,7 @@ const PassportInformation = ({
 									name="contract_number"
 									label={t("Contract number")}
 								/>
+
 								<button type="submit" className="printToDoc submit">
 									Submit
 								</button>
