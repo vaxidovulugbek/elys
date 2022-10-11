@@ -17,6 +17,16 @@ const Interactive = ({ setActiveApartment, complexes, setCount }) => {
 	const [activePathID, setActivePathID] = useState([id, 0, 0]);
 	const lngCode = useSelector((state) => get(state, "system.lngCode"));
 	const queryclient = useQueryClient();
+
+	const { data } = useFetchOne({
+		url: `${stepUrls[currentStep - 1]}/${activePathID[currentStep - 1]}`,
+		urlSearchParams: {
+			include:
+				"files,place,category,district,region,background,svg,vector,apartments.plan,apartments.plan.files",
+		},
+	});
+
+	// steps classes
 	const classNames = (num) => {
 		return cn("step", {
 			"has-angle": currentStep > num,
@@ -24,8 +34,11 @@ const Interactive = ({ setActiveApartment, complexes, setCount }) => {
 			current: currentStep === num + 1,
 		});
 	};
+
+	// current complex for display name
 	const currentComplex = find(complexes, { id: Number(id) });
 
+	// query key generator
 	const keyCreator = (step) => {
 		return [
 			"GET",
@@ -37,17 +50,10 @@ const Interactive = ({ setActiveApartment, complexes, setCount }) => {
 		];
 	};
 
-	const { data } = useFetchOne({
-		url: `${stepUrls[currentStep - 1]}/${activePathID[currentStep - 1]}`,
-		urlSearchParams: {
-			include:
-				"files,place,category,district,region,background,svg,vector,apartments.plan,apartments.plan.files",
-		},
-	});
-
+	// data for step's names
 	const sectionData = queryclient.getQueryData(keyCreator(2));
-
 	const floorData = queryclient.getQueryData(keyCreator(3));
+
 	return (
 		<div className="interactive">
 			<div className="steps">
