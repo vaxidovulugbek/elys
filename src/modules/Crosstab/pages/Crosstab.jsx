@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 import { get, isArray } from "lodash";
+import { useTranslation } from "react-i18next";
 
 import Containers from "containers";
 import { useFetchOne } from "hooks";
@@ -14,12 +15,13 @@ import { Apartment } from "../components";
 import "@fancyapps/ui/dist/fancybox.css";
 import "swiper/css";
 import "swiper/css/navigation";
-import { useSelector } from "react-redux";
 
 const Crosstab = () => {
+	const { t } = useTranslation();
 	const [currentTab, setCurrentTab] = useState(3);
 	const [hasFilter, setHasFilter] = useState(window.innerWidth < 991 ? false : true);
 	const [activeApartment, setActiveApartment] = useState(null);
+	const [count, setCount] = useState(0);
 	const lngCode = useSelector((state) => get(state, "system.lngCode"));
 
 	const { id } = useParams();
@@ -34,8 +36,6 @@ const Crosstab = () => {
 		},
 	});
 
-	const content = document.querySelector(".content");
-	let count = 0;
 	const filterFunc = (apartment) => {
 		let active = true;
 		const { id, sort, price, discount, status, section_id, type } = apartment;
@@ -83,9 +83,6 @@ const Crosstab = () => {
 			String(planName).match(search);
 
 		if (!hasMatchWithSearch) active = false;
-		if (active) count++;
-		const countEll = content?.querySelector(".aparmentCount");
-		if (countEll) countEll.innerHTML = count;
 
 		return active;
 	};
@@ -145,32 +142,30 @@ const Crosstab = () => {
 								<div className="info">
 									<div className="left">
 										<p className="count">
-											Найдено помещений:{" "}
-											<span className="aparmentCount">
-												{apartments.length}
-											</span>
+											{t("Найдено помещений")}:{" "}
+											<span className="aparmentCount">{count}</span>
 										</p>
 									</div>
 									<div className="right">
 										<div className={`color status-${STATUS_FREE}`}>
 											<span></span>
-											<label>Свободно</label>
+											<label>{t("Свободно")}</label>
 										</div>
 										<div className={`color status-${STATUS_INTEREST}`}>
 											<span></span>
-											<label>Интерес</label>
+											<label>{t("Интерес")}</label>
 										</div>
 										<div className={`color status-${STATUS_CONSTRUCTION}`}>
 											<span></span>
-											<label>Резерв</label>
+											<label>{t("Резерв")}</label>
 										</div>
 										<div className={`color status-${STATUS_SOLD}`}>
 											<span></span>
-											<label>Проданные</label>
+											<label>{t("Проданные")}</label>
 										</div>
 										<div className={`color status-${STATUS_NOT_FOR_SALE}`}>
 											<span></span>
-											<label>Не в продаже</label>
+											<label>{t("Не в продаже")}</label>
 										</div>
 									</div>
 								</div>
@@ -191,6 +186,7 @@ const Crosstab = () => {
 												setActiveApartment,
 												data: get(data, "data", []),
 												filterFunc,
+												setCount: () => setCount(apartments.length),
 											}}
 										/>
 									)}
@@ -200,6 +196,7 @@ const Crosstab = () => {
 												activeApartment,
 												setActiveApartment,
 												filterFunc,
+												setCount,
 											}}
 										/>
 									)}
@@ -210,6 +207,7 @@ const Crosstab = () => {
 												setActiveApartment,
 												filterFunc,
 												complexes: get(complex, "data"),
+												setCount,
 											}}
 										/>
 									)}
@@ -220,6 +218,7 @@ const Crosstab = () => {
 												setActiveApartment,
 												filterFunc,
 												complexID: id,
+												setCount,
 											}}
 										/>
 									)}

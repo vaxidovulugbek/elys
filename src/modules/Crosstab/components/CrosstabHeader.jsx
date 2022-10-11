@@ -1,17 +1,18 @@
 import React from "react";
 import cn from "classnames";
-import { Link, useNavigate, useParams } from "react-router-dom";
 import { FastField } from "formik";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { findIndex, get, isArray } from "lodash";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { Fields } from "components";
 import Containers from "containers";
 
 import obj from "assets/images/obj.jpg";
-import { ReactComponent as Search } from "assets/images/search.svg";
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
 import { ReactComponent as Back } from "assets/images/back.svg";
-import { findIndex, get, isArray } from "lodash";
+import { ReactComponent as Search } from "assets/images/search.svg";
 
 export const CrosstabHeader = ({
 	activeApartment,
@@ -23,6 +24,7 @@ export const CrosstabHeader = ({
 	sections,
 	complex,
 }) => {
+	const { t } = useTranslation();
 	const navigate = useNavigate();
 	const { id } = useParams();
 	const lngCode = useSelector((state) => get(state, "system.lngCode"));
@@ -100,7 +102,7 @@ export const CrosstabHeader = ({
 			<div className="right">
 				<Link to="/" className={cn("close", { invisiable: activeApartment || hasFilter })}>
 					<Xbtn />
-					<p className="text">Закрыть</p>
+					<p className="text">{t("Закрыть")}</p>
 				</Link>
 				<button
 					className={cn("back", { hide: !activeApartment && !hasFilter })}
@@ -110,7 +112,7 @@ export const CrosstabHeader = ({
 					}}
 				>
 					<Back />
-					<p className="text">назад</p>
+					<p className="text">{t("назад")}</p>
 				</button>
 			</div>
 		</header>

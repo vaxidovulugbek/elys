@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { get } from "lodash";
+import { isArray } from "lodash";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import Containers from "containers";
-import { isArray } from "lodash";
 import { functions } from "services";
 
-const Plan = ({ setActiveApartment, filterFunc }) => {
+const Plan = ({ setActiveApartment, filterFunc, setCount }) => {
+	const { t } = useTranslation();
 	const lngCode = useSelector((state) => state.system.lngCode);
 
 	const [cardIndex, setCardIndex] = useState(-1);
@@ -37,10 +39,12 @@ const Plan = ({ setActiveApartment, filterFunc }) => {
 								};
 						  })
 						: [];
+					plans.length && setCount(plans.length);
 					return (
 						<>
-							{plans.map((item, planIndex) =>
-								get(item, "apartments", []).length ? (
+							{plans.map(
+								(item, planIndex) => (
+									// get(item, "apartments", []).length ? (
 									<span key={planIndex}>
 										<div
 											className="card"
@@ -72,13 +76,16 @@ const Plan = ({ setActiveApartment, filterFunc }) => {
 											</div>
 											<div className="bottom">
 												<div className="surface">
-													<span className="name">Общ. площадь</span>
+													<span className="name">
+														{t("Общ. площадь")}
+													</span>
 													<span className="val">
-														{get(item, "area")} м<sup>2</sup>
+														{get(item, "area")} {t("m")}
+														<sup>2</sup>
 													</span>
 												</div>
 												<div className="room-count">
-													<span className="name">Комнат</span>
+													<span className="name">{t("Комнат")}</span>
 													<div className="val">
 														{get(item, "room.count")}
 													</div>
@@ -93,7 +100,9 @@ const Plan = ({ setActiveApartment, filterFunc }) => {
 												}}
 											>
 												<button>
-													Найдено <strong>7</strong> помещений
+													{t("Найдено")}
+													<strong>7</strong>
+													{t("помещений")}
 													<svg
 														xmlns="http://www.w3.org/2000/svg"
 														viewBox="0 0 384 512"
@@ -132,7 +141,7 @@ const Plan = ({ setActiveApartment, filterFunc }) => {
 																				)}`}
 																			></span>
 																			<span>
-																				№
+																				{t("№")}
 																				{get(
 																					apartment,
 																					"sort"
@@ -140,7 +149,7 @@ const Plan = ({ setActiveApartment, filterFunc }) => {
 																			</span>
 																		</div>
 																		<p className="floor">
-																			Этаж -
+																			{t("Этаж")} -
 																			{get(
 																				apartment,
 																				"floor.sort"
@@ -171,7 +180,8 @@ const Plan = ({ setActiveApartment, filterFunc }) => {
 											</div>
 										</div>
 									</span>
-								) : null
+								)
+								// ) : null
 							)}
 						</>
 					);

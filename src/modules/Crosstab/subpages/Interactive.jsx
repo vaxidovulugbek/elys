@@ -11,7 +11,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 const stepUrls = ["complex", "section", "floor"];
 
-const Interactive = ({ setActiveApartment, complexes }) => {
+const Interactive = ({ setActiveApartment, complexes, setCount }) => {
 	const { id } = useParams();
 	const [currentStep, setCurrentStep] = useState(1);
 	const [activePathID, setActivePathID] = useState([id, 0, 0]);
@@ -26,28 +26,27 @@ const Interactive = ({ setActiveApartment, complexes }) => {
 	};
 	const currentComplex = find(complexes, { id: Number(id) });
 
+	const keyCreator = (step) => {
+		return [
+			"GET",
+			`${stepUrls[step - 1]}/${activePathID[step - 1]}`,
+			{
+				include:
+					"files,place,category,district,region,background,svg,vector,apartments.plan",
+			},
+		];
+	};
+
 	const { data } = useFetchOne({
 		url: `${stepUrls[currentStep - 1]}/${activePathID[currentStep - 1]}`,
 		urlSearchParams: {
 			include: "files,place,category,district,region,background,svg,vector,apartments.plan",
 		},
 	});
-	const sectionData = queryclient.getQueryData([
-		"GET",
-		`${stepUrls[1]}/${activePathID[1]}`,
-		{
-			include: "files,place,category,district,region,background,svg,vector,apartments.plan",
-		},
-	]);
 
-	const floorData = queryclient.getQueryData([
-		"GET",
-		`${stepUrls[2]}/${activePathID[2]}`,
-		{
-			include: "files,place,category,district,region,background,svg,vector,apartments.plan",
-		},
-	]);
-	console.log(floorData);
+	const sectionData = queryclient.getQueryData(keyCreator(2));
+
+	const floorData = queryclient.getQueryData(keyCreator(3));
 	return (
 		<div className="interactive">
 			<div className="steps">
@@ -60,9 +59,7 @@ const Interactive = ({ setActiveApartment, complexes }) => {
 				<div className={classNames(2)} onClick={() => setCurrentStep(3)}>
 					{get(floorData, `data.name.${lngCode}`)} <span></span>
 				</div>
-				{/* <div className="step currentStep"></div> */}
 			</div>
-			{/* {currentStep === 1 && ( */}
 			<Buildings
 				{...{
 					setCurrentStep,
@@ -72,15 +69,9 @@ const Interactive = ({ setActiveApartment, complexes }) => {
 					setActiveApartment,
 					step: currentStep,
 					data,
+					setCount,
 				}}
 			/>
-			{/* )} */}
-			{/* {currentStep === 2 && (
-				<Buildings {...{ setCurrentStep, setActivePathID, url: "section/", step: 2 }} />
-			)} */}
-			{/* {currentStep === 3 && (
-				<Flats {...{ setActiveApartment, activePathID, url: "floor/", step: 3 }} />
-			)} */}
 		</div>
 	);
 };

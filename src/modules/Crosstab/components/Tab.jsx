@@ -1,5 +1,6 @@
 import React from "react";
 import { isEmpty } from "lodash";
+import { useTranslation } from "react-i18next";
 
 import { ReactComponent as Grid } from "assets/images/grid.svg";
 import { ReactComponent as Plan } from "assets/images/plan.svg";
@@ -9,6 +10,7 @@ import { ReactComponent as Search } from "assets/images/search.svg";
 import { ReactComponent as Rotate } from "assets/images/rotate.svg";
 
 export const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter, params }) => {
+	const { t } = useTranslation();
 	const changeTab = (id) => {
 		setCurrentTab(id);
 	};
@@ -22,7 +24,7 @@ export const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter, params
 					style={{ display: hasFilter ? "none" : "flex" }}
 				>
 					<Search />
-					<p>Сбросить фильтр</p>
+					<p>{t("Фильтр квартир")}</p>
 				</button>
 				{!isEmpty(params) && (
 					<button
@@ -30,7 +32,7 @@ export const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter, params
 						onClick={() => window.clearFilter()}
 					>
 						<Rotate />
-						<p>Сбросить фильтр</p>
+						<p>{t("Сбросить фильтр")}</p>
 					</button>
 				)}
 			</div>
@@ -41,7 +43,7 @@ export const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter, params
 					onClick={() => changeTab(1)}
 				>
 					<Grid />
-					<p>Шахматка</p>
+					<p>{t("Шахматка")}</p>
 				</button>
 				<button
 					className={currentTab === 2 ? "active-tab" : ""}
@@ -49,7 +51,7 @@ export const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter, params
 					onClick={() => changeTab(2)}
 				>
 					<Plan />
-					<p>Планировки</p>
+					<p>{t("Планировки")}</p>
 				</button>
 				<button
 					className={currentTab === 3 ? "active-tab" : ""}
@@ -57,7 +59,7 @@ export const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter, params
 					onClick={() => changeTab(3)}
 				>
 					<Click />
-					<p>Интерактив</p>
+					<p>{t("Интерактив")}</p>
 				</button>
 				<button
 					className={currentTab === 4 ? "active-tab" : ""}
@@ -65,11 +67,11 @@ export const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter, params
 					onClick={() => changeTab(4)}
 				>
 					<Justify />
-					<p>Список</p>
+					<p>{t("Список")}</p>
 				</button>
 				<button onClick={() => setHasFilter((prev) => !prev)}>
 					<Search />
-					<p>Фильтр</p>
+					<p>{t("Фильтр")}</p>
 				</button>
 			</div>
 		</div>

@@ -12,6 +12,7 @@ export const Buildings = ({
 	setActiveApartment,
 	stepUrls = [],
 	data,
+	setCount,
 }) => {
 	const svgWrap = useRef();
 
@@ -21,7 +22,7 @@ export const Buildings = ({
 		if (svgWrap.current) {
 			stringSvg ? (svgWrap.current.innerHTML = stringSvg) : (svgWrap.current.innerHTML = "");
 			const paths = svgWrap.current.querySelectorAll("path");
-
+			setCount(paths?.length);
 			paths?.forEach((path) => {
 				// check for appartment and set color by status
 				const appartmentID = path.getAttribute("data-apartment-id");
