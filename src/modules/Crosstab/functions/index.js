@@ -76,9 +76,63 @@ const handleContractError = (notifications) => {
 	};
 };
 
+const filterFuncCreator = ({ lngCode, params, STATUS_FREE }) => {
+	return (apartment) => {
+		let active = true;
+		const { id, sort, price, discount, status, section_id, type } = apartment;
+		const apartmentClass = get(apartment, "class", 0);
+		const room_count = get(apartment, "plan.room.count", 0);
+		const square_meter = get(apartment, "plan.area", 0);
+		const name = get(apartment, `plan.name.${lngCode}`, 0);
+		const planName = get(apartment, `name.${lngCode}`, 0);
+		const meter_price = price / square_meter;
+
+		// Filter apartments
+		const filter = {
+			room_count: get(params, "room_count", []),
+			price: get(params, "price", [0, Infinity]),
+			square_meter: get(params, "square_meter", [0, Infinity]),
+			meter_price: get(params, "meter_price", ""),
+			discount: get(params, "discount", ""),
+			status: get(params, "status", ""),
+			type: get(params, "type.value", ""),
+			class: get(params, "class.value", ""),
+			section_id: get(params, "section_id", ""),
+			search: get(params, "search", ""),
+		};
+
+		if (filter.room_count.length > 0 && !filter.room_count.includes(room_count)) active = false;
+		if (filter.price[0] > price || filter.price[1] < price) active = false;
+		if (filter.square_meter[0] > square_meter || filter.square_meter[1] < square_meter)
+			active = false;
+		if (filter.meter_price[0] > meter_price || filter.meter_price[1] < meter_price)
+			active = false;
+		if (filter.discount && !discount) active = false;
+		if (filter.status && status !== STATUS_FREE) active = false;
+		if (filter.type && filter.type !== type) active = false;
+		if (filter.class && filter.class !== apartmentClass) active = false;
+		if (filter.section_id && filter.section_id !== section_id) active = false;
+
+		// Search apartments by area, id, number
+		const search = new RegExp(`${filter.search}`, "ig");
+
+		const hasMatchWithSearch =
+			String(square_meter).match(search) ||
+			String(id) === filter.search ||
+			String(sort).match(search) ||
+			String(name).match(search) ||
+			String(planName).match(search);
+
+		if (!hasMatchWithSearch) active = false;
+
+		return active;
+	};
+};
+
 export const crosstab_functions = {
 	fixPassportInput,
 	handleContractSuccess,
 	calculateCredit,
 	handleContractError,
+	filterFuncCreator,
 };

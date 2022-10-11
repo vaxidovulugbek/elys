@@ -7,7 +7,6 @@ import { debounce, findIndex, get, isArray, isEmpty } from "lodash";
 
 import "rc-slider/assets/index.css";
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
-// import { ReactComponent as AngleDown } from 'assets/images/angle-down.svg'
 import { ReactComponent as Rotate } from "assets/images/rotate.svg";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
