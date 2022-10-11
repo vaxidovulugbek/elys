@@ -40,7 +40,8 @@ const Interactive = ({ setActiveApartment, complexes, setCount }) => {
 	const { data } = useFetchOne({
 		url: `${stepUrls[currentStep - 1]}/${activePathID[currentStep - 1]}`,
 		urlSearchParams: {
-			include: "files,place,category,district,region,background,svg,vector,apartments.plan",
+			include:
+				"files,place,category,district,region,background,svg,vector,apartments.plan,apartments.plan.files",
 		},
 	});
 
