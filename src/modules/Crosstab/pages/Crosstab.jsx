@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { find, get, isArray } from "lodash";
+import { get, isArray } from "lodash";
 
 import Containers from "containers";
 import { useFetchOne } from "hooks";
@@ -209,7 +209,7 @@ const Crosstab = () => {
 												activeApartment,
 												setActiveApartment,
 												filterFunc,
-												complex,
+												complexes: get(complex, "data"),
 											}}
 										/>
 									)}

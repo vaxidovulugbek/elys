@@ -133,7 +133,11 @@ const Form = ({
 						isSearchable={false}
 					/>
 				</div>
-				<button className={cn("close", { hasFilter })} onClick={() => setHasFilter(false)}>
+				<button
+					className={cn("close", { hasFilter })}
+					onClick={() => setHasFilter(false)}
+					type="button"
+				>
 					<Xbtn />
 				</button>
 				<div className="rooms">
