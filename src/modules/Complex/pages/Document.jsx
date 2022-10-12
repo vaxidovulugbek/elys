@@ -8,10 +8,12 @@ import { Button, Modals, PageHeading } from "components";
 import { DocumentCard } from "../components/DocumentCard";
 import { DocumentForm } from "modules/Complex/components/DocumentForm";
 import { isArray } from "lodash";
+import { useTranslation } from "react-i18next";
 
 const Document = () => {
 	const { complexID } = useParams();
 	const documentModal = useOverlay("documentModal");
+	const { t } = useTranslation();
 
 	const documentList = useFetchList({
 		url: "/document",
@@ -47,8 +49,8 @@ const Document = () => {
 			<PageHeading
 				title="My complex document"
 				links={[
-					{ url: "/", name: "Control Panel" },
-					{ url: "/", name: "My Complex" },
+					{ url: "/", name: "Control panel" },
+					{ url: "/", name: "My complexes" },
 					{ url: "", name: "Document" },
 				]}
 				renderButtons={() => (

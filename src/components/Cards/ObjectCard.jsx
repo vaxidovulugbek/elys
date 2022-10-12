@@ -11,8 +11,10 @@ import { Modals } from "components";
 
 import { ReactComponent as TariffIcon } from "assets/images/tariff.svg";
 import "./Cards.scss";
+import { useTranslation } from "react-i18next";
 
 export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument = () => {} }) => {
+	const { t } = useTranslation();
 	const complex = useFetchList({
 		url: "user/complex",
 		urlSearchParams: { include: "files" },
@@ -60,7 +62,7 @@ export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument
 					}
 					alt="object"
 				/>
-				<RoundCircle title={get(data, "id")} subtitle="complex" />
+				<RoundCircle title={get(data, "id")} subtitle="accomodation" />
 
 				<div className="d-flex align-items-center object__btns">
 					<Link to={`/crosstab/${get(data, "id")}`} className="object__action bg_purple">
@@ -114,7 +116,7 @@ export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument
 
 				<div className="object__stat">
 					<div className="object__stat-head">
-						<h4 className="object__stat-title">Sales status</h4>
+						<h4 className="object__stat-title">{t("Sales status")}</h4>
 						<div className="object__tab">
 							<div className="object__tab-item">%</div>
 							<div className="object__tab-item">pc</div>
@@ -147,7 +149,7 @@ export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument
 						<svg fill="#fff" width="24" height="24" viewBox="0 0 24 24">
 							<path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
 						</svg>
-						Edit
+						{t("Edit")}
 					</Link>
 
 					<button

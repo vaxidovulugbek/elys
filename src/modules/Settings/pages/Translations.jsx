@@ -5,16 +5,19 @@ import { useTranslation } from "react-i18next";
 import { FastField } from "formik";
 import { get } from "lodash";
 
-import { useFetchList } from "hooks";
+import { useFetchList, useOverlay } from "hooks";
 import { notifications } from "services";
 
 import Containers from "containers";
 import { Button, ListPagination, PageHeading, Table, Fields } from "components";
+import { TranslationAddForm } from "../components/TranslationAddForm";
+import { TranslationAdd } from "../components/TranslationAdd";
 
 const Translations = () => {
 	const navigate = useNavigate();
 	const { i18n } = useTranslation();
 	const lngCode = useSelector((state) => state.system.lngCode);
+	const translationModal = useOverlay("translationModal");
 
 	const [page, setPage] = useState(1);
 	const translations = useFetchList({
@@ -23,6 +26,10 @@ const Translations = () => {
 			page,
 		},
 	});
+
+	const handleClick = () => {
+		translationModal.handleOverlayOpen();
+	};
 
 	return (
 		<>
@@ -33,7 +40,7 @@ const Translations = () => {
 					{ url: "", name: "Translations" },
 				]}
 			/>
-
+			<TranslationAdd onClick={handleClick} />
 			<Containers.Form
 				url="/message"
 				method="post"
@@ -46,7 +53,7 @@ const Translations = () => {
 				onSuccess={(response, formHelpers) => {
 					formHelpers.setSubmitting(false);
 					notifications.success("Success");
-					translations.refetch().then((res) => i18n.changeLanguage(lngCode));
+					translations.refetch().then((res) => i18n.changeLanguage("uz"));
 				}}
 				onError={(error) => notifications.error("Failure")}
 				fields={[
@@ -133,6 +140,7 @@ const Translations = () => {
 					</>
 				)}
 			</Containers.Form>
+			<TranslationAddForm translationModal={translationModal} translations={translations} />
 		</>
 	);
 };

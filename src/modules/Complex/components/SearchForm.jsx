@@ -32,7 +32,8 @@ export const SearchForm = ({ className, onClick }) => {
 					type="button"
 					className="btn btn_green"
 					onClick={onClick}
-					innerText="+ Add"
+					prepend="+ "
+					innerText="Add"
 					style={{ height: "36px" }}
 				/>
 			</div>

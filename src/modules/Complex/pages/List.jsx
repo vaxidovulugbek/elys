@@ -34,10 +34,10 @@ const List = () => {
 	return (
 		<>
 			<PageHeading
-				title="My complex"
+				title="My complexes"
 				links={[
 					{ url: "/", name: "Control Panel" },
-					{ url: "/", name: "My Complex" },
+					{ url: "/", name: "My complexes" },
 				]}
 			/>
 
