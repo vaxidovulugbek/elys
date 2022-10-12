@@ -1,22 +1,18 @@
+import { AddObject, Modals } from "components";
+import { useDelete, useFetchInfinite, useScroll } from "hooks";
+import { get, isArray } from "lodash";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { get, isArray } from "lodash";
-
 import { notifications } from "services";
-import { useDelete, useFetchInfinite, useScroll } from "hooks";
+import { PlanCard } from "../components/PlanCard";
 
-import { AddObject, Modals, PageHeading } from "components";
-import { RoomCard } from "../components/RoomCard";
-
-const Plan = () => {
-	const { roomID } = useParams();
+const PlanList = () => {
+	const { complexID } = useParams();
 	const navigate = useNavigate();
 
 	const planList = useFetchInfinite({
 		url: "/plan",
-		urlSearchParams: {
-			filter: { room_id: roomID },
-		},
+		urlSearchParams: { filter: { complex_id: complexID } },
 	});
 	useScroll(document.documentElement, planList.fetchNextPage, 100);
 
@@ -40,38 +36,29 @@ const Plan = () => {
 	};
 
 	const onUpdate = (id) => {
-		navigate(`/room/${roomID}/plan/${id}/update`);
+		navigate(`/complex/${complexID}/plan/${id}/update`);
 	};
 
 	return (
 		<>
-			<PageHeading
-				title={`Plan ${roomID}`}
-				links={[
-					{ url: "/", name: "Control Panel" },
-					{ url: "/room", name: "Room" },
-					{ url: "", name: "Plan" },
-				]}
-			/>
-
 			<div className="row gap" style={{ "--column-gap": 0 }}>
 				<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 					<AddObject
 						onClick={() => {
-							navigate(`/room/${roomID}/plan/create`);
+							navigate(`/complex/${complexID}/plan/create`);
 						}}
 						src={require("assets/images/section-img1.png")}
-						innerText="ADD A ROOM PLAN"
+						innerText="ADD A PLAN"
 						className={"p-3"}
 					/>
 				</div>
 
 				{isArray(planList.data) &&
 					planList.data.map((item, index) => (
-						<RoomCard
+						<PlanCard
 							key={index}
 							item={item}
-							link={`/room/${roomID}/plan/${get(item, "id")}/update`}
+							link={`/complex/${complexID}/plan/${get(item, "id")}/update`}
 							onDelete={onDelete}
 							onClick={onUpdate}
 						/>
@@ -81,4 +68,4 @@ const Plan = () => {
 	);
 };
 
-export default Plan;
+export default PlanList;

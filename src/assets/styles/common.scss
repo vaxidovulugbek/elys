@@ -3,6 +3,12 @@
 //     font-family: 'Open Sans', sans-serif;
 //    font-family: 'Roboto', sans-serif;
 
+$STATUS_FREE: #1abc9c;
+$STATUS_INTEREST: #4de601;
+$STATUS_SOLD: #ec6372;
+$STATUS_NOT_FOR_SALE: #5b8ec3;
+$STATUS_CONSTRUCTION: #ffb400;
+
 * {
 	box-sizing: border-box;
 	margin: 0;
@@ -527,4 +533,58 @@ a {
 .gap {
 	row-gap: var(--row-gap, 20px);
 	column-gap: var(--column-gap, 20px);
+}
+
+.status-0 {
+	visibility: none;
+}
+
+.status-1 {
+	background-color: $STATUS_FREE;
+
+	fill: $STATUS_FREE;
+
+	span {
+		background-color: $STATUS_FREE;
+	}
+}
+
+.status-2 {
+	background-color: $STATUS_INTEREST;
+
+	fill: $STATUS_INTEREST;
+
+	span {
+		background-color: $STATUS_INTEREST;
+	}
+}
+
+.status-3 {
+	background-color: $STATUS_SOLD;
+
+	fill: $STATUS_SOLD;
+
+	span {
+		background-color: $STATUS_SOLD;
+	}
+}
+
+.status-4 {
+	background-color: $STATUS_NOT_FOR_SALE;
+
+	fill: $STATUS_NOT_FOR_SALE;
+
+	span {
+		background-color: $STATUS_NOT_FOR_SALE;
+	}
+}
+
+.status-5 {
+	background-color: $STATUS_CONSTRUCTION;
+
+	fill: $STATUS_CONSTRUCTION;
+
+	span {
+		background-color: $STATUS_CONSTRUCTION;
+	}
 }

@@ -1699,6 +1699,8 @@ hr {
 }
 
 .object__tab-item {
+	cursor: pointer;
+
 	display: box;
 	display: flexbox;
 	display: flex;
@@ -1721,13 +1723,14 @@ hr {
 	border-right: 1px solid #e3e3e3;
 }
 
-.object__tab-item:hover {
+.object__tab-item:hover,
+.object__tab-item.active {
 	color: #fff;
 
 	background-color: var(--main-blue);
 }
 
-.object__range {
+f .object__range {
 	overflow: hidden;
 
 	border-radius: 4px;

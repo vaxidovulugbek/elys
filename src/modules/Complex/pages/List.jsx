@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { isArray } from "lodash";
+import { get, isArray } from "lodash";
 
 import { useFetchInfinite, useOverlay, useScroll } from "hooks";
 
@@ -15,7 +15,7 @@ const List = () => {
 	const complexList = useFetchInfinite({
 		url: "/user/complex",
 		urlSearchParams: {
-			include: "files",
+			include: "files,apartments",
 		},
 	});
 	useScroll(document.documentElement, complexList.refetch, 100);

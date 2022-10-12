@@ -9,7 +9,7 @@ import Containers from "containers";
 import { Button, Fields, Typography } from "components";
 
 export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Save" }) => {
-	const { roomID, planID } = useParams();
+	const { complexID, planID } = useParams();
 	const navigate = useNavigate();
 
 	const onClose = () => {
@@ -34,9 +34,18 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 						},
 					},
 					{
-						name: "room_id",
+						name: "complex_id",
 						validationType: "number",
-						value: Number(roomID),
+						value: Number(complexID),
+					},
+					{
+						name: "room_id",
+						validationType: "object",
+						value: {
+							label: get(formData, "room.name.uz"),
+							value: get(formData, "room.id"),
+						},
+						onSubmitValue: (option) => get(option, "value"),
 					},
 					{
 						name: "area",
@@ -121,6 +130,20 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 										label="Area"
 									/>
 								</div>
+								<div className="col-12">
+									<FastField
+										url="room"
+										name="room_id"
+										optionLabel="name.uz"
+										component={Fields.AsyncSelect}
+										label="Room ID"
+										urlSearchParams={(search) => ({
+											filter: {
+												name: search,
+											},
+										})}
+									/>
+								</div>
 								<FieldArray name="fields">
 									{({ remove, push }) => (
 										<>
@@ -203,7 +226,7 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 									queryKey={[
 										"GET",
 										`/plan/${get(formData, "id")}`,
-										{ include: "files,fields,fields.plan_field" },
+										{ include: "files,fields,fields.plan_field,room" },
 									]}
 								/>
 							</div>

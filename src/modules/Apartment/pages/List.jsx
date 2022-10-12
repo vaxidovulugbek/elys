@@ -4,9 +4,9 @@ import { get, isArray } from "lodash";
 
 import { useDelete, useFetchInfinite, useScroll } from "hooks";
 
-import Containers from "containers";
 import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
 import { AddObject, FloorCard, PageHeading, Typography } from "components";
+import PlanList from "./PlanList";
 
 const Apartment = () => {
 	const { floorID, complexID, sectionID } = useParams();
@@ -57,35 +57,42 @@ const Apartment = () => {
 				</Typography>
 
 				<div className="row section-list">
-					<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
-						<AddObject
-							onClick={() =>
-								navigate(
-									`/complex/${complexID}/section/${sectionID}/floor/${floorID}/apartment/create`
-								)
-							}
-							src={require("assets/images/section-img1.png")}
-							innerText="ADD AN APARTMENT"
-							className={"p-3"}
-						/>
-					</div>
+					<div className="col-6">
+						<div className="row gap" style={{ "--column-gap": 0 }}>
+							<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
+								<AddObject
+									onClick={() =>
+										navigate(
+											`/complex/${complexID}/section/${sectionID}/floor/${floorID}/apartment/create`
+										)
+									}
+									src={require("assets/images/section-img1.png")}
+									innerText="ADD AN APARTMENT"
+									className={"p-3"}
+								/>
+							</div>
 
-					{isArray(apartmentList.data) &&
-						apartmentList.data.map((item) => (
-							<FloorCard
-								onDelete={onDelete}
-								key={item.id}
-								item={item}
-								onClick={(event) =>
-									navigate(
-										`/complex/${complexID}/section/${sectionID}/floor/${floorID}/apartment/${get(
-											item,
-											"id"
-										)}/update`
-									)
-								}
-							/>
-						))}
+							{isArray(apartmentList.data) &&
+								apartmentList.data.map((item) => (
+									<FloorCard
+										onDelete={onDelete}
+										key={item.id}
+										item={item}
+										onClick={(event) =>
+											navigate(
+												`/complex/${complexID}/section/${sectionID}/floor/${floorID}/apartment/${get(
+													item,
+													"id"
+												)}/update`
+											)
+										}
+									/>
+								))}
+						</div>
+					</div>
+					<div className="col-6">
+						<PlanList />
+					</div>
 				</div>
 			</div>
 		</>
