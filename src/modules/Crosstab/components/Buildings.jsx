@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
+import { get, find } from "lodash";
 
-import { get } from "lodash";
-import { find } from "lodash";
+import { notifications } from "services";
 
 export const Buildings = ({
 	setCurrentStep,
@@ -15,6 +16,7 @@ export const Buildings = ({
 	setCount,
 }) => {
 	const svgWrap = useRef();
+	const { t } = useTranslation();
 
 	const stringSvg = get(data, "vector");
 
@@ -46,6 +48,8 @@ export const Buildings = ({
 					} else if (step === 3) {
 						// open right side appartment information
 						setActiveApartment(appartment);
+
+						appartment || notifications.error(t("This appartment is not available"));
 					}
 				});
 			});
