@@ -30,6 +30,9 @@ export const ApartmentCard = ({
 	const lngCode = useSelector((state) => get(state, "system.lngCode"));
 	const files = get(activeApartment, "plan.files");
 	const images = isArray(files) && files.map((file) => get(file, "thumbnails.full"));
+
+	const planFields = get(activeApartment, "plan.fields");
+
 	return (
 		<div className={cn("apartment-card", { active: boxType === "card" })}>
 			<button
@@ -162,6 +165,16 @@ export const ApartmentCard = ({
 						}
 					</dd>
 				</li>
+			</ul>
+			<h4 className="planFields__title">{t("inner plans")}</h4>
+			<ul>
+				{isArray(planFields) &&
+					planFields.map((item, index) => (
+						<li>
+							<dt className="name">{get(item, `plan_field.name.${lngCode}`)}</dt>
+							<dl className="value">{get(item, `value.${lngCode}`)}</dl>
+						</li>
+					))}
 			</ul>
 		</div>
 	);
