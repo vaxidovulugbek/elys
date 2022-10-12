@@ -39,7 +39,7 @@ const Plan = ({ setActiveApartment, filterFunc, setCount }) => {
 								};
 						  })
 						: [];
-					plans.length && setCount(plans.length);
+					setCount(plans.length);
 					return (
 						<>
 							{plans.map(

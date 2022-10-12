@@ -43,9 +43,9 @@ export const ApartmentCard = ({
 			</button>
 			<div className="status">
 				<div className="left">
-					<span className="status-1"></span>
+					<span className={`status-${get(activeApartment, "status")}`}></span>
 					<p></p>
-					<Clock />
+					{/* <Clock /> */}
 				</div>
 				{/*<div className="right">*/}
 				{/*	<div className="fid">FID 543803</div>*/}
@@ -125,6 +125,13 @@ export const ApartmentCard = ({
 					<dd className="value">{get(activeApartment, "plan.room.count")}</dd>
 				</li>
 				<li>
+					<dt className="name">{t("Площадь общая")}</dt>
+					<dd className="value">
+						{get(activeApartment, "plan.area")} {t("м")}
+						<sup>2</sup>
+					</dd>
+				</li>
+				<li>
 					<dt className="name">{t("Тип планировки")}</dt>
 					<dd className="value">{get(activeApartment, `plan.name.${lngCode}`)}</dd>
 				</li>
@@ -166,7 +173,7 @@ export const ApartmentCard = ({
 					</dd>
 				</li>
 			</ul>
-			<h4 className="planFields__title">{t("inner plans")}</h4>
+			{planFields?.length && <h4 className="planFields__title">{t("inner plans")}</h4>}
 			<ul>
 				{isArray(planFields) &&
 					planFields.map((item, index) => (

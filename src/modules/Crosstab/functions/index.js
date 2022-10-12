@@ -101,17 +101,22 @@ const filterFuncCreator = ({ lngCode, params, STATUS_FREE }) => {
 			search: get(params, "search", ""),
 		};
 
-		if (filter.room_count.length > 0 && !filter.room_count.includes(room_count)) active = false;
-		if (filter.price[0] > price || filter.price[1] < price) active = false;
-		if (filter.square_meter[0] > square_meter || filter.square_meter[1] < square_meter)
+		if (
+			(filter.room_count.length > 0 && !filter.room_count.includes(room_count)) ||
+			filter.price[0] > price ||
+			filter.price[1] < price ||
+			filter.square_meter[0] > square_meter ||
+			filter.square_meter[1] < square_meter ||
+			filter.meter_price[0] > meter_price ||
+			filter.meter_price[1] < meter_price ||
+			(filter.discount && !discount) ||
+			(filter.status && status !== STATUS_FREE) ||
+			(filter.type && filter.type !== type) ||
+			(filter.class && filter.class !== apartmentClass) ||
+			(filter.section_id && filter.section_id !== section_id)
+		) {
 			active = false;
-		if (filter.meter_price[0] > meter_price || filter.meter_price[1] < meter_price)
-			active = false;
-		if (filter.discount && !discount) active = false;
-		if (filter.status && status !== STATUS_FREE) active = false;
-		if (filter.type && filter.type !== type) active = false;
-		if (filter.class && filter.class !== apartmentClass) active = false;
-		if (filter.section_id && filter.section_id !== section_id) active = false;
+		}
 
 		// Search apartments by area, id, number
 		const search = new RegExp(`${filter.search}`, "ig");
