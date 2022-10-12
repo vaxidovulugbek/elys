@@ -25,7 +25,7 @@ const Create = () => {
 				title="Complex"
 				links={[
 					{ url: "/", name: "Control Panel" },
-					{ url: "/", name: "My complex" },
+					{ url: "/", name: "My complexes" },
 					{ url: "", name: "Complex" },
 				]}
 				complexID={complexID}

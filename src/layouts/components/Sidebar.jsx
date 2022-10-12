@@ -68,7 +68,7 @@ export const Sidebar = ({ isOpen }) => {
 				>
 					<div className="d-flex align-items-center">
 						<HomeSvg />
-						<span className="sidebar__link-text">{t("Rooms")}</span>
+						<span className="sidebar__link-text">{t("Room")}</span>
 					</div>
 				</NavLink>
 			</div>
