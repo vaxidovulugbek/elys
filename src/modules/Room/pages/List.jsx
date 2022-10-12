@@ -1,10 +1,10 @@
 import React from "react";
-import { get, isArray } from "lodash";
+import { isArray } from "lodash";
 
 import { useDelete, useFetchInfinite, useScroll, useFetchOneWithId, useOverlay } from "hooks";
 import { notifications } from "services";
 
-import { AddObject, Button, Modals, PageHeading } from "components";
+import { AddObject, Modals, PageHeading } from "components";
 import { RoomCard } from "../components/RoomCard";
 import { RoomForm } from "../components/RoomForm";
 
@@ -75,7 +75,6 @@ const List = () => {
 							item={item}
 							onClick={fetchFormData}
 							onDelete={onDelete}
-							link={`/room/${get(item, "id")}/plan`}
 						/>
 					))}
 			</div>

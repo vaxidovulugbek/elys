@@ -227,6 +227,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										urlSearchParams={(search) => ({
 											filter: {
 												name: search,
+												complex_id: complexID,
 											},
 										})}
 									/>

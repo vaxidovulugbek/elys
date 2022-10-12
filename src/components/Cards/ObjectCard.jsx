@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { get } from "lodash";
 
 import { useDelete, useFetchList } from "hooks";
-import { notifications } from "services";
+import { functions, notifications } from "services";
 
 import { RoundCircle } from "./RoundCircle";
 import { Modals } from "components";
@@ -12,9 +12,16 @@ import { Modals } from "components";
 import { ReactComponent as TariffIcon } from "assets/images/tariff.svg";
 import "./Cards.scss";
 import { useTranslation } from "react-i18next";
+import classNames from "classnames";
 
 export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument = () => {} }) => {
 	const { t } = useTranslation();
+
+	const apramentsInPercent = functions.apartmentStatusInPercent(get(data, "apartments"));
+	const apramentsInPiece = functions.apartmentStatusInPiece(get(data, "apartments"));
+
+	const [saleType, setSaleType] = useState("percent");
+
 	const complex = useFetchList({
 		url: "user/complex",
 		urlSearchParams: { include: "files" },
@@ -51,7 +58,6 @@ export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument
 			receivePermission,
 		});
 	};
-
 	return (
 		<div className="object__card">
 			<div className="object__img">
@@ -118,25 +124,64 @@ export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument
 					<div className="object__stat-head">
 						<h4 className="object__stat-title">{t("Sales status")}</h4>
 						<div className="object__tab">
-							<div className="object__tab-item">%</div>
-							<div className="object__tab-item">pc</div>
+							<div
+								className={classNames("object__tab-item", {
+									active: saleType === "percent",
+								})}
+								onClick={() => setSaleType("percent")}
+							>
+								%
+							</div>
+							<div
+								className={classNames("object__tab-item", {
+									active: saleType === "piece",
+								})}
+								onClick={() => setSaleType("piece")}
+							>
+								{t("pc")}
+							</div>
 						</div>
 					</div>
 					<div className="object__range d-flex">
-						<div className="bg_red" style={{ width: "20%" }}>
-							20%
+						<div
+							className="status-1"
+							style={{ width: `${apramentsInPercent.status_free}%` }}
+						>
+							{saleType === "percent"
+								? `${apramentsInPercent.status_free}%`
+								: apramentsInPiece.status_free}
 						</div>
-						<div className="bg_blue" style={{ width: "30%" }}>
-							30%
+						<div
+							className="status-2"
+							style={{ width: `${apramentsInPercent.status_interest}%` }}
+						>
+							{saleType === "percent"
+								? `${apramentsInPercent.status_interest}%`
+								: apramentsInPiece.status_interest}
 						</div>
-						<div className="bg_orange" style={{ width: "15%" }}>
-							15%
+						<div
+							className="status-3"
+							style={{ width: `${apramentsInPercent.status_sold}%` }}
+						>
+							{saleType === "percent"
+								? `${apramentsInPercent.status_sold}%`
+								: apramentsInPiece.status_sold}
 						</div>
-						<div className="bg_green" style={{ width: "25%" }}>
-							25%
+						<div
+							className="status-4"
+							style={{ width: `${apramentsInPercent.status_not_for_sale}%` }}
+						>
+							{saleType === "percent"
+								? `${apramentsInPercent.status_not_for_sale}%`
+								: apramentsInPiece.status_not_for_sale}
 						</div>
-						<div className="bg_purple" style={{ width: "10%" }}>
-							10%
+						<div
+							className="status-5"
+							style={{ width: `${apramentsInPercent.status_construction}%` }}
+						>
+							{saleType === "percent"
+								? `${apramentsInPercent.status_construction}%`
+								: apramentsInPiece.status_construction}
 						</div>
 					</div>
 				</div>
@@ -164,7 +209,7 @@ export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument
 						>
 							<path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM111 257.1l26.8 89.2 31.6-90.3c3.4-9.6 12.5-16.1 22.7-16.1s19.3 6.4 22.7 16.1l31.6 90.3L273 257.1c3.8-12.7 17.2-19.9 29.9-16.1s19.9 17.2 16.1 29.9l-48 160c-3 10-12.1 16.9-22.4 17.1s-19.8-6.2-23.2-16.1L192 336.6l-33.3 95.3c-3.4 9.8-12.8 16.3-23.2 16.1s-19.5-7.1-22.4-17.1l-48-160c-3.8-12.7 3.4-26.1 16.1-29.9s26.1 3.4 29.9 16.1z" />
 						</svg>
-						Sheet
+						{t("Document")}
 					</button>
 
 					<Link
@@ -174,7 +219,7 @@ export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument
 						<svg width="24" height="24" viewBox="0 0 24 24">
 							<path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
 						</svg>
-						Crosstab
+						{t("Crosstab")}
 					</Link>
 				</div>
 			</div>

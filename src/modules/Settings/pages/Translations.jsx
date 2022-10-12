@@ -53,7 +53,8 @@ const Translations = () => {
 				onSuccess={(response, formHelpers) => {
 					formHelpers.setSubmitting(false);
 					notifications.success("Success");
-					translations.refetch().then((res) => i18n.changeLanguage("uz"));
+					translations.refetch().then((res) => i18n.changeLanguage(lngCode));
+					i18n.reloadResources();
 				}}
 				onError={(error) => notifications.error("Failure")}
 				fields={[
