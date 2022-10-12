@@ -14,6 +14,7 @@ import { ReactComponent as Xbtn } from "assets/images/x.svg";
 import { ReactComponent as GiftBox } from "assets/images/gift.svg";
 import { useSelector } from "react-redux";
 import { isArray } from "lodash";
+import { useTranslation } from "react-i18next";
 
 const { STATUS_FREE, STATUS_INTEREST } = constants;
 const ON_SALE = [STATUS_FREE, STATUS_INTEREST];
@@ -25,6 +26,7 @@ export const ApartmentCard = ({
 	currentTab,
 	boxType,
 }) => {
+	const { t } = useTranslation();
 	const lngCode = useSelector((state) => get(state, "system.lngCode"));
 	const files = get(activeApartment, "plan.files");
 	const images = isArray(files) && files.map((file) => get(file, "thumbnails.full"));
@@ -49,20 +51,16 @@ export const ApartmentCard = ({
 			<div className="apartment-number">
 				<div className="left">
 					<strong>
-						Квартира № <span>{get(activeApartment, "sort")}</span>
+						{t("Квартира №")} <span>{get(activeApartment, "sort")}</span>
 					</strong>
 				</div>
 				<div className="right">
-					<strong>ID {get(activeApartment, "id")}</strong>
+					<strong>
+						{t("ID")} {get(activeApartment, "id")}
+					</strong>
 				</div>
 			</div>
 			<div className="img-carousel">
-				{/* <div className="print">
-					<Print />
-				</div>
-				<div className="share">
-					<Share />
-				</div> */}
 				<div className="img">
 					<Fancybox options={{ infinite: false }}>
 						<Swiper spaceBetween={50} modules={[Navigation]} navigation>
@@ -88,7 +86,7 @@ export const ApartmentCard = ({
 			<div className="price">
 				<dl>
 					<dt>
-						<p className="name">Стоимость</p>
+						<p className="name">{t("Стоимость")}</p>
 						<p className="value">
 							{functions.convertToReadable(get(activeApartment, "price"))} UZS
 						</p>
@@ -109,42 +107,42 @@ export const ApartmentCard = ({
 			{ON_SALE.includes(get(activeApartment, "status")) && (
 				<div className="submit">
 					<button className="btn" onClick={() => setCurrentTab(5)} type="button">
-						продать
+						{t("продать")}
 					</button>
 				</div>
 			)}
 
 			<ul>
 				<li>
-					<dt className="name">Название квартиры</dt>
+					<dt className="name">{t("Название квартиры")}</dt>
 					<dd className="value">{get(activeApartment, `name.${lngCode}`)}</dd>
 				</li>
 				<li>
-					<dt className="name">Кол-во комнат</dt>
+					<dt className="name">{t("Кол-во комнат")}</dt>
 					<dd className="value">{get(activeApartment, "plan.room.count")}</dd>
 				</li>
 				<li>
-					<dt className="name">Тип планировки</dt>
+					<dt className="name">{t("Тип планировки")}</dt>
 					<dd className="value">{get(activeApartment, `plan.name.${lngCode}`)}</dd>
 				</li>
 
 				<li>
-					<dt className="name">Комплекс</dt>
+					<dt className="name">{t("Комплекс")}</dt>
 					<dd className="value">{get(activeApartment, "complex.sort")}</dd>
 				</li>
 				<li>
-					<dt className="name">Секция</dt>
+					<dt className="name">{t("Секция")}</dt>
 					<dd className="value">{get(activeApartment, "section.sort")}</dd>
 				</li>
 				<li>
 					<div>
-						<dt className="name">Этаж</dt>
+						<dt className="name">{t("Этаж")}</dt>
 						<dd className="value">{get(activeApartment, "floor.sort")}</dd>
 					</div>
 				</li>
 
 				<li>
-					<dt className="name">Тип</dt>
+					<dt className="name">{t("Тип")}</dt>
 					<dd className="value">
 						{
 							constants.typeOptions.find(
@@ -155,7 +153,7 @@ export const ApartmentCard = ({
 				</li>
 
 				<li>
-					<dt className="name">Класс</dt>
+					<dt className="name">{t("Класс")}</dt>
 					<dd className="value">
 						{
 							constants.classOptions.find(

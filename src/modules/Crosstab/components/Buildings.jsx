@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef } from "react";
 
-import { useFetchOne } from "hooks";
 import { get } from "lodash";
 import { find } from "lodash";
 
@@ -12,22 +11,18 @@ export const Buildings = ({
 	step,
 	setActiveApartment,
 	stepUrls = [],
+	data,
+	setCount,
 }) => {
 	const svgWrap = useRef();
 
-	const { data } = useFetchOne({
-		url: `${stepUrls[step - 1]}/${activePathID[step - 1]}`,
-		urlSearchParams: {
-			include: "files,place,category,district,region,background,svg,vector,apartments.plan",
-		},
-	});
 	const stringSvg = get(data, "vector");
 
 	useEffect(() => {
 		if (svgWrap.current) {
-			svgWrap.current.innerHTML = stringSvg;
+			stringSvg ? (svgWrap.current.innerHTML = stringSvg) : (svgWrap.current.innerHTML = "");
 			const paths = svgWrap.current.querySelectorAll("path");
-
+			setCount(paths?.length);
 			paths?.forEach((path) => {
 				// check for appartment and set color by status
 				const appartmentID = path.getAttribute("data-apartment-id");

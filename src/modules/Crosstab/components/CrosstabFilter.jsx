@@ -7,7 +7,6 @@ import { debounce, findIndex, get, isArray, isEmpty } from "lodash";
 
 import "rc-slider/assets/index.css";
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
-// import { ReactComponent as AngleDown } from 'assets/images/angle-down.svg'
 import { ReactComponent as Rotate } from "assets/images/rotate.svg";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -16,6 +15,7 @@ import { constants } from "services";
 import "components/Fields/Select/Select.scss";
 import { Fields } from "components";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const thumb = {
 	border: "none",
@@ -46,6 +46,7 @@ const Form = ({
 	complex,
 	sections,
 }) => {
+	const { t } = useTranslation();
 	const { id } = useParams();
 	const lngCode = useSelector((state) => get(state, "system.lngCode"));
 
@@ -133,11 +134,15 @@ const Form = ({
 						isSearchable={false}
 					/>
 				</div>
-				<button className={cn("close", { hasFilter })} onClick={() => setHasFilter(false)}>
+				<button
+					className={cn("close", { hasFilter })}
+					onClick={() => setHasFilter(false)}
+					type="button"
+				>
 					<Xbtn />
 				</button>
 				<div className="rooms">
-					<h3 className="rooms__title">Кол-во комнат</h3>
+					<h3 className="rooms__title">{t("")}Кол-во комнат</h3>
 					<div className="btns">
 						{room_counts?.map((item, index) => (
 							<Checkbox key={index} {...checkboxProps(item)} />
@@ -160,7 +165,7 @@ const Form = ({
 						/>
 						<span className="switch-slider round"></span>
 					</label>
-					<p>только АКЦИОННЫЕ</p>
+					<p>{t("только АКЦИОННЫЕ")}</p>
 				</div>
 				<div className="switch-box">
 					<label className="switch">
@@ -175,7 +180,7 @@ const Form = ({
 						/>
 						<span className="switch-slider round"></span>
 					</label>
-					<p>только СВОБОДНЫЕ</p>
+					<p>{t("только СВОБОДНЫЕ")}</p>
 				</div>
 				<div className="select-box">
 					<div className="form-select">
@@ -213,7 +218,7 @@ const Form = ({
 			{!isEmpty(values) && (
 				<button type="button" className="filter-clear" onClick={() => window.clearFilter()}>
 					<Rotate />
-					<p>Сбросить фильтр</p>
+					<p>{t("Сбросить фильтр")}</p>
 				</button>
 			)}
 		</form>
