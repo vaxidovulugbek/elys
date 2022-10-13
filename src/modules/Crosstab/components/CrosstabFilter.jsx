@@ -10,7 +10,7 @@ import { ReactComponent as Xbtn } from "assets/images/x.svg";
 import { ReactComponent as Rotate } from "assets/images/rotate.svg";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { constants } from "services";
+import { constants, functions } from "services";
 
 import "components/Fields/Select/Select.scss";
 import { Fields } from "components";
@@ -49,11 +49,33 @@ const Form = ({
 	const { t } = useTranslation();
 	const { id } = useParams();
 	const lngCode = useSelector((state) => get(state, "system.lngCode"));
+	const [minmax, setMinmax] = useState({ price: [0, 0], area: [0, 0] });
 
 	const room_counts =
 		isArray(apartments) &&
 		apartments.reduce((prev, curr) => {
+			const price = get(curr, "price");
+			const area = get(curr, "plan.area");
 			const count = get(curr, "plan.room.count");
+
+			!minmax.price[0] &&
+				setMinmax((prev) => ({ ...prev, price: [price - price / 5, prev.price[1]] }));
+			!minmax.price[1] &&
+				setMinmax((prev) => ({ ...prev, price: [prev.price[0], price + price / 5] }));
+
+			price < minmax.price[0] &&
+				setMinmax((prev) => ({ ...prev, price: [price - price / 5, prev.price[1]] }));
+			price > minmax.price[1] &&
+				setMinmax((prev) => ({ ...prev, price: [prev.price[0], price + price / 5] }));
+
+			area < minmax.area[0] &&
+				setMinmax((prev) => ({ ...prev, area: [area - area / 5, prev.area[1]] }));
+			area > minmax.area[1] &&
+				setMinmax((prev) => ({ ...prev, area: [prev.area[0], area + area / 5] }));
+
+			price < minmax.price[0] &&
+				setMinmax((prev) => ({ ...prev, price: [price, prev.price[1]] }));
+
 			!prev.includes(count) && count && prev.push(count);
 			return prev;
 		}, []);
@@ -149,8 +171,8 @@ const Form = ({
 						))}
 					</div>
 				</div>
-				<RangePicker {...rangePickerProps(1, "Стоимость", [3200, 100000])} />
-				<RangePicker {...rangePickerProps(2, "Площадь общая", [8, 200])} />
+				<RangePicker {...rangePickerProps(1, "Стоимость", minmax.price)} />
+				<RangePicker {...rangePickerProps(2, "Площадь общая", minmax.area)} />
 				<RangePicker {...rangePickerProps(4, "Цена м", [100, 1410])} />
 				<div className="switch-box">
 					<label className="switch">
@@ -271,11 +293,12 @@ const RangePicker = ({
 
 	let label = (val) => <span>{val}</span>;
 
-	if (type === 1 || type === 4) label = (val) => <span>{`${val} UZS`}</span>;
+	if (type === 1 || type === 4)
+		label = (val) => <span>{`${functions.convertToReadable(val)} UZS`}</span>;
 	if (type === 2)
 		label = (val) => (
 			<span>
-				{`${val} M`} <sup style={{ color: "#fff" }}>2</sup>
+				{`${functions.convertToReadable(val)} M`} <sup style={{ color: "#fff" }}>2</sup>
 			</span>
 		);
 	useEffect(() => {
@@ -313,39 +336,39 @@ const RangePicker = ({
 					railStyle={{ backgroundColor: "#ebe9e9", height: "12px", borderRadius: 0 }}
 				/>
 			</div>
-			<div className="ticks">
+			{/* <div className="ticks">
 				<span>
-					<p>8</p>
+					<p>{minMax[1] / 5}</p>
 				</span>
 				<span></span>
 				<span></span>
 				<span></span>
 				<span></span>
 				<span>
-					<p>20</p>
+					<p>{(minMax[1] * 2) / 5}</p>
 				</span>
 				<span></span>
 				<span></span>
 				<span></span>
 				<span></span>
 				<span>
-					<p>32</p>
+					<p>{(minMax[1] * 3) / 5}</p>
 				</span>
 				<span></span>
 				<span></span>
 				<span></span>
 				<span></span>
 				<span>
-					<p>44</p>
+					<p>{(minMax[1] * 4) / 5}</p>
 				</span>
 				<span></span>
 				<span></span>
 				<span></span>
 				<span></span>
 				<span>
-					<p>56</p>
+					<p>{minMax[1]}</p>
 				</span>
-			</div>
+			</div> */}
 		</div>
 	);
 };

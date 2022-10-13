@@ -22,7 +22,7 @@ const Interactive = ({ setActiveApartment, complexes, setCount }) => {
 		url: `${stepUrls[currentStep - 1]}/${activePathID[currentStep - 1]}`,
 		urlSearchParams: {
 			include:
-				"files,place,category,district,region,background,svg,vector,apartments.plan,apartments.plan.files",
+				"files,place,category,district,region,background,svg,vector,apartments.plan.files,apartments.plan.fields.plan_field",
 		},
 	});
 
@@ -45,7 +45,7 @@ const Interactive = ({ setActiveApartment, complexes, setCount }) => {
 			`${stepUrls[step - 1]}/${activePathID[step - 1]}`,
 			{
 				include:
-					"files,place,category,district,region,background,svg,vector,apartments.plan",
+					"files,place,category,district,region,background,svg,vector,apartments.plan.files,apartments.plan.fields.plan_field",
 			},
 		];
 	};

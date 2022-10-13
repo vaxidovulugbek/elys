@@ -87,7 +87,7 @@ export const CrosstabHeader = ({
 							<div className="search">
 								<input
 									type="text"
-									placeholder="Поиск помещения"
+									placeholder={t("Поиск помещения")}
 									value={get(params, "search", "")}
 									onChange={(e) =>
 										setParams((prev) => ({ ...prev, search: e.target.value }))
