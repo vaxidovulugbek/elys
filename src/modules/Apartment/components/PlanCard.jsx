@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { get } from "lodash";
 import { Button } from "components";
+import { useSelector } from "react-redux";
 
 export const PlanCard = ({ item, onClick = () => {}, onDelete = () => {}, link }) => {
+	const lngCode = useSelector((state) => state.system.lngCode);
 	return (
 		<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 			<div className="object__card">
@@ -40,7 +42,7 @@ export const PlanCard = ({ item, onClick = () => {}, onDelete = () => {}, link }
 
 				<div className="object__content">
 					<Link to={link} className="object__title">
-						{get(item, "name.uz")}
+						{get(item, `name.${lngCode}`)}
 					</Link>
 					{get(item, "count") && <span>count: {get(item, "count")}</span>}
 					{get(item, "area") && <span>area: {get(item, "area")}</span>}

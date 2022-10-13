@@ -27,7 +27,7 @@ const Update = () => {
 				title={`${get(data, "name.en", "")}`}
 				links={[
 					{ url: "/", name: "Control Panel" },
-					{ url: "/", name: "My Complex" },
+					{ url: "/", name: "My complexes" },
 					{ url: "", name: `${get(data, "name.en", "")}` },
 				]}
 				complexID={complexID}

@@ -6,8 +6,10 @@ import { useDelete, useFetchInfinite, useScroll } from "hooks";
 
 import { SectionCard, Typography } from "components";
 import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
+import { useTranslation } from "react-i18next";
 
 export const SectionList = ({ complexID }) => {
+	const { t } = useTranslation();
 	const navigate = useNavigate();
 
 	const sectionList = useFetchInfinite({
@@ -44,7 +46,7 @@ export const SectionList = ({ complexID }) => {
 		<>
 			<div className="card-box transparent">
 				<Typography Type="h5" className="text-muted card-sub">
-					{() => <b>Sections</b>}
+					{() => <b>{t("Sections")}</b>}
 				</Typography>
 
 				<div className="row" style={{ rowGap: "20px" }}>

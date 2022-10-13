@@ -7,10 +7,12 @@ import { notifications } from "services";
 
 import Containers from "containers";
 import { Button, Fields, Typography } from "components";
+import { useTranslation } from "react-i18next";
 
 export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Save" }) => {
 	const { complexID, planID } = useParams();
 	const navigate = useNavigate();
+	const { t } = useTranslation();
 
 	const onClose = () => {
 		navigate(-1);
@@ -90,8 +92,8 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 							<Typography Type="h5" className="text-muted card-sub">
 								{() => (
 									<>
-										<b>Plan</b>
-										<small className="text-muted">{planID}</small>
+										<b>{t("Plan")}</b>
+										<small className="text-muted"> {planID} </small>
 									</>
 								)}
 							</Typography>

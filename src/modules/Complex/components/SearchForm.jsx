@@ -2,13 +2,19 @@ import React from "react";
 import cn from "classnames";
 
 import { Button } from "components";
+import { useTranslation } from "react-i18next";
 
 export const SearchForm = ({ className, onClick }) => {
+	const { t } = useTranslation();
 	return (
 		<div className={cn("row search-form", className)}>
 			<div className="col-6">
 				<label className="form-control cursor_text">
-					<input className="form-control__input" type="search" placeholder="Search..." />
+					<input
+						className="form-control__input"
+						type="search"
+						placeholder={`${t("Search")}...`}
+					/>
 					<Button
 						type="button"
 						className="search-form__btn"

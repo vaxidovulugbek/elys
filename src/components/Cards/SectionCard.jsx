@@ -4,14 +4,16 @@ import { Link } from "react-router-dom";
 import { get } from "lodash";
 import { RoundCircle } from "./RoundCircle";
 import { Button } from "components";
+import { useSelector } from "react-redux";
 
 export const SectionCard = ({ data, onClick = () => {}, onDelete, complexID }) => {
+	const lngCode = useSelector((state) => state.system.lngCode);
 	return (
 		<div className="object__card">
 			<div className="object__img">
 				<img src={require("assets/images/object-image.jpg")} alt="objectimage" />
 
-				<RoundCircle title="462" subtitle="premises" />
+				<RoundCircle title={get(data, "id")} subtitle="premises" />
 
 				<div className="d-flex align-items-center object__btns">
 					<Button
@@ -41,7 +43,7 @@ export const SectionCard = ({ data, onClick = () => {}, onDelete, complexID }) =
 					to={`/complex/${complexID}/section/${get(data, "id")}/floor`}
 					className="object__title"
 				>
-					{get(data, "name.uz", "")}
+					{get(data, `name.${lngCode}`)}
 				</Link>
 			</div>
 		</div>

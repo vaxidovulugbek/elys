@@ -1764,10 +1764,6 @@ f .object__range {
 	background-color: rgb(0 0 0 / 10%);
 }
 
-.object__links button:not(:last-child) {
-	margin-right: 5px;
-}
-
 .object__add {
 	display: box;
 	display: flexbox;

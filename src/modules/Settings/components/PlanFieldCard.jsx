@@ -1,7 +1,9 @@
 import React from "react";
 import { get } from "lodash";
+import { useSelector } from "react-redux";
 
 export const PlanFieldCard = ({ item, onClick, onDelete = () => {} }) => {
+	const lngCode = useSelector((state) => state.system.lngCode);
 	return (
 		<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 			<div className="object__card">
@@ -43,7 +45,7 @@ export const PlanFieldCard = ({ item, onClick, onDelete = () => {} }) => {
 
 				<div className="object__content">
 					<h3 href="#" className="object__title">
-						{get(item, "name.uz")}
+						{get(item, `name.${lngCode}`)}
 					</h3>
 				</div>
 			</div>

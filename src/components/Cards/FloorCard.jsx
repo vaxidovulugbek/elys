@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import { get } from "lodash";
 
 import { Button } from "components";
+import { useSelector } from "react-redux";
 
 export const FloorCard = ({ item, onClick = () => {}, onDelete = () => {}, link }) => {
+	const lngCode = useSelector((state) => state.system.lngCode);
 	return (
 		<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 			<div className="object__card">
@@ -44,10 +46,10 @@ export const FloorCard = ({ item, onClick = () => {}, onDelete = () => {}, link 
 				<div className="object__content">
 					{link ? (
 						<Link to={link} className="object__title">
-							{get(item, "name.uz")}
+							{get(item, `name.${lngCode}`)}
 						</Link>
 					) : (
-						<h3 className="object__title">{get(item, "name.uz")}</h3>
+						<h3 className="object__title">{get(item, `name.${lngCode}`)}</h3>
 					)}
 				</div>
 			</div>

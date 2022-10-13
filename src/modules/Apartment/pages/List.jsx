@@ -7,10 +7,12 @@ import { useDelete, useFetchInfinite, useScroll } from "hooks";
 import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
 import { AddObject, FloorCard, PageHeading, Typography } from "components";
 import PlanList from "./PlanList";
+import { useTranslation } from "react-i18next";
 
 const Apartment = () => {
 	const { floorID, complexID, sectionID } = useParams();
 	const navigate = useNavigate();
+	const { t } = useTranslation();
 
 	const apartmentList = useFetchInfinite({
 		url: "/apartment",
@@ -51,13 +53,12 @@ const Apartment = () => {
 				]}
 			/>
 
-			<div className="card-box transparent">
-				<Typography Type="h5" className="text-muted card-sub">
-					{() => <b>Apartments</b>}
-				</Typography>
-
-				<div className="row section-list">
-					<div className="col-6">
+			<div className="row section-list">
+				<div className="col-6">
+					<div className="card-box transparent">
+						<Typography Type="h5" className="text-muted card-sub">
+							{() => <b>{t("Apartments")}</b>}
+						</Typography>
 						<div className="row gap" style={{ "--column-gap": 0 }}>
 							<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 								<AddObject
@@ -90,7 +91,12 @@ const Apartment = () => {
 								))}
 						</div>
 					</div>
-					<div className="col-6">
+				</div>
+				<div className="col-6">
+					<div className="card-box transparent">
+						<Typography Type="h5" className="text-muted card-sub">
+							{() => <b>{t("Plans")}</b>}
+						</Typography>
 						<PlanList />
 					</div>
 				</div>

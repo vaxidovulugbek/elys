@@ -2,8 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { get } from "lodash";
+import { useSelector } from "react-redux";
 
 export const CategoryCard = ({ item, onClick, onDelete = () => {}, link }) => {
+	const lngCode = useSelector((state) => state.system.lngCode);
 	const navigate = useNavigate();
 	return (
 		<div
@@ -49,7 +51,7 @@ export const CategoryCard = ({ item, onClick, onDelete = () => {}, link }) => {
 
 				<div className="object__content">
 					<h3 href="#" className="object__title">
-						name: {get(item, "name.uz")}
+						{get(item, `name.${lngCode}`)}
 					</h3>
 				</div>
 			</div>

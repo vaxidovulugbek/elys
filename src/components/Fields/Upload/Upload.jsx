@@ -6,6 +6,7 @@ import { get } from "lodash";
 
 import { ControlLabel } from "components/common";
 import { httpCLient } from "services";
+import { useTranslation } from "react-i18next";
 
 export const Upload = ({
 	label,
@@ -24,6 +25,8 @@ export const Upload = ({
 }) => {
 	const classNames = cn("form-wrapper form_disabled", className);
 	const imgBlock = cn("form-wrapper", { max__content: hasDelete });
+
+	const { t } = useTranslation();
 
 	const [image, setImage] = useState(imgSrc);
 	const [loading, setLoading] = useState(false);
@@ -67,7 +70,7 @@ export const Upload = ({
 							className="form-control__input"
 							type="text"
 							value={get(image, "name") || imageTitle}
-							placeholder={placeholder}
+							placeholder={t(placeholder)}
 						/>
 					</label>
 					<label className="btn btn_form cursor_pointer">
@@ -82,7 +85,7 @@ export const Upload = ({
 							onChange={handleFileUpload}
 							accept={accept}
 						/>
-						{loading ? "Loading..." : btnText}
+						{loading ? t("Loading...") : t(btnText)}
 					</label>
 				</div>
 			</div>

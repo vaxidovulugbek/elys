@@ -11,7 +11,6 @@ import { PageHeading, Fields, Button, MapPicker } from "components";
 
 const Create = () => {
 	const navigate = useNavigate();
-	const { complexID } = useParams();
 	const lngCode = useSelector((state) => state.system.lngCode);
 
 	const onSuccess = () => {
@@ -28,7 +27,6 @@ const Create = () => {
 					{ url: "/", name: "My complexes" },
 					{ url: "", name: "Complex" },
 				]}
-				complexID={complexID}
 				hasButton={true}
 			/>
 
@@ -102,7 +100,6 @@ const Create = () => {
 							<div className="card-box">
 								<h5 className="text-muted card-sub">
 									<b>Complex</b>
-									<small className="text-muted"> ID {complexID}</small>
 								</h5>
 
 								<div className="row g-4">

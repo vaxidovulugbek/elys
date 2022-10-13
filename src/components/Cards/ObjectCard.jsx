@@ -13,8 +13,11 @@ import { ReactComponent as TariffIcon } from "assets/images/tariff.svg";
 import "./Cards.scss";
 import { useTranslation } from "react-i18next";
 import classNames from "classnames";
+import { useSelector } from "react-redux";
 
 export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument = () => {} }) => {
+	const lngCode = useSelector((state) => state.system.lngCode);
+
 	const { t } = useTranslation();
 
 	const apramentsInPercent = functions.apartmentStatusInPercent(get(data, "apartments"));
@@ -116,7 +119,7 @@ export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument
 						<g></g>
 						<path d="M8.5 0.5c-3.032 0-5.5 2.467-5.5 5.5 0 4.373 4.913 10.086 5.122 10.328l0.378 0.435 0.378-0.436c0.209-0.241 5.122-5.954 5.122-10.327 0-3.033-2.468-5.5-5.5-5.5zM8.5 15.215c-1.146-1.424-4.5-5.879-4.5-9.215 0-2.481 2.019-4.5 4.5-4.5s4.5 2.019 4.5 4.5c0 3.333-3.354 7.791-4.5 9.215zM8.5 3.139c-1.654 0-3 1.346-3 3s1.346 3 3 3 3-1.346 3-3-1.346-3-3-3zM8.5 8.139c-1.103 0-2-0.897-2-2s0.897-2 2-2 2 0.897 2 2-0.897 2-2 2z" />
 					</svg>
-					{get(data, "address.uz", "")}
+					{get(data, `address.${lngCode}`, "")}
 					{/* {get(data, "address." + lngCode, "")} */}
 				</div>
 
@@ -186,7 +189,11 @@ export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument
 					</div>
 				</div>
 
-				<div className="object__links d-flex" onClick={(e) => e.stopPropagation()}>
+				<div
+					className="object__links d-flex gap"
+					style={{ "--column-gap": "5px" }}
+					onClick={(e) => e.stopPropagation()}
+				>
 					<Link
 						to={`complex/update/${get(data, "id")}`}
 						className="btn btn_green btn_small"
