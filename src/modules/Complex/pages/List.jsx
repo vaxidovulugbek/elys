@@ -11,11 +11,17 @@ import { DocumentForm } from "../components/DocumentForm";
 const List = () => {
 	const navigate = useNavigate();
 	const documentModal = useOverlay("documentModal");
+	const [filterByComplexName, setFilterByComplexName] = useState("");
+
+	const handleFilter = (searchText) => {
+		setFilterByComplexName(searchText);
+	};
 
 	const complexList = useFetchInfinite({
 		url: "/user/complex",
 		urlSearchParams: {
 			include: "files,apartments",
+			filter: { name: filterByComplexName },
 		},
 	});
 	useScroll(document.documentElement, complexList.refetch, 100);
@@ -41,7 +47,7 @@ const List = () => {
 				]}
 			/>
 
-			<SearchForm onClick={() => navigate("/complex/create")} />
+			<SearchForm onClick={handleFilter} />
 
 			<div className="row">
 				<div className="col-4">

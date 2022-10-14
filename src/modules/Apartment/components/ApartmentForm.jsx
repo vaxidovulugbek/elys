@@ -134,10 +134,10 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 							<div className="row g-4">
 								<div className="col-12">
 									<FastField
-										name="name.uz"
+										name="name.en"
 										component={Fields.Input}
 										type="text"
-										label="Name uz"
+										label={["Name of the apartment", " (EN)", <span>*</span>]}
 									/>
 								</div>
 
@@ -146,34 +146,16 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										name="name.ru"
 										component={Fields.Input}
 										type="text"
-										label="Name ru"
+										label={["Name of the apartment", " (RU)", <span>*</span>]}
 									/>
 								</div>
 
 								<div className="col-12">
 									<FastField
-										name="name.en"
+										name="name.uz"
 										component={Fields.Input}
 										type="text"
-										label="Name en"
-									/>
-								</div>
-
-								<div className="col-12">
-									<FastField
-										name="description.uz"
-										component={Fields.Input}
-										type="text"
-										label="Description uz"
-									/>
-								</div>
-
-								<div className="col-12">
-									<FastField
-										name="description.ru"
-										component={Fields.Input}
-										type="text"
-										label="Description ru"
+										label={["Name of the apartment", " (UZ)", <span>*</span>]}
 									/>
 								</div>
 
@@ -182,7 +164,25 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										name="description.en"
 										component={Fields.Input}
 										type="text"
-										label="Description en"
+										label={["Description", " (EN)"]}
+									/>
+								</div>
+
+								<div className="col-12">
+									<FastField
+										name="description.ru"
+										component={Fields.Input}
+										type="text"
+										label={["Description", " (RU)"]}
+									/>
+								</div>
+
+								<div className="col-12">
+									<FastField
+										name="description.uz"
+										component={Fields.Input}
+										type="text"
+										label={["Description", " (UZ)"]}
 									/>
 								</div>
 
@@ -202,7 +202,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										name="discount"
 										component={Fields.InputMask}
 										type="text"
-										label="Discount %"
+										label={["Discount", " %"]}
 										decimalSeparator=" "
 										thousandSeparator=" "
 									/>

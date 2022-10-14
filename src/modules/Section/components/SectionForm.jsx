@@ -75,10 +75,10 @@ export const SectionForm = ({ method, url, formData, onSuccess, btnSubmitText, o
 							<div className="row g-4">
 								<div className="col-12">
 									<FastField
-										name="name.uz"
+										name="name.en"
 										component={Fields.Input}
 										type="text"
-										label="Name uz"
+										label={["Name of the section", " (EN)"]}
 									/>
 								</div>
 
@@ -87,16 +87,16 @@ export const SectionForm = ({ method, url, formData, onSuccess, btnSubmitText, o
 										name="name.ru"
 										component={Fields.Input}
 										type="text"
-										label="Name ru"
+										label={["Name of the section", " (RU)"]}
 									/>
 								</div>
 
 								<div className="col-12">
 									<FastField
-										name="name.en"
+										name="name.uz"
 										component={Fields.Input}
 										type="text"
-										label="Name en"
+										label={["Name of the section", " (UZ)"]}
 									/>
 								</div>
 
@@ -123,8 +123,8 @@ export const SectionForm = ({ method, url, formData, onSuccess, btnSubmitText, o
 									<FastField
 										name="background_id"
 										component={Fields.Upload}
-										label="Backround"
-										placeholder="Select image"
+										label="Background"
+										placeholder="Select File"
 										btnText="Upload"
 										imageTitle={get(formData, "background.title")}
 									/>
@@ -135,7 +135,7 @@ export const SectionForm = ({ method, url, formData, onSuccess, btnSubmitText, o
 										name="svg_id"
 										component={Fields.Upload}
 										label="Svg"
-										placeholder="Select svg image"
+										placeholder="Select File"
 										btnText="Upload"
 										accept={"image/svg+xml"}
 										imageTitle={get(formData, "svg.title")}

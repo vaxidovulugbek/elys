@@ -72,10 +72,10 @@ export const FloorForm = ({ method, url, formData, onSuccess, btnSubmitText = "S
 							<div className="row g-4">
 								<div className="col-12">
 									<FastField
-										name="name.uz"
+										name="name.en"
 										component={Fields.Input}
 										type="text"
-										label="Name uz"
+										label={["Name of the floor", " (EN)", <span>*</span>]}
 									/>
 								</div>
 
@@ -84,16 +84,16 @@ export const FloorForm = ({ method, url, formData, onSuccess, btnSubmitText = "S
 										name="name.ru"
 										component={Fields.Input}
 										type="text"
-										label="Name ru"
+										label={["Name of the floor", " (RU)", <span>*</span>]}
 									/>
 								</div>
 
 								<div className="col-12">
 									<FastField
-										name="name.en"
+										name="name.uz"
 										component={Fields.Input}
 										type="text"
-										label="Name en"
+										label={["Name of the floor", " (UZ)", <span>*</span>]}
 									/>
 								</div>
 
@@ -111,7 +111,7 @@ export const FloorForm = ({ method, url, formData, onSuccess, btnSubmitText = "S
 										name="background_id"
 										component={Fields.Upload}
 										label="Background"
-										placeholder="Select image"
+										placeholder="Select File"
 										btnText="Upload"
 										imageTitle={get(formData, "background.title")}
 									/>
@@ -122,7 +122,7 @@ export const FloorForm = ({ method, url, formData, onSuccess, btnSubmitText = "S
 										name="svg_id"
 										component={Fields.Upload}
 										label="Svg"
-										placeholder="Select svg image"
+										placeholder="Select File"
 										btnText="Upload"
 										accept={"image/svg+xml"}
 										imageTitle={get(formData, "svg.title")}
@@ -134,7 +134,7 @@ export const FloorForm = ({ method, url, formData, onSuccess, btnSubmitText = "S
 										name="file_id"
 										component={Fields.Upload}
 										label="File"
-										placeholder="Select image"
+										placeholder="Select File"
 										btnText="Upload"
 										imageTitle={get(formData, "file.title")}
 									/>

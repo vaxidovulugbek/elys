@@ -14,6 +14,7 @@ import { ReactComponent as Menu } from "assets/images/menu.svg";
 import { ReactComponent as Bell } from "assets/images/bell.svg";
 import { ReactComponent as World } from "assets/images/world.svg";
 import { ReactComponent as Fullscreen } from "assets/images/fullscreen.svg";
+import { storage } from "services";
 
 export const Topbar = ({ setIsOpen, isOpen }) => {
 	const dispatch = useDispatch();
@@ -28,6 +29,7 @@ export const Topbar = ({ setIsOpen, isOpen }) => {
 
 	const changeLng = (lng) => {
 		dispatch(system.changeLanguage(lng));
+		storage.set("lngCode", lng);
 		i18n.changeLanguage(lng);
 	};
 

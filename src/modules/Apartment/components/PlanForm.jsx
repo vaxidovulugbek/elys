@@ -101,10 +101,10 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 							<div className="row g-4">
 								<div className="col-12">
 									<FastField
-										name="name.uz"
+										name="name.en"
 										component={Fields.Input}
 										type="text"
-										label="Name uz"
+										label={["Name of the plan", " (EN)", <span>*</span>]}
 									/>
 								</div>
 								<div className="col-12">
@@ -112,16 +112,16 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 										name="name.ru"
 										component={Fields.Input}
 										type="text"
-										label="Name ru"
+										label={["Name of the plan", " (RU)", <span>*</span>]}
 									/>
 								</div>
 
 								<div className="col-12">
 									<FastField
-										name="name.en"
+										name="name.uz"
 										component={Fields.Input}
 										type="text"
-										label="Name en"
+										label={["Name of the plan", " (UZ)", <span>*</span>]}
 									/>
 								</div>
 								<div className="col-12">
@@ -138,7 +138,7 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 										name="room_id"
 										optionLabel="name.uz"
 										component={Fields.AsyncSelect}
-										label="Room ID"
+										label={["Room", " ID"]}
 										urlSearchParams={(search) => ({
 											filter: {
 												name: search,

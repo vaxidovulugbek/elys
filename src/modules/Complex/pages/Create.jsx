@@ -107,7 +107,7 @@ const Create = () => {
 										<FastField
 											name="name.en"
 											component={Fields.Input}
-											label={["Name of the Complex EN", <span>*</span>]}
+											label={["Name of the Complex", " (EN)", <span>*</span>]}
 											placeholder="Complex"
 										/>
 									</div>
@@ -116,7 +116,7 @@ const Create = () => {
 										<FastField
 											name="name.ru"
 											component={Fields.Input}
-											label={["Name of the Complex RU", <span>*</span>]}
+											label={["Name of the Complex", " (RU)", <span>*</span>]}
 											placeholder="Complex"
 										/>
 									</div>
@@ -125,7 +125,7 @@ const Create = () => {
 										<FastField
 											name="name.uz"
 											component={Fields.Input}
-											label={["Name of the Complex UZ", <span>*</span>]}
+											label={["Name of the Complex", " (UZ)", <span>*</span>]}
 											placeholder="Complex"
 										/>
 									</div>
@@ -142,7 +142,7 @@ const Create = () => {
 										<FastField
 											name="background_id"
 											component={Fields.Upload}
-											label={"Backround"}
+											label={"Background"}
 											placeholder="Select File"
 											btnText="Upload"
 										/>
@@ -233,7 +233,7 @@ const Create = () => {
 										<FastField
 											name="address.en"
 											component={Fields.Input}
-											label="Complex address EN"
+											label={["Complex address", " (EN)"]}
 											placeholder="Address"
 										/>
 									</div>
@@ -242,7 +242,7 @@ const Create = () => {
 										<FastField
 											name="address.ru"
 											component={Fields.Input}
-											label="Complex address RU"
+											label={["Complex address", " (RU)"]}
 											placeholder="Address"
 										/>
 									</div>
@@ -251,7 +251,7 @@ const Create = () => {
 										<FastField
 											name="address.uz"
 											component={Fields.Input}
-											label="Complex address UZ"
+											label={["Complex address", " (UZ)"]}
 											placeholder="Address"
 										/>
 									</div>

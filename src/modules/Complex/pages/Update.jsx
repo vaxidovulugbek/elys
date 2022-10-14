@@ -130,7 +130,7 @@ const Update = () => {
 										<FastField
 											name="name.en"
 											component={Fields.Input}
-											label={["Name of the Complex EN", <span>*</span>]}
+											label={["Name of the Complex", " (EN)", <span>*</span>]}
 											placeholder="Complex"
 										/>
 									</div>
@@ -139,7 +139,7 @@ const Update = () => {
 										<FastField
 											name="name.ru"
 											component={Fields.Input}
-											label={["Name of the Complex RU", <span>*</span>]}
+											label={["Name of the Complex", " (RU)", <span>*</span>]}
 											placeholder="Complex"
 										/>
 									</div>
@@ -148,7 +148,7 @@ const Update = () => {
 										<FastField
 											name="name.uz"
 											component={Fields.Input}
-											label={["Name of the Complex UZ", <span>*</span>]}
+											label={["Name of the Complex", " (UZ)", <span>*</span>]}
 											placeholder="Complex"
 										/>
 									</div>
@@ -164,7 +164,7 @@ const Update = () => {
 										<FastField
 											name="background_id"
 											component={Fields.Upload}
-											label="Backround"
+											label="Background"
 											btnText="Upload"
 											imageTitle={get(data, "background.title")}
 										/>
@@ -252,7 +252,7 @@ const Update = () => {
 										<FastField
 											name="address.en"
 											component={Fields.Input}
-											label="Complex address EN"
+											label={["Complex address", " (EN)"]}
 											placeholder="Address"
 										/>
 									</div>
@@ -260,7 +260,7 @@ const Update = () => {
 										<FastField
 											name="address.ru"
 											component={Fields.Input}
-											label="Complex address RU"
+											label={["Complex address", " (RU)"]}
 											placeholder="Address"
 										/>
 									</div>
@@ -268,7 +268,7 @@ const Update = () => {
 										<FastField
 											name="address.uz"
 											component={Fields.Input}
-											label="Complex address UZ"
+											label={["Complex address", " (UZ)"]}
 											placeholder="Address"
 										/>
 									</div>

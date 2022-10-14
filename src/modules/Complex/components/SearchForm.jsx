@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import cn from "classnames";
 
 import { Button } from "components";
 import { useTranslation } from "react-i18next";
 
 export const SearchForm = ({ className, onClick }) => {
+	const [searchText, setSearchText] = useState("");
 	const { t } = useTranslation();
 	return (
 		<div className={cn("row search-form", className)}>
@@ -14,11 +15,12 @@ export const SearchForm = ({ className, onClick }) => {
 						className="form-control__input"
 						type="search"
 						placeholder={`${t("Search")}...`}
+						onChange={(e) => setSearchText(e.target.value)}
 					/>
 					<Button
 						type="button"
 						className="search-form__btn"
-						onClick={onClick}
+						onClick={() => onClick(searchText)}
 						append={
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
