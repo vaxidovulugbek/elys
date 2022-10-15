@@ -47,7 +47,7 @@ const List = () => {
 				]}
 			/>
 
-			<SearchForm onClick={handleFilter} />
+			<SearchForm onSearch={handleFilter} onAdd={() => navigate("/complex/create")} />
 
 			<div className="row">
 				<div className="col-4">

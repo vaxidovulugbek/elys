@@ -464,7 +464,7 @@ a {
 	button {
 		justify-content: center;
 
-		width: 100px;
+		min-width: 100px;
 	}
 
 	button:not(:last-child) {

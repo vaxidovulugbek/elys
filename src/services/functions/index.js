@@ -1,4 +1,4 @@
-import { get, isNumber } from "lodash";
+import { get, isArray, isNumber } from "lodash";
 
 const convertToReadable = (number) => {
 	number = number || 0;
@@ -69,10 +69,15 @@ const apartmentStatusInPercent = (apartments) => {
 	return statuses_in_percent;
 };
 
+const translateConstans = (t, data) => {
+	return isArray(data) && data.map((item) => ({ ...item, label: t(item.label) }));
+};
+
 export const functions = {
 	convertToReadable,
 	meterPrice,
 	apartmentStatusInPiece,
 	apartmentStatusInPercent,
 	toFixed,
+	translateConstans,
 };

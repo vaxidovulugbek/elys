@@ -5,7 +5,7 @@ import Backend from "i18next-http-backend";
 import config from "config";
 import { storage } from "services/storage";
 
-const fallbackLng = storage.get("lngCode");
+const fallbackLng = storage.get("lngCode") ? storage.get("lngCode") : config.lngCode;
 const supportedLngs = ["uz", "ru", "en"];
 
 const options = {

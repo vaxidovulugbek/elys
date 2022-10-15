@@ -1,21 +1,35 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { FastField } from "formik";
+import { FastField, Field } from "formik";
 import { get } from "lodash";
 
-import { constants, notifications } from "services";
+import { constants, functions, notifications } from "services";
 
 import { Button, Fields, Typography } from "components";
 import Containers from "containers";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText = "Save" }) => {
 	const { sectionID, complexID, floorID } = useParams();
+	const lngCode = useSelector((state) => state.system.lngCode);
+	const { t } = useTranslation();
 	const navigate = useNavigate();
 
 	const onClose = () => {
 		navigate(-1);
 	};
 
+	const tranlatedStatusOptions = functions.translateConstans(t, constants.statusOptions);
+	const tranlatedTypeOptions = functions.translateConstans(t, constants.typeOptions);
+	const tranlatedClassOptions = functions.translateConstans(t, constants.classOptions);
+	const tranlatedConstructionOptions = functions.translateConstans(
+		t,
+		constants.constructionOptions
+	);
+
+	console.log(get(formData, `plan.name.${lngCode}`));
+	console.log(lngCode, "sdgsdg");
 	return (
 		<>
 			<Containers.Form
@@ -107,7 +121,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 						name: "plan_id",
 						validationType: "object",
 						value: {
-							label: get(formData, "plan.name.uz"),
+							label: get(formData, `plan.name.${lngCode}`),
 							value: get(formData, "plan.id"),
 						},
 						onSubmitValue: (option) => get(option, "value"),
@@ -221,55 +235,57 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 									<FastField
 										url="plan"
 										name="plan_id"
-										optionLabel="name.uz"
+										key={lngCode}
+										optionLabel={`name.${lngCode}`}
 										component={Fields.AsyncSelect}
 										label="Plan ID"
 										urlSearchParams={(search) => ({
 											filter: {
 												name: search,
 												complex_id: complexID,
+												lngCode,
 											},
 										})}
 									/>
 								</div>
 
 								<div className="col-12">
-									<FastField
+									<Field
 										name="status"
 										component={Fields.Select}
-										options={constants.statusOptions}
+										options={tranlatedStatusOptions}
 										label="Status"
-										defaultValue={constants.statusOptions[0]}
+										defaultValue={tranlatedStatusOptions[0]}
 									/>
 								</div>
 
 								<div className="col-12">
-									<FastField
+									<Field
 										name="type"
 										component={Fields.Select}
-										options={constants.typeOptions}
+										options={tranlatedTypeOptions}
 										label="Type"
-										defaultValue={constants.typeOptions[0]}
+										defaultValue={tranlatedTypeOptions[0]}
 									/>
 								</div>
 
 								<div className="col-12">
-									<FastField
+									<Field
 										name="construction_type"
 										component={Fields.Select}
-										options={constants.constructionOptions}
+										options={tranlatedConstructionOptions}
 										label="Construction type"
-										defaultValue={constants.constructionOptions[0]}
+										defaultValue={tranlatedConstructionOptions[0]}
 									/>
 								</div>
 
 								<div className="col-12">
-									<FastField
+									<Field
 										name="class"
 										component={Fields.Select}
-										options={constants.classOptions}
+										options={tranlatedClassOptions}
 										label="Class"
-										defaultValue={constants.classOptions[0]}
+										defaultValue={tranlatedClassOptions[0]}
 									/>
 								</div>
 							</div>

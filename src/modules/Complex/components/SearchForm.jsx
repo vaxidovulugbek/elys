@@ -4,7 +4,7 @@ import cn from "classnames";
 import { Button } from "components";
 import { useTranslation } from "react-i18next";
 
-export const SearchForm = ({ className, onClick }) => {
+export const SearchForm = ({ className, onAdd, onSearch }) => {
 	const [searchText, setSearchText] = useState("");
 	const { t } = useTranslation();
 	return (
@@ -20,7 +20,7 @@ export const SearchForm = ({ className, onClick }) => {
 					<Button
 						type="button"
 						className="search-form__btn"
-						onClick={() => onClick(searchText)}
+						onClick={() => onSearch(searchText)}
 						append={
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +39,7 @@ export const SearchForm = ({ className, onClick }) => {
 				<Button
 					type="button"
 					className="btn btn_green"
-					onClick={onClick}
+					onClick={onAdd}
 					prepend="+ "
 					innerText="Add"
 					style={{ height: "36px" }}

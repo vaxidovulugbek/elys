@@ -7,6 +7,7 @@ import { isFunction, get } from "lodash";
 import { ControlError, ControlLabel } from "components/common";
 
 import "./Select.scss";
+import { useTranslation } from "react-i18next";
 
 export const Select = ({
 	label = "",
@@ -27,6 +28,7 @@ export const Select = ({
 	form,
 }) => {
 	const classNames = cn(className, size);
+	const { t } = useTranslation();
 
 	const handleChange = (option, action) => {
 		form.setFieldValue(field.name, option[optionValue]);
@@ -42,8 +44,8 @@ export const Select = ({
 			<div className="form-select">
 				<SelectComponent
 					defaultValue={defaultValue}
-					value={options ? options.find((option) => option.value === field.value) : ""}
-					placeholder={placeholder}
+					value={options ? options.find((option) => option.value === field.value) : value}
+					placeholder={t(placeholder)}
 					className={classNames}
 					getOptionLabel={(option) =>
 						isFunction(optionLabel) ? optionLabel(option) : get(option, optionLabel)

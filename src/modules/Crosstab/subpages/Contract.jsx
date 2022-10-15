@@ -89,7 +89,7 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 												<span>{get(item, "payment")}</span>
 											</p>
 											<p className="month-count">
-												{t("discount")}:{" "}
+												{t("Discount")}:{" "}
 												<span>{get(item, "discount")}</span>
 											</p>
 										</div>
@@ -106,7 +106,7 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 									{t("Initial fee")}: <span>100%</span>
 								</p>
 								<p className="month-count">
-									{t("discount")}: <span>0</span>
+									{t("Discount")}: <span>0</span>
 								</p>
 							</div>
 						</>
@@ -217,21 +217,21 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 											component={Fields.Input}
 											type="text"
 											name="initial_payment"
-											label={t("initial fee")}
+											label={"Initial fee"}
 											onlyNumber={true}
 										/>
 										<FastField
 											component={Fields.Input}
 											type="text"
 											name="month_count"
-											label={t("Month")}
+											label={"Month"}
 											onlyNumber={true}
 										/>
 										<FastField
 											component={Fields.Input}
 											type="text"
 											name="discount"
-											label={t("discount")}
+											label={"Discount"}
 											onlyNumber={true}
 										/>
 										<button
@@ -239,7 +239,7 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 											className="printToDoc"
 											onClick={() => calculate(values)}
 										>
-											{t("calculate")}
+											{t("Calculate")}
 										</button>
 									</div>
 									{items && (
@@ -252,7 +252,7 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 													render: (value) => value,
 												},
 												{
-													title: t("Fee"),
+													title: t("Initial fee"),
 													dataKey: "fee",
 													render: (value) => value,
 												},
@@ -267,50 +267,50 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 									component={Fields.Input}
 									type="text"
 									name="first_name"
-									label={t("first name")}
+									label={"First name"}
 								/>
 								<FastField
 									component={Fields.Input}
 									type="text"
 									name="last_name"
-									label={t("last name")}
+									label={"Last name"}
 								/>
 								<FastField
 									component={Fields.Input}
 									type="text"
 									name="middle_name"
-									label={t("middle name")}
+									label={"Middle name"}
 								/>
 								<FastField
 									component={Fields.Input}
 									type="text"
 									name="address"
-									label={t("Address")}
+									label={"Address"}
 								/>
 								<Field
 									component={MaskedDateInput}
 									// type="text"
 									name="birthdate"
-									label={t("birthdate")}
+									label={"Birthdate"}
 								/>
 								<FastField
 									component={Fields.PhoneInput}
 									type="text"
 									name="phone"
-									label={t("phone")}
+									label={"Phone number"}
 								/>
 								<FastField
 									component={Fields.Input}
 									type="text"
 									name="mail"
-									label={t("email")}
+									label={"Email"}
 									placeholder="example@gmail.com"
 								/>
 								<div className="lang-select">
 									<FastField
 										component={Fields.Select}
 										name="language_id"
-										label={t("Document language")}
+										label={"Document language"}
 										options={languages}
 										defaultValue={languages[0].value}
 										placeholder="Language"
@@ -319,18 +319,18 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 								<Field
 									component={MaskedDateInput}
 									name="monthly_payment_date"
-									label={t("Monthly payment date")}
+									label={"Monthly payment date"}
 								/>
 								<Field
 									component={MaskedDateInput}
 									name="date"
-									label={t("Contract date")}
+									label={"Contract date"}
 								/>
 								<FastField
 									component={Fields.Input}
 									type="text"
 									name="passport"
-									label={t("passport seria and number")}
+									label={"Passport seria and number"}
 									onInput={fixPassportInput}
 									placeholder="AB1234567"
 								/>
@@ -338,18 +338,18 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 									component={Fields.Input}
 									type="text"
 									name="passport_issued_by"
-									label={t("Passport issued by")}
+									label={"Passport issued by"}
 								/>
 								<Field
 									component={MaskedDateInput}
 									name="passport_issued_date"
-									label={t("Passport issued date")}
+									label={"Passport issued date"}
 								/>
 								<FastField
 									component={Fields.Input}
 									type="text"
 									name="contract_number"
-									label={t("Contract number")}
+									label={"Contract number"}
 								/>
 
 								<button type="submit" className="printToDoc submit">

@@ -8,15 +8,19 @@ import { notifications } from "services";
 import Containers from "containers";
 import { Button, Fields, Typography } from "components";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Save" }) => {
 	const { complexID, planID } = useParams();
+	const lngCode = useSelector((state) => state.system.lngCode);
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 
 	const onClose = () => {
 		navigate(-1);
 	};
+
+	console.log(lngCode);
 
 	return (
 		<>
@@ -44,7 +48,7 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 						name: "room_id",
 						validationType: "object",
 						value: {
-							label: get(formData, "room.name.uz"),
+							label: get(formData, `room.name.${lngCode}`),
 							value: get(formData, "room.id"),
 						},
 						onSubmitValue: (option) => get(option, "value"),
@@ -68,7 +72,7 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 							? get(formData, "fields").map((field) => ({
 									...field,
 									plan_field_id: {
-										label: field.plan_field.name.uz,
+										label: get(field, `plan_field.name.${lngCode}`),
 										value: field.plan_field.id,
 									},
 							  }))
@@ -135,8 +139,9 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 								<div className="col-12">
 									<FastField
 										url="room"
+										key={lngCode}
 										name="room_id"
-										optionLabel="name.uz"
+										optionLabel={`name.${lngCode}`}
 										component={Fields.AsyncSelect}
 										label={["Room", " ID"]}
 										urlSearchParams={(search) => ({
@@ -154,7 +159,7 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 													<Fragment key={index}>
 														<div className="col-12">
 															<FastField
-																name={`fields[${index}].value.en`}
+																name={`fields[${index}].value.${lngCode}`}
 																component={Fields.Input}
 																type="text"
 																label="Field en"
@@ -162,7 +167,7 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 														</div>
 														<div className="col-12">
 															<FastField
-																name={`fields[${index}].value.ru`}
+																name={`fields[${index}].value.${lngCode}`}
 																component={Fields.Input}
 																type="text"
 																label="Field ru"
@@ -170,7 +175,7 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 														</div>
 														<div className="col-12">
 															<FastField
-																name={`fields[${index}].value.uz`}
+																name={`fields[${index}].value.${lngCode}`}
 																component={Fields.Input}
 																type="text"
 																label="Field uz"
@@ -178,9 +183,10 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 														</div>
 														<div className="col-12">
 															<FastField
+																key={lngCode}
 																url="plan-field"
 																name={`fields[${index}].plan_field_id`}
-																optionLabel="name.uz"
+																optionLabel={`name.${lngCode}`}
 																component={Fields.AsyncSelect}
 																label="Plan Field ID"
 																urlSearchParams={(search) => ({

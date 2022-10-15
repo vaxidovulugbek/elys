@@ -20,20 +20,20 @@ const CategoryForm = ({ categoryModal, data, categoryList }) => {
 					{
 						name: "name.en",
 						component: Fields.Input,
-						label: ["Category name", <span>*</span>],
+						label: ["Category name", " (EN)", <span>*</span>],
 						placeholder: "Category",
 					},
 					{
 						name: "name.ru",
 						component: Fields.Input,
-						label: ["Название категории", <span>*</span>],
-						placeholder: "категория",
+						label: ["Category name", " (RU)", <span>*</span>],
+						placeholder: "Category",
 					},
 					{
 						name: "name.uz",
 						component: Fields.Input,
-						label: ["Kategoriya nomi", <span>*</span>],
-						placeholder: "Kategoriya",
+						label: ["Category name", " (UZ)", <span>*</span>],
+						placeholder: "Category",
 					},
 				]}
 				formFields={[

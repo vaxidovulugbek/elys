@@ -24,7 +24,7 @@ export const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter, params
 					style={{ display: hasFilter ? "none" : "flex" }}
 				>
 					<Search />
-					<p>{t("Фильтр квартир")}</p>
+					<p>{t("Apartment filter")}</p>
 				</button>
 				{!isEmpty(params) && (
 					<button
@@ -43,7 +43,7 @@ export const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter, params
 					onClick={() => changeTab(1)}
 				>
 					<Grid />
-					<p>{t("Шахматка")}</p>
+					<p>{t("Crosstab")}</p>
 				</button>
 				<button
 					className={currentTab === 2 ? "active-tab" : ""}
@@ -51,7 +51,7 @@ export const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter, params
 					onClick={() => changeTab(2)}
 				>
 					<Plan />
-					<p>{t("Планировки")}</p>
+					<p>{t("Plans")}</p>
 				</button>
 				<button
 					className={currentTab === 3 ? "active-tab" : ""}
@@ -59,7 +59,7 @@ export const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter, params
 					onClick={() => changeTab(3)}
 				>
 					<Click />
-					<p>{t("Интерактив")}</p>
+					<p>{t("Interactive")}</p>
 				</button>
 				<button
 					className={currentTab === 4 ? "active-tab" : ""}
@@ -67,7 +67,7 @@ export const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter, params
 					onClick={() => changeTab(4)}
 				>
 					<Justify />
-					<p>{t("Список")}</p>
+					<p>{t("List")}</p>
 				</button>
 				<button onClick={() => setHasFilter((prev) => !prev)}>
 					<Search />

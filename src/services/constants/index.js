@@ -1,3 +1,5 @@
+import i18n from "services/i18n";
+
 export const constants = {
 	KEYCODE_TAB: 9,
 	KEYCODE_ESC: 27,
@@ -10,11 +12,12 @@ export const constants = {
 	STATUS_NOT_FOR_SALE: 4,
 	STATUS_CONSTRUCTION: 5,
 
-	STATUS_FREE_TEXT: "Свободно",
-	STATUS_INTEREST_TEXT: "Интерес",
-	STATUS_SOLD_TEXT: "Продано",
-	STATUS_NOT_FOR_SALE_TEXT: "Не в продаже",
-	STATUS_CONSTRUCTION_TEXT: "Резерв",
+	STATUS_INACTIVE_TEXT: "Inactive",
+	STATUS_FREE_TEXT: "Free",
+	STATUS_INTEREST_TEXT: "Interest",
+	STATUS_SOLD_TEXT: "Sold",
+	STATUS_NOT_FOR_SALE_TEXT: "Not for sale",
+	STATUS_CONSTRUCTION_TEXT: "Under construction",
 
 	TYPE_FLAT: 1,
 	TYPE_COMMERCIAL: 2,
@@ -30,13 +33,14 @@ export const constants = {
 	UZBEK: 3,
 	RUSSIAN: 2,
 };
-
+console.log(i18n.language);
 constants.statusOptions = [
-	{ value: constants.STATUS_INACTIVE, label: "Inactive" },
+	{ value: constants.STATUS_INACTIVE, label: constants.STATUS_INACTIVE_TEXT },
 	{ value: constants.STATUS_FREE, label: constants.STATUS_FREE_TEXT },
 	{ value: constants.STATUS_INTEREST, label: constants.STATUS_INTEREST_TEXT },
 	{ value: constants.STATUS_SOLD, label: constants.STATUS_SOLD_TEXT },
 	{ value: constants.STATUS_NOT_FOR_SALE, label: constants.STATUS_NOT_FOR_SALE_TEXT },
+	{ value: constants.STATUS_CONSTRUCTION, label: constants.STATUS_CONSTRUCTION_TEXT },
 ];
 
 constants.typeOptions = [

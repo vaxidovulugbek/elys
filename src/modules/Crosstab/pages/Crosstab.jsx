@@ -12,7 +12,6 @@ import { CrosstabHeader, CrosstabFilter, Tab } from "../components";
 import { Apartments, Chess, Contract, Interactive, Plan } from "../subpages";
 import { Apartment } from "../components";
 
-import "@fancyapps/ui/dist/fancybox.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import { crosstab_functions } from "../functions";
@@ -94,30 +93,30 @@ const Crosstab = () => {
 								<div className="info">
 									<div className="left">
 										<p className="count">
-											{t("Найдено помещений")}:{" "}
+											{t("Found premises")}:{" "}
 											<span className="aparmentCount">{count}</span>
 										</p>
 									</div>
 									<div className="right">
 										<div className={`color status-${STATUS_FREE}`}>
 											<span></span>
-											<label>{t("Свободно")}</label>
+											<label>{t("Free")}</label>
 										</div>
 										<div className={`color status-${STATUS_INTEREST}`}>
 											<span></span>
-											<label>{t("Интерес")}</label>
+											<label>{t("Interest")}</label>
 										</div>
 										<div className={`color status-${STATUS_CONSTRUCTION}`}>
 											<span></span>
-											<label>{t("Резерв")}</label>
+											<label>{t("Under construction")}</label>
 										</div>
 										<div className={`color status-${STATUS_SOLD}`}>
 											<span></span>
-											<label>{t("Проданные")}</label>
+											<label>{t("Sold")}</label>
 										</div>
 										<div className={`color status-${STATUS_NOT_FOR_SALE}`}>
 											<span></span>
-											<label>{t("Не в продаже")}</label>
+											<label>{t("Not for sale")}</label>
 										</div>
 									</div>
 								</div>

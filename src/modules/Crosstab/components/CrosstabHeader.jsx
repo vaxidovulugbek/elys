@@ -42,7 +42,7 @@ export const CrosstabHeader = ({
 		return options;
 	};
 	const options_complex = getOptions(complex);
-	const options_section = getOptions(sections, { label: "Все секции", value: null });
+	const options_section = getOptions(sections, { label: t("All sections"), value: null });
 
 	const handleComplexChange = (option) => navigate(`/crosstab/${get(option, "value")}`);
 	return (
@@ -87,7 +87,7 @@ export const CrosstabHeader = ({
 							<div className="search">
 								<input
 									type="text"
-									placeholder={t("Поиск помещения")}
+									placeholder={t("Premises search")}
 									value={get(params, "search", "")}
 									onChange={(e) =>
 										setParams((prev) => ({ ...prev, search: e.target.value }))
@@ -102,7 +102,7 @@ export const CrosstabHeader = ({
 			<div className="right">
 				<Link to="/" className={cn("close", { invisiable: activeApartment || hasFilter })}>
 					<Xbtn />
-					<p className="text">{t("Закрыть")}</p>
+					<p className="text">{t("Close")}</p>
 				</Link>
 				<button
 					className={cn("back", { hide: !activeApartment && !hasFilter })}
@@ -112,7 +112,7 @@ export const CrosstabHeader = ({
 					}}
 				>
 					<Back />
-					<p className="text">{t("назад")}</p>
+					<p className="text">{t("Back")}</p>
 				</button>
 			</div>
 		</header>

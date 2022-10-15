@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import cn from "classnames";
@@ -18,7 +18,8 @@ import { storage } from "services";
 
 export const Topbar = ({ setIsOpen, isOpen }) => {
 	const dispatch = useDispatch();
-	const { i18n } = useTranslation();
+	const username = useSelector((state) => state.auth.username);
+	const { i18n, t } = useTranslation();
 
 	const toggle = () => {
 		setIsOpen((prev) => !prev);
@@ -120,19 +121,8 @@ export const Topbar = ({ setIsOpen, isOpen }) => {
 							"drop-down__options_active": profileDropDown.isVisible,
 						})}
 					>
-						<h4 className="drop-down__title">Burxon</h4>
-						<Link to="" className="drop-down__item">
-							My profile
-						</Link>
-						<Link to="" className="drop-down__item">
-							Change password
-						</Link>
-						<Link to="" className="drop-down__item">
-							To the website
-						</Link>
-						<Link to="" className="drop-down__item">
-							Exit
-						</Link>
+						<p className="drop-down__subtitle">{t("username")}:</p>
+						<h4 className="drop-down__title">{username}</h4>
 					</div>
 				</div>
 			</div>

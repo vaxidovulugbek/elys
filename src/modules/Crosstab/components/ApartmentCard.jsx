@@ -7,11 +7,7 @@ import { Fancybox } from "components";
 import { get } from "lodash";
 import { constants, functions } from "services";
 
-import room from "assets/images/room.png";
-import { ReactComponent as Clock } from "assets/images/clock-rotate-left.svg";
-import { ReactComponent as Click } from "assets/images/click.svg";
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
-import { ReactComponent as GiftBox } from "assets/images/gift.svg";
 import { useSelector } from "react-redux";
 import { isArray } from "lodash";
 import { useTranslation } from "react-i18next";
@@ -54,7 +50,7 @@ export const ApartmentCard = ({
 			<div className="apartment-number">
 				<div className="left">
 					<strong>
-						{t("Квартира №")} <span>{get(activeApartment, "sort")}</span>
+						{t("Apartment")} № <span>{get(activeApartment, "sort")}</span>
 					</strong>
 				</div>
 				<div className="right">
@@ -89,8 +85,9 @@ export const ApartmentCard = ({
 			<div className="price">
 				<dl>
 					<dt>
-						<p className="name">{t("Стоимость")}</p>
+						<p className="name">{t("Price")}</p>
 						<p className="value">
+							{console.log(activeApartment)}
 							{functions.convertToReadable(get(activeApartment, "price"))} UZS
 						</p>
 					</dt>
@@ -110,49 +107,49 @@ export const ApartmentCard = ({
 			{ON_SALE.includes(get(activeApartment, "status")) && (
 				<div className="submit">
 					<button className="btn" onClick={() => setCurrentTab(5)} type="button">
-						{t("продать")}
+						{t("Sell")}
 					</button>
 				</div>
 			)}
 
 			<ul>
 				<li>
-					<dt className="name">{t("Название квартиры")}</dt>
+					<dt className="name">{t("Name of the apartment")}</dt>
 					<dd className="value">{get(activeApartment, `name.${lngCode}`)}</dd>
 				</li>
 				<li>
-					<dt className="name">{t("Кол-во комнат")}</dt>
+					<dt className="name">{t("Number of rooms")}</dt>
 					<dd className="value">{get(activeApartment, "plan.room.count")}</dd>
 				</li>
 				<li>
-					<dt className="name">{t("Площадь общая")}</dt>
+					<dt className="name">{t("Total area")}</dt>
 					<dd className="value">
 						{get(activeApartment, "plan.area")} {t("м")}
 						<sup>2</sup>
 					</dd>
 				</li>
 				<li>
-					<dt className="name">{t("Тип планировки")}</dt>
+					<dt className="name">{t("Plan type")}</dt>
 					<dd className="value">{get(activeApartment, `plan.name.${lngCode}`)}</dd>
 				</li>
 
 				<li>
-					<dt className="name">{t("Комплекс")}</dt>
+					<dt className="name">{t("Complex")}</dt>
 					<dd className="value">{get(activeApartment, "complex.sort")}</dd>
 				</li>
 				<li>
-					<dt className="name">{t("Секция")}</dt>
+					<dt className="name">{t("Section")}</dt>
 					<dd className="value">{get(activeApartment, "section.sort")}</dd>
 				</li>
 				<li>
 					<div>
-						<dt className="name">{t("Этаж")}</dt>
+						<dt className="name">{t("Floor")}</dt>
 						<dd className="value">{get(activeApartment, "floor.sort")}</dd>
 					</div>
 				</li>
 
 				<li>
-					<dt className="name">{t("Тип")}</dt>
+					<dt className="name">{t("Type")}</dt>
 					<dd className="value">
 						{
 							constants.typeOptions.find(
@@ -163,7 +160,7 @@ export const ApartmentCard = ({
 				</li>
 
 				<li>
-					<dt className="name">{t("Класс")}</dt>
+					<dt className="name">{t("Class")}</dt>
 					<dd className="value">
 						{
 							constants.classOptions.find(

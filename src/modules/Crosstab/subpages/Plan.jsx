@@ -64,7 +64,7 @@ const Plan = ({ setActiveApartment, filterFunc, setCount }) => {
 													src={get(item, "files[0].thumbnails.small")}
 													alt="room plan"
 												/>
-												<div className="coast-wrap">
+												{/* <div className="coast-wrap">
 													<div className="coast">
 														от{" "}
 														<span className="plan-min-price-value">
@@ -72,20 +72,18 @@ const Plan = ({ setActiveApartment, filterFunc, setCount }) => {
 														</span>
 														UZS
 													</div>
-												</div>
+												</div> */}
 											</div>
 											<div className="bottom">
 												<div className="surface">
-													<span className="name">
-														{t("Общ. площадь")}
-													</span>
+													<span className="name">{t("Total area")}</span>
 													<span className="val">
 														{get(item, "area")} {t("m")}
 														<sup>2</sup>
 													</span>
 												</div>
 												<div className="room-count">
-													<span className="name">{t("Комнат")}</span>
+													<span className="name">{t("Rooms")}</span>
 													<div className="val">
 														{get(item, "room.count")}
 													</div>
@@ -100,9 +98,11 @@ const Plan = ({ setActiveApartment, filterFunc, setCount }) => {
 												}}
 											>
 												<button>
-													{t("Найдено")}
-													<strong>7</strong>
-													{t("помещений")}
+													{t("Found")}
+													<strong>
+														{get(item, "apartments").length || ""}
+													</strong>
+													{t("apartment")}
 													<svg
 														xmlns="http://www.w3.org/2000/svg"
 														viewBox="0 0 384 512"
@@ -141,7 +141,7 @@ const Plan = ({ setActiveApartment, filterFunc, setCount }) => {
 																				)}`}
 																			></span>
 																			<span>
-																				{t("№")}
+																				№
 																				{get(
 																					apartment,
 																					"sort"

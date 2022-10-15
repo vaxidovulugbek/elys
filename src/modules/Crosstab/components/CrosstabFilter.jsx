@@ -47,6 +47,8 @@ const Form = ({
 	sections,
 }) => {
 	const { t } = useTranslation();
+	const translatedClassOptions = functions.translateConstans(t, constants.classOptions);
+	const translatedTypeOptions = functions.translateConstans(t, constants.typeOptions);
 	const { id } = useParams();
 	const lngCode = useSelector((state) => get(state, "system.lngCode"));
 	const [minmax, setMinmax] = useState({ price: [0, 0], area: [0, 0] });
@@ -164,16 +166,16 @@ const Form = ({
 					<Xbtn />
 				</button>
 				<div className="rooms">
-					<h3 className="rooms__title">{t("")}Кол-во комнат</h3>
+					<h3 className="rooms__title">{t("Number of rooms")}</h3>
 					<div className="btns">
 						{room_counts?.map((item, index) => (
 							<Checkbox key={index} {...checkboxProps(item)} />
 						))}
 					</div>
 				</div>
-				<RangePicker {...rangePickerProps(1, "Стоимость", minmax.price)} />
-				<RangePicker {...rangePickerProps(2, "Площадь общая", minmax.area)} />
-				<RangePicker {...rangePickerProps(4, "Цена м", [100, 1410])} />
+				<RangePicker {...rangePickerProps(1, t("Price"), minmax.price)} />
+				<RangePicker {...rangePickerProps(2, t("Total area"), minmax.area)} />
+				<RangePicker {...rangePickerProps(4, `${t("Price")} м²`, [100, 1410])} />
 				<div className="switch-box">
 					<label className="switch">
 						<input
@@ -187,7 +189,7 @@ const Form = ({
 						/>
 						<span className="switch-slider round"></span>
 					</label>
-					<p>{t("только АКЦИОННЫЕ")}</p>
+					<p>{t("Promotional")}</p>
 				</div>
 				<div className="switch-box">
 					<label className="switch">
@@ -202,7 +204,7 @@ const Form = ({
 						/>
 						<span className="switch-slider round"></span>
 					</label>
-					<p>{t("только СВОБОДНЫЕ")}</p>
+					<p>{t("Only free")}</p>
 				</div>
 				<div className="select-box">
 					<div className="form-select">
@@ -210,8 +212,8 @@ const Form = ({
 							name="type"
 							key={get(values, "type.value")}
 							component={ReactSelect}
-							options={constants.typeOptions}
-							placeholder="Appartment type"
+							options={translatedTypeOptions}
+							placeholder={t("Type")}
 							classNamePrefix="select"
 							value={get(values, "type")}
 							onChange={(option) => {
@@ -225,8 +227,8 @@ const Form = ({
 							name="class"
 							key={get(values, "class.value")}
 							component={ReactSelect}
-							options={constants.classOptions}
-							placeholder="Apparment classes"
+							options={translatedClassOptions}
+							placeholder={t("Class")}
 							classNamePrefix="select"
 							value={get(values, "class")}
 							onChange={(option) => {
@@ -240,7 +242,7 @@ const Form = ({
 			{!isEmpty(values) && (
 				<button type="button" className="filter-clear" onClick={() => window.clearFilter()}>
 					<Rotate />
-					<p>{t("Сбросить фильтр")}</p>
+					<p>{t("Reset filter")}</p>
 				</button>
 			)}
 		</form>

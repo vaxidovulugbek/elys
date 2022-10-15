@@ -88,7 +88,7 @@ const Apartments = ({ filterFunc, setActiveApartment, activeApartment, complexID
 						</th>
 						<th onClick={() => handleSort("plan.room.count")}>
 							<div className="head-row">
-								<h3>{t("Комнат")}</h3>
+								<h3>{t("Rooms")}</h3>
 								{sortType === "plan.room.count" ? (
 									<SmallToBig className={changeClass("plan.room.count")} />
 								) : (
@@ -98,7 +98,7 @@ const Apartments = ({ filterFunc, setActiveApartment, activeApartment, complexID
 						</th>
 						<th onClick={() => handleSort("plan.area")}>
 							<div className="head-row">
-								<h3>{t("Площадь")}</h3>
+								<h3>{t("Area")}</h3>
 								{sortType === "plan.area" ? (
 									<SmallToBig className={changeClass("plan.area")} />
 								) : (
@@ -108,7 +108,7 @@ const Apartments = ({ filterFunc, setActiveApartment, activeApartment, complexID
 						</th>
 						<th onClick={() => handleSort("section.sort")}>
 							<div className="head-row">
-								<h3>{t("Секция")}</h3>
+								<h3>{t("Sections")}</h3>
 								{sortType === "section.sort" ? (
 									<SmallToBig className={changeClass("section.sort")} />
 								) : (
@@ -118,7 +118,7 @@ const Apartments = ({ filterFunc, setActiveApartment, activeApartment, complexID
 						</th>
 						<th onClick={() => handleSort("floor.sort")}>
 							<div className="head-row">
-								<h3>{t("")}Этаж</h3>
+								<h3>{t("Floors")}</h3>
 								{sortType === "floor.sort" ? (
 									<SmallToBig className={changeClass("floor.sort")} />
 								) : (
@@ -128,7 +128,7 @@ const Apartments = ({ filterFunc, setActiveApartment, activeApartment, complexID
 						</th>
 						<th onClick={() => handleSort("sort")}>
 							<div className="head-row">
-								<h3>{t("Квартира №")}</h3>
+								<h3>{t("Apartment")} №</h3>
 								{sortType === "sort" ? (
 									<SmallToBig className={changeClass("sort")} />
 								) : (
@@ -139,8 +139,7 @@ const Apartments = ({ filterFunc, setActiveApartment, activeApartment, complexID
 						<th onClick={() => handleSort("square_meter")}>
 							<div className="head-row">
 								<h3>
-									{t("Цена м")}
-									<sup>2</sup>
+									{t("Price")} м<sup>2</sup>
 								</h3>
 								{sortType === "square_meter" ? (
 									<SmallToBig className={changeClass("square_meter")} />
@@ -151,7 +150,7 @@ const Apartments = ({ filterFunc, setActiveApartment, activeApartment, complexID
 						</th>
 						<th onClick={() => handleSort("price")}>
 							<div className="head-row">
-								<h3>{t("Общая стоимость")}</h3>
+								<h3>{t("Total price")}</h3>
 								{sortType === "price" ? (
 									<SmallToBig className={changeClass("price")} />
 								) : (
@@ -161,7 +160,7 @@ const Apartments = ({ filterFunc, setActiveApartment, activeApartment, complexID
 						</th>
 						<th onClick={() => handleSort("status")}>
 							<div className="head-row">
-								<h3>{t("Статус")}</h3>
+								<h3>{t("Status")}</h3>
 								{sortType === "status" ? (
 									<SmallToBig className={changeClass("status")} />
 								) : (
@@ -199,7 +198,7 @@ const Apartments = ({ filterFunc, setActiveApartment, activeApartment, complexID
 										<td>{get(item, "price")} UZS</td>
 										<td>
 											<span className={`status-${get(item, "status")}`}>
-												{get(status, `${get(item, "status")}`)}
+												{t(get(status, `${get(item, "status")}`))}
 											</span>
 										</td>
 									</tr>
