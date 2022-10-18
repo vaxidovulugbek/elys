@@ -5,7 +5,6 @@ import { get } from "lodash";
 
 export const ControlError = ({ form, field, custom }) => {
 	const { t } = useTranslation();
-	console.log(get(form.touched, field.name) && get(form.errors, field.name));
 	return (
 		<>
 			{form && get(form.touched, field.name) && get(form.errors, field.name) && (

@@ -34,7 +34,7 @@ const toFixed = (number, fix) => {
 
 const apartmentStatusInPiece = (apartments) => {
 	const statuses = {
-		status_inactive: 0,
+		// status_inactive: 0,
 		status_free: 0,
 		status_interest: 0,
 		status_sold: 0,
@@ -43,7 +43,7 @@ const apartmentStatusInPiece = (apartments) => {
 	};
 	if (isArray(apartments)) {
 		for (let i = 0; i < apartments.length; i++) {
-			if (apartments[i]?.status === 0) statuses.status_inactive++;
+			// if (apartments[i]?.status === 0) statuses.status_inactive++;
 			if (apartments[i]?.status === 1) statuses.status_free++;
 			if (apartments[i]?.status === 2) statuses.status_interest++;
 			if (apartments[i]?.status === 3) statuses.status_sold++;
@@ -59,7 +59,7 @@ const apartmentStatusInPercent = (apartments) => {
 		const apartments_count = apartments.length;
 		const statuses = apartmentStatusInPiece(apartments);
 		const statuses_in_percent = {
-			status_inactive: toFixed(100 / (apartments_count / statuses.status_inactive), 2),
+			// status_inactive: toFixed(100 / (apartments_count / statuses.status_inactive), 2),
 			status_free: toFixed(100 / (apartments_count / statuses.status_free), 2),
 			status_interest: toFixed(100 / (apartments_count / statuses.status_interest), 2),
 			status_sold: toFixed(100 / (apartments_count / statuses.status_sold), 2),

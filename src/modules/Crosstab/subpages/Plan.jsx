@@ -14,6 +14,7 @@ const Plan = ({ setActiveApartment, filterFunc, setCount }) => {
 
 	const [cardIndex, setCardIndex] = useState(-1);
 	const { id } = useParams();
+
 	return (
 		<div className="flats" id="flats">
 			<Containers.List
@@ -39,7 +40,7 @@ const Plan = ({ setActiveApartment, filterFunc, setCount }) => {
 								};
 						  })
 						: [];
-					setCount(plans.length);
+					setTimeout(() => setCount(plans.length), 0);
 					return (
 						<>
 							{plans.map(

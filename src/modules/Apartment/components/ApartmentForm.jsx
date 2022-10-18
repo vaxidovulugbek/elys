@@ -28,8 +28,6 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 		constants.constructionOptions
 	);
 
-	console.log(get(formData, `plan.name.${lngCode}`));
-	console.log(lngCode, "sdgsdg");
 	return (
 		<>
 			<Containers.Form

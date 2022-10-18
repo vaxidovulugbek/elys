@@ -50,7 +50,7 @@ export const InputMask = ({
 };
 
 InputMask.propTypes = {
-	label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+	label: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.array]),
 	placeholder: PropTypes.string,
 	type: PropTypes.string,
 	disabled: PropTypes.bool,

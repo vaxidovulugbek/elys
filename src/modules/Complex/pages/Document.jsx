@@ -42,8 +42,6 @@ const Document = () => {
 		});
 	};
 
-	console.log(complexID, "comp");
-
 	return (
 		<>
 			<PageHeading

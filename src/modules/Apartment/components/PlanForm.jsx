@@ -89,8 +89,6 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 			>
 				{({ values, isSubmitting, errors, touched }) => (
 					<>
-						{console.log(errors)}
-						{console.log(touched, "touched")}
 						<div className="card-box col-6">
 							<Typography Type="h5" className="text-muted card-sub">
 								{() => (

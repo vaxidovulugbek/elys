@@ -22,9 +22,7 @@ export const MultiUpload = ({ field, form, files = [], queryKey = [] }) => {
 	const onDelete = (id) => {
 		if (files.length) {
 			const newIds = [];
-			console.log(queryKey);
 			queryClient.setQueryData(queryKey, (old) => {
-				console.log(old);
 				const data = get(old, "data", {});
 				const filteredFiles = get(data, "files").filter((item) => {
 					if (item.id !== id) {

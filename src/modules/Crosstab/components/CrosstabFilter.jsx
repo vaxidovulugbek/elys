@@ -113,22 +113,22 @@ const Form = ({
 				const count = get(curr, "plan.room.count");
 
 				if (newMinmax.price[0])
-					newMinmax = { ...newMinmax, price: [price - price / 5, prev.price[1]] };
+					newMinmax = { ...newMinmax, price: [price - price / 5, newMinmax.price[1]] };
 				if (!newMinmax.price[1])
-					newMinmax = { ...newMinmax, price: [prev.price[0], price + price / 5] };
+					newMinmax = { ...newMinmax, price: [newMinmax.price[0], price + price / 5] };
 
 				if (price < newMinmax.price[0])
-					newMinmax = { ...newMinmax, price: [price - price / 5, prev.price[1]] };
+					newMinmax = { ...newMinmax, price: [price - price / 5, newMinmax.price[1]] };
 				if (price > newMinmax.price[1])
-					newMinmax = { ...newMinmax, price: [prev.price[0], price + price / 5] };
+					newMinmax = { ...newMinmax, price: [newMinmax.price[0], price + price / 5] };
 
 				if (area < newMinmax.area[0])
-					newMinmax = { ...newMinmax, area: [area - area / 5, prev.area[1]] };
+					newMinmax = { ...newMinmax, area: [area - area / 5, newMinmax.area[1]] };
 				if (area > newMinmax.area[1])
-					newMinmax = { ...newMinmax, area: [prev.area[0], area + area / 5] };
+					newMinmax = { ...newMinmax, area: [newMinmax.area[0], area + area / 5] };
 
 				if (price < newMinmax.price[0])
-					newMinmax = { ...newMinmax, price: [price, prev.price[1]] };
+					newMinmax = { ...newMinmax, price: [price, newMinmax.price[1]] };
 
 				!prev.includes(count) && count && prev.push(count);
 				return prev;

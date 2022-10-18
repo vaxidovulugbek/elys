@@ -87,7 +87,6 @@ export const ApartmentCard = ({
 					<dt>
 						<p className="name">{t("Price")}</p>
 						<p className="value">
-							{console.log(activeApartment)}
 							{functions.convertToReadable(get(activeApartment, "price"))} UZS
 						</p>
 					</dt>
@@ -140,7 +139,6 @@ export const ApartmentCard = ({
 				<li>
 					<dt className="name">{t("Section")}</dt>
 					<dd className="value">{get(activeApartment, "section.sort")}</dd>
-					{console.log(activeApartment)}
 				</li>
 				<li>
 					<div>

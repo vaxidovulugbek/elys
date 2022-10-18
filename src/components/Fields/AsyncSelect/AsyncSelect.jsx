@@ -69,7 +69,7 @@ const AsyncSelect = ({
 };
 
 AsyncSelect.propTypes = {
-	label: PropTypes.string,
+	label: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 	placeholder: PropTypes.string,
 	options: PropTypes.array,
 	size: PropTypes.string,
