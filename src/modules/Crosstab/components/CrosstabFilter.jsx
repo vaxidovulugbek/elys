@@ -52,36 +52,7 @@ const Form = ({
 	const { id } = useParams();
 	const lngCode = useSelector((state) => get(state, "system.lngCode"));
 	const [minmax, setMinmax] = useState({ price: [0, 0], area: [0, 0] });
-
-	const room_counts =
-		isArray(apartments) &&
-		apartments.reduce((prev, curr) => {
-			const price = get(curr, "price");
-			const area = get(curr, "plan.area");
-			const count = get(curr, "plan.room.count");
-
-			!minmax.price[0] &&
-				setMinmax((prev) => ({ ...prev, price: [price - price / 5, prev.price[1]] }));
-			!minmax.price[1] &&
-				setMinmax((prev) => ({ ...prev, price: [prev.price[0], price + price / 5] }));
-
-			price < minmax.price[0] &&
-				setMinmax((prev) => ({ ...prev, price: [price - price / 5, prev.price[1]] }));
-			price > minmax.price[1] &&
-				setMinmax((prev) => ({ ...prev, price: [prev.price[0], price + price / 5] }));
-
-			area < minmax.area[0] &&
-				setMinmax((prev) => ({ ...prev, area: [area - area / 5, prev.area[1]] }));
-			area > minmax.area[1] &&
-				setMinmax((prev) => ({ ...prev, area: [prev.area[0], area + area / 5] }));
-
-			price < minmax.price[0] &&
-				setMinmax((prev) => ({ ...prev, price: [price, prev.price[1]] }));
-
-			!prev.includes(count) && count && prev.push(count);
-			return prev;
-		}, []);
-	room_counts?.sort((a, b) => a - b);
+	const [roomCounts, setRoomCounts] = useState();
 
 	window.clearFilter = () => {
 		setParams({});
@@ -131,6 +102,41 @@ const Form = ({
 	};
 	const options_complex = getOptions(complex);
 	const options_section = getOptions(sections, { label: "Все секции", value: null });
+
+	useEffect(() => {
+		let newMinmax = minmax;
+		const room_counts =
+			isArray(apartments) &&
+			apartments.reduce((prev, curr) => {
+				const price = get(curr, "price");
+				const area = get(curr, "plan.area");
+				const count = get(curr, "plan.room.count");
+
+				if (newMinmax.price[0])
+					newMinmax = { ...newMinmax, price: [price - price / 5, prev.price[1]] };
+				if (!newMinmax.price[1])
+					newMinmax = { ...newMinmax, price: [prev.price[0], price + price / 5] };
+
+				if (price < newMinmax.price[0])
+					newMinmax = { ...newMinmax, price: [price - price / 5, prev.price[1]] };
+				if (price > newMinmax.price[1])
+					newMinmax = { ...newMinmax, price: [prev.price[0], price + price / 5] };
+
+				if (area < newMinmax.area[0])
+					newMinmax = { ...newMinmax, area: [area - area / 5, prev.area[1]] };
+				if (area > newMinmax.area[1])
+					newMinmax = { ...newMinmax, area: [prev.area[0], area + area / 5] };
+
+				if (price < newMinmax.price[0])
+					newMinmax = { ...newMinmax, price: [price, prev.price[1]] };
+
+				!prev.includes(count) && count && prev.push(count);
+				return prev;
+			}, []);
+		setRoomCounts(room_counts);
+		setMinmax(newMinmax);
+	}, []);
+
 	return (
 		<form id="filters-box" className={filterBoxClass} onSubmit={handleSubmit}>
 			<div className="filters">
@@ -168,7 +174,7 @@ const Form = ({
 				<div className="rooms">
 					<h3 className="rooms__title">{t("Number of rooms")}</h3>
 					<div className="btns">
-						{room_counts?.map((item, index) => (
+						{roomCounts?.map((item, index) => (
 							<Checkbox key={index} {...checkboxProps(item)} />
 						))}
 					</div>
