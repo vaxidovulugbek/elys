@@ -8,6 +8,7 @@ import { deletePermission } from "components/Modal/DeletePermission/DeletePermis
 import { AddObject, FloorCard, PageHeading, Typography } from "components";
 import PlanList from "./PlanList";
 import { useTranslation } from "react-i18next";
+import { notifications } from "services";
 
 const Apartment = () => {
 	const { floorID, complexID, sectionID } = useParams();
@@ -27,6 +28,7 @@ const Apartment = () => {
 		queryOptions: {
 			onSuccess: () => {
 				apartmentList.refetch();
+				notifications.success("Apartment delete success");
 			},
 		},
 	});

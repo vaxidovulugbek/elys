@@ -51,6 +51,7 @@ const AsyncSelect = ({
 					value={field.value}
 					blurInputOnSelect={true}
 					isSearchable
+					onBlur={() => form.setFieldTouched(field.name)}
 					classNamePrefix="select"
 					loadOptions={loadOptions}
 					debounceTimeout={300}
@@ -61,7 +62,7 @@ const AsyncSelect = ({
 					{...props}
 				/>
 
-				<ControlError form={form} field={field} />
+				<ControlError form={form} field={field} custom={`${field.name}.value`} />
 			</div>
 		</>
 	);

@@ -3,13 +3,13 @@ import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 import { get } from "lodash";
 
-export const ControlError = ({ form, field }) => {
+export const ControlError = ({ form, field, custom }) => {
 	const { t } = useTranslation();
-
+	console.log(get(form.touched, field.name) && get(form.errors, field.name));
 	return (
 		<>
 			{form && get(form.touched, field.name) && get(form.errors, field.name) && (
-				<span className="form-error">{t(get(form.errors, field.name))}</span>
+				<span className="form-error">{t(get(form.errors, custom || field.name))}</span>
 			)}
 		</>
 	);

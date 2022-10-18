@@ -27,8 +27,8 @@ const thumb = {
 	boxShadow: "none",
 };
 
-constants.classOptions.unshift({ value: "", label: "All" });
-constants.typeOptions.unshift({ value: "", label: "All" });
+const classOptions = [{ value: "", label: "All" }, ...constants.classOptions];
+const typeOptions = [{ value: "", label: "All" }, ...constants.typeOptions];
 
 const setFieldDebounce = debounce((handleSubmit) => {
 	handleSubmit();
@@ -47,8 +47,8 @@ const Form = ({
 	sections,
 }) => {
 	const { t } = useTranslation();
-	const translatedClassOptions = functions.translateConstans(t, constants.classOptions);
-	const translatedTypeOptions = functions.translateConstans(t, constants.typeOptions);
+	const translatedClassOptions = functions.translateConstans(t, classOptions);
+	const translatedTypeOptions = functions.translateConstans(t, typeOptions);
 	const { id } = useParams();
 	const lngCode = useSelector((state) => get(state, "system.lngCode"));
 	const [minmax, setMinmax] = useState({ price: [0, 0], area: [0, 0] });

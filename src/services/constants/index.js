@@ -33,7 +33,6 @@ export const constants = {
 	UZBEK: 3,
 	RUSSIAN: 2,
 };
-console.log(i18n.language);
 constants.statusOptions = [
 	{ value: constants.STATUS_INACTIVE, label: constants.STATUS_INACTIVE_TEXT },
 	{ value: constants.STATUS_FREE, label: constants.STATUS_FREE_TEXT },

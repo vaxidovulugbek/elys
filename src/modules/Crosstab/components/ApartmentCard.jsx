@@ -140,6 +140,7 @@ export const ApartmentCard = ({
 				<li>
 					<dt className="name">{t("Section")}</dt>
 					<dd className="value">{get(activeApartment, "section.sort")}</dd>
+					{console.log(activeApartment)}
 				</li>
 				<li>
 					<div>

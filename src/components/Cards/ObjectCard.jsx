@@ -15,25 +15,24 @@ import { useTranslation } from "react-i18next";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 
-export const ObjectCard = ({ data, handleDocument = () => {}, handleViewDocument = () => {} }) => {
+export const ObjectCard = ({
+	data,
+	handleDocument = () => {},
+	handleViewDocument = () => {},
+	complexRefetch = () => {},
+}) => {
 	const lngCode = useSelector((state) => state.system.lngCode);
 
 	const { t } = useTranslation();
 
-	const apramentsInPercent = functions.apartmentStatusInPercent(get(data, "apartments"));
-	const apramentsInPiece = functions.apartmentStatusInPiece(get(data, "apartments"));
+	const apramentsInPercent = functions.apartmentStatusInPercent(get(data, "apartments", []));
+	const apramentsInPiece = functions.apartmentStatusInPiece(get(data, "apartments", []));
 
 	const [saleType, setSaleType] = useState("percent");
 
-	const complex = useFetchList({
-		url: "user/complex",
-		urlSearchParams: { include: "files" },
-		queryOptions: { enabled: false },
-	});
-
 	const onSuccess = () => {
 		notifications.success("Complex delete success");
-		complex.refetch();
+		complexRefetch();
 	};
 
 	const onError = (err) => {

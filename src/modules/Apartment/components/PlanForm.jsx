@@ -20,8 +20,6 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 		navigate(-1);
 	};
 
-	console.log(lngCode);
-
 	return (
 		<>
 			<Containers.Form
@@ -51,13 +49,14 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 							label: get(formData, `room.name.${lngCode}`),
 							value: get(formData, "room.id"),
 						},
+						validations: [{ type: "option" }],
 						onSubmitValue: (option) => get(option, "value"),
 					},
 					{
 						name: "area",
 						validationType: "number",
 						value: get(formData, "area"),
-						// validations: [{ type: "required" }],
+						validations: [{ type: "required" }],
 					},
 					{
 						name: "file_ids",
@@ -68,30 +67,30 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 					{
 						name: "fields",
 						validationType: "array",
-						value: get(formData, "fields")
-							? get(formData, "fields").map((field) => ({
-									...field,
-									plan_field_id: {
-										label: get(field, `plan_field.name.${lngCode}`),
-										value: field.plan_field.id,
-									},
-							  }))
-							: [],
+						value: get(formData, "fields", []).map((field) => ({
+							...field,
+							plan_field_id: {
+								label: get(field, `plan_field.name.${lngCode}`),
+								value: field.plan_field.id,
+							},
+						})),
 						onSubmitValue: (fields) =>
 							fields.map((item) => ({
 								...item,
-								plan_field_id: item.plan_field_id.value,
+								plan_field_id: get(item, "plan_field_id.value", null),
 							})),
 					},
 				]}
 				onSuccess={() => onSuccess()}
 				onError={() => {
-					navigate(-1);
-					notifications.error("Something went wrong!");
+					// navigate(-1);
+					notifications.error(t("Something went wrong!"));
 				}}
 			>
-				{({ values, isSubmitting }) => (
+				{({ values, isSubmitting, errors, touched }) => (
 					<>
+						{console.log(errors)}
+						{console.log(touched, "touched")}
 						<div className="card-box col-6">
 							<Typography Type="h5" className="text-muted card-sub">
 								{() => (
@@ -159,7 +158,7 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 													<Fragment key={index}>
 														<div className="col-12">
 															<FastField
-																name={`fields[${index}].value.${lngCode}`}
+																name={`fields[${index}].value.en`}
 																component={Fields.Input}
 																type="text"
 																label="Field en"
@@ -167,7 +166,7 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 														</div>
 														<div className="col-12">
 															<FastField
-																name={`fields[${index}].value.${lngCode}`}
+																name={`fields[${index}].value.ru`}
 																component={Fields.Input}
 																type="text"
 																label="Field ru"
@@ -175,7 +174,7 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 														</div>
 														<div className="col-12">
 															<FastField
-																name={`fields[${index}].value.${lngCode}`}
+																name={`fields[${index}].value.uz`}
 																component={Fields.Input}
 																type="text"
 																label="Field uz"

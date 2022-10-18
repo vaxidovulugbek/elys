@@ -64,6 +64,7 @@ const List = () => {
 								<ObjectCard
 									data={item}
 									key={index}
+									complexRefetch={complexList.refetch}
 									handleDocument={handleDocument}
 									handleViewDocument={handleViewDocument}
 								/>
