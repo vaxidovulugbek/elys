@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import cn from "classnames";
 import { find } from "lodash";
@@ -22,6 +22,7 @@ const settingSubLinks = [
 
 export const Sidebar = ({ isOpen }) => {
 	const { t } = useTranslation();
+	const location = useLocation();
 	const [isSubActive, setIsSubActive] = useState(true);
 
 	const subMenu = cn("sidebar__submenu-content", { sidebar__submenu_active: isSubActive });
@@ -89,11 +90,11 @@ export const Sidebar = ({ isOpen }) => {
 
 			<div className="sidebar__submenu">
 				<NavLink
-					to="settings/"
+					to="/settings"
 					onClick={handleSubMenu}
 					className={cn("sidebar__link", {
 						"sidebar__link-active": !!find(settingSubLinks, {
-							url: window.location.pathname,
+							url: location.pathname,
 						}),
 					})}
 				>

@@ -30,9 +30,6 @@ export const ObjectCard = ({
 
 	const [saleType, setSaleType] = useState("percent");
 
-	console.log(apramentsInPercent);
-	console.log(apramentsInPiece);
-
 	const onSuccess = () => {
 		notifications.success("Complex delete success");
 		complexRefetch();
