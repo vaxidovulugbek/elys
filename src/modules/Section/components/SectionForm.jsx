@@ -3,14 +3,17 @@ import { useParams } from "react-router-dom";
 import { FastField } from "formik";
 import { get } from "lodash";
 
-import { constants } from "services";
+import { constants, functions } from "services";
 
 import { Button, Fields, Typography } from "components";
 import Containers from "containers";
+import { useTranslation } from "react-i18next";
 
 export const SectionForm = ({ method, url, formData, onSuccess, btnSubmitText, onClose }) => {
 	const { complexID, sectionID } = useParams();
+	const { t } = useTranslation();
 
+	const translatedOptions = functions.translateConstans(t, constants.sectionStatusOptions);
 	return (
 		<>
 			<Containers.Form
@@ -50,7 +53,9 @@ export const SectionForm = ({ method, url, formData, onSuccess, btnSubmitText, o
 					{
 						name: "status",
 						validationType: "number",
-						value: get(formData, "status"),
+						value: get(formData, "status")
+							? get(formData, "status")
+							: translatedOptions[0].value,
 					},
 					{
 						name: "complex_id",
@@ -60,13 +65,14 @@ export const SectionForm = ({ method, url, formData, onSuccess, btnSubmitText, o
 				]}
 				onSuccess={onSuccess}
 			>
-				{({ errors, isSubmitting }) => (
+				{({ errors, isSubmitting, values }) => (
 					<>
+						{console.log(values)}
 						<div className="card-box col-12">
 							<Typography Type="h5" className="text-muted card-sub">
 								{() => (
 									<>
-										<b>Section</b>
+										<b>{t("Section")}</b>
 										<small className="text-muted"> ID {sectionID}</small>
 									</>
 								)}
@@ -113,9 +119,8 @@ export const SectionForm = ({ method, url, formData, onSuccess, btnSubmitText, o
 									<FastField
 										name="status"
 										component={Fields.Select}
-										options={constants.statusOptions}
+										options={translatedOptions}
 										label="Status"
-										defaultValue={constants.statusOptions[0]}
 									/>
 								</div>
 

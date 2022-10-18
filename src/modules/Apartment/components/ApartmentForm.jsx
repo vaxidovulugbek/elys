@@ -137,7 +137,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 							<Typography Type="h5" className="text-muted card-sub">
 								{() => (
 									<>
-										<b>Floor</b>
+										<b>{t("Floor")}</b>
 										<small className="text-muted"> ID {floorID}</small>
 									</>
 								)}
@@ -253,7 +253,6 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										component={Fields.Select}
 										options={tranlatedStatusOptions}
 										label="Status"
-										defaultValue={tranlatedStatusOptions[0]}
 									/>
 								</div>
 
@@ -263,7 +262,6 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										component={Fields.Select}
 										options={tranlatedTypeOptions}
 										label="Type"
-										defaultValue={tranlatedTypeOptions[0]}
 									/>
 								</div>
 
@@ -273,7 +271,6 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										component={Fields.Select}
 										options={tranlatedConstructionOptions}
 										label="Construction type"
-										defaultValue={tranlatedConstructionOptions[0]}
 									/>
 								</div>
 
@@ -283,7 +280,6 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										component={Fields.Select}
 										options={tranlatedClassOptions}
 										label="Class"
-										defaultValue={tranlatedClassOptions[0]}
 									/>
 								</div>
 							</div>

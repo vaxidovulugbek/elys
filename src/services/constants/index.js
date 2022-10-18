@@ -42,6 +42,12 @@ constants.statusOptions = [
 	{ value: constants.STATUS_CONSTRUCTION, label: constants.STATUS_CONSTRUCTION_TEXT },
 ];
 
+constants.sectionStatusOptions = [
+	{ value: 10, label: "Active" },
+	{ value: 9, label: constants.STATUS_INACTIVE_TEXT },
+	{ value: 0, label: "Deleted" },
+];
+
 constants.typeOptions = [
 	{ value: constants.TYPE_FLAT, label: "Flat" },
 	{ value: constants.TYPE_COMMERCIAL, label: "Commercial" },
