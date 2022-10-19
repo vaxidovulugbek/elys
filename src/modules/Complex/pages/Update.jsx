@@ -105,10 +105,12 @@ const Update = () => {
 					{
 						name: "lat",
 						validationType: "string",
+						value: get(data, "lat"),
 					},
 					{
 						name: "lon",
 						validationType: "string",
+						value: get(data, "lon"),
 					},
 				]}
 			>

@@ -6,10 +6,13 @@ import { useSelector } from "react-redux";
 
 import { Buildings } from "../components";
 import { useParams } from "react-router-dom";
-import { useFetchOne } from "hooks";
+import { useFetchList, useFetchOne } from "hooks";
 import { useQueryClient } from "@tanstack/react-query";
 
 const stepUrls = ["complex", "section", "floor"];
+
+const include =
+	"files,place,category,district,region,background,svg,vector,apartments.plan.files,apartments.plan.fields.plan_field,apartments.section,apartments.floor,apartments.complex";
 
 const Interactive = ({ setActiveApartment, complexes, setCount }) => {
 	const { id } = useParams();
@@ -21,10 +24,21 @@ const Interactive = ({ setActiveApartment, complexes, setCount }) => {
 	const { data } = useFetchOne({
 		url: `${stepUrls[currentStep - 1]}/${activePathID[currentStep - 1]}`,
 		urlSearchParams: {
-			include:
-				"files,place,category,district,region,background,svg,vector,apartments.plan.files,apartments.plan.fields.plan_field",
+			include,
 		},
 	});
+
+	const pathData = useFetchList({
+		url: stepUrls[currentStep],
+		urlSearchParams: {
+			filter: { [`${stepUrls[currentStep - 1]}_id`]: activePathID[currentStep - 1] },
+		},
+		queryOptions: {
+			enabled: !(activePathID.length === currentStep),
+		},
+	});
+
+	console.log(pathData.data);
 
 	// steps classes
 	const classNames = (num) => {
@@ -44,8 +58,7 @@ const Interactive = ({ setActiveApartment, complexes, setCount }) => {
 			"GET",
 			`${stepUrls[step - 1]}/${activePathID[step - 1]}`,
 			{
-				include:
-					"files,place,category,district,region,background,svg,vector,apartments.plan.files,apartments.plan.fields.plan_field",
+				include,
 			},
 		];
 	};
@@ -77,6 +90,8 @@ const Interactive = ({ setActiveApartment, complexes, setCount }) => {
 					step: currentStep,
 					data,
 					setCount,
+					pathData: pathData.data,
+					key: currentStep,
 				}}
 			/>
 		</div>

@@ -3,7 +3,7 @@ import cn from "classnames";
 import Slider from "rc-slider";
 import ReactSelect from "react-select";
 import { FastField, withFormik } from "formik";
-import { debounce, findIndex, get, isArray, isEmpty } from "lodash";
+import { debounce, findIndex, get, isArray, isEmpty, max, min } from "lodash";
 
 import "rc-slider/assets/index.css";
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
@@ -104,38 +104,23 @@ const Form = ({
 	const options_section = getOptions(sections, { label: "Все секции", value: null });
 
 	useEffect(() => {
-		let newMinmax = minmax;
+		const area = [];
+		const price = [];
 		const room_counts =
 			isArray(apartments) &&
 			apartments.reduce((prev, curr) => {
-				const price = get(curr, "price");
-				const area = get(curr, "plan.area");
 				const count = get(curr, "plan.room.count");
-
-				if (newMinmax.price[0])
-					newMinmax = { ...newMinmax, price: [price - price / 5, newMinmax.price[1]] };
-				if (!newMinmax.price[1])
-					newMinmax = { ...newMinmax, price: [newMinmax.price[0], price + price / 5] };
-
-				if (price < newMinmax.price[0])
-					newMinmax = { ...newMinmax, price: [price - price / 5, newMinmax.price[1]] };
-				if (price > newMinmax.price[1])
-					newMinmax = { ...newMinmax, price: [newMinmax.price[0], price + price / 5] };
-
-				if (area < newMinmax.area[0])
-					newMinmax = { ...newMinmax, area: [area - area / 5, newMinmax.area[1]] };
-				if (area > newMinmax.area[1])
-					newMinmax = { ...newMinmax, area: [newMinmax.area[0], area + area / 5] };
-
-				if (price < newMinmax.price[0])
-					newMinmax = { ...newMinmax, price: [price, newMinmax.price[1]] };
-
-				!prev.includes(count) && count && prev.push(count);
+				area.push(get(curr, "plan.area"));
+				price.push(get(curr, "price"));
+				!prev.includes(count) && prev.push(count);
 				return prev;
 			}, []);
 		setRoomCounts(room_counts);
-		setMinmax(newMinmax);
-	}, []);
+		setMinmax({
+			price: price.length && [min(price), max(price)],
+			area: area.length && [min(area), max(area)],
+		});
+	}, [apartments]);
 
 	return (
 		<form id="filters-box" className={filterBoxClass} onSubmit={handleSubmit}>
