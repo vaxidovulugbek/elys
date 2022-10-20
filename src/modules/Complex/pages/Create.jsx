@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FastField, Field } from "formik";
 import { useSelector } from "react-redux";
 import { get } from "lodash";
@@ -8,10 +8,12 @@ import { notifications } from "services";
 
 import Containers from "containers";
 import { PageHeading, Fields, Button, MapPicker } from "components";
+import { useTranslation } from "react-i18next";
 
 const Create = () => {
 	const navigate = useNavigate();
 	const lngCode = useSelector((state) => state.system.lngCode);
+	const { t } = useTranslation();
 
 	const onSuccess = () => {
 		notifications.success("Complex create success");
@@ -27,7 +29,6 @@ const Create = () => {
 					{ url: "/", name: "My complexes" },
 					{ url: "", name: "Complex" },
 				]}
-				hasButton={true}
 			/>
 
 			<Containers.Form
@@ -99,7 +100,7 @@ const Create = () => {
 						<div className="col-lg-6">
 							<div className="card-box">
 								<h5 className="text-muted card-sub">
-									<b>Complex</b>
+									<b>{t("Complex")}</b>
 								</h5>
 
 								<div className="row g-4">
@@ -167,7 +168,7 @@ const Create = () => {
 						<div className="col-lg-6">
 							<div className="card-box">
 								<h5 className="text-muted card-sub">
-									<b>Location</b>
+									<b>{t("Location")}</b>
 								</h5>
 
 								<div className="row g-4">

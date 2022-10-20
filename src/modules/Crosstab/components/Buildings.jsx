@@ -63,17 +63,15 @@ export const Buildings = ({
 				path?.addEventListener("mouseenter", (e) => {
 					if (step === 3) {
 						setPathHoverData(appartment);
-						console.log(pathHoverData);
 					} else {
 						const activeData = find(pathData, { id: Number(pathID) });
 						setPathHoverData(activeData);
-						console.log(pathHoverData);
 					}
 				});
 			});
 		}
 		ReactTooltip.rebuild();
-	}, [data, svgWrap, stringSvg]);
+	}, [data, svgWrap, stringSvg, pathData]);
 	return (
 		<>
 			<div className="buildings" ref={svgWrap}></div>
