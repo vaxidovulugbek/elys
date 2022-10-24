@@ -19,7 +19,7 @@ const Update = () => {
 		urlSearchParams: { include: "file,svg,background,vector" },
 	});
 
-	const { setFiles, setVector, vector, files } = useEditSvg(data);
+	const { setFiles, setVector, vector, files } = useEditSvg();
 
 	const onEdit = functions.onEditCreator({ setVector, data, files });
 

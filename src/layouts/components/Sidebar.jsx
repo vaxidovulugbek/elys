@@ -6,6 +6,8 @@ import { find } from "lodash";
 
 import { ReactComponent as HomeSvg } from "assets/images/home.svg";
 import { ReactComponent as Settings } from "assets/images/settings.svg";
+import { ReactComponent as Grid } from "assets/images/grid.svg";
+import { ReactComponent as Room } from "assets/images/room.svg";
 import angleRight from "assets/images/angle-right.svg";
 import { Typography } from "components";
 
@@ -68,7 +70,7 @@ export const Sidebar = ({ isOpen }) => {
 					}
 				>
 					<div className="d-flex align-items-center">
-						<HomeSvg />
+						<Room />
 						<span className="sidebar__link-text">{t("Room")}</span>
 					</div>
 				</NavLink>
@@ -82,7 +84,7 @@ export const Sidebar = ({ isOpen }) => {
 					}
 				>
 					<div className="d-flex align-items-center">
-						<HomeSvg />
+						<Grid />
 						<span className="sidebar__link-text">{t("Category")}</span>
 					</div>
 				</NavLink>

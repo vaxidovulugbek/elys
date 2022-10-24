@@ -3,7 +3,7 @@ import { get } from "lodash";
 
 import Containers from "containers";
 import { Button, Fields, Typography } from "components";
-import { FastField } from "formik";
+import { FastField, Field } from "formik";
 import { EditSvg } from "components/Fields/Upload/EditSvg";
 
 export const FloorForm = ({
@@ -138,7 +138,7 @@ export const FloorForm = ({
 									</div>
 
 									<div className="col-12">
-										<FastField
+										<Field
 											name="svg_id"
 											component={Fields.Upload}
 											label="Svg"

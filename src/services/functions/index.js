@@ -61,15 +61,15 @@ const apartmentStatusInPercent = (apartments) => {
 		const statuses = apartmentStatusInPiece(apartments);
 		const statuses_in_percent = {
 			// status_inactive: toFixed(100 / (apartments_count / statuses.status_inactive), 2),
-			status_free: toFixed(100 / (apartments_count / statuses.status_free), 2),
-			status_interest: toFixed(100 / (apartments_count / statuses.status_interest), 2),
-			status_sold: toFixed(100 / (apartments_count / statuses.status_sold), 2),
+			status_free: toFixed(100 / (apartments_count / statuses.status_free), 2) || 0,
+			status_interest: toFixed(100 / (apartments_count / statuses.status_interest), 2) || 0,
+			status_sold: toFixed(100 / (apartments_count / statuses.status_sold), 2) || 0,
 			status_not_for_sale: toFixed(
-				100 / (apartments_count / statuses.status_not_for_sale),
+				100 / (apartments_count / statuses.status_not_for_sale) || 0,
 				2
 			),
 			status_construction: toFixed(
-				100 / (apartments_count / statuses.status_construction),
+				100 / (apartments_count / statuses.status_construction) || 0,
 				2
 			),
 		};
@@ -135,10 +135,12 @@ const generateVector = async (files) => {
 
 const onEditCreator = ({ files, setVector, data }) => {
 	const { svg, background } = files;
-
-	return () => {
+	console.log(files, "OnEditCreater");
+	return async () => {
 		if (svg || background) {
-			const svgStr = generateVector({
+			console.log(files, "OnEditCreater2");
+
+			const svgStr = await generateVector({
 				background: background || get(data, "background.src"),
 				svg: svg || get(data, "vector"),
 			});

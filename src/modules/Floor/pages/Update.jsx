@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useEditSvg, useFetchOne } from "hooks";
-import { notifications } from "services";
+import { functions, notifications } from "services";
 import { Spinner } from "components";
 import { FloorForm } from "../components/FloorForm";
 
@@ -20,7 +20,9 @@ const Update = () => {
 		urlSearchParams: { include: "file,svg,background,vector" },
 	});
 
-	const { onEdit, setFiles, setVector, vector, files } = useEditSvg(data);
+	const { setFiles, setVector, vector, files } = useEditSvg(data);
+
+	const onEdit = functions.onEditCreator({ files, data, setVector });
 
 	const onSuccess = () => {
 		navigate(-1);

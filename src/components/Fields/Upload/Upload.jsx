@@ -63,8 +63,9 @@ export const Upload = ({
 				const id = get(res, "data[0].data.id");
 				form.setFieldValue(field.name, id);
 				setLoading(false);
-				if (!(image?.type === "image/svg+xml"))
+				if (!(image?.type === "image/svg+xml")) {
 					setFiles((prev) => ({ ...prev, background_id: id }));
+				}
 			};
 			uploadFile();
 		}

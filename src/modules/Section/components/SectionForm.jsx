@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { FastField } from "formik";
+import { FastField, Field } from "formik";
 import { get } from "lodash";
 
 import { constants, functions } from "services";
@@ -55,7 +55,8 @@ export const SectionForm = ({
 						{
 							name: "background_id",
 							validationType: "number",
-							value: files.background_id || get(formData, "background_id"),
+							value:
+								get(files, "background_id", null) || get(formData, "background_id"),
 						},
 						{
 							name: "svg_id",
@@ -149,7 +150,7 @@ export const SectionForm = ({
 											placeholder="Select File"
 											btnText="Upload"
 											imageTitle={
-												get(files, "background.name") ||
+												get(files, "background.name", "") ||
 												get(formData, "background.title")
 											}
 											setFiles={setFiles}
@@ -157,16 +158,17 @@ export const SectionForm = ({
 									</div>
 
 									<div className="col-12">
-										<FastField
+										<Field
 											name="svg_id"
 											component={Fields.Upload}
-											hasEdit
+											hasEdit={hasEdit}
 											label="Svg"
 											placeholder="Select File"
 											btnText="Upload"
 											accept={"image/svg+xml"}
 											imageTitle={
-												get(files, "svg.name") || get(formData, "svg.title")
+												get(files, "svg.name", "") ||
+												get(formData, "svg.title")
 											}
 											onEdit={onEdit}
 											setFiles={setFiles}

@@ -9,7 +9,7 @@ import { useEditSvg, useFetchOne } from "hooks";
 import Containers from "containers";
 import { PageHeading, Fields, Button, MapPicker, Typography } from "components";
 import { SectionList } from "modules/Section";
-import { notifications } from "services";
+import { functions, notifications } from "services";
 import { EditSvg } from "components/Fields/Upload/EditSvg";
 
 const Update = () => {
@@ -23,7 +23,10 @@ const Update = () => {
 		url: `/complex/${complexID}`,
 		urlSearchParams: { include: "region,district,files,svg,background,vector" },
 	});
-	const { onEdit, setFiles, setVector, vector, files } = useEditSvg(data);
+
+	const { setFiles, setVector, vector, files } = useEditSvg(data);
+
+	const onEdit = functions.onEditCreator({ files, data, setVector });
 
 	return (
 		<>
@@ -196,7 +199,7 @@ const Update = () => {
 											/>
 										</div>
 										<div className="col-12">
-											<FastField
+											<Field
 												name="svg_id"
 												component={Fields.Upload}
 												label="Svg"

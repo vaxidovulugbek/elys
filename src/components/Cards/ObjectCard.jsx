@@ -28,6 +28,17 @@ export const ObjectCard = ({
 	const apramentsInPercent = functions.apartmentStatusInPercent(get(data, "apartments", []));
 	const apramentsInPiece = functions.apartmentStatusInPiece(get(data, "apartments", []));
 
+	const rangeStyle = !get(data, "apartments", []).length
+		? {
+				width: "100%",
+				background: "rgb(235, 239, 242)",
+				borderRadius: "4px",
+		  }
+		: {
+				borderRadius: "4px",
+				width: "100%",
+		  };
+
 	const [saleType, setSaleType] = useState("percent");
 
 	const onSuccess = () => {
@@ -144,7 +155,7 @@ export const ObjectCard = ({
 							</div>
 						</div>
 					</div>
-					<div className="object__range d-flex">
+					<div className="object__range d-flex" style={rangeStyle}>
 						<div
 							className="status-1"
 							style={{ width: `${apramentsInPercent.status_free}%` }}

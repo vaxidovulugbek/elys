@@ -71,7 +71,7 @@ export const Tab = ({ setCurrentTab, currentTab, setHasFilter, hasFilter, params
 				</button>
 				<button onClick={() => setHasFilter((prev) => !prev)}>
 					<Search />
-					<p>{t("Фильтр")}</p>
+					<p>{t("Filter")}</p>
 				</button>
 			</div>
 		</div>
