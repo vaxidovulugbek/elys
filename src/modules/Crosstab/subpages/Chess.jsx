@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 import { get, isArray } from "lodash";
 import cn from "classnames";
-import { useSelector } from "react-redux";
 
 const Chess = ({ setActiveApartment, data, filterFunc, setCount }) => {
 	const [floorsCount, setFloorsCount] = useState(0);
@@ -53,6 +54,11 @@ const Chess = ({ setActiveApartment, data, filterFunc, setCount }) => {
 																					apartment
 																				),
 																		})}
+																		style={{
+																			visibility: apartment
+																				? "visible"
+																				: "hidden",
+																		}}
 																	>
 																		<span
 																			className={`status-${get(

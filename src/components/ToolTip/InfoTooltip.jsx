@@ -1,4 +1,6 @@
+import PropTypes from "prop-types";
 import ReactTooltip from "react-tooltip";
+
 import "./InfoTooltip.scss";
 
 export const InfoTooltip = ({ children, id, effect = "solid" }) => {
@@ -9,4 +11,9 @@ export const InfoTooltip = ({ children, id, effect = "solid" }) => {
 			</ReactTooltip>
 		</>
 	);
+};
+
+InfoTooltip.propTypes = {
+	effect: PropTypes.string,
+	id: PropTypes.string,
 };

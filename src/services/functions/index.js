@@ -1,4 +1,5 @@
 import { get, isArray, isNumber } from "lodash";
+import { notifications } from "services/notifacations";
 
 const convertToReadable = (number) => {
 	number = number || 0;
@@ -77,8 +78,77 @@ const apartmentStatusInPercent = (apartments) => {
 	}
 };
 
+const fileReaderAsText = (upFile) => {
+	return new Promise((resolve, reject) => {
+		const fileredr = new FileReader();
+		fileredr.onload = () => resolve(fileredr.result);
+		fileredr.onerror = () => reject(fileredr);
+		fileredr.readAsText(upFile);
+	});
+};
+
+const htmlElementToString = (tag) => {
+	const serialize = new XMLSerializer();
+	return serialize.serializeToString(tag);
+};
+
 const translateConstans = (t, data) => {
 	return isArray(data) && data.map((item) => ({ ...item, label: t(item.label) }));
+};
+
+const generateVector = async (files) => {
+	const element = document.createElement("div");
+	const { background, svg } = files;
+	if (background && svg) {
+		if (typeof background === "object" && typeof svg === "object") {
+			const url = URL.createObjectURL(background);
+			const svgStr = await fileReaderAsText(svg);
+			element.innerHTML = await svgStr;
+			const image = document.createElement("image");
+			image.setAttribute("href", url);
+			const svgEl = element.childNodes[0];
+			svgEl.prepend(image);
+
+			return htmlElementToString(svgEl);
+		}
+		if (typeof background === "object" && typeof svg === "string") {
+			const url = URL.createObjectURL(background);
+			element.innerHTML = svg;
+			const image = element.querySelector("image");
+			image.setAttribute("href", url);
+			console.log(image);
+			return htmlElementToString(element.childNodes[0]);
+		}
+		if (typeof background === "string" && typeof svg === "object") {
+			const svgStr = await fileReaderAsText(svg);
+			element.innerHTML = svgStr;
+			const svgEl = element.childNodes[0];
+
+			const image = document.createElement("image");
+			image.setAttribute("href", background);
+			svgEl.prepend(image);
+
+			return htmlElementToString(svgEl);
+		}
+	}
+};
+
+const onEditCreator = ({ files, setVector, data }) => {
+	const { svg, background } = files;
+
+	return () => {
+		if (svg || background) {
+			const svgStr = generateVector({
+				background: background || get(data, "background.src"),
+				svg: svg || get(data, "vector"),
+			});
+			setVector(svgStr);
+		} else if (get(data, "vector")) {
+			setVector(get(data, "vector"));
+		} else {
+			notifications.error("Damini ol!");
+		}
+	};
 };
 
 export const functions = {
@@ -88,4 +158,7 @@ export const functions = {
 	apartmentStatusInPercent,
 	toFixed,
 	translateConstans,
+	fileReaderAsText,
+	generateVector,
+	onEditCreator,
 };

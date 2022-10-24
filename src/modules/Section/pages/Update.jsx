@@ -1,13 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Spinner } from "components";
-import { useFetchOne } from "hooks";
+import { useEditSvg, useFetchOne } from "hooks";
 import { SectionForm } from "../components/SectionForm";
-import { notifications } from "services";
+import { functions, notifications } from "services";
 
 const Update = () => {
 	const { sectionID } = useParams();
+	const [svgID, setSvgID] = useState();
 	const navigate = useNavigate();
 
 	const { data, refetch, isLoading } = useFetchOne({
@@ -15,8 +16,12 @@ const Update = () => {
 		queryOptions: {
 			enabled: false,
 		},
-		urlSearchParams: { include: "file,svg,background" },
+		urlSearchParams: { include: "file,svg,background,vector" },
 	});
+
+	const { setFiles, setVector, vector, files } = useEditSvg(data);
+
+	const onEdit = functions.onEditCreator({ setVector, data, files });
 
 	const onSuccess = () => {
 		navigate(-1);
@@ -42,6 +47,14 @@ const Update = () => {
 				onSuccess={onSuccess}
 				onClose={onClose}
 				btnSubmitText="Save"
+				hasEdit
+				onEdit={onEdit}
+				vector={vector}
+				setVector={setVector}
+				svgID={svgID}
+				setSvgID={setSvgID}
+				setFiles={setFiles}
+				files={files}
 			/>
 		</>
 	);

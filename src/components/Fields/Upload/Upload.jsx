@@ -7,6 +7,7 @@ import { get } from "lodash";
 import { ControlLabel } from "components/common";
 import { httpCLient } from "services";
 import { useTranslation } from "react-i18next";
+import { Button } from "components/Button/Button";
 
 export const Upload = ({
 	label,
@@ -18,10 +19,13 @@ export const Upload = ({
 	imgSrc,
 	field,
 	form,
+	hasEdit = false,
 	className,
 	imgClick = null,
 	accept = "image/*",
+	setFiles = () => {},
 	imageTitle,
+	onEdit = () => {},
 }) => {
 	const classNames = cn("form-wrapper form_disabled", className);
 	const imgBlock = cn("form-wrapper", { max__content: hasDelete });
@@ -31,9 +35,14 @@ export const Upload = ({
 	const [image, setImage] = useState(imgSrc);
 	const [loading, setLoading] = useState(false);
 
-	const handleFileUpload = async (event) => {
+	const handleFileUpload = (event) => {
+		const file = event.target.files[0];
 		// form.setFieldValue(field.name, event.target.files[0]);
-		setImage(event.target.files[0]);
+		if (file.type === "image/svg+xml") setFiles((prev) => ({ ...prev, svg: file }));
+		else {
+			setFiles((prev) => ({ ...prev, background: file }));
+		}
+		setImage(file);
 	};
 
 	useEffect(() => {
@@ -51,8 +60,11 @@ export const Upload = ({
 				formData.append("files", image);
 				setLoading(true);
 				const res = await httpCLient.post("file", formData);
-				form.setFieldValue(field.name, res?.data[0]?.data.id);
+				const id = get(res, "data[0].data.id");
+				form.setFieldValue(field.name, id);
 				setLoading(false);
+				if (!(image?.type === "image/svg+xml"))
+					setFiles((prev) => ({ ...prev, background_id: id }));
 			};
 			uploadFile();
 		}
@@ -87,6 +99,15 @@ export const Upload = ({
 						/>
 						{loading ? t("Loading...") : t(btnText)}
 					</label>
+					{hasEdit && (
+						<Button
+							innerText="Edit"
+							className="btn btn_form"
+							style={{ marginLeft: "10px" }}
+							onClick={onEdit}
+							type="button"
+						/>
+					)}
 				</div>
 			</div>
 
@@ -146,4 +167,6 @@ Upload.propTypes = {
 	placeholder: PropTypes.string,
 	hasBtnIcon: PropTypes.bool,
 	imgSrc: PropTypes.string,
+	accept: PropTypes.string,
+	imageTitle: PropTypes.string,
 };

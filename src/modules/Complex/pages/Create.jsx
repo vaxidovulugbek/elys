@@ -34,7 +34,6 @@ const Create = () => {
 			<Containers.Form
 				url="/complex"
 				method="post"
-				isFormData
 				className="row"
 				onSuccess={onSuccess}
 				onError={() => notifications.error("Something went wrong")}
@@ -43,11 +42,21 @@ const Create = () => {
 						name: "name",
 						validationType: "object",
 						validations: [{ type: "lng" }],
+						value: {
+							en: "",
+							ru: "",
+							uz: "",
+						},
 					},
 					{
 						name: "address",
 						validationType: "object",
 						validations: [{ type: "lng" }],
+						value: {
+							en: "",
+							ru: "",
+							uz: "",
+						},
 					},
 					{
 						name: "background_id",
@@ -95,7 +104,7 @@ const Create = () => {
 					},
 				]}
 			>
-				{({ errors, values, setFieldValue }) => (
+				{({ errors, values, setFieldValue, isSubmitting }) => (
 					<>
 						<div className="col-lg-6">
 							<div className="card-box">
@@ -269,7 +278,12 @@ const Create = () => {
 									innerText="Cancel"
 									onClick={() => navigate("/", { replace: true })}
 								/>
-								<Button className="btn btn_green" type="submit" innerText="Add" />
+								<Button
+									className="btn btn_green"
+									type="submit"
+									innerText="Add"
+									isLoading={isSubmitting}
+								/>
 							</div>
 						</div>
 					</>

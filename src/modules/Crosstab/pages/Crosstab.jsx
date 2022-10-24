@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { get, isArray } from "lodash";
+import { get, isArray, sortBy } from "lodash";
 import { useTranslation } from "react-i18next";
 
 import Containers from "containers";
@@ -65,6 +65,40 @@ const Crosstab = () => {
 						  }, [])
 						: [];
 
+					const sortedData = isArray(get(data, "data"))
+						? get(data, "data").map((section) => {
+								const floors = sortBy(get(section, "floors"), ["sort"]);
+								const filledArr = { arr: [] };
+								const fillArr = (floors, i = 0) => {
+									if (
+										floors.length > 0 &&
+										!get(floors, `[${i}].apartments`, []).length
+									)
+										floors[i].apartments = [false];
+
+									if (floors.length - 1 === i || floors.length < 2) {
+										filledArr.arr = floors;
+
+										return floors;
+									}
+									if (floors.length > 1) {
+										if (floors[i + 1].sort - floors[i].sort > 1) {
+											floors.splice(i + 1, 0, {
+												sort: i + 2,
+												apartments: [false],
+											});
+										}
+
+										i++;
+										fillArr(floors, i);
+									}
+								};
+								fillArr(floors);
+								console.log(filledArr.arr);
+								filledArr.arr.reverse();
+								return { ...section, floors: filledArr.arr };
+						  })
+						: [];
 					return (
 						<>
 							<CrosstabHeader
@@ -135,7 +169,7 @@ const Crosstab = () => {
 											{...{
 												activeApartment,
 												setActiveApartment,
-												data: get(data, "data", []),
+												data: sortedData,
 												filterFunc,
 												setCount: () => setCount(apartments.length),
 											}}

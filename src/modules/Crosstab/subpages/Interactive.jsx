@@ -38,8 +38,6 @@ const Interactive = ({ setActiveApartment, complexes, setCount }) => {
 		},
 	});
 
-	console.log(pathData.data);
-
 	// steps classes
 	const classNames = (num) => {
 		return cn("step", {
