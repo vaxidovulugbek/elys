@@ -23,7 +23,6 @@ export const Buildings = ({
 	const [pathHoverData, setPathHoverData] = useState();
 
 	const stringSvg = get(data, "vector");
-	// console.log(data);
 
 	useEffect(() => {
 		if (svgWrap.current) {

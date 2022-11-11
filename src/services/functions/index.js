@@ -116,7 +116,6 @@ const generateVector = async (files) => {
 			element.innerHTML = svg;
 			const image = element.querySelector("image");
 			image.setAttribute("href", url);
-			console.log(image);
 			return htmlElementToString(element.childNodes[0]);
 		}
 		if (typeof background === "string" && typeof svg === "object") {
@@ -135,11 +134,8 @@ const generateVector = async (files) => {
 
 const onEditCreator = ({ files, setVector, data }) => {
 	const { svg, background } = files;
-	console.log(files, "OnEditCreater");
 	return async () => {
 		if (svg || background) {
-			console.log(files, "OnEditCreater2");
-
 			const svgStr = await generateVector({
 				background: background || get(data, "background.src"),
 				svg: svg || get(data, "vector"),

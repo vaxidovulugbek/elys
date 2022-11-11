@@ -85,7 +85,6 @@ export const SectionForm = ({
 				>
 					{({ errors, isSubmitting, values }) => (
 						<>
-							{console.log(values)}
 							<div className="card-box col-12">
 								<Typography Type="h5" className="text-muted card-sub">
 									{() => (

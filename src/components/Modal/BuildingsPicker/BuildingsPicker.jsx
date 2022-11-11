@@ -14,7 +14,6 @@ export const BuildingsPicker = ({ link, filter, close, setPathId }) => {
 		<Containers.Form fields={[{ name: "path_id" }]}>
 			{({ values }) => (
 				<>
-					{console.log(values)}
 					<FastField
 						name="path_id"
 						component={Fields.AsyncSelect}

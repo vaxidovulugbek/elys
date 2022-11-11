@@ -94,7 +94,6 @@ const Crosstab = () => {
 									}
 								};
 								fillArr(floors);
-								console.log(filledArr.arr);
 								filledArr.arr.reverse();
 								return { ...section, floors: filledArr.arr };
 						  })
