@@ -4,7 +4,7 @@ import cn from "classnames";
 import { Button } from "components";
 import { useTranslation } from "react-i18next";
 
-export const SearchForm = ({ className, onAdd, onSearch }) => {
+export const SearchForm = ({ className, onAdd, onSearch, onKeyDown }) => {
 	const [searchText, setSearchText] = useState("");
 	const { t } = useTranslation();
 	return (
@@ -16,6 +16,7 @@ export const SearchForm = ({ className, onAdd, onSearch }) => {
 						type="search"
 						placeholder={`${t("Search")}...`}
 						onChange={(e) => setSearchText(e.target.value)}
+						onKeyDown={(e) => onKeyDown(e, searchText)}
 					/>
 					<Button
 						type="button"

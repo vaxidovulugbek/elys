@@ -12,6 +12,7 @@ import { SvgUpload } from "./Upload/SvgUpload";
 import { PhoneInput } from "./PhoneInput/PhoneInput";
 import { ReactQuillComponent } from "./ReactQuill/ReactQuillComponent";
 import { InputMask } from "./InputMask/InputMask";
+import { DateInput } from "./DateInput/DateInput";
 
 export default {
 	Input,
@@ -27,4 +28,5 @@ export default {
 	PhoneInput,
 	ReactQuillComponent,
 	InputMask,
+	DateInput,
 };

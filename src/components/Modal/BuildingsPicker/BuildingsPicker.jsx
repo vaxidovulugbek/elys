@@ -14,12 +14,14 @@ export const BuildingsPicker = ({ link, filter, close, setPathId }) => {
 		<Containers.Form fields={[{ name: "path_id" }]}>
 			{({ values }) => (
 				<>
+					{console.log(values, "values")}
 					<FastField
 						name="path_id"
 						component={Fields.AsyncSelect}
 						urlSearchParams={() => ({
 							filter,
 						})}
+						defaultOptions={{ label: "Nothing", value: " " }}
 						url={link}
 						label="Select"
 						optionLabel="name.uz"

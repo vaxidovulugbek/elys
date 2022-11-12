@@ -5,6 +5,7 @@ import { get } from "lodash";
 import { RoundCircle } from "./RoundCircle";
 import { Button } from "components";
 import { useSelector } from "react-redux";
+import { ReactComponent as PriceIcon } from "assets/images/price-icon.svg";
 
 export const SectionCard = ({ data, onClick = () => {}, onDelete, complexID }) => {
 	const lngCode = useSelector((state) => state.system.lngCode);
@@ -35,6 +36,12 @@ export const SectionCard = ({ data, onClick = () => {}, onDelete, complexID }) =
 							</svg>
 						}
 					/>
+					<Link
+						to={`/price-list/section/${get(data, "id")}`}
+						className="object__action bg_purple"
+					>
+						<PriceIcon fill="#fff" />
+					</Link>
 				</div>
 			</div>
 

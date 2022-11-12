@@ -20,6 +20,10 @@ const settingSubLinks = [
 		url: "/plan-field",
 		name: "Plan Field",
 	},
+	{
+		url: "/contract",
+		name: "Contracts",
+	},
 ];
 
 export const Sidebar = ({ isOpen }) => {
