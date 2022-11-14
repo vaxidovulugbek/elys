@@ -25,6 +25,7 @@ const ComplexUsers = () => {
 			filter: {
 				complex_id: complexID,
 			},
+			include: "user,complex",
 		},
 	});
 
