@@ -43,7 +43,7 @@ const PhoneConfirm = () => {
 					</div>
 				</div>
 				<div className="col-lg-7 reg-content">
-					<div className="reg-content-header d-flex m-auto">
+					{/* <div className="reg-content-header d-flex m-auto">
 						<div className="step-list">
 							<div className="width">
 								<div style={{ width: page > 1 ? "100%" : 0 }}></div>
@@ -55,7 +55,7 @@ const PhoneConfirm = () => {
 								<div className="cl"></div>
 							</div>
 						</div>
-					</div>
+					</div> */}
 					<div className="reg-content-main">
 						<div className="reg-form">
 							<h4 className="form-title">Create your account</h4>

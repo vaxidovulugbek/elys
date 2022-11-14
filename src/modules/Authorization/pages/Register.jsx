@@ -48,7 +48,7 @@ const Register = () => {
 					</div>
 				</div>
 				<div className="col-lg-7 reg-content">
-					<div className="reg-content-header">
+					{/* <div className="reg-content-header">
 						<div className="step-list">
 							<div className="width">
 								<div style={{ width: page > 1 ? "100%" : 0 }}></div>
@@ -64,7 +64,7 @@ const Register = () => {
 							<span>Already have an account?</span>
 							<Link to="/login">Login</Link>
 						</div>
-					</div>
+					</div> */}
 					<div className="reg-content-main">
 						<div className="reg-form">
 							<h4 className="form-title">Create your account</h4>

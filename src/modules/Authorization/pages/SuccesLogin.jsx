@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import StepThree from "../components/StepThree";
 
@@ -24,7 +24,6 @@ const SuccesLogin = () => {
 				<div className="col-lg-7 reg-content">
 					<div className="reg-content-main">
 						<div className="reg-form">
-							<h4 className="form-title">Create your account</h4>
 							<StepThree />
 						</div>
 					</div>
