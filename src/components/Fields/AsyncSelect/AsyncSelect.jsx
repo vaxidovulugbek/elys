@@ -16,6 +16,7 @@ const AsyncSelect = ({
 	optionLabel = "name",
 	form,
 	field,
+	defaultOptions = null,
 	onValueChange = () => {},
 	urlSearchParams = () => {},
 	searchKey,
@@ -35,6 +36,8 @@ const AsyncSelect = ({
 				label: get(item, optionLabel, ""),
 			};
 		});
+
+		defaultOptions && options.push(defaultOptions);
 		return {
 			options,
 			hasMore: get(data, "meta.currentPage", 1) < get(data, "meta.pageCount", 1),
@@ -47,7 +50,7 @@ const AsyncSelect = ({
 			<ControlLabel label={label} />
 			<div className="form-select">
 				<AsyncPaginate
-					defaultOptions={field.value}
+					defaultOptions={!defaultOptions ? field.value : defaultOptions}
 					value={field.value}
 					blurInputOnSelect={true}
 					isSearchable

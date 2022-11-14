@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { get, isArray } from "lodash";
+import { get, isArray, lowerFirst } from "lodash";
 
 import { useFetchInfinite, useOverlay, useScroll } from "hooks";
 
@@ -15,6 +15,10 @@ const List = () => {
 
 	const handleFilter = (searchText) => {
 		setFilterByComplexName(searchText);
+	};
+
+	const onKeyDown = (e, searchText) => {
+		if (e.key === "Enter") handleFilter(searchText);
 	};
 
 	const complexList = useFetchInfinite({
@@ -47,7 +51,11 @@ const List = () => {
 				]}
 			/>
 
-			<SearchForm onSearch={handleFilter} onAdd={() => navigate("/complex/create")} />
+			<SearchForm
+				onSearch={handleFilter}
+				onAdd={() => navigate("/complex/create")}
+				onKeyDown={onKeyDown}
+			/>
 
 			<div className="row">
 				<div className="col-4">

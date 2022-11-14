@@ -586,3 +586,11 @@ a {
 		background-color: $STATUS_CONSTRUCTION;
 	}
 }
+
+table tbody td [class*="status"] {
+	padding: 3px 5px;
+	font-size: 11px;
+	color: #fff;
+	white-space: nowrap;
+	border-radius: 3px;
+}

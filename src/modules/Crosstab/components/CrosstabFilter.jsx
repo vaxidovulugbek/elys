@@ -159,9 +159,10 @@ const Form = ({
 				<div className="rooms">
 					<h3 className="rooms__title">{t("Number of rooms")}</h3>
 					<div className="btns">
-						{roomCounts?.map((item, index) => (
-							<Checkbox key={index} {...checkboxProps(item)} />
-						))}
+						{roomCounts?.map(
+							(item, index) =>
+								item && <Checkbox key={index} {...checkboxProps(item)} />
+						)}
 					</div>
 				</div>
 				<RangePicker {...rangePickerProps(1, t("Price"), minmax.price)} />
