@@ -14,7 +14,7 @@ export const SectionsRoute = [
 		element: <Update />,
 	},
 	{
-		path: "price-list/section/:sectionID",
+		path: "complex/:complexID/section/:sectionID/price-list",
 		element: <PriceList />,
 	},
 ];

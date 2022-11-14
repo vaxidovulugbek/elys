@@ -37,7 +37,7 @@ export const SectionCard = ({ data, onClick = () => {}, onDelete, complexID }) =
 						}
 					/>
 					<Link
-						to={`/price-list/section/${get(data, "id")}`}
+						to={`/complex/${complexID}/section/${get(data, "id")}/price-list`}
 						className="object__action bg_purple"
 					>
 						<PriceIcon fill="#fff" />

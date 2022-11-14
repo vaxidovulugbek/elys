@@ -1,56 +1,39 @@
-import { Button, Fields, Table } from "components";
-import Containers from "containers";
-import { FastField, FieldArray } from "formik";
-import { useFetchList } from "hooks";
-import { get, isNumber, isObject, zip } from "lodash";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
+import { FieldArray } from "formik";
+import { Button, PageHeading } from "components";
+import Containers from "containers";
+import { useFetchList } from "hooks";
+import { get, isNumber, isObject } from "lodash";
 import { constants, notifications, time } from "services";
+import { PriceListTable } from "../components/PriceListTable";
+import { useSelector } from "react-redux";
 
 const PriceList = () => {
-	const { sectionID } = useParams();
+	const { complexID, sectionID } = useParams();
+	const lngCode = useSelector((state) => state.system.lngCode);
 	const navigate = useNavigate();
-
-	const {
-		STATUS_CONSTRUCTION,
-		STATUS_CONSTRUCTION_TEXT,
-		STATUS_FREE,
-		STATUS_FREE_TEXT,
-		STATUS_INTEREST,
-		STATUS_INTEREST_TEXT,
-		STATUS_NOT_FOR_SALE,
-		STATUS_NOT_FOR_SALE_TEXT,
-		STATUS_SOLD,
-		STATUS_SOLD_TEXT,
-	} = constants;
-
-	const status = {
-		[`${STATUS_FREE}`]: STATUS_FREE_TEXT,
-		[`${STATUS_CONSTRUCTION}`]: STATUS_CONSTRUCTION_TEXT,
-		[`${STATUS_INTEREST}`]: STATUS_INTEREST_TEXT,
-		[`${STATUS_NOT_FOR_SALE}`]: STATUS_NOT_FOR_SALE_TEXT,
-		[`${STATUS_SOLD}`]: STATUS_SOLD_TEXT,
-	};
 
 	const floorPriceList = useFetchList({
 		url: `/section/${sectionID}/floor`,
-		urlSearchParams: { include: "owner" },
+		urlSearchParams: { include: "price.owner" },
 	});
 
 	const normalizedData = floorPriceList?.data?.map((item) => {
-		const created_by = (isObject(item.price) && item.price.created_by) || null;
-		const status = (isObject(item.price) && item.price.status) || null;
-		const price = isObject(item.price) ? item.price.price : item.price;
+		const status = get(item, "price.status", null);
+		const price = isObject(item.price) ? get(item, "price.price", null) : get(item, "price");
 		const start_at = (isObject(item.price) && item.price.start_at * 1000) || null;
 		const end_at = (isObject(item.price) && item.price.end_at * 1000) || null;
+		const owner = get(item, "price.owner.username", null);
 		return {
-			id: item.id,
-			"name.uz": item.name.uz,
+			id: get(item, "id"),
+			name: get(item, `name.${lngCode}`),
 			price,
 			status,
-			created_by,
 			start_at,
 			end_at,
+			owner,
 		};
 	});
 
@@ -58,8 +41,17 @@ const PriceList = () => {
 		return (
 			<div style={{ position: "absolute", left: "50%", top: "50%" }}>FLOORS NOT FOUND!!!</div>
 		);
+
 	return (
 		<>
+			<PageHeading
+				title="Price List"
+				links={[
+					{ url: "/", name: "Control Panel" },
+					{ url: `/complex/update/${complexID}`, name: "Sections" },
+					{ url: "", name: "Price list" },
+				]}
+			/>
 			<Containers.Form
 				url={`/section/${sectionID}/floor`}
 				method="put"
@@ -72,17 +64,17 @@ const PriceList = () => {
 						name: "floors",
 						validationType: "array",
 						value: normalizedData,
-						onSubmitValue: (value) => {
-							return value.map((item) => {
+						onSubmitValue: (floors) => {
+							return floors.map((floor) => {
 								return {
-									id: item.id,
-									start_at: isNumber(get(item, "start_at"))
-										? get(item, "start_at") / 1000
-										: time.toTimestamp(get(item, "start_at")),
-									end_at: isNumber(get(item, "end_at"))
-										? get(item, "end_at") / 1000
-										: time.toTimestamp(get(item, "end_at")),
-									price: Number(String(item.price).replaceAll(" ", "")),
+									id: get(floor, "id"),
+									start_at: isNumber(get(floor, "start_at"))
+										? get(floor, "start_at") / 1000
+										: time.toTimestamp(get(floor, "start_at")),
+									end_at: isNumber(get(floor, "end_at"))
+										? get(floor, "end_at") / 1000
+										: time.toTimestamp(get(floor, "end_at")),
+									price: Number(String(floor.price).replaceAll(" ", "")),
 								};
 							});
 						},
@@ -95,67 +87,9 @@ const PriceList = () => {
 							{(remove, push) => {
 								return (
 									<div>
-										<Table
-											columns={[
-												{
-													title: "ID",
-													dataKey: "id",
-													render: (value) => value,
-												},
-												{
-													title: "floor",
-													dataKey: "name.uz",
-													render: (value) => value,
-												},
-												{
-													title: "Price",
-													dataKey: "price",
-													render: (value, values, index) => (
-														<FastField
-															name={`floors.${index}.price`}
-															component={Fields.InputMask}
-															type="text"
-															decimalSeparator=" "
-															thousandSeparator=" "
-														/>
-													),
-												},
-												{
-													title: "Start at",
-													dataKey: "start_at",
-													render: (value, values, index) => (
-														<FastField
-															name={`floors.${index}.start_at`}
-															component={Fields.DatePicker}
-														/>
-													),
-												},
-												{
-													title: "End at",
-													dataKey: "end_at",
-													render: (value, values, index) => (
-														<FastField
-															name={`floors.${index}.end_at`}
-															component={Fields.DatePicker}
-														/>
-													),
-												},
-												{
-													title: "Created by",
-													dataKey: "created_by",
-													render: (value) => value,
-												},
-												{
-													title: "Status",
-													dataKey: "status",
-													render: (value) => (
-														<span className={`status-${value}`}>
-															{status[value]}
-														</span>
-													),
-												},
-											]}
-											items={normalizedData}
+										<PriceListTable
+											data={normalizedData}
+											status={constants.statuses}
 										/>
 									</div>
 								);

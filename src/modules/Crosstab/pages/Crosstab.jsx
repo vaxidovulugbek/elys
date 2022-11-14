@@ -75,10 +75,8 @@ const Crosstab = () => {
 										!get(floors, `[${i}].apartments`, []).length
 									)
 										floors[i].apartments = [false];
-
 									if (floors.length - 1 === i || floors.length < 2) {
 										filledArr.arr = floors;
-
 										return floors;
 									}
 									if (floors.length > 1) {
@@ -98,6 +96,8 @@ const Crosstab = () => {
 								return { ...section, floors: filledArr.arr };
 						  })
 						: [];
+
+					console.log(sortedData, "sortedData");
 					return (
 						<>
 							<CrosstabHeader
