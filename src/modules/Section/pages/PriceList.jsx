@@ -1,11 +1,13 @@
-import { Button, Fields, Table } from "components";
-import Containers from "containers";
-import { FastField, FieldArray } from "formik";
-import { useFetchList } from "hooks";
-import { get, isNumber, isObject, zip } from "lodash";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
+import { FieldArray } from "formik";
+import { Button } from "components";
+import Containers from "containers";
+import { useFetchList } from "hooks";
+import { get, isNumber, isObject } from "lodash";
 import { constants, notifications, time } from "services";
+import { PriceListTable } from "../components/PriceListTable";
 
 const PriceList = () => {
 	const { sectionID } = useParams();
@@ -95,68 +97,7 @@ const PriceList = () => {
 							{(remove, push) => {
 								return (
 									<div>
-										<Table
-											columns={[
-												{
-													title: "ID",
-													dataKey: "id",
-													render: (value) => value,
-												},
-												{
-													title: "floor",
-													dataKey: "name.uz",
-													render: (value) => value,
-												},
-												{
-													title: "Price",
-													dataKey: "price",
-													render: (value, values, index) => (
-														<FastField
-															name={`floors.${index}.price`}
-															component={Fields.InputMask}
-															type="text"
-															decimalSeparator=" "
-															thousandSeparator=" "
-														/>
-													),
-												},
-												{
-													title: "Start at",
-													dataKey: "start_at",
-													render: (value, values, index) => (
-														<FastField
-															name={`floors.${index}.start_at`}
-															component={Fields.DatePicker}
-														/>
-													),
-												},
-												{
-													title: "End at",
-													dataKey: "end_at",
-													render: (value, values, index) => (
-														<FastField
-															name={`floors.${index}.end_at`}
-															component={Fields.DatePicker}
-														/>
-													),
-												},
-												{
-													title: "Created by",
-													dataKey: "created_by",
-													render: (value) => value,
-												},
-												{
-													title: "Status",
-													dataKey: "status",
-													render: (value) => (
-														<span className={`status-${value}`}>
-															{status[value]}
-														</span>
-													),
-												},
-											]}
-											items={normalizedData}
-										/>
+										<PriceListTable data={normalizedData} status={status} />
 									</div>
 								);
 							}}
