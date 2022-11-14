@@ -10,8 +10,26 @@ const StepOne = ({ isPassword, setIsPassword }) => {
 	return (
 		<>
 			<div className="form-group">
+				<label htmlFor="first_name" className="label-control">
+					Firs Name
+					<span className="red"> * </span>
+				</label>
+				<div>
+					<FastField name="first_name" component={Fields.Input} type="text" />
+				</div>
+			</div>
+			<div className="form-group">
+				<label htmlFor="last_name" className="label-control">
+					Last Name
+					<span className="red"> * </span>
+				</label>
+				<div>
+					<FastField name="last_name" component={Fields.Input} type="text" />
+				</div>
+			</div>
+			<div className="form-group">
 				<label htmlFor="username" className="label-control">
-					Name
+					Username
 					<span className="red"> * </span>
 				</label>
 				<div>

@@ -1,37 +1,32 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import cn from "classnames";
 
 import { Button } from "components";
 import Containers from "containers";
-import StepOne from "../components/StepOne";
+// import StepOne from "../components/StepOne";
 import StepTwo from "../components/StepTwo";
-// import StepThree from "../components/StepThree";
+import StepThree from "../components/StepThree";
 
 import "./../styles/Register.css";
 import "../styles/Login.css";
 import logo from "assets/images/logo.svg";
 import { get } from "lodash";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom/dist";
 import { notifications, storage } from "services";
 import { auth } from "store/actions";
+import { useNavigate } from "react-router-dom/dist";
 
-const Register = () => {
+const PhoneConfirm = () => {
 	const [page, setPage] = useState(1);
 	const [isPassword, setIsPassword] = useState(true);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const handlePage = (props) => {
-		props.submitForm();
-		console.log(props);
-	};
+	const steps = [<StepTwo {...{ isPassword, setIsPassword }} />, <StepThree />];
 
-	const steps = [<StepOne {...{ isPassword, setIsPassword }} />, <StepTwo />];
-
-	const item1 = cn("item", { complete: page > 1, active: page < 2 });
-	const item2 = cn("item", { complete: page > 2, active: page === 2 });
+	const item1 = cn("item", { complete: page > 2, active: page < 3 });
+	const item2 = cn("item", { complete: page > 3, active: page === 3 });
 
 	return (
 		<div className="login">
@@ -48,67 +43,48 @@ const Register = () => {
 					</div>
 				</div>
 				<div className="col-lg-7 reg-content">
-					{/* <div className="reg-content-header">
+					{/* <div className="reg-content-header d-flex m-auto">
 						<div className="step-list">
 							<div className="width">
 								<div style={{ width: page > 1 ? "100%" : 0 }}></div>
 							</div>
-							<div className={item1} onClick={() => setPage(1)}>
+							<div className={item1} onClick={() => navigate("/register")}>
 								<div className="cl"></div>
 							</div>
 							<div className={item2}>
 								<div className="cl"></div>
 							</div>
 						</div>
-						<div className="r">
-							<span>Already have an account?</span>
-							<Link to="/login">Login</Link>
-						</div>
 					</div> */}
 					<div className="reg-content-main">
 						<div className="reg-form">
 							<h4 className="form-title">Create your account</h4>
-
 							<Containers.Form
-								url={"user/sign-up"}
+								url="user/sign-up-confirm"
 								method="post"
 								fields={[
-									{
-										name: "email",
-										validationType: "string",
-										validations: [{ type: "required" }, { type: "email" }],
-									},
-									{
-										name: "password",
-										validationType: "string",
-										validations: [{ type: "required" }],
-									},
-									{
-										name: "first_name",
-										validationType: "string",
-										validations: [{ type: "required" }],
-									},
-									{
-										name: "last_name",
-										validationType: "string",
-										validations: [{ type: "required" }],
-									},
-									{
-										name: "username",
-										validationType: "string",
-										validations: [{ type: "required" }],
-									},
 									{
 										name: "phone",
 										validationType: "number",
 										validations: [{ type: "required" }],
 									},
+									{
+										name: "code",
+										validationType: "number",
+										validations: [{ type: "required" }],
+									},
 								]}
 								onSuccess={(user) => {
-									storage.set("token", get(user.data, "token"));
-									dispatch(auth.success(user.data));
 									notifications.success("Успех");
-									navigate("/phone-confirm");
+									if (user.data.status === 9) {
+										// storage.set("token", get(user.data, "token"));
+										dispatch(auth.success(user.data));
+										navigate("/succes-login");
+									} else {
+										storage.set("token", get(user.data, "token"));
+										dispatch(auth.success(user.data));
+										navigate("/login");
+									}
 								}}
 								onError={(error, formHelpers) => {
 									notifications.error("Ошибка");
@@ -121,16 +97,11 @@ const Register = () => {
 											{steps[page - 1]}
 
 											<div className="form-group text-center">
-												<div style={{ display: page === 3 && "none" }}>
+												<div>
 													<Button
-														onClick={
-															page === 1
-																? () => handlePage(props)
-																: null
-														}
-														type={page === 1 ? "button" : "submit"}
+														type="submit"
 														className="form-btn register"
-														innerText={"Start for free"}
+														innerText="Register"
 													/>
 												</div>
 											</div>
@@ -146,4 +117,4 @@ const Register = () => {
 	);
 };
 
-export default Register;
+export default PhoneConfirm;

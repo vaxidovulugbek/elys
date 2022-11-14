@@ -16,6 +16,7 @@ import { CrossTabRoutes } from "modules/Crosstab";
 import { RoomRoute } from "modules/Room";
 import { SettingsRoutes } from "modules/Settings";
 import { SectionsRoute } from "modules/Section";
+import { SuccesLoginRoutes } from "modules/Authorization/routes";
 
 const loggedInRoutes = [
 	{
@@ -86,6 +87,15 @@ export const AppRoutes = () => {
 						<Suspense fallback={<Spinner />}>
 							<Routes>
 								{AuthRoutes.map((route, index) => (
+									<Route key={index} {...route} />
+								))}
+							</Routes>
+						</Suspense>
+					)}
+					{!isFetching && user && (
+						<Suspense fallback={<Spinner />}>
+							<Routes>
+								{SuccesLoginRoutes.map((route, index) => (
 									<Route key={index} {...route} />
 								))}
 							</Routes>
