@@ -6,7 +6,6 @@ import { Button } from "components";
 import Containers from "containers";
 import StepOne from "../components/StepOne";
 import StepTwo from "../components/StepTwo";
-// import StepThree from "../components/StepThree";
 
 import "./../styles/Register.css";
 import "../styles/Login.css";
@@ -48,7 +47,7 @@ const Register = () => {
 					</div>
 				</div>
 				<div className="col-lg-7 reg-content">
-					{/* <div className="reg-content-header">
+					<div className="reg-content-header">
 						<div className="step-list">
 							<div className="width">
 								<div style={{ width: page > 1 ? "100%" : 0 }}></div>
@@ -64,7 +63,7 @@ const Register = () => {
 							<span>Already have an account?</span>
 							<Link to="/login">Login</Link>
 						</div>
-					</div> */}
+					</div>
 					<div className="reg-content-main">
 						<div className="reg-form">
 							<h4 className="form-title">Create your account</h4>
@@ -105,6 +104,7 @@ const Register = () => {
 									},
 								]}
 								onSuccess={(user) => {
+									console.log(user);
 									storage.set("token", get(user.data, "token"));
 									dispatch(auth.success(user.data));
 									notifications.success("Успех");

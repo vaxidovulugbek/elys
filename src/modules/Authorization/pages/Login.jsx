@@ -43,7 +43,11 @@ const Login = () => {
 								onSuccess={(user) => {
 									storage.set("token", get(user.data, "token"));
 									dispatch(auth.success(user.data));
-									navigate("/");
+									if (user.data.status === 10) {
+										navigate("/");
+									} else {
+										navigate("/succes-login");
+									}
 									notifications.success("Успех");
 								}}
 								onError={(error, formHelpers) => {

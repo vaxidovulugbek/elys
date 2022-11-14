@@ -37,7 +37,8 @@ const loggedInRoutes = [
 ];
 
 export const AppRoutes = () => {
-	const user = useSelector((state) => state.auth.username);
+	// console.log(useSelector((state) => state.auth));
+	const user = useSelector((state) => state.auth);
 	return (
 		<App>
 			{({ isFetching, error }) => (
@@ -55,7 +56,7 @@ export const AppRoutes = () => {
 
 					{isFetching && <Spinner />}
 
-					{user && (
+					{user.username && user.status === 10 && (
 						<Routes>
 							{loggedInRoutes.map((item, outerIndex) =>
 								item.routes.map((route, innerIndex) => {
@@ -83,7 +84,7 @@ export const AppRoutes = () => {
 						</Routes>
 					)}
 
-					{!isFetching && !user && (
+					{!isFetching && !user?.username && (
 						<Suspense fallback={<Spinner />}>
 							<Routes>
 								{AuthRoutes.map((route, index) => (
@@ -92,7 +93,7 @@ export const AppRoutes = () => {
 							</Routes>
 						</Suspense>
 					)}
-					{!isFetching && user && (
+					{!isFetching && user && user.status === 9 && (
 						<Suspense fallback={<Spinner />}>
 							<Routes>
 								{SuccesLoginRoutes.map((route, index) => (

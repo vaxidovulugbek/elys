@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 
 import { get } from "lodash";
 
-import { useDelete, useFetchList } from "hooks";
+import { useDelete } from "hooks";
 import { functions, notifications } from "services";
 
 import { RoundCircle } from "./RoundCircle";
 import { Modals } from "components";
 
 import { ReactComponent as TariffIcon } from "assets/images/tariff.svg";
+import { ReactComponent as UserIcon } from "assets/images/person_plus_icon.svg";
 import "./Cards.scss";
 import { useTranslation } from "react-i18next";
 import classNames from "classnames";
@@ -110,6 +111,13 @@ export const ObjectCard = ({
 
 					<Link to={`tariff/${get(data, "id")}`} className="object__action bg_orange">
 						<TariffIcon fill="#fff" />
+					</Link>
+
+					<Link
+						to={`complex-user/${get(data, "id")}`}
+						className="object__action bg_purple"
+					>
+						<UserIcon fill="#fff" stroke="#fff" width={"24px"} height={"24px"} />
 					</Link>
 
 					<button className="object__action bg_red" onClick={(e) => deleteObject(e)}>
