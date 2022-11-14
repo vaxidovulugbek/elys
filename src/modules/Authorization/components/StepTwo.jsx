@@ -11,20 +11,20 @@ const StepTwo = ({ page }) => {
 		<>
 			<div className="form-group">
 				<label htmlFor="office-register-form-fax" className="label-control">
-					Company name
+					Confirmation number
 					<span className="red"> * </span>
 				</label>
 				<div>
-					<FastField name="fax" component={Fields.Input} />
+					<FastField name="phone" component={Fields.Input} />
 				</div>
 			</div>
 			<div className="form-group">
-				<label htmlFor="office-auth-register-website" className="label-control">
-					Website
+				<label htmlFor="office-register-form-fax" className="label-control">
+					Confirmation number
 					<span className="red"> * </span>
 				</label>
 				<div>
-					<FastField name="web_site" component={Fields.Input} />
+					<FastField name="code" component={Fields.Input} />
 				</div>
 			</div>
 		</>
