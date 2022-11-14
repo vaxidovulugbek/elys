@@ -38,27 +38,6 @@ const Apartments = ({ filterFunc, setActiveApartment, activeApartment, complexID
 
 	useScroll(document.querySelector(".crosstab .content"), apartments.fetchNextPage, 100);
 
-	const {
-		STATUS_CONSTRUCTION,
-		STATUS_CONSTRUCTION_TEXT,
-		STATUS_FREE,
-		STATUS_FREE_TEXT,
-		STATUS_INTEREST,
-		STATUS_INTEREST_TEXT,
-		STATUS_NOT_FOR_SALE,
-		STATUS_NOT_FOR_SALE_TEXT,
-		STATUS_SOLD,
-		STATUS_SOLD_TEXT,
-	} = constants;
-
-	const status = {
-		[`${STATUS_FREE}`]: STATUS_FREE_TEXT,
-		[`${STATUS_CONSTRUCTION}`]: STATUS_CONSTRUCTION_TEXT,
-		[`${STATUS_INTEREST}`]: STATUS_INTEREST_TEXT,
-		[`${STATUS_NOT_FOR_SALE}`]: STATUS_NOT_FOR_SALE_TEXT,
-		[`${STATUS_SOLD}`]: STATUS_SOLD_TEXT,
-	};
-
 	const handleSort = (type) => {
 		type === sortType ? setSortType(`-${type}`) : setSortType(type);
 	};
@@ -198,7 +177,12 @@ const Apartments = ({ filterFunc, setActiveApartment, activeApartment, complexID
 										<td>{get(item, "price")} UZS</td>
 										<td>
 											<span className={`status-${get(item, "status")}`}>
-												{t(get(status, `${get(item, "status")}`))}
+												{t(
+													get(
+														constants.statuses,
+														`${get(item, "status")}`
+													)
+												)}
 											</span>
 										</td>
 									</tr>

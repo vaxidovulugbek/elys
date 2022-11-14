@@ -12,12 +12,12 @@ export const PriceListTable = ({ data, status }) => {
 					render: (value) => value,
 				},
 				{
-					title: "floor",
-					dataKey: "name.uz",
+					title: "Floor",
+					dataKey: "name",
 					render: (value) => value,
 				},
 				{
-					title: "Price",
+					title: "Price m²",
 					dataKey: "price",
 					render: (value, values, index) => (
 						<FastField
@@ -30,7 +30,7 @@ export const PriceListTable = ({ data, status }) => {
 					),
 				},
 				{
-					title: "Start at",
+					title: "Start date",
 					dataKey: "start_at",
 					render: (value, values, index) => (
 						<FastField
@@ -40,7 +40,7 @@ export const PriceListTable = ({ data, status }) => {
 					),
 				},
 				{
-					title: "End at",
+					title: "End date",
 					dataKey: "end_at",
 					render: (value, values, index) => (
 						<FastField name={`floors.${index}.end_at`} component={Fields.DatePicker} />
@@ -48,7 +48,7 @@ export const PriceListTable = ({ data, status }) => {
 				},
 				{
 					title: "Created by",
-					dataKey: "created_by",
+					dataKey: "owner",
 					render: (value) => value,
 				},
 				{

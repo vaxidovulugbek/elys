@@ -1,10 +1,18 @@
-import { PageHeading } from "components";
+import { ListPagination, PageHeading } from "components";
 import { useFetchList } from "hooks";
+import { get } from "lodash";
 import React from "react";
+import { useState } from "react";
 import { ContractTable } from "../components/ContractTable";
 
 const Contracts = () => {
-	const items = useFetchList({ url: "contract", urlSearchParams: { include: "document" } });
+	const [page, setPage] = useState(1);
+	const contracts = useFetchList({
+		url: "contract",
+		urlSearchParams: { page, include: "document" },
+	});
+
+	console.log(contracts.data, "contracts");
 	return (
 		<>
 			<PageHeading
@@ -14,7 +22,14 @@ const Contracts = () => {
 					{ url: "", name: "Contracts" },
 				]}
 			/>
-			<ContractTable items={items.data} />
+			<ContractTable items={contracts.data} />
+
+			<ListPagination
+				pageCount={get(contracts, "meta.pageCount")}
+				onPageChange={(page) => {
+					setPage(page + 1);
+				}}
+			/>
 		</>
 	);
 };
