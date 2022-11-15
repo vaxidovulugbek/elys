@@ -11,6 +11,8 @@ import { Modals } from "components";
 
 import { ReactComponent as TariffIcon } from "assets/images/tariff.svg";
 import { ReactComponent as UserIcon } from "assets/images/person_plus_icon.svg";
+import { ReactComponent as ContractIcon } from "assets/images/contract-icon.svg";
+import { ReactComponent as ClientsIcon } from "assets/images/clients-icon.svg";
 import "./Cards.scss";
 import { useTranslation } from "react-i18next";
 import classNames from "classnames";
@@ -208,7 +210,7 @@ export const ObjectCard = ({
 				</div>
 
 				<div
-					className="object__links d-flex gap"
+					className="object__links d-flex gap flex-wrap"
 					style={{ "--column-gap": "5px" }}
 					onClick={(e) => e.stopPropagation()}
 				>
@@ -245,6 +247,14 @@ export const ObjectCard = ({
 							<path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
 						</svg>
 						{t("Crosstab")}
+					</Link>
+					<Link to={"/contract"} className="btn btn_outlined btn_small">
+						<ContractIcon />
+						{t("Contracts")}
+					</Link>
+					<Link to={"/client"} className="btn btn_outlined btn_small">
+						<ClientsIcon />
+						{t("Clients")}
 					</Link>
 				</div>
 			</div>

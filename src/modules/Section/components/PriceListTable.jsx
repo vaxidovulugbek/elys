@@ -1,6 +1,7 @@
 import { Fields, Table } from "components";
 import { FastField } from "formik";
 import React from "react";
+import { constants } from "services";
 
 export const PriceListTable = ({ data, status }) => {
 	return (
@@ -54,7 +55,9 @@ export const PriceListTable = ({ data, status }) => {
 				{
 					title: "Status",
 					dataKey: "status",
-					render: (value) => <span className={`status-${value}`}>{status[value]}</span>,
+					render: (value) =>
+						value &&
+						constants.priceListOptions.find((item) => item.value === value).label,
 				},
 			]}
 			items={data}

@@ -18,7 +18,6 @@ import { Link, useNavigate } from "react-router-dom/dist";
 
 const PhoneConfirm = () => {
 	const [page, setPage] = useState(1);
-	setPage(1);
 	const [isPassword, setIsPassword] = useState(true);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();

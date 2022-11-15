@@ -14,21 +14,6 @@ const ComplexUsers = () => {
 	const { complexID } = useParams();
 	const modal = useOverlay("complex-user-modal");
 
-	const { data, setId } = useFetchOneWithId({
-		url: "/user-complex",
-		queryOptions: {
-			enabled: false,
-		},
-		refetchStatus: modal.isOpen,
-	});
-
-	const handleEdit = (row) => {
-		setId(row.id);
-		console.log(row.id, "id");
-		console.log(row, "row");
-		modal.handleOverlayOpen();
-	};
-
 	const deleteTariff = useDelete({
 		url: "/user-complex",
 	});
@@ -69,7 +54,7 @@ const ComplexUsers = () => {
 					modal.handleOverlayClose();
 					notifications.success("User is created");
 				}}
-				method={data ? "put" : "post"}
+				method={"post"}
 			/>
 
 			<PageHeading

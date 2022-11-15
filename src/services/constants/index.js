@@ -51,6 +51,11 @@ constants.sectionStatusOptions = [
 	{ value: 9, label: constants.STATUS_INACTIVE_TEXT },
 	{ value: 0, label: "Deleted" },
 ];
+constants.priceListOptions = [
+	{ value: 1, label: "Active" },
+	{ value: 2, label: constants.STATUS_INACTIVE_TEXT },
+	{ value: 3, label: "Deleted" },
+];
 
 constants.typeOptions = [
 	{ value: constants.TYPE_FLAT, label: "Flat" },
