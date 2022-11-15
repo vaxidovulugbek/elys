@@ -96,8 +96,6 @@ const Crosstab = () => {
 								return { ...section, floors: filledArr.arr };
 						  })
 						: [];
-
-					console.log(sortedData, "sortedData");
 					return (
 						<>
 							<CrosstabHeader

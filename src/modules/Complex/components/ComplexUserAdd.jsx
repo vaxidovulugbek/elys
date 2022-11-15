@@ -45,7 +45,6 @@ export const ComplexUsersAdd = ({ isOpen, onClose, formData, onSuccess, complexI
 			>
 				{(formik) => (
 					<>
-						{console.log(formik.errors)}
 						<div className="col-12">
 							<FastField
 								url="user"

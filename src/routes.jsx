@@ -37,7 +37,6 @@ const loggedInRoutes = [
 ];
 
 export const AppRoutes = () => {
-	// console.log(useSelector((state) => state.auth));
 	const user = useSelector((state) => state.auth);
 	return (
 		<App>

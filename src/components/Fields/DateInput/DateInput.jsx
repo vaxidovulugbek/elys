@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import ReactInputMask from "react-input-mask";
 
 export const DateInput = ({ label, form, field, placeholder }) => {
-	console.log(field.value, "field.value");
 	const { t } = useTranslation();
 	const handleChange = (e) => {
 		const { value } = e.target;

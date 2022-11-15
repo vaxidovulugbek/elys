@@ -24,7 +24,6 @@ const Register = () => {
 
 	const handlePage = (props) => {
 		props.submitForm();
-		console.log(props);
 	};
 
 	const steps = [<StepOne {...{ isPassword, setIsPassword }} />, <StepTwo />];
@@ -104,7 +103,6 @@ const Register = () => {
 									},
 								]}
 								onSuccess={(user) => {
-									console.log(user);
 									storage.set("token", get(user.data, "token"));
 									dispatch(auth.success(user.data));
 									notifications.success("Успех");

@@ -27,9 +27,6 @@ const ComplexUsers = () => {
 			},
 		},
 	});
-
-	console.log(complexUsers);
-
 	const confirmDelete = (event, item) => {
 		Modals.deletePermission({
 			title: "Delete a project?",

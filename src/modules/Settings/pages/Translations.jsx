@@ -31,7 +31,6 @@ const Translations = () => {
 		translationModal.handleOverlayOpen();
 	};
 
-	console.log(translations.data, "translations.data");
 	return (
 		<>
 			<PageHeading

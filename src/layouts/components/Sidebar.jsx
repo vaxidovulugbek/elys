@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useMatch, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import cn from "classnames";
-import { find } from "lodash";
+import { find, get } from "lodash";
 
 import { ReactComponent as HomeSvg } from "assets/images/home.svg";
 import { ReactComponent as Settings } from "assets/images/settings.svg";
@@ -23,6 +23,10 @@ const settingSubLinks = [
 	{
 		url: "/contract",
 		name: "Contracts",
+	},
+	{
+		url: "/client",
+		name: "Clients",
 	},
 ];
 

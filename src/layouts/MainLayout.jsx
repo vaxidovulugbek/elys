@@ -15,7 +15,7 @@ export const MainLayout = () => {
 	return (
 		<>
 			<Topbar setIsOpen={setIsOpen} isOpen={isOpen} />
-			<Sidebar isOpen={isOpen} />
+			<Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
 			<main className={cn("main", { "sidebar-close": !isOpen })}>
 				<div className={classnames}>
 					<Outlet />

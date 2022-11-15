@@ -3,7 +3,7 @@ import React from "react";
 import { constants, functions, time } from "services";
 import { ReactComponent as DownloadIcon } from "assets/images/download.svg";
 
-export const ContractTable = ({ items }) => {
+export const ContractTable = ({ items, onRowClick }) => {
 	return (
 		<Table
 			items={items}
@@ -66,6 +66,7 @@ export const ContractTable = ({ items }) => {
 					),
 				},
 			]}
+			onRowClick={onRowClick}
 		/>
 	);
 };
