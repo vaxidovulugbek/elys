@@ -1,6 +1,6 @@
 import React from "react";
 
-import { constants } from "services";
+// import { constants } from "services";
 
 import { Table } from "components";
 
@@ -15,28 +15,16 @@ export const ComplexUsersTable = ({ items, onDelete }) => {
 					dataKey: "id",
 					render: (value) => value,
 				},
-				// {
-				// 	title: "Type",
-				// 	dataKey: "type",
-				// 	render: (value) => {
-				// 		return constants.typeOptions.find((item) => (item.value = value)).label;
-				// 	},
-				// },
-				// {
-				// 	title: "Initial payment %",
-				// 	dataKey: "payment",
-				// 	render: (value) => value,
-				// },
-				// {
-				// 	title: "Discount %",
-				// 	dataKey: "discount",
-				// 	render: (value) => value,
-				// },
-				// {
-				// 	title: "Duration month",
-				// 	dataKey: "month_count",
-				// 	render: (value) => value,
-				// },
+				{
+					title: "Username",
+					dataKey: "user.username",
+					render: (value) => value,
+				},
+				{
+					title: "Status",
+					dataKey: "user.status",
+					render: (value) => value,
+				},
 			]}
 		/>
 	);

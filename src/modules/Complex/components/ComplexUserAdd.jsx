@@ -6,7 +6,6 @@ import { notifications } from "services";
 import Containers from "containers";
 import { Button, ModalRoot, Fields, Typography } from "components";
 import AsyncSelect from "components/Fields/AsyncSelect/AsyncSelect";
-import { get } from "lodash";
 
 export const ComplexUsersAdd = ({ isOpen, onClose, formData, onSuccess, complexID }) => {
 	return (
