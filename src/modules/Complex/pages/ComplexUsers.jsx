@@ -8,10 +8,26 @@ import { ListPagination, PageHeading, Button, Modals } from "components";
 import { useDelete, useFetchList, useOverlay } from "hooks";
 import { ComplexUsersAdd } from "../components/ComplexUserAdd";
 import { ComplexUsersTable } from "../components/ComplexUserTable";
+import { useFetchOneWithId } from "./../../../hooks/useFetchOneWithId";
 
 const ComplexUsers = () => {
 	const { complexID } = useParams();
 	const modal = useOverlay("complex-user-modal");
+
+	const { data, setId } = useFetchOneWithId({
+		url: "/user-complex",
+		queryOptions: {
+			enabled: false,
+		},
+		refetchStatus: modal.isOpen,
+	});
+
+	const handleEdit = (row) => {
+		setId(row.id);
+		console.log(row.id, "id");
+		console.log(row, "row");
+		modal.handleOverlayOpen();
+	};
 
 	const deleteTariff = useDelete({
 		url: "/user-complex",
@@ -25,11 +41,9 @@ const ComplexUsers = () => {
 			filter: {
 				complex_id: complexID,
 			},
-			include: "user,complex",
+			include: "user",
 		},
 	});
-
-	console.log(complexUsers);
 
 	const confirmDelete = (event, item) => {
 		Modals.deletePermission({
@@ -55,6 +69,7 @@ const ComplexUsers = () => {
 					modal.handleOverlayClose();
 					notifications.success("User is created");
 				}}
+				method={data ? "put" : "post"}
 			/>
 
 			<PageHeading
@@ -73,7 +88,11 @@ const ComplexUsers = () => {
 				)}
 			/>
 
-			<ComplexUsersTable items={complexUsers.data} onDelete={confirmDelete} />
+			<ComplexUsersTable
+				items={complexUsers.data}
+				onDelete={confirmDelete}
+				onEdit={handleEdit}
+			/>
 
 			<ListPagination
 				pageCount={get(complexUsers, "meta.pageCount")}
