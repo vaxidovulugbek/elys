@@ -1,14 +1,14 @@
 import React from "react";
 
-// import { constants } from "services";
-
 import { Table } from "components";
+import { time } from "services";
 
-export const ComplexUsersTable = ({ items, onDelete }) => {
+export const ComplexUsersTable = ({ items, onDelete, onEdit }) => {
 	return (
 		<Table
 			items={items}
 			deleteAction={onDelete}
+			editAction={onEdit}
 			columns={[
 				{
 					title: "ID",
@@ -22,8 +22,14 @@ export const ComplexUsersTable = ({ items, onDelete }) => {
 				},
 				{
 					title: "Status",
-					dataKey: "user.status",
-					render: (value) => value,
+					dataKey: "status",
+					render: (value) =>
+						value === 10 ? "active" : value === 9 ? "inactive" : "deleted",
+				},
+				{
+					title: "Time",
+					dataKey: "expires_at",
+					render: (value) => time.to(value),
 				},
 			]}
 		/>

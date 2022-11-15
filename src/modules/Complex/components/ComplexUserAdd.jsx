@@ -1,13 +1,14 @@
 import React from "react";
 import { FastField } from "formik";
 
-import { notifications } from "services";
+import { constants, notifications, time } from "services";
 
 import Containers from "containers";
 import { Button, ModalRoot, Fields, Typography } from "components";
-import AsyncSelect from "components/Fields/AsyncSelect/AsyncSelect";
 
-export const ComplexUsersAdd = ({ isOpen, onClose, formData, onSuccess, complexID }) => {
+const translatedOptions = constants.sectionStatusOptions;
+
+export const ComplexUsersAdd = ({ isOpen, onClose, formData, onSuccess, complexID, method }) => {
 	return (
 		<ModalRoot isOpen={isOpen}>
 			<div className="modal__heading d-flex align-items-center justify-content-between">
@@ -17,7 +18,7 @@ export const ComplexUsersAdd = ({ isOpen, onClose, formData, onSuccess, complexI
 
 			<Containers.Form
 				url="/user-complex"
-				method="post"
+				method={method}
 				onSuccess={onSuccess}
 				onError={() => {
 					notifications.error("Something went wrong");
@@ -34,6 +35,7 @@ export const ComplexUsersAdd = ({ isOpen, onClose, formData, onSuccess, complexI
 					},
 					{
 						name: "expires_at",
+						onSubmitValue: (value) => time.toTimestamp(value.value),
 					},
 					{
 						name: "complex_id",
@@ -52,6 +54,24 @@ export const ComplexUsersAdd = ({ isOpen, onClose, formData, onSuccess, complexI
 								optionLabel={"username"}
 								component={Fields.AsyncSelect}
 								label="User"
+							/>
+						</div>
+						<div className="col-12">
+							<FastField
+								name="expires_at"
+								optionLabel="expires_at"
+								component={Fields.DatePicker}
+								label="Time"
+								placeholder="Time"
+							/>
+						</div>
+						<div className="col-12">
+							<FastField
+								name="status"
+								component={Fields.Select}
+								label="status"
+								options={translatedOptions}
+								placeholder="status"
 							/>
 						</div>
 

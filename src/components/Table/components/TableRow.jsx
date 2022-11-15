@@ -39,7 +39,7 @@ export const TableRow = ({
 						{isFunction(editAction) && (
 							<Button
 								className="table__action border_radius"
-								onClick={editAction}
+								onClick={() => editAction(row)}
 								append={<EditIcon />}
 							/>
 						)}
