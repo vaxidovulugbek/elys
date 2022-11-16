@@ -121,6 +121,12 @@ export const ObjectCard = ({
 					>
 						<UserIcon fill="#fff" stroke="#fff" width={"24px"} height={"24px"} />
 					</Link>
+					<Link
+						to={`complex-statistcs/${get(data, "id")}`}
+						className="object__action bg_purple"
+					>
+						<UserIcon fill="#fff" stroke="#fff" width={"24px"} height={"24px"} />
+					</Link>
 
 					<button className="object__action bg_red" onClick={(e) => deleteObject(e)}>
 						<svg width="24" height="24" viewBox="0 0 24 24">
