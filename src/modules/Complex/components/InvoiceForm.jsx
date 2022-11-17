@@ -1,10 +1,9 @@
 import { Fields, ModalRoot, Modals } from "components";
-import { useFetchOne } from "hooks";
 import { get } from "lodash";
-import React, { useEffect } from "react";
+import React from "react";
+import { notifications } from "services";
 
-export const InvoiceForm = ({ modal, data }) => {
-	console.log(data, "data");
+export const InvoiceForm = ({ modal, data, invoices }) => {
 	return (
 		<ModalRoot isOpen={modal.isOpen}>
 			<Modals.AddObject
@@ -26,8 +25,12 @@ export const InvoiceForm = ({ modal, data }) => {
 				url={`/transaction/${get(data, "id")}`}
 				submitText={"Save"}
 				method={"put"}
-				onClose={() => {}}
-				onSuccess={() => {}}
+				onClose={modal.handleOverlayClose}
+				onSuccess={() => {
+					notifications.success("transaction is updated");
+					invoices.refetch();
+					modal.handleOverlayClose();
+				}}
 				title={"Update Transaction"}
 			/>
 		</ModalRoot>

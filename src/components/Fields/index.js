@@ -9,6 +9,7 @@ import { MultiUpload } from "./Upload/MultiUpload";
 import { TreeCheckbox } from "./TreeCheckbox/TreeCheckbox";
 import AsyncSelect from "./AsyncSelect/AsyncSelect";
 import { StaticSelect } from "./StaticSelect/StaticSelect";
+import { RangeDatePicker } from "./DateRangePicker/RangeDatePicker";
 import { SvgUpload } from "./Upload/SvgUpload";
 import { PhoneInput } from "./PhoneInput/PhoneInput";
 import { ReactQuillComponent } from "./ReactQuill/ReactQuillComponent";
@@ -31,4 +32,5 @@ export default {
 	ReactQuillComponent,
 	InputMask,
 	DateInput,
+	RangeDatePicker,
 };

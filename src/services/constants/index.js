@@ -94,6 +94,21 @@ constants.payedStatusOptions = [
 	},
 ];
 
+constants.paymentTypeOptions = [
+	{
+		value: 1,
+		label: "Cash",
+	},
+	{
+		value: 2,
+		label: "Card",
+	},
+	{
+		value: 3,
+		label: "Transfer",
+	},
+];
+
 const {
 	STATUS_CONSTRUCTION,
 	STATUS_CONSTRUCTION_TEXT,

@@ -21,9 +21,7 @@ export const Head = ({
 						{get(col, "title")}
 					</th>
 				))}
-				{(editAction || deleteAction || viewAction || checkAction || renderButtons) && (
-					<th className="table__th"></th>
-				)}
+				{(editAction || deleteAction || renderButtons) && <th className="table__th"></th>}
 			</tr>
 		</thead>
 	);

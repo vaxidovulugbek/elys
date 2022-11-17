@@ -14,8 +14,6 @@ export const TableRow = ({
 	columns,
 	deleteAction,
 	editAction,
-	viewAction,
-	checkAction,
 	onRowClick,
 	renderButtons,
 	index,
@@ -35,7 +33,7 @@ export const TableRow = ({
 				);
 			})}
 
-			{(editAction || deleteAction || viewAction || checkAction || renderButtons) && (
+			{(editAction || deleteAction || renderButtons) && (
 				<td className="table__td">
 					<div className="d-flex align-items-center justify-content-center">
 						{isFunction(renderButtons) && renderButtons(row)}
@@ -53,20 +51,6 @@ export const TableRow = ({
 								className="table__action border_radius"
 								onClick={(event) => deleteAction(event, row)}
 								append={<DeleteIcon />}
-							/>
-						)}
-						{isFunction(viewAction) && (
-							<Button
-								className="table__action border_radius"
-								onClick={(event) => viewAction(event, row)}
-								append={<ViewIcon fill="#5fbeaa" stroke="#5fbeaa" />}
-							/>
-						)}
-						{isFunction(checkAction) && (
-							<Button
-								className="table__action border_radius"
-								onClick={(event) => checkAction(event, row)}
-								append={<CheckIcon fill="#5fbeaa" stroke="#5fbeaa" />}
 							/>
 						)}
 					</div>
