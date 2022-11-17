@@ -79,6 +79,21 @@ constants.classOptions = [
 	{ value: constants.CLASS_BUSINESS, label: "Business" },
 ];
 
+constants.payedStatusOptions = [
+	{
+		value: 0,
+		label: "Canceled",
+	},
+	{
+		value: 1,
+		label: "Panding",
+	},
+	{
+		value: 2,
+		label: "Payed",
+	},
+];
+
 const {
 	STATUS_CONSTRUCTION,
 	STATUS_CONSTRUCTION_TEXT,

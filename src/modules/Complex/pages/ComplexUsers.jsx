@@ -5,20 +5,30 @@ import { get } from "lodash";
 import { notifications } from "services";
 
 import { ListPagination, PageHeading, Button, Modals } from "components";
-import { useDelete, useFetchList, useOverlay } from "hooks";
+import { useDelete, useFetchList, useFetchOneWithId, useOverlay } from "hooks";
 import { ComplexUsersAdd } from "../components/ComplexUserAdd";
 import { ComplexUsersTable } from "../components/ComplexUserTable";
-import { useFetchOneWithId } from "./../../../hooks/useFetchOneWithId";
 
 const ComplexUsers = () => {
 	const { complexID } = useParams();
+
 	const modal = useOverlay("complex-user-modal");
+
+	const [page, setPage] = useState(1);
+
+	const { data, setId } = useFetchOneWithId({
+		url: "/user-complex",
+		queryOptions: {
+			enabled: false,
+		},
+
+		refetchStatus: modal.isOpen,
+	});
 
 	const deleteTariff = useDelete({
 		url: "/user-complex",
 	});
 
-	const [page, setPage] = useState(1);
 	const complexUsers = useFetchList({
 		url: "/user-complex",
 		urlSearchParams: {
@@ -29,6 +39,17 @@ const ComplexUsers = () => {
 			include: "user",
 		},
 	});
+
+	const handleEdit = (row) => {
+		setId(row.id);
+		modal.handleOverlayOpen();
+	};
+
+	const onSuccess = () => {
+		complexUsers.refetch();
+		notifications.success("Success");
+		modal.handleOverlayClose();
+	};
 
 	const confirmDelete = (event, item) => {
 		Modals.deletePermission({
@@ -45,18 +66,6 @@ const ComplexUsers = () => {
 
 	return (
 		<>
-			<ComplexUsersAdd
-				isOpen={modal.isOpen}
-				complexID={complexID}
-				onClose={modal.handleOverlayClose}
-				onSuccess={() => {
-					complexUsers.refetch();
-					modal.handleOverlayClose();
-					notifications.success("User is created");
-				}}
-				method={"post"}
-			/>
-
 			<PageHeading
 				title="Users"
 				links={[
@@ -76,7 +85,14 @@ const ComplexUsers = () => {
 			<ComplexUsersTable
 				items={complexUsers.data}
 				onDelete={confirmDelete}
-				// onEdit={handleEdit}
+				onEdit={handleEdit}
+			/>
+
+			<ComplexUsersAdd
+				complexID={complexID}
+				data={data}
+				modal={modal}
+				onSuccess={onSuccess}
 			/>
 
 			<ListPagination

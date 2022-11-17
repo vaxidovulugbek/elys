@@ -16,6 +16,8 @@ export const Table = ({
 	items = [],
 	deleteAction,
 	editAction,
+	viewAction,
+	checkAction,
 	onRowClick,
 	renderButtons,
 }) => {
@@ -27,6 +29,8 @@ export const Table = ({
 				columns={columns}
 				deleteAction={deleteAction}
 				editAction={editAction}
+				viewAction={viewAction}
+				checkAction={checkAction}
 				renderButtons={renderButtons}
 			/>
 
@@ -48,7 +52,9 @@ export const Table = ({
 							row={row}
 							columns={columns}
 							deleteAction={deleteAction}
-							editAction={editAction}
+							editAction={row.status !== 2 && row.status !== 0 && editAction}
+							viewAction={viewAction}
+							checkAction={row.status !== 0 && row.status !== 2 && checkAction}
 							onRowClick={onRowClick}
 							renderButtons={renderButtons}
 							index={index}
