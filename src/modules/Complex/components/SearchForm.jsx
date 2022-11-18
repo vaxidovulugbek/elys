@@ -1,18 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import cn from "classnames";
 
 import { Button } from "components";
+import { useTranslation } from "react-i18next";
 
-export const SearchForm = ({ className, onClick }) => {
+export const SearchForm = ({ className, onAdd, onSearch, onKeyDown }) => {
+	const [searchText, setSearchText] = useState("");
+	const { t } = useTranslation();
 	return (
 		<div className={cn("row search-form", className)}>
 			<div className="col-6">
 				<label className="form-control cursor_text">
-					<input className="form-control__input" type="search" placeholder="Search..." />
+					<input
+						className="form-control__input"
+						type="search"
+						placeholder={`${t("Search")}...`}
+						onChange={(e) => setSearchText(e.target.value)}
+						onKeyDown={(e) => onKeyDown(e, searchText)}
+					/>
 					<Button
 						type="button"
 						className="search-form__btn"
-						onClick={onClick}
+						onClick={() => onSearch(searchText)}
 						append={
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -31,8 +40,9 @@ export const SearchForm = ({ className, onClick }) => {
 				<Button
 					type="button"
 					className="btn btn_green"
-					onClick={onClick}
-					innerText="+ Add"
+					onClick={onAdd}
+					prepend="+ "
+					innerText="Add"
 					style={{ height: "36px" }}
 				/>
 			</div>

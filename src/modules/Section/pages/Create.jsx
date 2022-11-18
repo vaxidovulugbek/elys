@@ -8,7 +8,7 @@ const Create = () => {
 
 	const onSuccess = () => {
 		navigate(-1);
-		notifications.success("Floor is created!");
+		notifications.success("Section is created!");
 	};
 
 	const onClose = () => {

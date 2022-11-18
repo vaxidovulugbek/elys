@@ -1,24 +1,19 @@
-import React, { useState } from "react";
-
-import cn from "classnames";
+import PropTypes from "prop-types";
+import ReactTooltip from "react-tooltip";
 
 import "./InfoTooltip.scss";
 
-export const InfoTooltip = ({ innerText }) => {
-	const [activeClass, setActiveClass] = useState("");
-
-	const classNames = cn("toolTip__content", activeClass);
-
+export const InfoTooltip = ({ children, id, effect = "solid" }) => {
 	return (
 		<>
-			<span
-				className="toolTip__wrapper"
-				onMouseEnter={() => setActiveClass("active")}
-				onMouseLeave={() => setActiveClass("")}
-			>
-				<img src={require("assets/images/infoIcon.svg").default} alt="info" />
-				<div className={classNames}>{innerText}</div>
-			</span>
+			<ReactTooltip id={id} effect={effect}>
+				{children}
+			</ReactTooltip>
 		</>
 	);
+};
+
+InfoTooltip.propTypes = {
+	effect: PropTypes.string,
+	id: PropTypes.string,
 };

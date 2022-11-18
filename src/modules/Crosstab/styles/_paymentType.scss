@@ -26,16 +26,17 @@
 
 	&__slider {
 		display: flex;
-		justify-content: center;
 		align-items: center;
+		justify-content: center;
 
 		.swiper {
-			max-width: 400px
+			max-width: 400px;
 		}
 	}
 
 	&__choice {
 		display: grid;
+
 		height: max-content;
 		padding: 10px;
 	}

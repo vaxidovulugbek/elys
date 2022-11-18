@@ -11,7 +11,10 @@ export const DatePicker = ({ label, className, form, field }) => {
 			<label className="form-label">{typeof label === "string" && label}</label>
 			<ReactDatePicker
 				selected={field.value}
-				onChange={(date) => form.setFieldValue(field.name, date)}
+				dateFormat="dd/MM/yyyy"
+				onChange={(date) => {
+					form.setFieldValue(field.name, date);
+				}}
 			/>
 		</div>
 	);

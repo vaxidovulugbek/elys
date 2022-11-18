@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useTranslation } from "react-i18next";
 import ReactInputMask from "react-input-mask";
 
 export const MaskedDateInput = ({ label, form, field, placeholder }) => {
+	const { t } = useTranslation();
 	const handleChange = (e) => {
 		const { value } = e.target;
 		const date = value.split(".");
@@ -12,7 +14,7 @@ export const MaskedDateInput = ({ label, form, field, placeholder }) => {
 	};
 	return (
 		<div className="masked-date form-wrapper">
-			<span className="form-label">{label}</span>
+			<span className="form-label">{t(label)}</span>
 			<label className="form-control cursor_text">
 				<ReactInputMask mask="99.99.9999" value={field.value} onChange={handleChange}>
 					{(inputProps) => (

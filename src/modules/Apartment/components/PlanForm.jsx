@@ -7,10 +7,14 @@ import { notifications } from "services";
 
 import Containers from "containers";
 import { Button, Fields, Typography } from "components";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Save" }) => {
-	const { roomID, planID } = useParams();
+	const { complexID, planID } = useParams();
+	const lngCode = useSelector((state) => state.system.lngCode);
 	const navigate = useNavigate();
+	const { t } = useTranslation();
 
 	const onClose = () => {
 		navigate(-1);
@@ -34,15 +38,25 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 						},
 					},
 					{
-						name: "room_id",
+						name: "complex_id",
 						validationType: "number",
-						value: Number(roomID),
+						value: Number(complexID),
+					},
+					{
+						name: "room_id",
+						validationType: "object",
+						value: {
+							label: get(formData, `room.name.${lngCode}`),
+							value: get(formData, "room.id"),
+						},
+						validations: [{ type: "option" }],
+						onSubmitValue: (option) => get(option, "value"),
 					},
 					{
 						name: "area",
 						validationType: "number",
 						value: get(formData, "area"),
-						// validations: [{ type: "required" }],
+						validations: [{ type: "required" }],
 					},
 					{
 						name: "file_ids",
@@ -53,36 +67,34 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 					{
 						name: "fields",
 						validationType: "array",
-						value: get(formData, "fields")
-							? get(formData, "fields").map((field) => ({
-									...field,
-									plan_field_id: {
-										label: field.plan_field.name.uz,
-										value: field.plan_field.id,
-									},
-							  }))
-							: [],
+						value: get(formData, "fields", []).map((field) => ({
+							...field,
+							plan_field_id: {
+								label: get(field, `plan_field.name.${lngCode}`),
+								value: field.plan_field.id,
+							},
+						})),
 						onSubmitValue: (fields) =>
 							fields.map((item) => ({
 								...item,
-								plan_field_id: item.plan_field_id.value,
+								plan_field_id: get(item, "plan_field_id.value", null),
 							})),
 					},
 				]}
 				onSuccess={() => onSuccess()}
 				onError={() => {
-					navigate(-1);
-					notifications.error("Something went wrong!");
+					// navigate(-1);
+					notifications.error(t("Something went wrong!"));
 				}}
 			>
-				{({ values, isSubmitting }) => (
+				{({ values, isSubmitting, errors, touched }) => (
 					<>
 						<div className="card-box col-6">
 							<Typography Type="h5" className="text-muted card-sub">
 								{() => (
 									<>
-										<b>Plan</b>
-										<small className="text-muted">{planID}</small>
+										<b>{t("Plan")}</b>
+										<small className="text-muted"> {planID} </small>
 									</>
 								)}
 							</Typography>
@@ -90,10 +102,10 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 							<div className="row g-4">
 								<div className="col-12">
 									<FastField
-										name="name.uz"
+										name="name.en"
 										component={Fields.Input}
 										type="text"
-										label="Name uz"
+										label={["Name of the plan", " (EN)", <span>*</span>]}
 									/>
 								</div>
 								<div className="col-12">
@@ -101,16 +113,16 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 										name="name.ru"
 										component={Fields.Input}
 										type="text"
-										label="Name ru"
+										label={["Name of the plan", " (RU)", <span>*</span>]}
 									/>
 								</div>
 
 								<div className="col-12">
 									<FastField
-										name="name.en"
+										name="name.uz"
 										component={Fields.Input}
 										type="text"
-										label="Name en"
+										label={["Name of the plan", " (UZ)", <span>*</span>]}
 									/>
 								</div>
 								<div className="col-12">
@@ -119,6 +131,21 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 										component={Fields.Input}
 										type="number"
 										label="Area"
+									/>
+								</div>
+								<div className="col-12">
+									<FastField
+										url="room"
+										key={lngCode}
+										name="room_id"
+										optionLabel={`name.${lngCode}`}
+										component={Fields.AsyncSelect}
+										label={["Room", " ID"]}
+										urlSearchParams={(search) => ({
+											filter: {
+												name: search,
+											},
+										})}
 									/>
 								</div>
 								<FieldArray name="fields">
@@ -153,9 +180,10 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 														</div>
 														<div className="col-12">
 															<FastField
+																key={lngCode}
 																url="plan-field"
 																name={`fields[${index}].plan_field_id`}
-																optionLabel="name.uz"
+																optionLabel={`name.${lngCode}`}
 																component={Fields.AsyncSelect}
 																label="Plan Field ID"
 																urlSearchParams={(search) => ({
@@ -202,8 +230,8 @@ export const PlanForm = ({ method, url, formData, onSuccess, btnSubmitText = "Sa
 									formData={formData}
 									queryKey={[
 										"GET",
-										`plan/${get(formData, "id")}`,
-										{ include: "files,fields,fields.plan_field" },
+										`/plan/${get(formData, "id")}`,
+										{ include: "files,fields,fields.plan_field,room" },
 									]}
 								/>
 							</div>

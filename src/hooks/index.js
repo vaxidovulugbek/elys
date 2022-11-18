@@ -7,6 +7,7 @@ import { useOutsideClick } from "./useOutsideClick";
 import { useOverlay } from "./useOverlay";
 import { useScroll } from "./useScroll";
 import { ScrollTop } from "./ScrollTop";
+import { useEditSvg } from "./useEditSvg";
 
 export {
 	useFetchInfinite,
@@ -18,4 +19,5 @@ export {
 	useFetchOneWithId,
 	useScroll,
 	ScrollTop,
+	useEditSvg,
 };

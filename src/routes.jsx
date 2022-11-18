@@ -16,6 +16,7 @@ import { CrossTabRoutes } from "modules/Crosstab";
 import { RoomRoute } from "modules/Room";
 import { SettingsRoutes } from "modules/Settings";
 import { SectionsRoute } from "modules/Section";
+import { SuccesLoginRoutes } from "modules/Authorization/routes";
 
 const loggedInRoutes = [
 	{
@@ -36,7 +37,7 @@ const loggedInRoutes = [
 ];
 
 export const AppRoutes = () => {
-	const user = useSelector((state) => state.auth.username);
+	const user = useSelector((state) => state.auth);
 	return (
 		<App>
 			{({ isFetching, error }) => (
@@ -54,7 +55,7 @@ export const AppRoutes = () => {
 
 					{isFetching && <Spinner />}
 
-					{user && (
+					{user.username && user.status === 10 && (
 						<Routes>
 							{loggedInRoutes.map((item, outerIndex) =>
 								item.routes.map((route, innerIndex) => {
@@ -82,10 +83,19 @@ export const AppRoutes = () => {
 						</Routes>
 					)}
 
-					{!isFetching && !user && (
+					{!isFetching && !user?.username && (
 						<Suspense fallback={<Spinner />}>
 							<Routes>
 								{AuthRoutes.map((route, index) => (
+									<Route key={index} {...route} />
+								))}
+							</Routes>
+						</Suspense>
+					)}
+					{!isFetching && user && user.status === 9 && (
+						<Suspense fallback={<Spinner />}>
+							<Routes>
+								{SuccesLoginRoutes.map((route, index) => (
 									<Route key={index} {...route} />
 								))}
 							</Routes>

@@ -1,8 +1,11 @@
 import { Fields, ModalRoot, Modals } from "components";
 import React from "react";
-import { constants, notifications } from "services";
+import { useTranslation } from "react-i18next";
+import { constants, functions, notifications } from "services";
 
 export const DocumentForm = ({ complexId, documentModal, documentRefetch }) => {
+	const { t } = useTranslation();
+	const translatedTypeOptions = functions.translateConstans(t, constants.typeOptions);
 	const onClose = () => {
 		documentModal.handleOverlayClose();
 	};
@@ -19,40 +22,43 @@ export const DocumentForm = ({ complexId, documentModal, documentRefetch }) => {
 					{
 						name: "name.en",
 						component: Fields.Input,
-						label: ["Document name", <span>*</span>],
+						label: ["Name of the document", " (EN)", <span>*</span>],
 						placeholder: "Document",
 					},
 					{
 						name: "name.ru",
 						component: Fields.Input,
-						label: ["Название документа", <span>*</span>],
-						placeholder: "Документ",
+						label: ["Name of the document", " (RU)", <span>*</span>],
+
+						placeholder: "Document",
 					},
 					{
 						name: "name.uz",
 						component: Fields.Input,
-						label: ["Hujjat nomi", <span>*</span>],
-						placeholder: "Hujjat",
+						label: ["Name of the document", " (UZ)", <span>*</span>],
+
+						placeholder: "Document",
 					},
 					{
 						name: "type",
 						component: Fields.Select,
-						options: constants.typeOptions,
+						options: translatedTypeOptions,
+						defaultValue: translatedTypeOptions[0],
 						label: "Type",
 					},
 					{
-						name: "file_id[1]",
+						name: "file_id[3]",
 						component: Fields.Upload,
-						label: "Hujjat yuklash",
-						placeholder: "Hujjat tanlang",
+						label: ["Document", " (UZ)"],
+						placeholder: "Select document",
 						btnText: "Upload",
 						accept: ".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 					},
 					{
 						name: "file_id[2]",
 						component: Fields.Upload,
-						label: "Загрузить документ",
-						placeholder: "Выберите документ",
+						label: ["Document", " (RU)"],
+						placeholder: "Select document",
 						btnText: "Upload",
 						accept: ".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 					},
@@ -66,10 +72,12 @@ export const DocumentForm = ({ complexId, documentModal, documentRefetch }) => {
 					{
 						name: "file_id",
 						validationType: "array",
+						validations: [{ type: "required" }],
 					},
 					{
 						name: "type",
 						validationType: "number",
+						validations: [{ type: "required" }],
 					},
 					{
 						name: "complex_id",

@@ -1,33 +1,36 @@
 import React, { useState } from "react";
 import { get } from "lodash";
+import { isArray } from "lodash";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import Containers from "containers";
-import { isArray } from "lodash";
 import { functions } from "services";
 
-const Plan = ({ setActiveApartment, filterFunc }) => {
+const Plan = ({ setActiveApartment, filterFunc, setCount }) => {
+	const { t } = useTranslation();
 	const lngCode = useSelector((state) => state.system.lngCode);
 
 	const [cardIndex, setCardIndex] = useState(-1);
 	const { id } = useParams();
+
 	return (
 		<div className="flats" id="flats">
 			<Containers.List
 				url="plan"
 				urlSearchParams={{
 					include:
-						"apartments, apartments.complex, apartments.floor,apartments.plan.room, apartments.plan, apartments.files ,room, files",
+						"apartments, apartments.complex, apartments.floor,apartments.section,apartments.plan.room, apartments.plan, apartments.plan.files, apartments.files ,room, files",
 					filter: { complex_id: id },
 				}}
 			>
 				{({ data }) => {
-					const plans = Array.isArray(data)
+					const plans = isArray(data)
 						? data.map((plan) => {
 								const apartments = get(plan, "apartments", []);
 								let filteredApartments = [];
-								if (Array.isArray(apartments))
+								if (isArray(apartments))
 									filteredApartments = apartments.filter((apartment) =>
 										filterFunc(apartment)
 									);
@@ -37,10 +40,12 @@ const Plan = ({ setActiveApartment, filterFunc }) => {
 								};
 						  })
 						: [];
+					setTimeout(() => setCount(plans.length), 0);
 					return (
 						<>
-							{plans.map((item, planIndex) =>
-								get(item, "apartments", []).length ? (
+							{plans.map(
+								(item, planIndex) => (
+									// get(item, "apartments", []).length ? (
 									<span key={planIndex}>
 										<div
 											className="card"
@@ -60,7 +65,7 @@ const Plan = ({ setActiveApartment, filterFunc }) => {
 													src={get(item, "files[0].thumbnails.small")}
 													alt="room plan"
 												/>
-												<div className="coast-wrap">
+												{/* <div className="coast-wrap">
 													<div className="coast">
 														от{" "}
 														<span className="plan-min-price-value">
@@ -68,17 +73,18 @@ const Plan = ({ setActiveApartment, filterFunc }) => {
 														</span>
 														UZS
 													</div>
-												</div>
+												</div> */}
 											</div>
 											<div className="bottom">
 												<div className="surface">
-													<span className="name">Общ. площадь</span>
+													<span className="name">{t("Total area")}</span>
 													<span className="val">
-														{get(item, "area")} м<sup>2</sup>
+														{get(item, "area")} {t("m")}
+														<sup>2</sup>
 													</span>
 												</div>
 												<div className="room-count">
-													<span className="name">Комнат</span>
+													<span className="name">{t("Rooms")}</span>
 													<div className="val">
 														{get(item, "room.count")}
 													</div>
@@ -93,7 +99,11 @@ const Plan = ({ setActiveApartment, filterFunc }) => {
 												}}
 											>
 												<button>
-													Найдено <strong>7</strong> помещений
+													{t("Found")}
+													<strong>
+														{get(item, "apartments").length || ""}
+													</strong>
+													{t("apartment")}
 													<svg
 														xmlns="http://www.w3.org/2000/svg"
 														viewBox="0 0 384 512"
@@ -140,7 +150,7 @@ const Plan = ({ setActiveApartment, filterFunc }) => {
 																			</span>
 																		</div>
 																		<p className="floor">
-																			Этаж -
+																			{t("Этаж")} -
 																			{get(
 																				apartment,
 																				"floor.sort"
@@ -171,7 +181,8 @@ const Plan = ({ setActiveApartment, filterFunc }) => {
 											</div>
 										</div>
 									</span>
-								) : null
+								)
+								// ) : null
 							)}
 						</>
 					);

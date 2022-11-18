@@ -25,6 +25,11 @@ const createYupSchema = (field) => {
 					en: yup.string().required(),
 				});
 				break;
+			case "option":
+				validator = validator.shape({
+					value: yup.number().required(),
+				});
+				break;
 			case "file":
 				validator = validator.shape({
 					File: yup.mixed().required("file is requared"),

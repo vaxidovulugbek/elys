@@ -16,6 +16,7 @@ const AsyncSelect = ({
 	optionLabel = "name",
 	form,
 	field,
+	defaultOptions = null,
 	onValueChange = () => {},
 	urlSearchParams = () => {},
 	searchKey,
@@ -35,6 +36,8 @@ const AsyncSelect = ({
 				label: get(item, optionLabel, ""),
 			};
 		});
+
+		defaultOptions && options.push(defaultOptions);
 		return {
 			options,
 			hasMore: get(data, "meta.currentPage", 1) < get(data, "meta.pageCount", 1),
@@ -47,10 +50,11 @@ const AsyncSelect = ({
 			<ControlLabel label={label} />
 			<div className="form-select">
 				<AsyncPaginate
-					defaultOptions={field.value}
+					defaultOptions={!defaultOptions ? field.value : defaultOptions}
 					value={field.value}
 					blurInputOnSelect={true}
 					isSearchable
+					onBlur={() => form.setFieldTouched(field.name)}
 					classNamePrefix="select"
 					loadOptions={loadOptions}
 					debounceTimeout={300}
@@ -61,14 +65,14 @@ const AsyncSelect = ({
 					{...props}
 				/>
 
-				<ControlError form={form} field={field} />
+				<ControlError form={form} field={field} custom={`${field.name}.value`} />
 			</div>
 		</>
 	);
 };
 
 AsyncSelect.propTypes = {
-	label: PropTypes.string,
+	label: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 	placeholder: PropTypes.string,
 	options: PropTypes.array,
 	size: PropTypes.string,

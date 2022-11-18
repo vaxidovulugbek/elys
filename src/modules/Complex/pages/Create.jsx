@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FastField, Field } from "formik";
 import { useSelector } from "react-redux";
 import { get } from "lodash";
@@ -8,11 +8,12 @@ import { notifications } from "services";
 
 import Containers from "containers";
 import { PageHeading, Fields, Button, MapPicker } from "components";
+import { useTranslation } from "react-i18next";
 
 const Create = () => {
 	const navigate = useNavigate();
-	const { complexID } = useParams();
 	const lngCode = useSelector((state) => state.system.lngCode);
+	const { t } = useTranslation();
 
 	const onSuccess = () => {
 		notifications.success("Complex create success");
@@ -25,17 +26,14 @@ const Create = () => {
 				title="Complex"
 				links={[
 					{ url: "/", name: "Control Panel" },
-					{ url: "/", name: "My complex" },
+					{ url: "/", name: "My complexes" },
 					{ url: "", name: "Complex" },
 				]}
-				complexID={complexID}
-				hasButton={true}
 			/>
 
 			<Containers.Form
 				url="/complex"
 				method="post"
-				isFormData
 				className="row"
 				onSuccess={onSuccess}
 				onError={() => notifications.error("Something went wrong")}
@@ -44,11 +42,21 @@ const Create = () => {
 						name: "name",
 						validationType: "object",
 						validations: [{ type: "lng" }],
+						value: {
+							en: "",
+							ru: "",
+							uz: "",
+						},
 					},
 					{
 						name: "address",
 						validationType: "object",
 						validations: [{ type: "lng" }],
+						value: {
+							en: "",
+							ru: "",
+							uz: "",
+						},
 					},
 					{
 						name: "background_id",
@@ -96,13 +104,12 @@ const Create = () => {
 					},
 				]}
 			>
-				{({ errors, values, setFieldValue }) => (
+				{({ errors, values, setFieldValue, isSubmitting }) => (
 					<>
 						<div className="col-lg-6">
 							<div className="card-box">
 								<h5 className="text-muted card-sub">
-									<b>Complex</b>
-									<small className="text-muted"> ID {complexID}</small>
+									<b>{t("Complex")}</b>
 								</h5>
 
 								<div className="row g-4">
@@ -110,7 +117,7 @@ const Create = () => {
 										<FastField
 											name="name.en"
 											component={Fields.Input}
-											label={["Name of the Complex EN", <span>*</span>]}
+											label={["Name of the Complex", " (EN)", <span>*</span>]}
 											placeholder="Complex"
 										/>
 									</div>
@@ -119,7 +126,7 @@ const Create = () => {
 										<FastField
 											name="name.ru"
 											component={Fields.Input}
-											label={["Name of the Complex RU", <span>*</span>]}
+											label={["Name of the Complex", " (RU)", <span>*</span>]}
 											placeholder="Complex"
 										/>
 									</div>
@@ -128,7 +135,7 @@ const Create = () => {
 										<FastField
 											name="name.uz"
 											component={Fields.Input}
-											label={["Name of the Complex UZ", <span>*</span>]}
+											label={["Name of the Complex", " (UZ)", <span>*</span>]}
 											placeholder="Complex"
 										/>
 									</div>
@@ -145,7 +152,7 @@ const Create = () => {
 										<FastField
 											name="background_id"
 											component={Fields.Upload}
-											label={"Backround"}
+											label={"Background"}
 											placeholder="Select File"
 											btnText="Upload"
 										/>
@@ -170,7 +177,7 @@ const Create = () => {
 						<div className="col-lg-6">
 							<div className="card-box">
 								<h5 className="text-muted card-sub">
-									<b>Location</b>
+									<b>{t("Location")}</b>
 								</h5>
 
 								<div className="row g-4">
@@ -236,7 +243,7 @@ const Create = () => {
 										<FastField
 											name="address.en"
 											component={Fields.Input}
-											label="Complex address EN"
+											label={["Complex address", " (EN)"]}
 											placeholder="Address"
 										/>
 									</div>
@@ -245,7 +252,7 @@ const Create = () => {
 										<FastField
 											name="address.ru"
 											component={Fields.Input}
-											label="Complex address RU"
+											label={["Complex address", " (RU)"]}
 											placeholder="Address"
 										/>
 									</div>
@@ -254,7 +261,7 @@ const Create = () => {
 										<FastField
 											name="address.uz"
 											component={Fields.Input}
-											label="Complex address UZ"
+											label={["Complex address", " (UZ)"]}
 											placeholder="Address"
 										/>
 									</div>
@@ -271,7 +278,12 @@ const Create = () => {
 									innerText="Cancel"
 									onClick={() => navigate("/", { replace: true })}
 								/>
-								<Button className="btn btn_green" type="submit" innerText="Add" />
+								<Button
+									className="btn btn_green"
+									type="submit"
+									innerText="Add"
+									isLoading={isSubmitting}
+								/>
 							</div>
 						</div>
 					</>

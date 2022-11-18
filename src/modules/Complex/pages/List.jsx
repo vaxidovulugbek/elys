@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { isArray } from "lodash";
+import { get, isArray, lowerFirst } from "lodash";
 
 import { useFetchInfinite, useOverlay, useScroll } from "hooks";
 
@@ -11,11 +11,21 @@ import { DocumentForm } from "../components/DocumentForm";
 const List = () => {
 	const navigate = useNavigate();
 	const documentModal = useOverlay("documentModal");
+	const [filterByComplexName, setFilterByComplexName] = useState("");
+
+	const handleFilter = (searchText) => {
+		setFilterByComplexName(searchText);
+	};
+
+	const onKeyDown = (e, searchText) => {
+		if (e.key === "Enter") handleFilter(searchText);
+	};
 
 	const complexList = useFetchInfinite({
 		url: "/user/complex",
 		urlSearchParams: {
-			include: "files",
+			include: "files,apartments",
+			filter: { name: filterByComplexName },
 		},
 	});
 	useScroll(document.documentElement, complexList.refetch, 100);
@@ -34,14 +44,18 @@ const List = () => {
 	return (
 		<>
 			<PageHeading
-				title="My complex"
+				title="My complexes"
 				links={[
 					{ url: "/", name: "Control Panel" },
-					{ url: "/", name: "My Complex" },
+					{ url: "/", name: "My complexes" },
 				]}
 			/>
 
-			<SearchForm onClick={() => navigate("/complex/create")} />
+			<SearchForm
+				onSearch={handleFilter}
+				onAdd={() => navigate("/complex/create")}
+				onKeyDown={onKeyDown}
+			/>
 
 			<div className="row">
 				<div className="col-4">
@@ -58,6 +72,7 @@ const List = () => {
 								<ObjectCard
 									data={item}
 									key={index}
+									complexRefetch={complexList.refetch}
 									handleDocument={handleDocument}
 									handleViewDocument={handleViewDocument}
 								/>

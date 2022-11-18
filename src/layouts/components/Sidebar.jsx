@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useMatch, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import cn from "classnames";
-import { find } from "lodash";
+import { find, get } from "lodash";
 
 import { ReactComponent as HomeSvg } from "assets/images/home.svg";
 import { ReactComponent as Settings } from "assets/images/settings.svg";
+import { ReactComponent as Grid } from "assets/images/grid.svg";
+import { ReactComponent as Room } from "assets/images/room.svg";
 import angleRight from "assets/images/angle-right.svg";
 import { Typography } from "components";
 
@@ -22,6 +24,7 @@ const settingSubLinks = [
 
 export const Sidebar = ({ isOpen }) => {
 	const { t } = useTranslation();
+	const location = useLocation();
 	const [isSubActive, setIsSubActive] = useState(true);
 
 	const subMenu = cn("sidebar__submenu-content", { sidebar__submenu_active: isSubActive });
@@ -67,8 +70,8 @@ export const Sidebar = ({ isOpen }) => {
 					}
 				>
 					<div className="d-flex align-items-center">
-						<HomeSvg />
-						<span className="sidebar__link-text">{t("Rooms")}</span>
+						<Room />
+						<span className="sidebar__link-text">{t("Room")}</span>
 					</div>
 				</NavLink>
 			</div>
@@ -81,7 +84,7 @@ export const Sidebar = ({ isOpen }) => {
 					}
 				>
 					<div className="d-flex align-items-center">
-						<HomeSvg />
+						<Grid />
 						<span className="sidebar__link-text">{t("Category")}</span>
 					</div>
 				</NavLink>
@@ -89,11 +92,11 @@ export const Sidebar = ({ isOpen }) => {
 
 			<div className="sidebar__submenu">
 				<NavLink
-					to="settings/"
+					to="/settings"
 					onClick={handleSubMenu}
 					className={cn("sidebar__link", {
 						"sidebar__link-active": !!find(settingSubLinks, {
-							url: window.location.pathname,
+							url: location.pathname,
 						}),
 					})}
 				>

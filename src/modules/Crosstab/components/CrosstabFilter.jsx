@@ -3,22 +3,19 @@ import cn from "classnames";
 import Slider from "rc-slider";
 import ReactSelect from "react-select";
 import { FastField, withFormik } from "formik";
-import { debounce, get, isEmpty } from "lodash";
+import { debounce, findIndex, get, isArray, isEmpty, max, min } from "lodash";
 
 import "rc-slider/assets/index.css";
 import { ReactComponent as Xbtn } from "assets/images/x.svg";
-// import { ReactComponent as AngleDown } from 'assets/images/angle-down.svg'
 import { ReactComponent as Rotate } from "assets/images/rotate.svg";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { constants, functions } from "services";
 
-const usernames = [{ value: "1", label: "Abdulaziz Abdurashidov" }];
-
-const sections = [
-	{ value: 1, label: "Секция 1" },
-	{ value: 2, label: "Секция 2" },
-	{ value: 3, label: "Секция 3" },
-	{ value: 4, label: "Все секции" },
-];
+import "components/Fields/Select/Select.scss";
+import { Fields } from "components";
+import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const thumb = {
 	border: "none",
@@ -29,6 +26,9 @@ const thumb = {
 	top: "7.5px",
 	boxShadow: "none",
 };
+
+const classOptions = [{ value: "", label: "All" }, ...constants.classOptions];
+const typeOptions = [{ value: "", label: "All" }, ...constants.typeOptions];
 
 const setFieldDebounce = debounce((handleSubmit) => {
 	handleSubmit();
@@ -43,15 +43,16 @@ const Form = ({
 	resetForm,
 	setParams,
 	apartments,
+	complex,
+	sections,
 }) => {
-	const room_counts =
-		Array.isArray(apartments) &&
-		apartments.reduce((prev, curr) => {
-			const count = get(curr, "plan.room.count");
-			!prev.includes(count) && count && prev.push(count);
-			return prev;
-		}, []);
-	room_counts?.sort((a, b) => a - b);
+	const { t } = useTranslation();
+	const translatedClassOptions = functions.translateConstans(t, classOptions);
+	const translatedTypeOptions = functions.translateConstans(t, typeOptions);
+	const { id } = useParams();
+	const lngCode = useSelector((state) => get(state, "system.lngCode"));
+	const [minmax, setMinmax] = useState({ price: [0, 0], area: [0, 0] });
+	const [roomCounts, setRoomCounts] = useState();
 
 	window.clearFilter = () => {
 		setParams({});
@@ -86,43 +87,87 @@ const Form = ({
 		isOpen,
 	});
 
+	const getOptions = (data, defaultValue) => {
+		const options = Array.isArray(data)
+			? data?.reduce(
+					(prev, curr) => [
+						...prev,
+						{ label: get(curr, `name.${lngCode}`), value: get(curr, "id") },
+					],
+					[]
+			  )
+			: [];
+		defaultValue && options.unshift(defaultValue);
+		return options;
+	};
+	const options_complex = getOptions(complex);
+	const options_section = getOptions(sections, { label: "Все секции", value: null });
+
+	useEffect(() => {
+		const area = [];
+		const price = [];
+		const room_counts =
+			isArray(apartments) &&
+			apartments.reduce((prev, curr) => {
+				const count = get(curr, "plan.room.count");
+				area.push(get(curr, "plan.area"));
+				price.push(get(curr, "price"));
+				!prev.includes(count) && prev.push(count);
+				return prev;
+			}, []);
+		setRoomCounts(room_counts);
+		setMinmax({
+			price: price.length && [min(price), max(price)],
+			area: area.length && [min(area), max(area)],
+		});
+	}, [apartments]);
+
 	return (
 		<form id="filters-box" className={filterBoxClass} onSubmit={handleSubmit}>
 			<div className="filters">
 				<div className="select">
 					<FastField
 						name="username"
-						component={ReactSelect}
-						defaultValue={usernames[0]}
+						component={Fields.Select}
+						defaultValue={get(
+							options_complex,
+							`[${findIndex(options_complex, { value: Number(id) })}]`
+						)}
 						className="crosstab__select"
-						options={usernames}
+						options={options_complex}
 						isSearchable={false}
+						classNamePrefix="select"
 					/>
 				</div>
 				<div className="select">
 					<FastField
 						name="section"
-						component={ReactSelect}
-						defaultValue={sections[3]}
+						component={Fields.Select}
+						defaultValue={get(options_section, "[0]")}
 						className="crosstab__select"
-						options={sections}
+						options={options_section}
 						isSearchable={false}
 					/>
 				</div>
-				<button className={cn("close", { hasFilter })} onClick={() => setHasFilter(false)}>
+				<button
+					className={cn("close", { hasFilter })}
+					onClick={() => setHasFilter(false)}
+					type="button"
+				>
 					<Xbtn />
 				</button>
 				<div className="rooms">
-					<h3 className="rooms__title">Кол-во комнат</h3>
+					<h3 className="rooms__title">{t("Number of rooms")}</h3>
 					<div className="btns">
-						{room_counts?.map((item, index) => (
-							<Checkbox key={index} {...checkboxProps(item)} />
-						))}
+						{roomCounts?.map(
+							(item, index) =>
+								item && <Checkbox key={index} {...checkboxProps(item)} />
+						)}
 					</div>
 				</div>
-				<RangePicker {...rangePickerProps(1, "Стоимость", [3200, 100000])} />
-				<RangePicker {...rangePickerProps(2, "Площадь общая", [8, 200])} />
-				<RangePicker {...rangePickerProps(4, "Цена м", [100, 1410])} />
+				<RangePicker {...rangePickerProps(1, t("Price"), minmax.price)} />
+				<RangePicker {...rangePickerProps(2, t("Total area"), minmax.area)} />
+				<RangePicker {...rangePickerProps(4, `${t("Price")} м²`, [100, 1410])} />
 				<div className="switch-box">
 					<label className="switch">
 						<input
@@ -136,7 +181,7 @@ const Form = ({
 						/>
 						<span className="switch-slider round"></span>
 					</label>
-					<p>только АКЦИОННЫЕ</p>
+					<p>{t("Promotional")}</p>
 				</div>
 				<div className="switch-box">
 					<label className="switch">
@@ -151,13 +196,45 @@ const Form = ({
 						/>
 						<span className="switch-slider round"></span>
 					</label>
-					<p>только СВОБОДНЫЕ</p>
+					<p>{t("Only free")}</p>
+				</div>
+				<div className="select-box">
+					<div className="form-select">
+						<ReactSelect
+							name="type"
+							key={get(values, "type.value")}
+							component={ReactSelect}
+							options={translatedTypeOptions}
+							placeholder={t("Type")}
+							classNamePrefix="select"
+							value={get(values, "type")}
+							onChange={(option) => {
+								setFieldValue("type", option);
+								handleSubmit();
+							}}
+						/>
+					</div>
+					<div className="form-select">
+						<ReactSelect
+							name="class"
+							key={get(values, "class.value")}
+							component={ReactSelect}
+							options={translatedClassOptions}
+							placeholder={t("Class")}
+							classNamePrefix="select"
+							value={get(values, "class")}
+							onChange={(option) => {
+								setFieldValue("class", option);
+								handleSubmit();
+							}}
+						/>
+					</div>
 				</div>
 			</div>
 			{!isEmpty(values) && (
 				<button type="button" className="filter-clear" onClick={() => window.clearFilter()}>
 					<Rotate />
-					<p>Сбросить фильтр</p>
+					<p>{t("Reset filter")}</p>
 				</button>
 			)}
 		</form>
@@ -210,11 +287,12 @@ const RangePicker = ({
 
 	let label = (val) => <span>{val}</span>;
 
-	if (type === 1 || type === 4) label = (val) => <span>{`${val} UZS`}</span>;
+	if (type === 1 || type === 4)
+		label = (val) => <span>{`${functions.convertToReadable(val)} UZS`}</span>;
 	if (type === 2)
 		label = (val) => (
 			<span>
-				{`${val} M`} <sup style={{ color: "#fff" }}>2</sup>
+				{`${functions.convertToReadable(val)} M`} <sup style={{ color: "#fff" }}>2</sup>
 			</span>
 		);
 	useEffect(() => {
@@ -252,39 +330,39 @@ const RangePicker = ({
 					railStyle={{ backgroundColor: "#ebe9e9", height: "12px", borderRadius: 0 }}
 				/>
 			</div>
-			<div className="ticks">
+			{/* <div className="ticks">
 				<span>
-					<p>8</p>
+					<p>{minMax[1] / 5}</p>
 				</span>
 				<span></span>
 				<span></span>
 				<span></span>
 				<span></span>
 				<span>
-					<p>20</p>
+					<p>{(minMax[1] * 2) / 5}</p>
 				</span>
 				<span></span>
 				<span></span>
 				<span></span>
 				<span></span>
 				<span>
-					<p>32</p>
+					<p>{(minMax[1] * 3) / 5}</p>
 				</span>
 				<span></span>
 				<span></span>
 				<span></span>
 				<span></span>
 				<span>
-					<p>44</p>
+					<p>{(minMax[1] * 4) / 5}</p>
 				</span>
 				<span></span>
 				<span></span>
 				<span></span>
 				<span></span>
 				<span>
-					<p>56</p>
+					<p>{minMax[1]}</p>
 				</span>
-			</div>
+			</div> */}
 		</div>
 	);
 };

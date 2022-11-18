@@ -3,31 +3,31 @@ import React, { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { FastField, Field } from "formik";
-import { get } from "lodash";
+import { get, isArray } from "lodash";
 
 import { useFetchList } from "hooks";
-import { constants, functions, notifications, time } from "services";
+import { constants, notifications, time } from "services";
 
 import Containers from "containers";
 import { Fields, Table } from "components";
 import { MaskedDateInput } from "../components";
+
+import { crosstab_functions } from "../functions";
 
 const languages = [
 	{ value: constants.UZBEK, label: "Uzbek" },
 	{ value: constants.RUSSIAN, label: "Russian" },
 ];
 
-const PassportInformation = ({
-	paymentDetails,
-	setActiveApartment,
-	activeApartment,
-	setCurrentTab,
-}) => {
+const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurrentTab }) => {
 	const { t } = useTranslation();
 	const [apartment, setApartment] = useState({});
 	const [items, setItems] = useState();
 	const [tariff, setTariff] = useState(null);
 	const queryClient = useQueryClient();
+
+	const { fixPassportInput, handleContractSuccess, calculateCredit, handleContractError } =
+		crosstab_functions;
 
 	const price = get(apartment, "price", 0);
 
@@ -40,75 +40,23 @@ const PassportInformation = ({
 		},
 	});
 
-	const fixPassportInput = (e) => {
-		const letters = /[A-Z]/;
-		const numbers = /[0-9]/;
-		const charArray = e.target.value.toUpperCase().split("");
-		const correctCharArray = charArray.filter((char, i) => {
-			if (i <= 10) {
-				if (i < 2) {
-					return char.match(letters);
-				} else if (i >= 2) {
-					return char.match(numbers);
-				}
-			}
-		});
-		e.target.value = correctCharArray.join("");
-	};
+	const calculate = calculateCredit({ price, setItems });
 
-	const calculate = (formik_values) => {
-		let { month_count, initial_payment, discount } = formik_values;
-		month_count = Number(month_count);
-		initial_payment = Number(initial_payment);
-		discount = Number(discount);
+	const handleError = handleContractError(notifications);
 
-		const credit =
-			Number(price) -
-			(Number(price) * discount) / 100 -
-			(Number(price) * initial_payment) / 100;
-
-		const newItems = Array(month_count || 1)
-			.fill(1)
-			.map((_, index) => ({
-				month: index + 1,
-				fee: functions.convertToReadable((credit / month_count).toFixed(2)),
-			}));
-
-		newItems.push({ month: "Total", fee: functions.convertToReadable(credit) });
-
-		setItems(newItems);
-	};
-
-	const handleError = (data) => {
-		const errors = get(data, "response.data.errors");
-
-		errors &&
-			Object.keys(errors).includes("document_id") &&
-			notifications.error("You have to create document first");
-	};
-
-	const handleSuccess = (response) => {
-		const download = document.createElement("a");
-		download.download = true;
-		download.href = get(response, "data.destination");
-		document.body.appendChild(download);
-		download.target = "_blank";
-
-		notifications.success("Contract created");
-		setActiveApartment(null);
-		setCurrentTab(1);
-		queryClient.invalidateQueries().then((res) => {
-			download.click();
-			document.body.removeChild(download);
-		});
-	};
+	const handleSuccess = handleContractSuccess({
+		notifications,
+		setActiveApartment,
+		setCurrentTab,
+		queryClient,
+	});
 
 	useEffect(() => {
 		if (activeApartment) setApartment(activeApartment);
 	}, [activeApartment]);
 
 	useEffect(() => {
-		Array.isArray(data) && setTariff(data[0]);
+		isArray(data) && setTariff(data[0]);
 	}, [data]);
 
 	return (
@@ -124,7 +72,7 @@ const PassportInformation = ({
 				>
 					{({ data }) => (
 						<>
-							{Array.isArray(data) &&
+							{isArray(data) &&
 								data.map((item, index) => {
 									return (
 										<div
@@ -141,7 +89,7 @@ const PassportInformation = ({
 												<span>{get(item, "payment")}</span>
 											</p>
 											<p className="month-count">
-												{t("discount")}:{" "}
+												{t("Discount")}:{" "}
 												<span>{get(item, "discount")}</span>
 											</p>
 										</div>
@@ -158,7 +106,7 @@ const PassportInformation = ({
 									{t("Initial fee")}: <span>100%</span>
 								</p>
 								<p className="month-count">
-									{t("discount")}: <span>0</span>
+									{t("Discount")}: <span>0</span>
 								</p>
 							</div>
 						</>
@@ -269,21 +217,21 @@ const PassportInformation = ({
 											component={Fields.Input}
 											type="text"
 											name="initial_payment"
-											label={t("initial fee")}
+											label={"Initial fee"}
 											onlyNumber={true}
 										/>
 										<FastField
 											component={Fields.Input}
 											type="text"
 											name="month_count"
-											label={t("Month")}
+											label={"Month"}
 											onlyNumber={true}
 										/>
 										<FastField
 											component={Fields.Input}
 											type="text"
 											name="discount"
-											label={t("discount")}
+											label={"Discount"}
 											onlyNumber={true}
 										/>
 										<button
@@ -291,7 +239,7 @@ const PassportInformation = ({
 											className="printToDoc"
 											onClick={() => calculate(values)}
 										>
-											{t("calculate")}
+											{t("Calculate")}
 										</button>
 									</div>
 									{items && (
@@ -304,7 +252,7 @@ const PassportInformation = ({
 													render: (value) => value,
 												},
 												{
-													title: t("Fee"),
+													title: t("Initial fee"),
 													dataKey: "fee",
 													render: (value) => value,
 												},
@@ -319,69 +267,70 @@ const PassportInformation = ({
 									component={Fields.Input}
 									type="text"
 									name="first_name"
-									label={t("first name")}
+									label={"First name"}
 								/>
 								<FastField
 									component={Fields.Input}
 									type="text"
 									name="last_name"
-									label={t("last name")}
+									label={"Last name"}
 								/>
 								<FastField
 									component={Fields.Input}
 									type="text"
 									name="middle_name"
-									label={t("middle name")}
+									label={"Middle name"}
 								/>
 								<FastField
 									component={Fields.Input}
 									type="text"
 									name="address"
-									label={t("Address")}
+									label={"Address"}
 								/>
 								<Field
 									component={MaskedDateInput}
 									// type="text"
 									name="birthdate"
-									label={t("birthdate")}
+									label={"Birthdate"}
 								/>
 								<FastField
 									component={Fields.PhoneInput}
 									type="text"
 									name="phone"
-									label={t("phone")}
+									label={"Phone number"}
 								/>
 								<FastField
 									component={Fields.Input}
 									type="text"
 									name="mail"
-									label={t("email")}
+									label={"Email"}
 									placeholder="example@gmail.com"
 								/>
 								<div className="lang-select">
 									<FastField
 										component={Fields.Select}
 										name="language_id"
-										label={t("Document language")}
+										label={"Document language"}
 										options={languages}
-										placeholder="uz"
+										defaultValue={languages[0].value}
+										placeholder="Language"
 									/>
 								</div>
 								<Field
 									component={MaskedDateInput}
 									name="monthly_payment_date"
-									label={t("Monthly payment date")}
+									label={"Monthly payment date"}
 								/>
 								<Field
 									component={MaskedDateInput}
 									name="date"
-									label={t("Contract date")}
+									label={"Contract date"}
 								/>
 								<FastField
 									component={Fields.Input}
 									type="text"
 									name="passport"
-									label={t("passport seria and number")}
+									label={"Passport seria and number"}
 									onInput={fixPassportInput}
 									placeholder="AB1234567"
 								/>
@@ -389,22 +338,22 @@ const PassportInformation = ({
 									component={Fields.Input}
 									type="text"
 									name="passport_issued_by"
-									label={t("Passport issued by")}
+									label={"Passport issued by"}
 								/>
 								<Field
 									component={MaskedDateInput}
 									name="passport_issued_date"
-									label={t("Passport issued date")}
+									label={"Passport issued date"}
 								/>
 								<FastField
 									component={Fields.Input}
 									type="text"
 									name="contract_number"
-									label={t("Contract number")}
+									label={"Contract number"}
 								/>
 
 								<button type="submit" className="printToDoc submit">
-									Submit
+									{t("Submit")}
 								</button>
 							</div>
 						</>
@@ -415,4 +364,4 @@ const PassportInformation = ({
 	);
 };
 
-export default PassportInformation;
+export default Contract;

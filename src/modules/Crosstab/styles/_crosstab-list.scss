@@ -76,6 +76,14 @@
 							opacity: 0.8;
 						}
 					}
+
+					.active {
+						opacity: 1 !important;
+
+						path {
+							fill: #1abc9c;
+						}
+					}
 				}
 			}
 

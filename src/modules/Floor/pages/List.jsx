@@ -4,7 +4,6 @@ import { get, isArray } from "lodash";
 
 import { useDelete, useFetchInfinite, useOverlay, useScroll } from "hooks";
 
-import Containers from "containers";
 import {
 	AddObject,
 	Breadcrumb,
@@ -15,10 +14,12 @@ import {
 	Typography,
 } from "components";
 import { deletePermission } from "components/Modal/DeletePermission/DeletePermission";
+import { useTranslation } from "react-i18next";
 
 const List = () => {
 	const modal = useOverlay("modal");
 	const navigate = useNavigate();
+	const { t } = useTranslation();
 
 	const { sectionID, complexID } = useParams();
 
@@ -80,7 +81,7 @@ const List = () => {
 					<div className="col-lg-12">
 						<div className="card-box transparent">
 							<Typography Type="h5" className="text-muted card-sub">
-								{() => <b>Floor</b>}
+								{() => <b>{t("Floors")}</b>}
 							</Typography>
 
 							<div className="row section-list">
@@ -92,7 +93,7 @@ const List = () => {
 											);
 										}}
 										src={require("assets/images/section-img1.png")}
-										innerText="ADD A FLOOR PLAN"
+										innerText="ADD A FLOOR"
 										className={"p-3"}
 									/>
 								</div>

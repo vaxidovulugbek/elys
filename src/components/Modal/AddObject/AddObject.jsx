@@ -3,6 +3,7 @@ import { FastField } from "formik";
 
 import { Button } from "components/Button/Button";
 import Containers from "containers";
+import { useTranslation } from "react-i18next";
 
 export const AddObject = ({
 	onClose,
@@ -19,6 +20,7 @@ export const AddObject = ({
 	isFormData,
 	...props
 }) => {
+	const { t } = useTranslation();
 	return (
 		<>
 			<Containers.Form
@@ -37,7 +39,7 @@ export const AddObject = ({
 				{({ errors, values, isLoading, resetForm, isSubmitting }) => (
 					<>
 						<div className="modal__heading d-flex align-items-center justify-content-between">
-							<h2 className="modal__title">{title}</h2>
+							<h2 className="modal__title">{t(title)}</h2>
 							<button
 								type="reset"
 								className="close"

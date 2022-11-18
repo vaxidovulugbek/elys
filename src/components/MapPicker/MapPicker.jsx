@@ -4,9 +4,11 @@ import { useOverlay } from "hooks";
 
 import { Modals, ModalRoot } from "components";
 import { ControlError, ControlLabel } from "components/common";
+import { useTranslation } from "react-i18next";
 
 export const MapPicker = ({ label, placeholder, btnText, field, form }) => {
 	const modal = useOverlay("MapModal");
+	const { t } = useTranslation();
 
 	return (
 		<>
@@ -28,7 +30,7 @@ export const MapPicker = ({ label, placeholder, btnText, field, form }) => {
 							className="btn btn_form"
 							onClick={modal.handleOverlayOpen}
 						>
-							{btnText}
+							{t(btnText)}
 						</button>
 					</div>
 

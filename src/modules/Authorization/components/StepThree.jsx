@@ -2,9 +2,12 @@ import React from "react";
 
 const StepThree = () => {
 	return (
-		<div>
+		<div className="mt-5">
 			<h4>Thank you for registration!</h4>
-			<p>Link to log in to the website has been sent. Check your email.</p>
+			<p>
+				Thank you, you have successfully registered. Please wait a little while for them to
+				confirm you.
+			</p>
 		</div>
 	);
 };

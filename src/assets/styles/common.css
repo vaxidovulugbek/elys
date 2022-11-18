@@ -5,8 +5,6 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
 <<<<<<< HEAD
  */
-@import "https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap";
-
 :root {
 	--bs-blue: #0d6efd;
 	--bs-indigo: #6610f2;
@@ -1640,11 +1638,13 @@ hr {
 }
 
 .object__title {
-	margin-bottom: 10px;
-	color: #505458;
-	font-weight: 700;
 	display: block;
+
+	margin-bottom: 10px;
+
 	font-size: 18px;
+	font-weight: 700;
+	color: #505458;
 }
 
 .object__title:hover {
@@ -1697,6 +1697,8 @@ hr {
 }
 
 .object__tab-item {
+	cursor: pointer;
+
 	display: box;
 	display: flexbox;
 	display: flex;
@@ -1719,13 +1721,14 @@ hr {
 	border-right: 1px solid #e3e3e3;
 }
 
-.object__tab-item:hover {
+.object__tab-item:hover,
+.object__tab-item.active {
 	color: #fff;
 
 	background-color: var(--main-blue);
 }
 
-.object__range {
+f .object__range {
 	overflow: hidden;
 
 	border-radius: 4px;
@@ -1757,10 +1760,6 @@ hr {
 	height: 1px;
 
 	background-color: rgb(0 0 0 / 10%);
-}
-
-.object__links button:not(:last-child) {
-	margin-right: 5px;
 }
 
 .object__add {
@@ -1867,7 +1866,7 @@ hr {
 .modal__btns button {
 	justify-content: center;
 
-	width: 70px;
+	min-width: 70px;
 
 	-webkit-box-pack: center;
 	-ms-flex-pack: center;
@@ -2057,15 +2056,22 @@ hr {
 	color: #444;
 }
 
-.drop-down__item {
-	text-align: left;
-	display: block;
-	width: 100%;
+.drop-down__subtitle {
+	padding: 5px 20px;
 
+	font-size: 14px;
+	color: #444;
+}
+
+.drop-down__item {
+	display: block;
+
+	width: 100%;
 	padding: 8px 20px;
 
 	font-size: 14px;
 	color: #212529;
+	text-align: left;
 	white-space: nowrap;
 }
 
@@ -2522,7 +2528,7 @@ a {
 .bottom-buttons button {
 	justify-content: center;
 
-	width: 100px;
+	min-width: 100px;
 
 	-webkit-box-pack: center;
 	-ms-flex-pack: center;

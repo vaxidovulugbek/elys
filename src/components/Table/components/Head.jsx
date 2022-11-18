@@ -1,7 +1,14 @@
 import React from "react";
 import { get, isFunction } from "lodash";
 
-export const Head = ({ columns, deleteAction, editAction, renderButtons }) => {
+export const Head = ({
+	columns,
+	deleteAction,
+	editAction,
+	viewAction,
+	checkAction,
+	renderButtons,
+}) => {
 	return (
 		<thead>
 			<tr>

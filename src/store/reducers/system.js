@@ -1,8 +1,9 @@
 import { system } from "../actions";
 import config from "config";
+import { storage } from "services";
 
 const initState = {
-	lngCode: config.lngCode,
+	lngCode: storage.get("lngCode") ? storage.get("lngCode") : config.lngCode,
 	theme: config.theme,
 };
 

@@ -5,17 +5,19 @@ import { get } from "lodash";
 
 import { httpCLient } from "services";
 import { GalleryCard } from "components/Cards/GalleryCard";
+import { DownloadSpinner } from "components";
 import { Fancybox } from "components";
 import { AddObject } from "components";
 
 export const MultiUpload = ({ field, form, files = [], queryKey = [] }) => {
 	const queryClient = useQueryClient();
+	const [isLoading, setIsLoading] = useState(false);
 	const [images, setImages] = useState([]);
 	const [imageURLS, setImageURLs] = useState([]);
 
 	const handleFilesUpload = (event) => {
 		event.stopPropagation();
-		setImages([...event.target.files]);
+		setImages((prev) => [...prev, ...event.target.files]);
 	};
 	const onDelete = (id) => {
 		if (files.length) {
@@ -38,7 +40,8 @@ export const MultiUpload = ({ field, form, files = [], queryKey = [] }) => {
 				};
 			});
 			form.setFieldValue(field.name, newIds);
-		} else {
+		}
+		if (images.length) {
 			const filtredIds = [];
 			const filtredImageURLS = imageURLS.filter((item) => {
 				if (item.id !== id) {
@@ -59,11 +62,13 @@ export const MultiUpload = ({ field, form, files = [], queryKey = [] }) => {
 				images.forEach((item) => {
 					formData.append("files[]", item);
 				});
+				setIsLoading(true);
 				const res = await httpCLient.post("file", formData);
 				const fetchedFiles = res?.data.map((item) => item.data);
 				setImageURLs(fetchedFiles);
 				const ids = res?.data.reduce((prev, curr) => [curr.data.id, ...prev], []);
 				form.setFieldValue(field.name, ids);
+				setIsLoading(false);
 			};
 
 			uploadFiles();
@@ -78,11 +83,11 @@ export const MultiUpload = ({ field, form, files = [], queryKey = [] }) => {
 						<div
 							className="col-6 mobiles gallery-items-list-box-wrap"
 							data-fancybox="gallery"
-							data-src={item.thumbnails.thumb}
+							data-src={item.thumbnails.full}
 							key={idx}
 						>
 							<GalleryCard
-								url={item.thumbnails.thumb}
+								url={item.thumbnails.full}
 								imageName={item.name}
 								item={item}
 								onDelete={onDelete}
@@ -93,11 +98,11 @@ export const MultiUpload = ({ field, form, files = [], queryKey = [] }) => {
 						<div
 							className="col-6 mobiles gallery-items-list-box-wrap"
 							data-fancybox="gallery"
-							data-src={item.thumbnails.thumb}
+							data-src={item.thumbnails.full}
 							key={idx}
 						>
 							<GalleryCard
-								url={item.thumbnails.thumb}
+								url={item.thumbnails.full}
 								imageName={item.title}
 								item={item}
 								onDelete={onDelete}
@@ -130,7 +135,9 @@ export const MultiUpload = ({ field, form, files = [], queryKey = [] }) => {
 							imageStyle={{
 								maxHeight: "120px",
 							}}
-							innerText={"Upload images"}
+							isLoading={isLoading}
+							LoadingIcon={<DownloadSpinner />}
+							innerText={isLoading ? "Uploading..." : "Upload images"}
 							className={"p-3 mt-4"}
 							type="button"
 						/>

@@ -1,10 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { get } from "lodash";
+import { get, isFunction } from "lodash";
+import { useSelector } from "react-redux";
 
 export const CategoryCard = ({ item, onClick, onDelete = () => {}, link }) => {
+	const lngCode = useSelector((state) => state.system.lngCode);
 	const navigate = useNavigate();
+
 	return (
 		<div
 			onClick={() => navigate(link)}
@@ -24,8 +27,11 @@ export const CategoryCard = ({ item, onClick, onDelete = () => {}, link }) => {
 						<button
 							className="object__action bg_green"
 							onClick={(e) => {
-								onClick && e.stopPropagation();
-								onClick && onClick(get(item, "id"));
+								if (isFunction(onClick)) {
+									e.stopPropagation();
+
+									onClick(get(item, "id"));
+								}
 							}}
 						>
 							<svg width="24" height="24" viewBox="0 0 24 24">
@@ -49,7 +55,7 @@ export const CategoryCard = ({ item, onClick, onDelete = () => {}, link }) => {
 
 				<div className="object__content">
 					<h3 href="#" className="object__title">
-						name: {get(item, "name.uz")}
+						{get(item, `name.${lngCode}`)}
 					</h3>
 				</div>
 			</div>

@@ -1,27 +1,31 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-
-import { get } from "lodash";
+import { useSelector } from "react-redux";
+import { get, isArray, sortBy } from "lodash";
+import { useTranslation } from "react-i18next";
 
 import Containers from "containers";
 import { useFetchOne } from "hooks";
 import { constants } from "services";
 
 import { CrosstabHeader, CrosstabFilter, Tab } from "../components";
-import { Apartments, Chess, PassportInformation, Interactive, Payment, Plan } from "../subpages";
+import { Apartments, Chess, Contract, Interactive, Plan } from "../subpages";
 import { Apartment } from "../components";
 
-import "@fancyapps/ui/dist/fancybox.css";
 import "swiper/css";
 import "swiper/css/navigation";
+import { crosstab_functions } from "../functions";
 
 const Crosstab = () => {
+	const { t } = useTranslation();
 	const [currentTab, setCurrentTab] = useState(3);
 	const [hasFilter, setHasFilter] = useState(window.innerWidth < 991 ? false : true);
 	const [activeApartment, setActiveApartment] = useState(null);
+	const [count, setCount] = useState(0);
+	const lngCode = useSelector((state) => get(state, "system.lngCode"));
+
 	const { id } = useParams();
 	const [params, setParams] = useState({});
-	const [paymentDetails, setPaymentDetails] = useState();
 
 	const { STATUS_FREE, STATUS_INTEREST, STATUS_SOLD, STATUS_NOT_FOR_SALE, STATUS_CONSTRUCTION } =
 		constants;
@@ -32,44 +36,7 @@ const Crosstab = () => {
 		},
 	});
 
-	const filterFunc = (apartment) => {
-		let active = true;
-		const { id, sort, price, discount, status, section_id } = apartment;
-		const room_count = get(apartment, "plan.room.count", 0);
-		const square_meter = get(apartment, "plan.area", 0);
-		const meter_price = price / square_meter;
-
-		// Filter apartments
-		const filter = {
-			room_count: get(params, "room_count", []),
-			price: get(params, "price", [0, Infinity]),
-			square_meter: get(params, "square_meter", [0, Infinity]),
-			meter_price: get(params, "meter_price", ""),
-			discount: get(params, "discount", ""),
-			status: get(params, "status", ""),
-			section_id: get(params, "section_id", ""),
-		};
-
-		if (filter.room_count.length > 0 && !filter.room_count.includes(room_count)) active = false;
-		if (filter.price[0] > price || filter.price[1] < price) active = false;
-		if (filter.square_meter[0] > square_meter || filter.square_meter[1] < square_meter)
-			active = false;
-		if (filter.meter_price[0] > meter_price || filter.meter_price[1] < meter_price)
-			active = false;
-		if (filter.discount && !discount) active = false;
-		if (filter.status && status !== STATUS_FREE) active = false;
-		if (filter.section_id && filter.section_id !== section_id) active = false;
-
-		// Search apartments by area, id, number
-		const search = new RegExp(`${get(params, "search", "")}`);
-
-		const hasMatchWithSearch =
-			String(square_meter).match(search) ||
-			String(id).match(search) ||
-			String(sort).match(search);
-		if (!hasMatchWithSearch) active = false;
-		return active;
-	};
+	const filterFunc = crosstab_functions.filterFuncCreator({ lngCode, params, STATUS_FREE });
 
 	return (
 		<div className="crosstab">
@@ -78,7 +45,7 @@ const Crosstab = () => {
 				dataKey={(data) => data}
 				urlSearchParams={{
 					include:
-						"background,floors, floors.background,floors.apartments,floors.apartments.plan.room, floors.apartments.complex, complex, floors.apartments.section, floors.apartments.plan, floors.apartments.plan.room,floors.apartments.files,floors.apartments.floor",
+						"background,floors, floors.background,floors.apartments,floors.apartments.plan.room, floors.apartments.complex, complex, floors.apartments.section, floors.apartments.plan,floors.apartments.plan.files ,floors.apartments.plan.room,floors.apartments.files,floors.apartments.floor",
 					filter: {
 						complex_id: id,
 					},
@@ -86,7 +53,7 @@ const Crosstab = () => {
 			>
 				{({ data, isFetching }) => {
 					// All apartments
-					const apartments = Array.isArray(get(data, "data"))
+					const apartments = isArray(get(data, "data"))
 						? get(data, "data").reduce((prev, curr) => {
 								const arr = Object.values(get(curr, "floors", {})).reduce(
 									(prev, curr) => {
@@ -98,6 +65,37 @@ const Crosstab = () => {
 						  }, [])
 						: [];
 
+					const sortedData = isArray(get(data, "data"))
+						? get(data, "data").map((section) => {
+								const floors = sortBy(get(section, "floors"), ["sort"]);
+								const filledArr = { arr: [] };
+								const fillArr = (floors, i = 0) => {
+									if (
+										floors.length > 0 &&
+										!get(floors, `[${i}].apartments`, []).length
+									)
+										floors[i].apartments = [false];
+									if (floors.length - 1 === i || floors.length < 2) {
+										filledArr.arr = floors;
+										return floors;
+									}
+									if (floors.length > 1) {
+										if (floors[i + 1].sort - floors[i].sort > 1) {
+											floors.splice(i + 1, 0, {
+												sort: i + 2,
+												apartments: [false],
+											});
+										}
+
+										i++;
+										fillArr(floors, i);
+									}
+								};
+								fillArr(floors);
+								filledArr.arr.reverse();
+								return { ...section, floors: filledArr.arr };
+						  })
+						: [];
 					return (
 						<>
 							<CrosstabHeader
@@ -113,35 +111,43 @@ const Crosstab = () => {
 								}}
 							/>
 							<CrosstabFilter
-								{...{ hasFilter, setHasFilter, setParams, apartments }}
+								{...{
+									hasFilter,
+									setHasFilter,
+									setParams,
+									apartments,
+									sections: get(data, "data", []),
+									complex: get(complex, "data"),
+								}}
 							/>
 							<div className="content">
 								<div className="info">
 									<div className="left">
 										<p className="count">
-											Найдено помещений: {apartments.length}
+											{t("Found premises")}:{" "}
+											<span className="aparmentCount">{count}</span>
 										</p>
 									</div>
 									<div className="right">
 										<div className={`color status-${STATUS_FREE}`}>
 											<span></span>
-											<label>Свободно</label>
+											<label>{t("Free")}</label>
 										</div>
 										<div className={`color status-${STATUS_INTEREST}`}>
 											<span></span>
-											<label>Интерес</label>
+											<label>{t("Interest")}</label>
 										</div>
 										<div className={`color status-${STATUS_CONSTRUCTION}`}>
 											<span></span>
-											<label>Резерв</label>
+											<label>{t("Under construction")}</label>
 										</div>
 										<div className={`color status-${STATUS_SOLD}`}>
 											<span></span>
-											<label>Проданные</label>
+											<label>{t("Sold")}</label>
 										</div>
 										<div className={`color status-${STATUS_NOT_FOR_SALE}`}>
 											<span></span>
-											<label>Не в продаже</label>
+											<label>{t("Not for sale")}</label>
 										</div>
 									</div>
 								</div>
@@ -160,8 +166,9 @@ const Crosstab = () => {
 											{...{
 												activeApartment,
 												setActiveApartment,
-												data: get(data, "data", []),
+												data: sortedData,
 												filterFunc,
+												setCount: () => setCount(apartments.length),
 											}}
 										/>
 									)}
@@ -171,6 +178,7 @@ const Crosstab = () => {
 												activeApartment,
 												setActiveApartment,
 												filterFunc,
+												setCount,
 											}}
 										/>
 									)}
@@ -180,7 +188,8 @@ const Crosstab = () => {
 												activeApartment,
 												setActiveApartment,
 												filterFunc,
-												complex,
+												complexes: get(complex, "data"),
+												setCount,
 											}}
 										/>
 									)}
@@ -191,17 +200,16 @@ const Crosstab = () => {
 												setActiveApartment,
 												filterFunc,
 												complexID: id,
+												setCount,
 											}}
 										/>
 									)}
 									{currentTab === 5 && (
-										<PassportInformation
+										<Contract
 											{...{
 												currentTab,
 												setCurrentTab,
 												activeApartment,
-												setActiveApartment,
-												setPaymentDetails,
 												setActiveApartment,
 											}}
 										/>
@@ -209,7 +217,12 @@ const Crosstab = () => {
 								</div>
 							</div>
 							<Apartment
-								{...{ activeApartment, setActiveApartment, setCurrentTab }}
+								{...{
+									activeApartment,
+									setActiveApartment,
+									setCurrentTab,
+									currentTab,
+								}}
 							/>
 						</>
 					);

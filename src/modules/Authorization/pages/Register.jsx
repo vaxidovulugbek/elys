@@ -6,20 +6,24 @@ import { Button } from "components";
 import Containers from "containers";
 import StepOne from "../components/StepOne";
 import StepTwo from "../components/StepTwo";
-import StepThree from "../components/StepThree";
 
 import "./../styles/Register.css";
 import "../styles/Login.css";
 import logo from "assets/images/logo.svg";
+import { get } from "lodash";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom/dist";
+import { notifications, storage } from "services";
+import { auth } from "store/actions";
 
 const Register = () => {
 	const [page, setPage] = useState(1);
 	const [isPassword, setIsPassword] = useState(true);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
-	const handlePage = ({ errors }) => {
-		if (!errors["username"] && !errors["email"] && !errors["phone"] && !errors["password"]) {
-			setPage(2);
-		}
+	const handlePage = (props) => {
+		props.submitForm();
 	};
 
 	const steps = [<StepOne {...{ isPassword, setIsPassword }} />, <StepTwo />];
@@ -61,37 +65,16 @@ const Register = () => {
 					</div>
 					<div className="reg-content-main">
 						<div className="reg-form">
-							{page === 1 ? (
-								<h4 className="form-title">Create your account</h4>
-							) : page === 2 ? (
-								<div className="form-title-step2">
-									<p>Last step of registration</p>
-									<h4 className="form-title">
-										Tell us a little about your company
-									</h4>
-								</div>
-							) : (
-								<StepThree />
-							)}
+							<h4 className="form-title">Create your account</h4>
 
 							<Containers.Form
-								url="/"
+								url={"user/sign-up"}
 								method="post"
 								fields={[
-									{
-										name: "username",
-										validationType: "string",
-										validations: [{ type: "required" }],
-									},
 									{
 										name: "email",
 										validationType: "string",
 										validations: [{ type: "required" }, { type: "email" }],
-									},
-									{
-										name: "phone",
-										validationType: "number",
-										validations: [{ type: "required" }],
 									},
 									{
 										name: "password",
@@ -99,19 +82,35 @@ const Register = () => {
 										validations: [{ type: "required" }],
 									},
 									{
-										name: "fax",
+										name: "first_name",
 										validationType: "string",
 										validations: [{ type: "required" }],
 									},
 									{
-										name: "web_site",
+										name: "last_name",
 										validationType: "string",
 										validations: [{ type: "required" }],
 									},
+									{
+										name: "username",
+										validationType: "string",
+										validations: [{ type: "required" }],
+									},
+									{
+										name: "phone",
+										validationType: "number",
+										validations: [{ type: "required" }],
+									},
 								]}
-								onSuccess={(_, { resetForm }) => {
-									setPage(3);
-									resetForm();
+								onSuccess={(user) => {
+									storage.set("token", get(user.data, "token"));
+									dispatch(auth.success(user.data));
+									notifications.success("Успех");
+									navigate("/phone-confirm");
+								}}
+								onError={(error, formHelpers) => {
+									notifications.error("Ошибка");
+									formHelpers.setErrors(get(error, "response.data.errors"));
 								}}
 							>
 								{(props) => {
@@ -122,14 +121,14 @@ const Register = () => {
 											<div className="form-group text-center">
 												<div style={{ display: page === 3 && "none" }}>
 													<Button
-														onClick={() => handlePage(props)}
+														onClick={
+															page === 1
+																? () => handlePage(props)
+																: null
+														}
 														type={page === 1 ? "button" : "submit"}
 														className="form-btn register"
-														innerText={
-															page === 1
-																? "Start for free"
-																: "Create an account"
-														}
+														innerText={"Start for free"}
 													/>
 												</div>
 											</div>
