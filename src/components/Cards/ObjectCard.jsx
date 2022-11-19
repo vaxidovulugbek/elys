@@ -11,6 +11,7 @@ import { Modals } from "components";
 
 import { ReactComponent as TariffIcon } from "assets/images/tariff.svg";
 import { ReactComponent as UserIcon } from "assets/images/person_plus_icon.svg";
+import { ReactComponent as StatisticsIcon } from "assets/images/statistics.svg";
 import { ReactComponent as ContractIcon } from "assets/images/contract-icon.svg";
 import { ReactComponent as ClientsIcon } from "assets/images/clients-icon.svg";
 import "./Cards.scss";
@@ -123,9 +124,9 @@ export const ObjectCard = ({
 					</Link>
 					<Link
 						to={`complex-statistcs/${get(data, "id")}`}
-						className="object__action bg_purple"
+						className="object__action bg_blue"
 					>
-						<UserIcon fill="#fff" stroke="#fff" width={"24px"} height={"24px"} />
+						<StatisticsIcon fill="#fff" stroke="#fff" width={"24px"} height={"24px"} />
 					</Link>
 
 					<button className="object__action bg_red" onClick={(e) => deleteObject(e)}>

@@ -3,7 +3,7 @@ import { functions } from "services";
 
 export const TablePendingStatistics = ({ items }) => {
 	return (
-		<div class="card">
+		<div className="card">
 			{items?.map((element) => {
 				return (
 					<div className="p-3 " style={{ backgroundColor: "white" }} key={element.amount}>
