@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Modals, Button, InfoTooltip } from "components";
 import { ModalRoot } from "components/Modal";
-import { useFetchList, useOverlay } from "hooks";
+import { useFetchList } from "hooks";
 import { useModalWithHook } from "hooks/useModalWithHook";
 import { find, get } from "lodash";
 import React, { useEffect, useRef, useState } from "react";
@@ -14,7 +14,6 @@ export const EditSvg = ({ vector, filter, dataAttribute, setSvgID, setVector, li
 	const ref = useRef();
 	const pathRef = useRef();
 	const [pathId, setPathId] = useState();
-	// const pathModal = useOverlay("pathModal");
 	const pathModal = useModalWithHook();
 	const [pathHoverData, setPathHoverData] = useState();
 
