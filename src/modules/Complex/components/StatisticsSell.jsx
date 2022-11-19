@@ -42,7 +42,7 @@ const StatisticsSell = ({ data }) => {
 						<span className="statisticssell__subtext-sum">
 							{functions.toFixed(Number(data?.allArea[0].sum_area), 2)}
 						</span>{" "}
-						UZS
+						&#13217;
 					</p>
 				</div>
 			</div>

@@ -37,8 +37,8 @@ export function BarChart() {
 		},
 	});
 
-	const contractsCount = [15, 156, 134, 56];
-	const contractsDate = ["12-23-26", "12-23-27", "12-23-278", "12-23-286"];
+	const contractsCount = [];
+	const contractsDate = [];
 
 	statisticsContract.data?.map((item) => {
 		contractsCount.push(item.count);
@@ -57,7 +57,7 @@ export function BarChart() {
 			},
 		],
 	};
-	console.log(statisticsContract);
+	// console.log(statisticsContract);
 	return (
 		<div className="w-100" style={{ width: "100%" }}>
 			<div className="d-flex mb-5 justify-content-between align-items-center ">

@@ -64,7 +64,7 @@ export function PieChart({ items }) {
 						color: "#63ABFD",
 					}}
 				>
-					{functions.toFixed(apartmentAreaSum, 2)} UZS
+					{functions.toFixed(apartmentAreaSum, 2)} &#13217;
 				</h3>
 				<p
 					style={{
@@ -77,7 +77,7 @@ export function PieChart({ items }) {
 						color: "#4F4F4F",
 					}}
 				>
-					Всего сумма
+					Всего площадь
 				</p>
 			</div>
 			<Pie data={data} options={options} />
