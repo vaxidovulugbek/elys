@@ -13,7 +13,13 @@ export const MapModal = ({ onClose, onPlaceChange, coordinates = [] }) => {
 			<MyMap lat={coordinates[0]} lon={coordinates[1]} onPlaceChange={onPlaceChange} />
 
 			<div className="d-flex justify-content-end mt-3">
-				<Button onClick={onClose} innerText="Ready" className="btn btn_green" size="sm" />
+				<Button
+					onClick={onClose}
+					type="button"
+					innerText="Ready"
+					className="btn btn_green"
+					size="sm"
+				/>
 			</div>
 		</>
 	);

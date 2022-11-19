@@ -6,7 +6,6 @@ import { ModalWrapper } from "./ModalWrapper";
 import "./Root.scss";
 
 export const Root = ({ children, isOpen, className, style }) => {
-	console.log(children);
 	return (
 		<Portal targetId="modal-root">
 			<ModalWrapper isOpen={isOpen} className={className} style={style}>

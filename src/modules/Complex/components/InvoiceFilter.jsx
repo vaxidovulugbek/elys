@@ -19,7 +19,11 @@ export const InvoiceFilter = ({
 	console.log(rangeDate, "range");
 	return (
 		<div className="filters d-flex gap mb-3">
-			<Fields.RangeDatePicker values={rangeDate} onChange={setRangeDate} label="Date" />
+			<Fields.RangeDatePicker
+				values={rangeDate}
+				onChange={setRangeDate}
+				label="Date (From ~ To)"
+			/>
 			<Fields.StaticSelect
 				options={apartments}
 				placeholder="Select"

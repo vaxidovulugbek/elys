@@ -1,7 +1,7 @@
 import { ModalRoot } from "components";
 import { get } from "lodash";
 import React from "react";
-import { time } from "services";
+import { constants, time } from "services";
 
 import "./../styles/InvoiceView.scss";
 
@@ -49,19 +49,24 @@ export const InvoiceView = ({ modal, data }) => {
 					</tr>
 					<tr>
 						<th>Date</th>
-						<td>{time.to(get(data, "date"))}</td>
+						<td>{get(data, "date") && time.to(get(data, "date"))}</td>
 					</tr>
 					<tr>
 						<th>Status</th>
-						<td>{get(data, "status")}</td>
+						<td>
+							{get(data, "status") &&
+								constants.payedStatusOptions.find(
+									(item) => item.value === get(data, "status")
+								).label}
+						</td>
 					</tr>
 					<tr>
 						<th>Approved at</th>
-						<td>{time.to(get(data, "approved_at"))}</td>
+						<td>{get(data, "approved_at") && time.to(get(data, "approved_at"))}</td>
 					</tr>
 					<tr>
 						<th>Canceled at</th>
-						<td>{time.to(get(data, "canceled_at"))}</td>
+						<td>{get(data, "canceled_at") && time.to(get(data, "canceled_at"))}</td>
 					</tr>
 				</table>
 			</div>
