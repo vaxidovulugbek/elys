@@ -2,6 +2,7 @@
 import { Modals, Button, InfoTooltip } from "components";
 import { ModalRoot } from "components/Modal";
 import { useFetchList, useOverlay } from "hooks";
+import { useModalWithHook } from "hooks/useModalWithHook";
 import { find, get } from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import ReactTooltip from "react-tooltip";
@@ -13,7 +14,8 @@ export const EditSvg = ({ vector, filter, dataAttribute, setSvgID, setVector, li
 	const ref = useRef();
 	const pathRef = useRef();
 	const [pathId, setPathId] = useState();
-	const pathModal = useOverlay("pathModal");
+	// const pathModal = useOverlay("pathModal");
+	const pathModal = useModalWithHook();
 	const [pathHoverData, setPathHoverData] = useState();
 
 	const { data } = useFetchList({
@@ -32,6 +34,7 @@ export const EditSvg = ({ vector, filter, dataAttribute, setSvgID, setVector, li
 			paths.forEach((path) => {
 				path.addEventListener("click", (e) => {
 					pathModal.handleOverlayOpen();
+					console.log(path, "click");
 					pathRef.current = path;
 				});
 				path?.setAttribute("data-tip", "tooltip");
