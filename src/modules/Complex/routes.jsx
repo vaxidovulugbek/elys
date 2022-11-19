@@ -7,6 +7,7 @@ const Category = lazy(() => import("./pages/Category"));
 const Tariff = lazy(() => import("./pages/Tariff"));
 const Document = lazy(() => import("./pages/Document"));
 const ComplexUsers = lazy(() => import("./pages/ComplexUsers"));
+const Invoice = lazy(() => import("./pages/Invoice"));
 const Statistics = lazy(() => import("./pages/Statistics"));
 
 export const ComplexRoutes = [
@@ -17,6 +18,10 @@ export const ComplexRoutes = [
 	{
 		path: "category",
 		element: <Category />,
+	},
+	{
+		path: "invoice",
+		element: <Invoice />,
 	},
 	{
 		path: "complex/create",

@@ -1,15 +1,16 @@
 import React from "react";
 import { isArray } from "lodash";
 
-import { useDelete, useFetchInfinite, useFetchOneWithId, useOverlay, useScroll } from "hooks";
+import { useDelete, useFetchInfinite, useFetchOneWithId, useScroll } from "hooks";
 import { notifications } from "services";
 
 import { CategoryCard } from "../components/CategoryCard";
 import { AddObject, Modals, PageHeading } from "components";
 import CategoryForm from "../components/CategoryForm";
+import { useModalWithHook } from "hooks/useModalWithHook";
 
 const Category = () => {
-	const categoryModal = useOverlay("category");
+	const categoryModal = useModalWithHook();
 	const categoryList = useFetchInfinite({ url: "/category" });
 	useScroll(document.documentElement, categoryList.fetchNextPage, 100);
 

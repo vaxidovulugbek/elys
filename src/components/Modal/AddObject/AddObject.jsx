@@ -61,6 +61,7 @@ export const AddObject = ({
 							<Button
 								onClick={() => {
 									onClose();
+									resetForm();
 								}}
 								innerText="Close"
 								className="btn btn_outlined"

@@ -5,20 +5,31 @@ import { get } from "lodash";
 import { notifications } from "services";
 
 import { ListPagination, PageHeading, Button, Modals } from "components";
-import { useDelete, useFetchList, useOverlay } from "hooks";
-import { ComplexUsersAdd } from "../components/ComplexUserAdd";
+import { useDelete, useFetchList, useFetchOneWithId } from "hooks";
+import { ComplexUsersForm } from "../components/ComplexUsersForm";
 import { ComplexUsersTable } from "../components/ComplexUserTable";
-// import { useFetchOneWithId } from "./../../../hooks/useFetchOneWithId";
+import { useModalWithHook } from "hooks/useModalWithHook";
 
 const ComplexUsers = () => {
 	const { complexID } = useParams();
-	const modal = useOverlay("complex-user-modal");
+
+	const modal = useModalWithHook();
+
+	const [page, setPage] = useState(1);
+
+	const { data, setId } = useFetchOneWithId({
+		url: "/user-complex",
+		queryOptions: {
+			enabled: false,
+		},
+		urlSearchParams: { include: "user" },
+		refetchStatus: modal.isOpen,
+	});
 
 	const deleteTariff = useDelete({
 		url: "/user-complex",
 	});
 
-	const [page, setPage] = useState(1);
 	const complexUsers = useFetchList({
 		url: "/user-complex",
 		urlSearchParams: {
@@ -29,6 +40,11 @@ const ComplexUsers = () => {
 			include: "user",
 		},
 	});
+
+	const handleEdit = (row) => {
+		setId(row.id);
+		modal.handleOverlayOpen();
+	};
 
 	const confirmDelete = (event, item) => {
 		Modals.deletePermission({
@@ -45,18 +61,6 @@ const ComplexUsers = () => {
 
 	return (
 		<>
-			<ComplexUsersAdd
-				isOpen={modal.isOpen}
-				complexID={complexID}
-				onClose={modal.handleOverlayClose}
-				onSuccess={() => {
-					complexUsers.refetch();
-					modal.handleOverlayClose();
-					notifications.success("User is created");
-				}}
-				method={"post"}
-			/>
-
 			<PageHeading
 				title="Users"
 				links={[
@@ -65,7 +69,10 @@ const ComplexUsers = () => {
 				]}
 				renderButtons={() => (
 					<Button
-						onClick={modal.handleOverlayOpen}
+						onClick={() => {
+							setId(null);
+							modal.handleOverlayOpen();
+						}}
 						innerText="Create"
 						className="btn btn_green"
 						size="sm"
@@ -76,7 +83,14 @@ const ComplexUsers = () => {
 			<ComplexUsersTable
 				items={complexUsers.data}
 				onDelete={confirmDelete}
-				// onEdit={handleEdit}
+				onEdit={handleEdit}
+			/>
+
+			<ComplexUsersForm
+				complexID={complexID}
+				data={data}
+				modal={modal}
+				complexUsers={complexUsers}
 			/>
 
 			<ListPagination

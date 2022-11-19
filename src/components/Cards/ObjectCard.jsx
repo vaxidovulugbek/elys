@@ -14,6 +14,8 @@ import { ReactComponent as UserIcon } from "assets/images/person_plus_icon.svg";
 import { ReactComponent as StatisticsIcon } from "assets/images/statistics.svg";
 import { ReactComponent as ContractIcon } from "assets/images/contract-icon.svg";
 import { ReactComponent as ClientsIcon } from "assets/images/clients-icon.svg";
+import { ReactComponent as StatisticIcon } from "assets/images/statistic-icon.svg";
+import { ReactComponent as InvoiceIcon } from "assets/images/invoice-icon.svg";
 import "./Cards.scss";
 import { useTranslation } from "react-i18next";
 import classNames from "classnames";
@@ -124,9 +126,18 @@ export const ObjectCard = ({
 					</Link>
 					<Link
 						to={`complex-statistcs/${get(data, "id")}`}
+<<<<<<< HEAD
 						className="object__action bg_blue"
 					>
 						<StatisticsIcon fill="#fff" stroke="#fff" width={"24px"} height={"24px"} />
+=======
+						className="object__action bg_orange"
+					>
+						<StatisticIcon fill="#fff" stroke="#fff" width={"24px"} height={"24px"} />
+					</Link>
+					<Link to={"/invoice"} className="object__action bg_blue">
+						<InvoiceIcon fill="#fff" stroke="#fff" width={"32px"} height={"32px"} />
+>>>>>>> 1aa24e12bcb7e1d74fa9395567972b924115f5ab
 					</Link>
 
 					<button className="object__action bg_red" onClick={(e) => deleteObject(e)}>

@@ -7,9 +7,10 @@ import { notifications } from "services";
 import { AddObject, Modals, PageHeading } from "components";
 import { RoomCard } from "../components/RoomCard";
 import { RoomForm } from "../components/RoomForm";
+import { useModalWithHook } from "hooks/useModalWithHook";
 
 const List = () => {
-	const roomModal = useOverlay("room");
+	const roomModal = useModalWithHook();
 
 	const roomList = useFetchInfinite({ url: "/room" });
 	useScroll(document.documentElement, roomList.fetchNextPage, 100);

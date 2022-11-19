@@ -6,6 +6,8 @@ import { Button } from "components/index";
 
 import { ReactComponent as DeleteIcon } from "assets/images/delete-icon.svg";
 import { ReactComponent as EditIcon } from "assets/images/edit-icon.svg";
+import { ReactComponent as ViewIcon } from "assets/images/eye.svg";
+import { ReactComponent as CheckIcon } from "assets/images/check.svg";
 
 export const TableRow = ({
 	row,

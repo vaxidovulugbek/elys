@@ -16,6 +16,8 @@ export const Table = ({
 	items = [],
 	deleteAction,
 	editAction,
+	viewAction,
+	checkAction,
 	onRowClick,
 	renderButtons,
 }) => {
