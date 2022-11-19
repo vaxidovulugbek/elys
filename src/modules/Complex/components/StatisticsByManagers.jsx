@@ -1,4 +1,4 @@
-import { Table } from "components";
+import { Fields, Table } from "components";
 import React, { useState } from "react";
 import { time } from "services";
 import { DateRangePicker } from "components/Fields/DateRangePicker/DateRangePicker";
@@ -10,6 +10,8 @@ function StatisticsByManagers() {
 
 	const [fromDataUser, setFromUser] = useState();
 	const [toDataUser, setToUser] = useState();
+
+	const [rangeDate, setRangeDate] = useState([]);
 
 	const statisticsUser = useFetchList({
 		url: `/statistics/${complexID}/user`,
@@ -34,7 +36,12 @@ function StatisticsByManagers() {
 		>
 			<div className="heading mb-5 d-flex align-items-center justify-content-between">
 				<h3>Статистика по менеджерам</h3>
-				<DateRangePicker setFrom={setFromUser} setTo={setToUser} />
+				<Fields.RangeDatePicker
+					values={rangeDate}
+					onChange={setRangeDate}
+					label="Date (From ~ To)"
+				/>
+				{/* <R setFrom={setFromUser} setTo={setToUser} /> */}
 			</div>
 			<Table
 				style={{ backgroundColor: "#fff" }}

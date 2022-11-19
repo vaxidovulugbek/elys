@@ -3,7 +3,7 @@ import MoneyIcon from "../../../assets/images/money.svg";
 import Frame2 from "../../../assets/images/Frame2.svg";
 import Frame3 from "../../../assets/images/Frame3.svg";
 import usericon from "../../../assets/images/user-icon.svg";
-import "../styles/InvoiceView.scss";
+import "../styles/Statistics.scss";
 import { functions } from "services";
 
 const StatisticsSell = ({ data }) => {

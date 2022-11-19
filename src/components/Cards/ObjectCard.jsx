@@ -126,18 +126,12 @@ export const ObjectCard = ({
 					</Link>
 					<Link
 						to={`complex-statistcs/${get(data, "id")}`}
-<<<<<<< HEAD
-						className="object__action bg_blue"
-					>
-						<StatisticsIcon fill="#fff" stroke="#fff" width={"24px"} height={"24px"} />
-=======
 						className="object__action bg_orange"
 					>
 						<StatisticIcon fill="#fff" stroke="#fff" width={"24px"} height={"24px"} />
 					</Link>
 					<Link to={"/invoice"} className="object__action bg_blue">
 						<InvoiceIcon fill="#fff" stroke="#fff" width={"32px"} height={"32px"} />
->>>>>>> 1aa24e12bcb7e1d74fa9395567972b924115f5ab
 					</Link>
 
 					<button className="object__action bg_red" onClick={(e) => deleteObject(e)}>

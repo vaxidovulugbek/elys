@@ -37,8 +37,8 @@ export function BarChart() {
 		},
 	});
 
-	const contractsCount = [];
-	const contractsDate = [];
+	const contractsCount = [15, 156, 134, 56];
+	const contractsDate = ["12-23-26", "12-23-27", "12-23-278", "12-23-286"];
 
 	statisticsContract.data?.map((item) => {
 		contractsCount.push(item.count);
