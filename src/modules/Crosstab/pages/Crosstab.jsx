@@ -27,8 +27,7 @@ const Crosstab = () => {
 	const { id } = useParams();
 	const [params, setParams] = useState({});
 
-	const { STATUS_FREE, STATUS_INTEREST, STATUS_SOLD, STATUS_NOT_FOR_SALE, STATUS_CONSTRUCTION } =
-		constants;
+	const { STATUS_FREE, STATUS_INTEREST, STATUS_SOLD, STATUS_NOT_FOR_SALE } = constants;
 	const complex = useFetchOne({
 		url: "/user/complex",
 		urlSearchParams: {
@@ -131,23 +130,23 @@ const Crosstab = () => {
 									<div className="right">
 										<div className={`color status-${STATUS_FREE}`}>
 											<span></span>
-											<label>{t("Free")}</label>
+											<label>{t("доступно")}</label>
 										</div>
 										<div className={`color status-${STATUS_INTEREST}`}>
 											<span></span>
-											<label>{t("Interest")}</label>
+											<label>{t("забронировано")}</label>
 										</div>
-										<div className={`color status-${STATUS_CONSTRUCTION}`}>
+										{/* <div className={`color status-${STATUS_CONSTRUCTION}`}>
 											<span></span>
 											<label>{t("Under construction")}</label>
-										</div>
+										</div> */}
 										<div className={`color status-${STATUS_SOLD}`}>
 											<span></span>
-											<label>{t("Sold")}</label>
+											<label>{t("продано")}</label>
 										</div>
 										<div className={`color status-${STATUS_NOT_FOR_SALE}`}>
 											<span></span>
-											<label>{t("Not for sale")}</label>
+											<label>{t("не для продажи")}</label>
 										</div>
 									</div>
 								</div>

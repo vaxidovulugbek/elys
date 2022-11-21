@@ -10,7 +10,8 @@ import { auth } from "store/actions";
 import { Fields, Button } from "components";
 import Containers from "containers";
 
-import logo from "assets/images/logo.svg";
+import logo from "assets/images/logo-binvest.svg";
+import logoRteco from "assets/images/erteko.svg";
 import "./../styles/Login.css";
 
 const Login = () => {
@@ -20,22 +21,28 @@ const Login = () => {
 	return (
 		<div className="login">
 			<div className="row row-reg">
-				<div className="col-lg-5 reg-bg">
+				<div className="col-lg-6 reg-bg">
 					<div className="text">
-						<div className="logo">
-							<img src={logo} alt="logo" />
-						</div>
-						<h4 className="title">
-							Flatris helps you to sell apartments quickly and easily.
-						</h4>
+						{/* <div className="logo">
+							<img
+								width={"300px"}
+								style={{ top: "-150px", position: "absolute" }}
+								src={logo}
+								alt="logo"
+							/>
+						</div> */}
+						{/* <h4 className="title"></h4> */}
 					</div>
 				</div>
-				<div className="col-lg-7 reg-content">
+				<div className="col-lg-6 reg-content">
 					<div className="reg-content-header">
 						<Link to="/register">Registration</Link>
 					</div>
 					<div className="reg-content-main">
 						<div className="reg-form">
+							<div className="logo">
+								<img width={"300px"} className="mb-3" src={logo} alt="logo" />
+							</div>
 							<h4>Log in</h4>
 							<Containers.Form
 								url="/user/login"
@@ -123,6 +130,15 @@ const Login = () => {
 									);
 								}}
 							</Containers.Form>
+
+							<div className="logo">
+								<img
+									width={"300px"}
+									className="mb-3 mt-4"
+									src={logoRteco}
+									alt="logo"
+								/>
+							</div>
 						</div>
 					</div>
 				</div>

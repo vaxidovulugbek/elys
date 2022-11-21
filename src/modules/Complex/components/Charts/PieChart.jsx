@@ -25,13 +25,13 @@ export function PieChart({ items }) {
 	});
 
 	const data = {
-		labels: ["Доступно", "Заинтересован", "Проданные"],
+		labels: ["Доступно", "Заинтересован", "Проданные", "Hе для продажи"],
 		datasets: [
 			{
 				label: "",
 				data: [...apartmentAreasCounts],
-				backgroundColor: ["#16BFD6", "#F765A3", "#1DDD8D"],
-				borderColor: ["#16BFD6", "#F765A3", "#1DDD8D"],
+				backgroundColor: ["#1ddd8d", "#ffb400", "#ec6372", "#5b8ec3"],
+				borderColor: ["#1ddd8d", "#ffb400", "#ec6372", "#5b8ec3"],
 				borderWidth: 1,
 			},
 		],
