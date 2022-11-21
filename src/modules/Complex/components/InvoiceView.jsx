@@ -10,7 +10,7 @@ export const InvoiceView = ({ modal, data }) => {
 		modal.handleOverlayClose();
 	};
 
-	console.log(data);
+	// console.log(data);
 	return (
 		<ModalRoot isOpen={modal.isOpen}>
 			<div className="invoiceTable">

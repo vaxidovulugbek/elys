@@ -64,7 +64,8 @@ export function PieChart({ items }) {
 						color: "#63ABFD",
 					}}
 				>
-					{functions.toFixed(apartmentAreaSum, 2)} &#13217;
+					{functions.convertToReadable(functions.toFixed(apartmentAreaSum, 2)) || 0}{" "}
+					&#13217;
 				</h3>
 				<p
 					style={{

@@ -1,6 +1,6 @@
 import { Fields, Table } from "components";
 import React, { useState } from "react";
-import { time } from "services";
+import { functions, time } from "services";
 // import { DateRangePicker } from "components/Fields/DateRangePicker/DateRangePicker";
 import { useParams } from "react-router-dom";
 import { useFetchList } from "hooks";
@@ -44,12 +44,12 @@ function StatisticsByManagers() {
 				columns={[
 					{
 						title: "ID",
-						dataKey: "id",
+						dataKey: "owner.id",
 						render: (value) => value,
 					},
 					{
 						title: "ФИО",
-						dataKey: "created_by",
+						dataKey: "owner.username",
 						render: (value) => value,
 					},
 					{
@@ -60,7 +60,7 @@ function StatisticsByManagers() {
 					{
 						title: "Итоговая сумма",
 						dataKey: "sum_price",
-						render: (value) => value,
+						render: (value) => functions.convertToReadable(value),
 					},
 				]}
 			/>

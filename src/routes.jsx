@@ -17,6 +17,7 @@ import { RoomRoute } from "modules/Room";
 import { SettingsRoutes } from "modules/Settings";
 import { SectionsRoute } from "modules/Section";
 import { SuccesLoginRoutes } from "modules/Authorization/routes";
+import { UserRoute } from "modules/Users";
 
 const loggedInRoutes = [
 	{
@@ -28,6 +29,7 @@ const loggedInRoutes = [
 			...RoomRoute,
 			...SettingsRoutes,
 			...SectionsRoute,
+			...UserRoute,
 		],
 	},
 	{

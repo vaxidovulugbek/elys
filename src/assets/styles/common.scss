@@ -510,7 +510,8 @@ a {
 
 .section__update {
 	.object__img img {
-		height: 130px;
+		height: 100px;
+		object-fit: contain !important;
 	}
 }
 

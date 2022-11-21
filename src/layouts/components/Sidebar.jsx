@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useLocation, useMatch, useParams } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import cn from "classnames";
-import { find, get } from "lodash";
+import { find } from "lodash";
 
 import { ReactComponent as HomeSvg } from "assets/images/home.svg";
+import { ReactComponent as UserSvg } from "assets/images/user.svg";
 import { ReactComponent as Settings } from "assets/images/settings.svg";
 import { ReactComponent as Grid } from "assets/images/grid.svg";
 import { ReactComponent as Room } from "assets/images/room.svg";
@@ -86,6 +87,21 @@ export const Sidebar = ({ isOpen }) => {
 					<div className="d-flex align-items-center">
 						<Grid />
 						<span className="sidebar__link-text">{t("Category")}</span>
+					</div>
+				</NavLink>
+			</div>
+
+			<div className="sidebar__submenu">
+				<NavLink
+					to="/user"
+					end
+					className={({ isActive }) =>
+						isActive ? "sidebar__link sidebar__link-active" : "sidebar__link"
+					}
+				>
+					<div className="d-flex align-items-center">
+						<UserSvg />
+						<span className="sidebar__link-text">{t("User")}</span>
 					</div>
 				</NavLink>
 			</div>

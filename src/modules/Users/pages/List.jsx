@@ -1,59 +1,53 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
 import { get } from "lodash";
 
 import { notifications } from "services";
 
 import { ListPagination, PageHeading, Button, Modals } from "components";
 import { useDelete, useFetchList, useFetchOneWithId } from "hooks";
-import { ComplexUsersForm } from "../components/ComplexUsersForm";
-import { ComplexUsersTable } from "../components/ComplexUserTable";
 import { useModalWithHook } from "hooks/useModalWithHook";
+import { UserTable } from "../components/UserTable";
+import { UserForm } from "../components/UserForm";
 
-const ComplexUsers = () => {
-	const { complexID } = useParams();
-
+const User = () => {
 	const modal = useModalWithHook();
 
 	const [page, setPage] = useState(1);
 
 	const { data, setId } = useFetchOneWithId({
-		url: "/user-complex",
+		url: "/user",
 		queryOptions: {
 			enabled: false,
 		},
-		urlSearchParams: { include: "user" },
+		urlSearchParams: {},
 		refetchStatus: modal.isOpen,
 	});
 
 	const deleteUser = useDelete({
-		url: "/user-complex",
+		url: "/user",
 	});
 
-	const complexUsers = useFetchList({
-		url: "/user-complex",
+	const getUser = useFetchList({
+		url: "/user",
 		urlSearchParams: {
 			page,
-			filter: {
-				complex_id: complexID,
-			},
-			include: "user",
 		},
 	});
 
-	const handleEdit = (row) => {
+	const onEdit = (row) => {
+		// console.log(row);
 		setId(row.id);
 		modal.handleOverlayOpen();
 	};
 
 	const confirmDelete = (event, item) => {
 		Modals.deletePermission({
-			title: "Delete a project?",
+			title: "Delete a user?",
 			icon: "error",
-			text: "All data concerning this project will be deleted.",
+			text: "All data concerning this user will be deleted.",
 			receivePermission: () =>
 				deleteUser.mutateAsync(get(item, "id")).then((res) => {
-					complexUsers.refetch();
+					getUser.refetch();
 					notifications.success("Deleted");
 				}),
 		});
@@ -62,10 +56,10 @@ const ComplexUsers = () => {
 	return (
 		<>
 			<PageHeading
-				title="Users"
+				title="Пользователь"
 				links={[
 					{ url: "/", name: "Control Panel" },
-					{ url: "", name: "Users" },
+					{ url: "", name: "Пользователь" },
 				]}
 				renderButtons={() => (
 					<Button
@@ -80,21 +74,12 @@ const ComplexUsers = () => {
 				)}
 			/>
 
-			<ComplexUsersTable
-				items={complexUsers.data}
-				onDelete={confirmDelete}
-				onEdit={handleEdit}
-			/>
+			<UserTable items={getUser.data} onDelete={confirmDelete} onEdit={onEdit} />
 
-			<ComplexUsersForm
-				complexID={complexID}
-				data={data}
-				modal={modal}
-				complexUsers={complexUsers}
-			/>
+			<UserForm data={data} modal={modal} getUser={getUser} />
 
 			<ListPagination
-				pageCount={get(complexUsers, "meta.pageCount")}
+				pageCount={get(getUser, "meta.pageCount")}
 				onPageChange={(page) => {
 					setPage(page + 1);
 				}}
@@ -103,4 +88,4 @@ const ComplexUsers = () => {
 	);
 };
 
-export default ComplexUsers;
+export default User;

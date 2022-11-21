@@ -8,7 +8,7 @@ import { functions } from "services";
 import { get } from "lodash";
 
 const StatisticsSell = ({ data }) => {
-	console.log(data);
+	// console.log(data);
 	return (
 		<div className="statisticssell row gap-1">
 			<div className="col-4">
@@ -23,7 +23,9 @@ const StatisticsSell = ({ data }) => {
 					<p className="statisticssell__text">Всего продаж</p>
 					<p className="statisticssell__subtext">
 						<span className="statisticssell__subtext-sum">
-							{functions.toFixed(Number(get(data, "allSales[0].amount", [])), 2)}
+							{functions.convertToReadable(
+								functions.toFixed(Number(get(data, "allSales[0].amount", [])), 2)
+							)}
 						</span>{" "}
 						UZS
 					</p>
@@ -41,8 +43,12 @@ const StatisticsSell = ({ data }) => {
 					<p className="statisticssell__text">Объектов продано</p>
 					<p className="statisticssell__subtext">
 						<span className="statisticssell__subtext-sum">
-							{functions.toFixed(Number(get(data, "allArea[0].sum_area", [])), 2) ||
-								0}
+							{functions.convertToReadable(
+								functions.toFixed(
+									Number(get(data, "allArea[0].sum_area", [])),
+									2
+								) || 0
+							)}
 						</span>{" "}
 						&#13217;
 					</p>
@@ -58,7 +64,7 @@ const StatisticsSell = ({ data }) => {
 					<p className="statisticssell__text">Средняя цена</p>
 					<p className="statisticssell__subtext">
 						<span className="statisticssell__subtext-sum">
-							{get(data, "averagePrice[0].avg", 0)}
+							{functions.convertToReadable(get(data, "averagePrice[0].avg", 0)) || 0}
 						</span>{" "}
 						UZS
 					</p>
