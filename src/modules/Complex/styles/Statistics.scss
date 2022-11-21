@@ -1,0 +1,52 @@
+.statisticssell {
+	// margin: 0 0 24px 0;
+	// &__card:not(:last-child) {
+	// 	// margin-right: 24px;
+	// }
+
+	&__card {
+		padding: 20px 16px 16px 16px;
+		background: #ffffff;
+		box-shadow: 4px 8px 100px rgba(0, 0, 0, 0.04);
+		border-radius: 6px;
+	}
+
+	&__img {
+		width: 48px;
+		height: 48px;
+		margin-bottom: 24px;
+	}
+
+	&__subimg {
+		margin-right: 4px;
+		width: 28px;
+		height: 28px;
+	}
+
+	&__num {
+		display: flex;
+		align-items: flex-end;
+		justify-content: flex-end;
+		font-weight: 500;
+		font-size: 14px;
+		line-height: 16px;
+		letter-spacing: -0.0375em;
+		color: #16bfd6;
+	}
+
+	&__text {
+		margin-bottom: 10px;
+		font-weight: 600;
+		font-size: 16px;
+		line-height: 19px;
+		color: #828282;
+	}
+
+	&__subtext {
+		font-weight: 500;
+		font-size: 26px;
+		line-height: 30px;
+		letter-spacing: -0.0375em;
+		color: #63abfd;
+	}
+}

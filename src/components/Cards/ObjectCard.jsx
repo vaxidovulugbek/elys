@@ -11,6 +11,7 @@ import { Modals } from "components";
 
 import { ReactComponent as TariffIcon } from "assets/images/tariff.svg";
 import { ReactComponent as UserIcon } from "assets/images/person_plus_icon.svg";
+import { ReactComponent as StatisticsIcon } from "assets/images/statistics.svg";
 import { ReactComponent as ContractIcon } from "assets/images/contract-icon.svg";
 import { ReactComponent as ClientsIcon } from "assets/images/clients-icon.svg";
 import { ReactComponent as StatisticIcon } from "assets/images/statistic-icon.svg";

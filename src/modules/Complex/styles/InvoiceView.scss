@@ -1,13 +1,52 @@
-.invoiceTable {
-	table,
-	th,
-	td {
-		border: 1px solid black;
-		border-collapse: collapse;
+.modal__wrapper {
+	padding: 0;
+	min-width: 596px;
+	border-radius: 12px;
+}
+
+.invoice__modal {
+	position: relative;
+	padding: 62px 40px;
+
+	background: #fff;
+	border-radius: 12px;
+
+	.invice__modal-content {
+		margin-top: 22px;
+		row-gap: 20px;
 	}
-	th,
-	td {
-		padding: 5px;
-		text-align: left;
+
+	label span {
+		display: block;
+
+		margin-bottom: 8px;
+
+		font-weight: 700;
+		font-size: 12px;
+		line-height: 15px;
+		color: #787f95;
+	}
+
+	input {
+		min-width: 212px;
+		min-height: 43px;
+		border: 1.5px solid #eef0f4;
+		border-radius: 6px;
+		color: #002b48;
+		font-weight: 700;
+		font-size: 16px;
+		line-height: 19px;
+		padding-left: 20px;
+	}
+
+	.invoice__close-btn {
+		position: absolute;
+		top: 24px;
+		right: 48px;
+		color: #c2c4ca;
+
+		&:hover {
+			color: #797979;
+		}
 	}
 }
