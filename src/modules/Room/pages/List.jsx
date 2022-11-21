@@ -1,7 +1,7 @@
 import React from "react";
 import { isArray } from "lodash";
 
-import { useDelete, useFetchInfinite, useScroll, useFetchOneWithId, useOverlay } from "hooks";
+import { useDelete, useFetchInfinite, useScroll, useFetchOneWithId } from "hooks";
 import { notifications } from "services";
 
 import { AddObject, Modals, PageHeading } from "components";
