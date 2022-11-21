@@ -11,7 +11,8 @@ import { useParams } from "react-router-dom";
 const Statistics = () => {
 	const { complexID } = useParams();
 
-	const { data } = useFetchList({ url: `statistics/${complexID}`, dataKey: (value) => value });
+	const { data } =
+		useFetchList({ url: `statistics/${complexID}`, dataKey: (value) => value }) || [];
 
 	return (
 		<>

@@ -14,8 +14,8 @@ export const constants = {
 	STATUS_CONTRACT_DELETED: 0,
 
 	STATUS_INACTIVE_TEXT: "Inactive",
-	STATUS_FREE_TEXT: "Free",
-	STATUS_INTEREST_TEXT: "Interest",
+	STATUS_FREE_TEXT: "Available",
+	STATUS_INTEREST_TEXT: "Booked",
 	STATUS_SOLD_TEXT: "Sold",
 	STATUS_NOT_FOR_SALE_TEXT: "Not for sale",
 	STATUS_CONSTRUCTION_TEXT: "Under construction",

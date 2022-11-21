@@ -33,13 +33,20 @@
 	align-items: center;
 	justify-content: center;
 
-	background-image: url("./../../../assets/images/reg-bg.png");
+	background-image: url("./../../../assets/images/buildings.jpg");
 	background-size: cover;
 
 	-webkit-box-align: center;
 	-webkit-box-pack: center;
 	-ms-flex-align: center;
 	-ms-flex-pack: center;
+}
+.reg-bg::before{
+	content:"";
+	position:absolute;
+	top: 0;
+	left: 0;
+	/* background:linear-gradient(45deg,#000, #fff) */
 }
 
 .text {
