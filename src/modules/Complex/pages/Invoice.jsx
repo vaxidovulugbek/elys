@@ -6,7 +6,7 @@ import { get, uniqBy } from "lodash";
 import { useFetchList, useFetchOneWithId } from "hooks";
 import { ListPagination, Modals, PageHeading } from "components";
 import { InvoiceTable } from "../components/InvoiceTable";
-import { functions, httpCLient, notifications, time } from "services";
+import { constants, functions, httpCLient, notifications, time } from "services";
 import { complex_functions } from "../functions";
 import { InvoiceForm } from "../components/InvoiceForm";
 import { InvoiceFilter } from "../components/InvoiceFilter";
@@ -163,7 +163,8 @@ const Invoice = () => {
 					{
 						title: "Status",
 						dataKey: "status",
-						render: (value) => value,
+						render: (value) =>
+							constants.payedStatusOptions.find((item) => item.value === value).label,
 					},
 					{
 						title: "Created at",
@@ -190,8 +191,9 @@ const Invoice = () => {
 
 			<InvoiceForm modal={invoiceModal} data={get(invoice, "data")} invoices={invoices} />
 			<InvoiceView data={get(invoice, "data")} modal={invoiceViewModal} />
+			{console.log(get(invoice, "meta.pageCount"), "pa")}
 			<ListPagination
-				pageCount={get(invoice, "meta.pageCount")}
+				pageCount={get(invoices, "meta.pageCount")}
 				onPageChange={(page) => {
 					setPage(page + 1);
 				}}

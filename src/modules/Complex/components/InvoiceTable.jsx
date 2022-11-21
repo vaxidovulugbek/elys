@@ -2,7 +2,6 @@ import React from "react";
 import { Button, Spinner, Table } from "components";
 import { get, isFunction } from "lodash";
 import cn from "classnames";
-import { functions, time } from "services";
 import { ReactComponent as EditIcon } from "assets/images/edit-icon.svg";
 import { ReactComponent as ViewIcon } from "assets/images/eye.svg";
 import { ReactComponent as CheckIcon } from "assets/images/check.svg";
@@ -18,8 +17,6 @@ export const InvoiceTable = ({
 	cancelAction,
 	onRowClick,
 	isLoading = false,
-	modal,
-	onEdit,
 }) => {
 	return (
 		<>

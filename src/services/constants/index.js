@@ -80,10 +80,10 @@ constants.classOptions = [
 ];
 
 constants.payedStatusOptions = [
-	// {
-	// 	value: 0,
-	// 	label: "Canceled",
-	// },
+	{
+		value: 0,
+		label: "Canceled",
+	},
 	{
 		value: 1,
 		label: "Panding",
