@@ -1,15 +1,16 @@
 import React from "react";
 import { isArray } from "lodash";
 
-import { useDelete, useFetchInfinite, useFetchOneWithId, useOverlay } from "hooks";
+import { useDelete, useFetchInfinite, useFetchOneWithId } from "hooks";
 import { notifications } from "services";
 
 import { AddObject, Modals, PageHeading } from "components";
 import { PlanFieldCard } from "../components/PlanFieldCard";
 import { PlanFieldForm } from "../components/PlanFieldForm";
+import { useModalWithHook } from "hooks/useModalWithHook";
 
 const PlanField = () => {
-	const planFieldModal = useOverlay("planField");
+	const planFieldModal = useModalWithHook();
 
 	const planFieldList = useFetchInfinite({ url: "plan-field" });
 
