@@ -27,6 +27,7 @@ export const FloorForm = ({
 	const onClose = () => {
 		navigate(-1);
 	};
+
 	return (
 		<>
 			{!vector && (
