@@ -56,10 +56,10 @@ const User = () => {
 	return (
 		<>
 			<PageHeading
-				title="Пользователь"
+				title="Пользователи"
 				links={[
 					{ url: "/", name: "Control Panel" },
-					{ url: "", name: "Пользователь" },
+					{ url: "", name: "Пользователи" },
 				]}
 				renderButtons={() => (
 					<Button
