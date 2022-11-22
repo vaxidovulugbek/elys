@@ -224,7 +224,7 @@ const Update = () => {
 													`/complex/${complexID}`,
 													{
 														include:
-															"region,district,files,svg,background",
+															"region,district,files,svg,background,vector",
 													},
 												]}
 											/>

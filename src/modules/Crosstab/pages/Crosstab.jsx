@@ -35,6 +35,15 @@ const Crosstab = () => {
 		},
 	});
 
+	const testArr = [
+		{ name: "4", sort: 4 },
+		{ name: "3", sort: 3 },
+		{ name: "2", sort: 2 },
+		{ name: "1", sort: 1 },
+	];
+
+	console.log(sortBy(testArr, ["sort"]));
+
 	const filterFunc = crosstab_functions.filterFuncCreator({ lngCode, params, STATUS_FREE });
 
 	return (
@@ -67,6 +76,7 @@ const Crosstab = () => {
 					const sortedData = isArray(get(data, "data"))
 						? get(data, "data").map((section) => {
 								const floors = sortBy(get(section, "floors"), ["sort"]);
+								console.log(get(section, "floors"), "floors");
 								const filledArr = { arr: [] };
 								const fillArr = (floors, i = 0) => {
 									if (

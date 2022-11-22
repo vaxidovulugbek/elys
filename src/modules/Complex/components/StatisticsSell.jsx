@@ -8,7 +8,6 @@ import { functions } from "services";
 import { get } from "lodash";
 
 const StatisticsSell = ({ data }) => {
-	// console.log(data);
 	return (
 		<div className="statisticssell row gap-1">
 			<div className="col-4">
