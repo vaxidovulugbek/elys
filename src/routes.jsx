@@ -19,7 +19,7 @@ import { SectionsRoute } from "modules/Section";
 import { SuccesLoginRoutes } from "modules/Authorization/routes";
 import { UserRoute } from "modules/Users";
 
-const loggedInRoutes = [
+let loggedInRoutes = [
 	{
 		layout: <MainLayout />,
 		routes: [
@@ -29,7 +29,6 @@ const loggedInRoutes = [
 			...RoomRoute,
 			...SettingsRoutes,
 			...SectionsRoute,
-			...UserRoute,
 		],
 	},
 	{
@@ -40,6 +39,26 @@ const loggedInRoutes = [
 
 export const AppRoutes = () => {
 	const user = useSelector((state) => state.auth);
+	if (user.role === 1) {
+		loggedInRoutes = [
+			{
+				layout: <MainLayout />,
+				routes: [
+					...ComplexRoutes,
+					...ApartmentRoutes,
+					...FloorRoutes,
+					...RoomRoute,
+					...SettingsRoutes,
+					...SectionsRoute,
+					...UserRoute,
+				],
+			},
+			{
+				layout: false,
+				routes: [...CrossTabRoutes],
+			},
+		];
+	}
 	return (
 		<App>
 			{({ isFetching, error }) => (
@@ -84,7 +103,6 @@ export const AppRoutes = () => {
 							)}
 						</Routes>
 					)}
-
 					{!isFetching && !user?.username && (
 						<Suspense fallback={<Spinner />}>
 							<Routes>

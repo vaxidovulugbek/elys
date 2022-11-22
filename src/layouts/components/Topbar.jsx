@@ -34,6 +34,11 @@ export const Topbar = ({ setIsOpen, isOpen }) => {
 		i18n.changeLanguage(lng);
 	};
 
+	const onClickLogout = () => {
+		storage.remove("token");
+		window.history.go("/");
+	};
+
 	return (
 		<header className={cn("header", { close: !isOpen })}>
 			<div className="d-flex align-items-center">
@@ -122,7 +127,16 @@ export const Topbar = ({ setIsOpen, isOpen }) => {
 						})}
 					>
 						<p className="drop-down__subtitle">{t("username")}:</p>
-						<h4 className="drop-down__title">{username}</h4>
+						<h4 className="drop-down__title mb-2" style={{ fontSize: "1rem" }}>
+							{username}
+						</h4>
+						<button
+							className="drop-down__title btn btn_red mx-3"
+							style={{ fontSize: "0.85rem" }}
+							onClick={onClickLogout}
+						>
+							Logout
+						</button>
 					</div>
 				</div>
 			</div>

@@ -43,7 +43,16 @@ export const UserTable = ({ items, onDelete, onEdit }) => {
 				{
 					title: "Role",
 					dataKey: "role",
-					render: (value) => (value === 1 ? "super admin" : "admin"),
+					render: (value) =>
+						value === 1
+							? "super admin"
+							: value === 10
+							? "admin"
+							: value === 9
+							? "user"
+							: value === 2
+							? "operator"
+							: "",
 				},
 			]}
 		/>
