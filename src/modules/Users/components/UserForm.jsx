@@ -11,8 +11,6 @@ export const UserForm = ({ modal, getUser, data }) => {
 		modal.handleOverlayClose();
 	};
 
-	console.log(data);
-
 	const onSuccess = () => {
 		getUser.refetch();
 		notifications.success(get(data, "id") ? "User is  updated!" : "User is created!");

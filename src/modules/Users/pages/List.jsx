@@ -35,7 +35,6 @@ const User = () => {
 	});
 
 	const onEdit = (row) => {
-		// console.log(row);
 		setId(row.id);
 		modal.handleOverlayOpen();
 	};

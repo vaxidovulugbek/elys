@@ -3,7 +3,6 @@ import React from "react";
 
 function ObjectsByStatus({ data }) {
 	let total = 0;
-	// console.log(data);
 	get(data, "soldApartments", []).map((item) => {
 		total = total + item.count;
 	});

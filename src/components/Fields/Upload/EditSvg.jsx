@@ -33,7 +33,6 @@ export const EditSvg = ({ vector, filter, dataAttribute, setSvgID, setVector, li
 			paths.forEach((path) => {
 				path.addEventListener("click", (e) => {
 					pathModal.handleOverlayOpen();
-					// console.log(path, "click");
 					pathRef.current = path;
 				});
 				path?.setAttribute("data-tip", "tooltip");

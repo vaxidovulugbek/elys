@@ -191,7 +191,6 @@ const Invoice = () => {
 
 			<InvoiceForm modal={invoiceModal} data={get(invoice, "data")} invoices={invoices} />
 			<InvoiceView data={get(invoice, "data")} modal={invoiceViewModal} />
-			{console.log(get(invoice, "meta.pageCount"), "pa")}
 			<ListPagination
 				pageCount={get(invoices, "meta.pageCount")}
 				onPageChange={(page) => {

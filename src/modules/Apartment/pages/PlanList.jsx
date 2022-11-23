@@ -1,5 +1,6 @@
 import { AddObject, Modals } from "components";
 import { useDelete, useFetchInfinite, useScroll } from "hooks";
+import { useScrollElement } from "hooks/useScrollElement";
 import { get, isArray } from "lodash";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,7 +15,9 @@ const PlanList = () => {
 		url: "/plan",
 		urlSearchParams: { filter: { complex_id: complexID } },
 	});
-	useScroll(document.documentElement, planList.fetchNextPage, 100);
+	// useScroll(document.documentElement, planList.fetchNextPage, 100);
+
+	useScrollElement(planList.hasNextPage, planList.fetchNextPage);
 
 	const deleteData = useDelete({
 		url: "/plan",
@@ -39,6 +42,7 @@ const PlanList = () => {
 		navigate(`/complex/${complexID}/plan/${id}/update`);
 	};
 
+	console.log(planList.isLoading, "loading");
 	return (
 		<>
 			<div className="row gap" style={{ "--column-gap": 0 }}>
@@ -63,6 +67,7 @@ const PlanList = () => {
 							onClick={onUpdate}
 						/>
 					))}
+				{planList.isLoading && <div>Loading...</div>}
 			</div>
 		</>
 	);

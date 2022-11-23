@@ -16,7 +16,6 @@ export const InvoiceFilter = ({
 	rangeDate,
 	setRangeDate,
 }) => {
-	// console.log(rangeDate, "range");
 	return (
 		<div className="filters d-flex gap mb-3">
 			<Fields.RangeDatePicker

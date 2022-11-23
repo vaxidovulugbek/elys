@@ -68,7 +68,7 @@ export const InvoiceView = ({ modal, data }) => {
 						<div className="invoce__form-wrapper col-6">
 							<label>
 								<span>Date</span>
-								<input type="text" disabled value={`${date}`} />
+								<input type="text" disabled value={date} />
 							</label>
 						</div>
 						<div className="invoce__form-wrapper col-6">
