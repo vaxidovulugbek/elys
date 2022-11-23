@@ -97,7 +97,7 @@ export const Sidebar = ({ isOpen }) => {
 				</NavLink>
 			</div>
 			{getUser?.data?.map((user) => {
-				if (user.token === storage.get("token") && user.role === 1) {
+				if (user.token === storage.get("token") && user.role === 10) {
 					return (
 						<div key={user.id} className="sidebar__submenu">
 							<NavLink

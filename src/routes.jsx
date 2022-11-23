@@ -39,7 +39,7 @@ let loggedInRoutes = [
 
 export const AppRoutes = () => {
 	const user = useSelector((state) => state.auth);
-	if (user.role === 1) {
+	if (user.role === 10) {
 		loggedInRoutes = [
 			{
 				layout: <MainLayout />,

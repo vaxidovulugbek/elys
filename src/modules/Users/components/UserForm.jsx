@@ -79,7 +79,7 @@ export const UserForm = ({ modal, getUser, data }) => {
 									label: "role",
 									placeholder: "role",
 									options: [
-										{ value: 1, label: "Super admin" },
+										{ value: 1, label: "editor" },
 										{ value: 2, label: "operator" },
 										{ value: 10, label: "admin" },
 										{ value: 9, label: "user" },
@@ -136,7 +136,7 @@ export const UserForm = ({ modal, getUser, data }) => {
 									label: "role",
 									placeholder: "role",
 									options: [
-										{ value: 1, label: "Super admin" },
+										{ value: 1, label: "editor" },
 										{ value: 2, label: "operator" },
 										{ value: 10, label: "admin" },
 										{ value: 9, label: "user" },
