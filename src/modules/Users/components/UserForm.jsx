@@ -185,13 +185,11 @@ export const UserForm = ({ modal, getUser, data }) => {
 									name: "password",
 									value: get(data, "password"),
 									validationType: "string",
-									validations: [{ type: "required" }],
 								},
 								{
 									name: "password_confirm",
 									value: get(data, "password_confirm"),
 									validationType: "string",
-									validations: [{ type: "required" }],
 								},
 								{
 									name: "email",
