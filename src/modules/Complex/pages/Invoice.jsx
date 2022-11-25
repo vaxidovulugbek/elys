@@ -12,10 +12,12 @@ import { InvoiceForm } from "../components/InvoiceForm";
 import { InvoiceFilter } from "../components/InvoiceFilter";
 import { useModalWithHook } from "hooks/useModalWithHook";
 import { InvoiceView } from "../components/InvoiceView";
+import { useTranslation } from "react-i18next";
 
 const Invoice = () => {
 	const invoiceModal = useModalWithHook();
 	const invoiceViewModal = useModalWithHook();
+	const { t } = useTranslation();
 
 	const [page, setPage] = useState(1);
 	const [apartmentOption, setApartmentOption] = useState({ value: null, label: "All" });
@@ -151,38 +153,38 @@ const Invoice = () => {
 						render: (value) => value,
 					},
 					{
-						title: "Complex",
+						title: t("Complex"),
 						dataKey: "complex_id",
 						render: (value) => value,
 					},
 					{
-						title: "Apartment",
+						title: t("Apartment"),
 						dataKey: "apartment_id",
 						render: (value) => value,
 					},
 					{
-						title: "Status",
+						title: t("Status"),
 						dataKey: "status",
 						render: (value) =>
 							constants.payedStatusOptions.find((item) => item.value === value).label,
 					},
 					{
-						title: "Created at",
+						title: t("Created at"),
 						dataKey: "created_at",
 						render: (value) => time.to(value),
 					},
 					{
-						title: "Payment type",
+						title: t("Payment type"),
 						dataKey: "payment_type",
 						render: (value) => value,
 					},
 					{
-						title: "Date",
+						title: t("Date"),
 						dataKey: "date",
 						render: (value) => time.to(value),
 					},
 					{
-						title: "Amount",
+						title: t("Amount"),
 						dataKey: "amount",
 						render: (value) => functions.toFixed(value, 2),
 					},

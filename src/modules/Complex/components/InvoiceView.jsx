@@ -1,11 +1,16 @@
 import { ModalRoot } from "components";
 import { get } from "lodash";
 import React from "react";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { constants, time } from "services";
 
 import "./../styles/InvoiceView.scss";
 
 export const InvoiceView = ({ modal, data }) => {
+	const { t } = useTranslation();
+	const lngCode = useSelector((state) => state.system.lngCode);
+
 	const onClose = () => {
 		modal.handleOverlayClose();
 	};
@@ -31,23 +36,27 @@ export const InvoiceView = ({ modal, data }) => {
 						</div>
 						<div className="invoce__form-wrapper col-6">
 							<label>
-								<span>Complex</span>
-								<input type="text" disabled value={get(data, "complex.name.uz")} />
-							</label>
-						</div>
-						<div className="invoce__form-wrapper col-6">
-							<label>
-								<span>Apartment</span>
+								<span>{t("Complex")}</span>
 								<input
 									type="text"
 									disabled
-									value={get(data, "apartment.name.uz")}
+									value={get(data, `complex.name.${lngCode}`)}
 								/>
 							</label>
 						</div>
 						<div className="invoce__form-wrapper col-6">
 							<label>
-								<span>Client</span>
+								<span>{t("Apartment")}</span>
+								<input
+									type="text"
+									disabled
+									value={get(data, `apartment.name.${lngCode}`)}
+								/>
+							</label>
+						</div>
+						<div className="invoce__form-wrapper col-6">
+							<label>
+								<span>{t("Client")}</span>
 								<input
 									type="text"
 									disabled
@@ -57,7 +66,7 @@ export const InvoiceView = ({ modal, data }) => {
 						</div>
 						<div className="invoce__form-wrapper col-6">
 							<label>
-								<span>Contract number</span>
+								<span>{t("Contract number")}</span>
 								<input
 									type="text"
 									disabled
@@ -67,25 +76,25 @@ export const InvoiceView = ({ modal, data }) => {
 						</div>
 						<div className="invoce__form-wrapper col-6">
 							<label>
-								<span>Date</span>
+								<span>{t("Date")}</span>
 								<input type="text" disabled value={date} />
 							</label>
 						</div>
 						<div className="invoce__form-wrapper col-6">
 							<label>
-								<span>Status</span>
+								<span>{t("Status")}</span>
 								<input type="text" disabled value={status} />
 							</label>
 						</div>
 						<div className="invoce__form-wrapper col-6">
 							<label>
-								<span>Approved at</span>
+								<span>{t("Approved at")}</span>
 								<input type="text" disabled value={approved_at} />
 							</label>
 						</div>
 						<div className="invoce__form-wrapper col-6">
 							<label>
-								<span>Canceled at</span>
+								<span>{t("Canceled at")}</span>
 								<input type="text" disabled value={canceled_at} />
 							</label>
 						</div>
