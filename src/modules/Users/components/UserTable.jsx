@@ -45,7 +45,7 @@ export const UserTable = ({ items, onDelete, onEdit }) => {
 					dataKey: "role",
 					render: (value) =>
 						value === 1
-							? "super admin"
+							? "editor"
 							: value === 10
 							? "admin"
 							: value === 9
