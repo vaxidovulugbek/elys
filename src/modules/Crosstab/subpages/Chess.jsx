@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 import { get, isArray } from "lodash";
 import cn from "classnames";
+import { functions } from "services";
 
 const Chess = ({ setActiveApartment, data, filterFunc, setCount }) => {
 	const [floorsCount, setFloorsCount] = useState(0);
@@ -12,7 +13,6 @@ const Chess = ({ setActiveApartment, data, filterFunc, setCount }) => {
 	useEffect(() => {
 		setCount();
 	}, []);
-
 	return (
 		<div className="chess-box">
 			<div className="chess-table">
@@ -44,6 +44,10 @@ const Chess = ({ setActiveApartment, data, filterFunc, setCount }) => {
 												<tr key={rowIndex}>
 													{get(floor, "apartments", []).map(
 														(apartment, colIndex) => {
+															console.log(
+																get(apartment, "plan.room.name.en")
+															);
+
 															if (colIndex === 0) {
 																return (
 																	<td
@@ -73,7 +77,7 @@ const Chess = ({ setActiveApartment, data, filterFunc, setCount }) => {
 																		>
 																			{get(
 																				apartment,
-																				"plan.room.count"
+																				"plan.room.name.en"
 																			)}
 																			{Boolean(
 																				get(
@@ -117,7 +121,7 @@ const Chess = ({ setActiveApartment, data, filterFunc, setCount }) => {
 																	>
 																		{get(
 																			apartment,
-																			"plan.room.count"
+																			"plan.room.name.en"
 																		)}
 																		{Boolean(
 																			get(
