@@ -40,7 +40,7 @@ export const ApartmentCard = ({
 			<div className="status">
 				<div className="left">
 					<span className={`status-${get(activeApartment, "status")}`}></span>
-					<p></p>
+					<p>{get(constants.statuses, `[${get(activeApartment, "status")}]`)}</p>
 					{/* <Clock /> */}
 				</div>
 				{/*<div className="right">*/}

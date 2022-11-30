@@ -42,7 +42,6 @@ const PlanList = () => {
 		navigate(`/complex/${complexID}/plan/${id}/update`);
 	};
 
-	console.log(planList.isLoading, "loading");
 	return (
 		<>
 			<div className="row gap" style={{ "--column-gap": 0 }}>
