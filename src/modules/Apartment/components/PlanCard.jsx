@@ -5,13 +5,14 @@ import { useSelector } from "react-redux";
 
 export const PlanCard = ({ item, onClick = () => {}, onDelete = () => {}, link }) => {
 	const lngCode = useSelector((state) => state.system.lngCode);
+	console.log(item);
 	return (
 		<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 			<div className="object__card">
 				<div className="object__img p-3">
 					<img
 						src={
-							get(item, "file.thumbnails.thumb") ||
+							get(item, "files.thumbnails.thumb") ||
 							require("assets/images/section-img.png")
 						}
 						alt="section_image"

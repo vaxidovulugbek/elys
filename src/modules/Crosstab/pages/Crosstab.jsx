@@ -35,13 +35,6 @@ const Crosstab = () => {
 		},
 	});
 
-	const testArr = [
-		{ name: "4", sort: 4 },
-		{ name: "3", sort: 3 },
-		{ name: "2", sort: 2 },
-		{ name: "1", sort: 1 },
-	];
-
 	const filterFunc = crosstab_functions.filterFuncCreator({ lngCode, params, STATUS_FREE });
 
 	return (

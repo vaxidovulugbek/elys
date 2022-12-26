@@ -13,7 +13,6 @@ import { Fields, Table } from "components";
 import { MaskedDateInput } from "../components";
 
 import { crosstab_functions } from "../functions";
-import { functions } from "services";
 
 const languages = [
 	{ value: constants.UZBEK, label: "Uzbek" },

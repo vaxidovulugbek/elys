@@ -1,5 +1,5 @@
 import { AddObject, Modals } from "components";
-import { useDelete, useFetchInfinite, useScroll } from "hooks";
+import { useDelete, useFetchInfinite } from "hooks";
 import { useScrollElement } from "hooks/useScrollElement";
 import { get, isArray } from "lodash";
 import React from "react";
@@ -13,7 +13,7 @@ const PlanList = () => {
 
 	const planList = useFetchInfinite({
 		url: "/plan",
-		urlSearchParams: { filter: { complex_id: complexID } },
+		urlSearchParams: { filter: { complex_id: complexID }, include: "files" },
 	});
 	// useScroll(document.documentElement, planList.fetchNextPage, 100);
 
