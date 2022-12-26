@@ -17,7 +17,7 @@ const Document = () => {
 
 	const documentList = useFetchList({
 		url: "/document",
-		urlSearchParams: { filter: { complex_id: complexID } },
+		urlSearchParams: { filter: { complex_id: complexID }, include: "files" },
 	});
 
 	const { mutate } = useDelete({

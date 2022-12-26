@@ -140,6 +140,11 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 						value: "",
 					},
 					{
+						name: "price",
+						value: get(apartment, "price"),
+						validationType: "number",
+					},
+					{
 						name: "apartment_id",
 						value: get(apartment, "id"),
 					},
@@ -350,6 +355,13 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 									type="text"
 									name="contract_number"
 									label={"Contract number"}
+								/>
+								<FastField
+									component={Fields.Input}
+									type="number"
+									name="price"
+									placeholder="Apartment price"
+									label={"Apartment price"}
 								/>
 
 								<button type="submit" className="printToDoc submit">
