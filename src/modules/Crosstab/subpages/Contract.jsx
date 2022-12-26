@@ -13,6 +13,7 @@ import { Fields, Table } from "components";
 import { MaskedDateInput } from "../components";
 
 import { crosstab_functions } from "../functions";
+import { functions } from "services";
 
 const languages = [
 	{ value: constants.UZBEK, label: "Uzbek" },
@@ -269,6 +270,16 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 							)}
 							<div className="user-details">
 								<FastField
+									component={Fields.InputMask}
+									type="text"
+									name="price"
+									placeholder="Apartment price"
+									label={"Apartment price"}
+									onlyNumber={true}
+									decimalSeparator=" "
+									thousandSeparator=" "
+								/>
+								<FastField
 									component={Fields.Input}
 									type="text"
 									name="first_name"
@@ -355,13 +366,6 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 									type="text"
 									name="contract_number"
 									label={"Contract number"}
-								/>
-								<FastField
-									component={Fields.Input}
-									type="number"
-									name="price"
-									placeholder="Apartment price"
-									label={"Apartment price"}
 								/>
 
 								<button type="submit" className="printToDoc submit">
