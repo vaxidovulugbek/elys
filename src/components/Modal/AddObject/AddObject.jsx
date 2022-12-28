@@ -52,7 +52,7 @@ export const AddObject = ({
 							</button>
 						</div>
 						{fields.map((field, idx) => (
-							<div className="col-12" key={idx}>
+							<div className="col-6" key={idx}>
 								<FastField {...field} key={idx} />
 							</div>
 						))}

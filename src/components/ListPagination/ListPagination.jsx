@@ -18,7 +18,6 @@ export const ListPagination = ({
 	const handlePageChange = (page) => {
 		onPageChange && onPageChange(page);
 	};
-
 	return (
 		<div className={className}>
 			<ReactPaginate

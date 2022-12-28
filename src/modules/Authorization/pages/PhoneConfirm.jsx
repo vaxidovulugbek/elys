@@ -9,7 +9,6 @@ import StepThree from "../components/StepThree";
 
 import "./../styles/Register.css";
 import "../styles/Login.css";
-import logo from "assets/images/logo.svg";
 import { get } from "lodash";
 import { useDispatch } from "react-redux";
 import { notifications, storage } from "services";
@@ -30,18 +29,18 @@ const PhoneConfirm = () => {
 	return (
 		<div className="login">
 			<div className="row row-reg">
-				<div className="col-lg-5 reg-bg">
+				<div className="col-lg-6 reg-bg">
 					<div className="text">
-						<div className="logo">
+						{/* <div className="logo">
 							<img src={logo} alt="logo" />
 						</div>
 
 						<h4 className="title">
 							Flatris helps you to sell apartments quickly and easily.
-						</h4>
+						</h4> */}
 					</div>
 				</div>
-				<div className="col-lg-7 reg-content">
+				<div className="col-lg-6 reg-content">
 					<div className="reg-content-header d-flex m-auto">
 						<div className="step-list">
 							<div className="width">

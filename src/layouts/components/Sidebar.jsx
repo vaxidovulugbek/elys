@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useLocation, useMatch, useParams } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import cn from "classnames";
-import { find, get } from "lodash";
+import { find } from "lodash";
 
 import { ReactComponent as HomeSvg } from "assets/images/home.svg";
+import { ReactComponent as UserSvg } from "assets/images/user.svg";
 import { ReactComponent as Settings } from "assets/images/settings.svg";
 import { ReactComponent as Grid } from "assets/images/grid.svg";
 import { ReactComponent as Room } from "assets/images/room.svg";
 import angleRight from "assets/images/angle-right.svg";
 import { Typography } from "components";
+import { useFetchList } from "hooks";
+import { storage } from "services";
 
 const settingSubLinks = [
 	{
@@ -38,6 +41,10 @@ export const Sidebar = ({ isOpen }) => {
 	useEffect(() => {
 		setIsSubActive(false);
 	}, [isOpen]);
+
+	const getUser = useFetchList({
+		url: "user",
+	});
 
 	return (
 		<aside
@@ -89,6 +96,28 @@ export const Sidebar = ({ isOpen }) => {
 					</div>
 				</NavLink>
 			</div>
+			{getUser?.data?.map((user) => {
+				if (user.token === storage.get("token") && user.role === 10) {
+					return (
+						<div key={user.id} className="sidebar__submenu">
+							<NavLink
+								to="/user"
+								end
+								className={({ isActive }) =>
+									isActive
+										? "sidebar__link sidebar__link-active"
+										: "sidebar__link"
+								}
+							>
+								<div className="d-flex align-items-center">
+									<UserSvg />
+									<span className="sidebar__link-text">{t("User")}</span>
+								</div>
+							</NavLink>
+						</div>
+					);
+				}
+			})}
 
 			<div className="sidebar__submenu">
 				<NavLink

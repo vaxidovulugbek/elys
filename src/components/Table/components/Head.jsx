@@ -1,5 +1,6 @@
 import React from "react";
 import { get, isFunction } from "lodash";
+import { useTranslation } from "react-i18next";
 
 export const Head = ({
 	columns,
@@ -9,6 +10,7 @@ export const Head = ({
 	checkAction,
 	renderButtons,
 }) => {
+	const { t } = useTranslation();
 	return (
 		<thead>
 			<tr>
@@ -18,7 +20,7 @@ export const Head = ({
 						className={`table__th ${get(col, "className")}`}
 						onClick={isFunction(col.onHeadClick) ? () => col.onHeadClick(col) : null}
 					>
-						{get(col, "title")}
+						{t(get(col, "title"))}
 					</th>
 				))}
 				{(editAction || deleteAction || renderButtons) && <th className="table__th"></th>}

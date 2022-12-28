@@ -140,6 +140,11 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 						value: "",
 					},
 					{
+						name: "price",
+						value: get(apartment, "price"),
+						validationType: "number",
+					},
+					{
 						name: "apartment_id",
 						value: get(apartment, "id"),
 					},
@@ -263,6 +268,16 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 								</div>
 							)}
 							<div className="user-details">
+								<FastField
+									component={Fields.InputMask}
+									type="text"
+									name="price"
+									placeholder="Apartment price"
+									label={"Apartment price"}
+									onlyNumber={true}
+									decimalSeparator=" "
+									thousandSeparator=" "
+								/>
 								<FastField
 									component={Fields.Input}
 									type="text"

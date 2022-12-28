@@ -51,7 +51,7 @@ const Form = ({
 	const translatedTypeOptions = functions.translateConstans(t, typeOptions);
 	const { id } = useParams();
 	const lngCode = useSelector((state) => get(state, "system.lngCode"));
-	const [minmax, setMinmax] = useState({ price: [0, 0], area: [0, 0] });
+	const [minmax, setMinmax] = useState({ price: [0, 0], area: [0, 0], area_price: [0, 0] });
 	const [roomCounts, setRoomCounts] = useState();
 
 	window.clearFilter = () => {
@@ -106,12 +106,14 @@ const Form = ({
 	useEffect(() => {
 		const area = [];
 		const price = [];
+		const area_price = [];
 		const room_counts =
 			isArray(apartments) &&
 			apartments.reduce((prev, curr) => {
 				const count = get(curr, "plan.room.count");
 				area.push(get(curr, "plan.area"));
 				price.push(get(curr, "price"));
+				area_price.push(get(curr, "price_area"));
 				!prev.includes(count) && prev.push(count);
 				return prev;
 			}, []);
@@ -119,6 +121,7 @@ const Form = ({
 		setMinmax({
 			price: price.length && [min(price), max(price)],
 			area: area.length && [min(area), max(area)],
+			area_price: area_price.length && [min(area_price), max(area_price)],
 		});
 	}, [apartments]);
 
@@ -159,15 +162,17 @@ const Form = ({
 				<div className="rooms">
 					<h3 className="rooms__title">{t("Number of rooms")}</h3>
 					<div className="btns">
-						{roomCounts?.map(
-							(item, index) =>
-								item && <Checkbox key={index} {...checkboxProps(item)} />
-						)}
+						{roomCounts
+							?.sort((a, b) => a - b)
+							?.map(
+								(item, index) =>
+									item && <Checkbox key={index} {...checkboxProps(item)} />
+							)}
 					</div>
 				</div>
 				<RangePicker {...rangePickerProps(1, t("Price"), minmax.price)} />
 				<RangePicker {...rangePickerProps(2, t("Total area"), minmax.area)} />
-				<RangePicker {...rangePickerProps(4, `${t("Price")} м²`, [100, 1410])} />
+				<RangePicker {...rangePickerProps(4, `${t("Price")} м²`, minmax.area_price)} />
 				<div className="switch-box">
 					<label className="switch">
 						<input

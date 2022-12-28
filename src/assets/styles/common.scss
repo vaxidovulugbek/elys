@@ -1,11 +1,11 @@
 //     font-family: 'Open Sans', sans-serif;
 //    font-family: 'Roboto', sans-serif;
 
-$STATUS_FREE: #1abc9c;
-$STATUS_INTEREST: #4de601;
+$STATUS_FREE: #1ddd8d;
+$STATUS_INTEREST: #ffb400;
 $STATUS_SOLD: #ec6372;
 $STATUS_NOT_FOR_SALE: #5b8ec3;
-$STATUS_CONSTRUCTION: #ffb400;
+// $STATUS_CONSTRUCTION: #ffb400;
 
 * {
 	box-sizing: border-box;
@@ -510,7 +510,8 @@ a {
 
 .section__update {
 	.object__img img {
-		height: 130px;
+		height: 100px;
+		object-fit: contain !important;
 	}
 }
 
@@ -577,15 +578,15 @@ a {
 	}
 }
 
-.status-5 {
-	background-color: $STATUS_CONSTRUCTION;
+// .status-5 {
+// 	background-color: $STATUS_CONSTRUCTION;
 
-	fill: $STATUS_CONSTRUCTION;
+// 	fill: $STATUS_CONSTRUCTION;
 
-	span {
-		background-color: $STATUS_CONSTRUCTION;
-	}
-}
+// 	span {
+// 		background-color: $STATUS_CONSTRUCTION;
+// 	}
+// }
 
 table tbody td [class*="status"] {
 	padding: 3px 5px;

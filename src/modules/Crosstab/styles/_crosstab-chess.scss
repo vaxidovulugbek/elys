@@ -165,16 +165,19 @@
 
 									position: relative;
 
-									display: block;
+									display: flex;
+									align-items: center;
+									justify-content: center;
 
-									width: 25px;
-									height: 25px;
+									width: 30px;
+									height: 20px;
 									margin-bottom: 2px;
 
-									font-size: 13px;
-									line-height: 25px;
+									overflow: hidden;
+									line-height: 18px;
 									color: #fff;
 									text-align: center;
+									padding: 5px;
 
 									border-radius: 2px;
 

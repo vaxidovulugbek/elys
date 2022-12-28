@@ -1,5 +1,6 @@
 import { AddObject, Modals } from "components";
-import { useDelete, useFetchInfinite, useScroll } from "hooks";
+import { useDelete, useFetchInfinite } from "hooks";
+import { useScrollElement } from "hooks/useScrollElement";
 import { get, isArray } from "lodash";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -12,9 +13,11 @@ const PlanList = () => {
 
 	const planList = useFetchInfinite({
 		url: "/plan",
-		urlSearchParams: { filter: { complex_id: complexID } },
+		urlSearchParams: { filter: { complex_id: complexID }, include: "files" },
 	});
-	useScroll(document.documentElement, planList.fetchNextPage, 100);
+	// useScroll(document.documentElement, planList.fetchNextPage, 100);
+
+	useScrollElement(planList.hasNextPage, planList.fetchNextPage);
 
 	const deleteData = useDelete({
 		url: "/plan",
@@ -63,6 +66,7 @@ const PlanList = () => {
 							onClick={onUpdate}
 						/>
 					))}
+				{planList.isLoading && <div>Loading...</div>}
 			</div>
 		</>
 	);

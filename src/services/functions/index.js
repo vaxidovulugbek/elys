@@ -149,6 +149,11 @@ const onEditCreator = ({ files, setVector, data }) => {
 	};
 };
 
+const getFirstLetter = (string) => {
+	const words = string?.split("");
+	return words && words[0];
+};
+
 export const functions = {
 	convertToReadable,
 	meterPrice,
@@ -159,4 +164,5 @@ export const functions = {
 	fileReaderAsText,
 	generateVector,
 	onEditCreator,
+	getFirstLetter,
 };

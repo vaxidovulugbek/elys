@@ -55,12 +55,12 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 							uz: get(formData, "description.uz", ""),
 						},
 					},
-					// {
-					// 	name: "price",
-					// 	validationType: "string",
-					// 	value: Number(get(formData, "price")),
-					// 	onSubmitValue: (value) => Number(String(value).replaceAll(" ", "")),
-					// },
+					{
+						name: "price",
+						validationType: "string",
+						value: Number(get(formData, "price")),
+						onSubmitValue: (value) => Number(String(value).replaceAll(" ", "")),
+					},
 					{
 						name: "discount",
 						validationType: "string",
@@ -198,7 +198,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 									/>
 								</div>
 
-								{/* <div className="col-12">
+								<div className="col-12">
 									<FastField
 										name="price"
 										component={Fields.InputMask}
@@ -207,7 +207,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										decimalSeparator=" "
 										thousandSeparator=" "
 									/>
-								</div> */}
+								</div>
 
 								<div className="col-12">
 									<FastField

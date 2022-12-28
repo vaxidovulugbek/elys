@@ -1,15 +1,12 @@
 import { Fields, Table } from "components";
 import React, { useState } from "react";
-import { time } from "services";
-import { DateRangePicker } from "components/Fields/DateRangePicker/DateRangePicker";
+import { functions, time } from "services";
+// import { DateRangePicker } from "components/Fields/DateRangePicker/DateRangePicker";
 import { useParams } from "react-router-dom";
 import { useFetchList } from "hooks";
 
 function StatisticsByManagers() {
 	const { complexID } = useParams();
-
-	const [fromDataUser, setFromUser] = useState();
-	const [toDataUser, setToUser] = useState();
 
 	const [rangeDate, setRangeDate] = useState([]);
 
@@ -17,14 +14,13 @@ function StatisticsByManagers() {
 		url: `/statistics/${complexID}/user`,
 		urlSearchParams: {
 			filter: {
-				from: time.toTimestamp(fromDataUser),
-				to: time.toTimestamp(toDataUser),
+				from: rangeDate && Number(time.toTimestamp(rangeDate[0])),
+				to: rangeDate && Number(time.toTimestamp(rangeDate[1])),
 			},
-			include: "count_apartment,sum_price",
+			include: "count_apartment,sum_price,owner",
 		},
 	});
 
-	console.log(statisticsUser);
 	return (
 		<div
 			className="by-managers p-4"
@@ -39,9 +35,8 @@ function StatisticsByManagers() {
 				<Fields.RangeDatePicker
 					values={rangeDate}
 					onChange={setRangeDate}
-					label="Date (From ~ To)"
+					label="Дата (от ~ до)"
 				/>
-				{/* <R setFrom={setFromUser} setTo={setToUser} /> */}
 			</div>
 			<Table
 				style={{ backgroundColor: "#fff" }}
@@ -49,12 +44,12 @@ function StatisticsByManagers() {
 				columns={[
 					{
 						title: "ID",
-						dataKey: "id",
+						dataKey: "owner.id",
 						render: (value) => value,
 					},
 					{
 						title: "ФИО",
-						dataKey: "created_by",
+						dataKey: "owner.username",
 						render: (value) => value,
 					},
 					{
@@ -65,7 +60,7 @@ function StatisticsByManagers() {
 					{
 						title: "Итоговая сумма",
 						dataKey: "sum_price",
-						render: (value) => value,
+						render: (value) => functions.convertToReadable(value),
 					},
 				]}
 			/>
