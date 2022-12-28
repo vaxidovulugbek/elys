@@ -5,9 +5,10 @@ import { useOverlay } from "hooks";
 import { Modals, ModalRoot } from "components";
 import { ControlError, ControlLabel } from "components/common";
 import { useTranslation } from "react-i18next";
+import { useModalWithHook } from "hooks/useModalWithHook";
 
 export const MapPicker = ({ label, placeholder, btnText, field, form }) => {
-	const modal = useOverlay("MapModal");
+	const modal = useModalWithHook();
 	const { t } = useTranslation();
 
 	return (

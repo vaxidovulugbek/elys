@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 
 import { useMutation } from "@tanstack/react-query";
-import { useFetchList } from "hooks";
-import { ListPagination, ModalRoot, Modals, PageHeading } from "components";
+import { get, uniqBy } from "lodash";
+
+import { useFetchList, useFetchOneWithId } from "hooks";
+import { ListPagination, Modals, PageHeading } from "components";
 import { InvoiceTable } from "../components/InvoiceTable";
-import { get } from "lodash";
 import { functions, httpCLient, notifications, time } from "services";
 import { complex_functions } from "../functions";
-import { uniqBy } from "lodash";
 import { InvoiceForm } from "../components/InvoiceForm";
 import { InvoiceFilter } from "../components/InvoiceFilter";
-import { useInvoice } from "../hooks/useInvoice";
 import { useModalWithHook } from "hooks/useModalWithHook";
 import { InvoiceView } from "../components/InvoiceView";
 
@@ -24,7 +23,13 @@ const Invoice = () => {
 	const [statusOption, setStatusOption] = useState({ value: null, label: "All" });
 	const [paymentTypeOption, setPaymentTypeOption] = useState({ value: null, label: "All" });
 	const [rangeDate, setRangeDate] = useState(null);
-	const [id, setId] = useState();
+
+	const invoice = useFetchOneWithId({
+		url: "/transaction",
+		urlSearchParams: { include: "apartment,client,complex,contract" },
+		queryOptions: { enabled: false },
+		refetchStatus: true,
+	});
 
 	const invoices = useFetchList({
 		url: "/transaction",
@@ -40,15 +45,6 @@ const Invoice = () => {
 			},
 		},
 	});
-
-	const getInvoiceById = async (id) => {
-		const { data } = await httpCLient.get(
-			`/transaction/${id}?include=apartment,client,complex,contract`
-		);
-		return data.data;
-	};
-
-	const invoice = useInvoice(id, getInvoiceById);
 
 	const payed = useMutation({
 		mutationFn: (id, payment_type) => {
@@ -86,7 +82,7 @@ const Invoice = () => {
 	];
 
 	const onEdit = (row) => {
-		setId(row.id);
+		invoice.setId(row.id);
 		invoiceModal.handleOverlayOpen();
 	};
 
@@ -95,6 +91,7 @@ const Invoice = () => {
 			title: "Change payed status?",
 			icon: "error",
 			text: "Status this transaction will be changed to payed",
+			denyButtonText: "Yes,change",
 			receivePermission: () => payed.mutate(id, payment_type),
 		});
 	};
@@ -104,13 +101,13 @@ const Invoice = () => {
 			title: "Change payed status?",
 			icon: "error",
 			text: "Status this transaction will be changed to canceled",
+			denyButtonText: "Yes,change",
 			receivePermission: () => canceled.mutate(id),
 		});
 	};
 
 	const onView = (row) => {
-		console.log(row.id);
-		setId(row.id);
+		invoice.setId(row.id);
 		invoiceViewModal.handleOverlayOpen();
 	};
 
@@ -191,8 +188,8 @@ const Invoice = () => {
 				]}
 			/>
 
-			<InvoiceForm modal={invoiceModal} data={invoice.data} invoices={invoices} />
-			<InvoiceView data={invoice.data} modal={invoiceViewModal} />
+			<InvoiceForm modal={invoiceModal} data={get(invoice, "data")} invoices={invoices} />
+			<InvoiceView data={get(invoice, "data")} modal={invoiceViewModal} />
 			<ListPagination
 				pageCount={get(invoice, "meta.pageCount")}
 				onPageChange={(page) => {

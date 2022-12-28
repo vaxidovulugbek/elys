@@ -5,14 +5,15 @@ import { get } from "lodash";
 import { notifications } from "services";
 
 import { ListPagination, PageHeading, Button, Modals } from "components";
-import { useDelete, useFetchList, useFetchOneWithId, useOverlay } from "hooks";
-import { ComplexUsersAdd } from "../components/ComplexUserAdd";
+import { useDelete, useFetchList, useFetchOneWithId } from "hooks";
+import { ComplexUsersForm } from "../components/ComplexUsersForm";
 import { ComplexUsersTable } from "../components/ComplexUserTable";
+import { useModalWithHook } from "hooks/useModalWithHook";
 
 const ComplexUsers = () => {
 	const { complexID } = useParams();
 
-	const modal = useOverlay("complex-user-modal");
+	const modal = useModalWithHook();
 
 	const [page, setPage] = useState(1);
 
@@ -21,7 +22,7 @@ const ComplexUsers = () => {
 		queryOptions: {
 			enabled: false,
 		},
-
+		urlSearchParams: { include: "user" },
 		refetchStatus: modal.isOpen,
 	});
 
@@ -43,12 +44,6 @@ const ComplexUsers = () => {
 	const handleEdit = (row) => {
 		setId(row.id);
 		modal.handleOverlayOpen();
-	};
-
-	const onSuccess = () => {
-		complexUsers.refetch();
-		notifications.success("Success");
-		modal.handleOverlayClose();
 	};
 
 	const confirmDelete = (event, item) => {
@@ -74,7 +69,10 @@ const ComplexUsers = () => {
 				]}
 				renderButtons={() => (
 					<Button
-						onClick={modal.handleOverlayOpen}
+						onClick={() => {
+							setId(null);
+							modal.handleOverlayOpen();
+						}}
 						innerText="Create"
 						className="btn btn_green"
 						size="sm"
@@ -88,11 +86,11 @@ const ComplexUsers = () => {
 				onEdit={handleEdit}
 			/>
 
-			<ComplexUsersAdd
+			<ComplexUsersForm
 				complexID={complexID}
 				data={data}
 				modal={modal}
-				onSuccess={onSuccess}
+				complexUsers={complexUsers}
 			/>
 
 			<ListPagination
