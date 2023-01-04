@@ -44,10 +44,6 @@ const Chess = ({ setActiveApartment, data, filterFunc, setCount }) => {
 												<tr key={rowIndex}>
 													{get(floor, "apartments", []).map(
 														(apartment, colIndex) => {
-															console.log(
-																get(apartment, "plan.room.name.en")
-															);
-
 															if (colIndex === 0) {
 																return (
 																	<td

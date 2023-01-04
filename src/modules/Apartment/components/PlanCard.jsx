@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 export const PlanCard = ({ item, onClick = () => {}, onDelete = () => {}, link }) => {
 	const lngCode = useSelector((state) => state.system.lngCode);
-	console.log(item);
 	return (
 		<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 			<div className="object__card">

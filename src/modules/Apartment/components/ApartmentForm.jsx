@@ -58,7 +58,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 					{
 						name: "price",
 						validationType: "string",
-						value: Number(get(formData, "price")),
+						value: Number(get(formData, "price_area")),
 						onSubmitValue: (value) => Number(String(value).replaceAll(" ", "")),
 					},
 					{

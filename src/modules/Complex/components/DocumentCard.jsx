@@ -1,10 +1,8 @@
 import React from "react";
 
 import { get } from "lodash";
-import { Link } from "react-router-dom";
 
 export const DocumentCard = ({ data, onDelete }) => {
-	console.log(data);
 	return (
 		<div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 building-card">
 			<div className="object__card">
