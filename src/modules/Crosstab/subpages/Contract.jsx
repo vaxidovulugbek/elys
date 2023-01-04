@@ -30,6 +30,7 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 		crosstab_functions;
 
 	const price = get(apartment, "price", 0);
+	console.log(apartment);
 
 	const { data } = useFetchList({
 		url: "/tariff",
@@ -272,8 +273,8 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 									component={Fields.InputMask}
 									type="text"
 									name="price"
-									placeholder="Apartment price"
-									label={"Apartment price"}
+									placeholder="Apartment area price"
+									label="Apartment area price"
 									onlyNumber={true}
 									decimalSeparator=" "
 									thousandSeparator=" "

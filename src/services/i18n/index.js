@@ -16,7 +16,7 @@ const options = {
 		escapeValue: false,
 		formatSeparator: ",",
 	},
-	saveMissing: true,
+	saveMissing: false,
 	react: {
 		useSuspense: false,
 		waiting: true,
