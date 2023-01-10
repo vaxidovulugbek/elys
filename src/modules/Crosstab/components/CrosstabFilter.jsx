@@ -326,8 +326,8 @@ const RangePicker = ({
 					range
 					defaultValue={minMax}
 					value={get(values, key) || minMax}
-					min={minMax[0]}
-					max={minMax[1]}
+					min={Number(minMax[0])}
+					max={Number(minMax[1])}
 					onChange={(e) => handleChange(e)}
 					allowCross={false}
 					handleStyle={[thumb, thumb]}

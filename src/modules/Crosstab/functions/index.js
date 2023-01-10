@@ -43,15 +43,16 @@ const handleContractSuccess = ({
 
 const calculateCredit = ({ price, setItems }) => {
 	return (formik_values) => {
-		let { month_count, initial_payment, discount } = formik_values;
+		let { month_count, initial_payment, price_area, plan } = formik_values;
 		month_count = Number(month_count);
 		initial_payment = Number(initial_payment);
-		discount = Number(discount);
+		const priceArea =
+			typeof price_area === "string"
+				? Number(price_area.replace(/\s/g, ""))
+				: Number(price_area);
+		const totalPrice = Number(priceArea * get(plan, "area"));
 
-		let credit = 0;
-		if (100 - discount > 0 && 100 - initial_payment > 0) {
-			credit = Number(price) * (1 - discount / 100) * (1 - initial_payment / 100);
-		}
+		const credit = totalPrice - (totalPrice * initial_payment) / 100;
 
 		const newItems = Array(month_count || 1)
 			.fill(1)
@@ -60,7 +61,7 @@ const calculateCredit = ({ price, setItems }) => {
 				fee: functions.convertToReadable((credit / month_count).toFixed(2)),
 			}));
 
-		newItems.push({ month: "Total", fee: functions.convertToReadable(credit?.toFixed(2)) });
+		newItems.push({ month: "Total", fee: functions.convertToReadable(totalPrice?.toFixed(2)) });
 
 		setItems(newItems);
 	};

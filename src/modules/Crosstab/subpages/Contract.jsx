@@ -30,7 +30,6 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 		crosstab_functions;
 
 	const price = get(apartment, "price", 0);
-	console.log(apartment);
 
 	const { data } = useFetchList({
 		url: "/tariff",
@@ -132,18 +131,14 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 						onSubmitValue: (value) => Number(value) || 0,
 					},
 					{
-						name: "discount",
-						value: Number(get(tariff, "discount")) || 0,
-						onSubmitValue: (value) => Number(value) || 0,
-					},
-					{
 						name: "first_name",
 						value: "",
 					},
 					{
-						name: "price",
-						value: get(apartment, "price"),
+						name: "price_area",
+						value: get(apartment, "price_area"),
 						validationType: "number",
+						onSubmitValue: (value) => Number(value.replace(/\s/g, "")),
 					},
 					{
 						name: "apartment_id",
@@ -218,6 +213,17 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 						<>
 							{tariff && (
 								<div className="calculator">
+									<FastField
+										component={Fields.InputMask}
+										type="text"
+										name="price_area"
+										placeholder="Apartment area price"
+										label="Apartment area price"
+										onlyNumber={true}
+										decimalSeparator=" "
+										thousandSeparator=" "
+										outerClass="mb-4"
+									/>
 									<div className="calculator__numbers">
 										<FastField
 											component={Fields.Input}
@@ -233,17 +239,11 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 											label={"Month"}
 											onlyNumber={true}
 										/>
-										<FastField
-											component={Fields.Input}
-											type="text"
-											name="discount"
-											label={"Discount"}
-											onlyNumber={true}
-										/>
+
 										<button
 											type="button"
 											className="printToDoc"
-											onClick={() => calculate(values)}
+											onClick={() => calculate({ ...apartment, ...values })}
 										>
 											{t("Calculate")}
 										</button>
@@ -269,16 +269,6 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 								</div>
 							)}
 							<div className="user-details">
-								<FastField
-									component={Fields.InputMask}
-									type="text"
-									name="price"
-									placeholder="Apartment area price"
-									label="Apartment area price"
-									onlyNumber={true}
-									decimalSeparator=" "
-									thousandSeparator=" "
-								/>
 								<FastField
 									component={Fields.Input}
 									type="text"
