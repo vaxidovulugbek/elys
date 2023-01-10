@@ -28,7 +28,11 @@ const Contracts = () => {
 					{ url: "", name: "Contracts" },
 				]}
 			/>
-			<ContractTable items={contracts.data} onRowClick={onRowClick} />
+			<ContractTable
+				items={contracts.data}
+				onRowClick={onRowClick}
+				refetch={contracts.refetch}
+			/>
 
 			<ListPagination
 				pageCount={get(contracts, "meta.pageCount")}

@@ -9,8 +9,9 @@ export const constants = {
 	STATUS_SOLD: 3,
 	STATUS_NOT_FOR_SALE: 4,
 	STATUS_CONSTRUCTION: 5,
-	STATUS_CONTRACT_INACTIVE: 9,
-	STATUS_CONTRACT_ACTIVE: 10,
+	STATUS_CONTRACT_INACTIVE: 1,
+	STATUS_CONTRACT_PENDING: 2,
+	STATUS_CONTRACT_ACTIVE: 3,
 	STATUS_CONTRACT_DELETED: 0,
 
 	STATUS_INACTIVE_TEXT: "Inactive",
@@ -46,10 +47,25 @@ constants.statusOptions = [
 	{ value: constants.STATUS_CONSTRUCTION, label: constants.STATUS_CONSTRUCTION_TEXT },
 ];
 
+constants.contractStatus = [
+	{
+		label: "Не активный",
+		value: constants.STATUS_CONTRACT_INACTIVE,
+	},
+	{
+		label: "В ожидании",
+		value: constants.STATUS_CONTRACT_PENDING,
+	},
+	{
+		label: "Активный",
+		value: constants.STATUS_CONTRACT_ACTIVE,
+	},
+];
+
 constants.sectionStatusOptions = [
-	{ value: 10, label: "Active" },
-	{ value: 9, label: constants.STATUS_INACTIVE_TEXT },
-	{ value: 0, label: "Deleted" },
+	{ value: constants.STATUS_CONTRACT_ACTIVE, label: "Active" },
+	{ value: constants.STATUS_CONTRACT_INACTIVE, label: constants.STATUS_INACTIVE_TEXT },
+	{ value: constants.STATUS_CONTRACT_DELETED, label: "Deleted" },
 ];
 constants.priceListOptions = [
 	{ value: 1, label: "Active" },

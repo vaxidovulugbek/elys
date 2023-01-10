@@ -1,0 +1,35 @@
+.switch {
+    display: flex;
+    align-items: center;
+
+    &__label input:checked + &__checkmark {
+        background-color: var(--main-green);
+    }
+
+    &__label input:checked + &__checkmark &__ticket {
+        transform: translateX(16px);
+    }
+
+    &__checkmark {
+        cursor: pointer;
+
+        width: 40px;
+        height: 24px;
+        padding: 4px;
+
+        background-color: var(--main-grey);
+        border-radius: 100px;
+
+        transition: 0.2s linear;
+    }
+
+    &__ticket {
+        width: 16px;
+        height: 16px;
+
+        background-color: #fff;
+        border-radius: 100%;
+
+        transition: 0.2s linear;
+    }
+}

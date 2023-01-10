@@ -38,6 +38,7 @@ export const Select = ({
 	const handleBlur = (event) => {
 		form.setFieldTouched(field.name, true);
 	};
+
 	return (
 		<>
 			<ControlLabel label={label} />

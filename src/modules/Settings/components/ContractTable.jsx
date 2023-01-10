@@ -1,9 +1,17 @@
 import { Table } from "components";
 import React from "react";
-import { constants, functions, time } from "services";
-import { ReactComponent as DownloadIcon } from "assets/images/download.svg";
+import { get } from "lodash";
 
-export const ContractTable = ({ items, onRowClick }) => {
+import { constants, functions, time } from "services";
+
+import Containers from "containers";
+import { Fields } from "components";
+
+import { ReactComponent as DownloadIcon } from "assets/images/download.svg";
+import { FastField } from "formik";
+import login from "modules/Authorization/pages/Login";
+
+export const ContractTable = ({ items, onRowClick, refetch }) => {
 	return (
 		<Table
 			items={items}
@@ -48,8 +56,34 @@ export const ContractTable = ({ items, onRowClick }) => {
 				{
 					title: "Status",
 					dataKey: "status",
-					render: (value) =>
-						constants.sectionStatusOptions.find((item) => (item.value = value)).label,
+					render: (value, values) => (
+						<Containers.Form
+							url={`/contract/${get(values, "id")}`}
+							method="put"
+							onClick={(event) => event.stopPropagation()}
+							onSuccess={refetch}
+							onError={refetch}
+							fields={[
+								{
+									name: "status",
+									value,
+									onSubmitValue: (value) => value,
+								},
+							]}
+						>
+							{({ handleSubmit }) => (
+								<>
+									<FastField
+										name="status"
+										component={Fields.Select}
+										options={constants.contractStatus}
+										className="min-width_120"
+										onValueChange={() => handleSubmit()}
+									/>
+								</>
+							)}
+						</Containers.Form>
+					),
 				},
 				{
 					title: "File",

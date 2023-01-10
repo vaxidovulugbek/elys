@@ -15,6 +15,7 @@ import { PhoneInput } from "./PhoneInput/PhoneInput";
 import { ReactQuillComponent } from "./ReactQuill/ReactQuillComponent";
 import { InputMask } from "./InputMask/InputMask";
 import { DateInput } from "./DateInput/DateInput";
+import { Toggle } from "./Toggle/Toggle";
 
 export default {
 	Input,
@@ -33,4 +34,5 @@ export default {
 	InputMask,
 	DateInput,
 	RangeDatePicker,
+	Toggle,
 };

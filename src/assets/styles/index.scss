@@ -14,3 +14,9 @@
 		border-radius: 5px;
 	}
 }
+
+.min-width {
+	&_120 {
+		min-width: 120px;
+	}
+}
