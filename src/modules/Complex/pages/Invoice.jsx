@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { useMutation } from "@tanstack/react-query";
-import { get, uniqBy } from "lodash";
+import { get, isEmpty, uniqBy } from "lodash";
 
 import { useFetchList, useFetchOneWithId } from "hooks";
 import { ListPagination, Modals, PageHeading } from "components";
@@ -13,8 +13,10 @@ import { InvoiceFilter } from "../components/InvoiceFilter";
 import { useModalWithHook } from "hooks/useModalWithHook";
 import { InvoiceView } from "../components/InvoiceView";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 
 const Invoice = () => {
+	const { search } = useLocation();
 	const invoiceModal = useModalWithHook();
 	const invoiceViewModal = useModalWithHook();
 	const { t } = useTranslation();
@@ -39,6 +41,7 @@ const Invoice = () => {
 			page,
 			include: "contract,client,apartment",
 			filter: {
+				contract_id: new URLSearchParams(search).get("contract_id"),
 				apartment_id: Number(apartmentOption.value),
 				status: Number(statusOption.value),
 				payment_type: Number(paymentTypeOption.value),

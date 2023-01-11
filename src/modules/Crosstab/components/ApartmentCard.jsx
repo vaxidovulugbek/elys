@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import cn from "classnames";
 import { Navigation } from "swiper";
@@ -12,8 +13,9 @@ import { useSelector } from "react-redux";
 import { isArray } from "lodash";
 import { useTranslation } from "react-i18next";
 
-const { STATUS_FREE, STATUS_INTEREST } = constants;
+const { STATUS_FREE, STATUS_INTEREST, STATUS_SOLD } = constants;
 const ON_SALE = [STATUS_FREE, STATUS_INTEREST];
+const ON_SOLD = [STATUS_INTEREST, STATUS_SOLD];
 
 export const ApartmentCard = ({
 	setActiveApartment,
@@ -108,6 +110,17 @@ export const ApartmentCard = ({
 					<button className="btn" onClick={() => setCurrentTab(5)} type="button">
 						{t("Sell")}
 					</button>
+				</div>
+			)}
+
+			{ON_SOLD.includes(get(activeApartment, "status")) && (
+				<div className="submit">
+					<Link
+						to={`/contract?apartment_id=${get(activeApartment, "id")}`}
+						className="btn"
+					>
+						{t("Contracts")}
+					</Link>
 				</div>
 			)}
 

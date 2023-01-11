@@ -9,7 +9,8 @@ import { Fields } from "components";
 
 import { ReactComponent as DownloadIcon } from "assets/images/download.svg";
 import { FastField } from "formik";
-import login from "modules/Authorization/pages/Login";
+import { Link } from "react-router-dom";
+import { ReactComponent as InvoiceIcon } from "assets/images/invoice-icon.svg";
 
 export const ContractTable = ({ items, onRowClick, refetch }) => {
 	return (
@@ -19,6 +20,11 @@ export const ContractTable = ({ items, onRowClick, refetch }) => {
 				{
 					title: "ID",
 					dataKey: "id",
+					render: (value) => value,
+				},
+				{
+					title: "Apartment ID",
+					dataKey: "apartment_id",
 					render: (value) => value,
 				},
 				{
@@ -52,6 +58,25 @@ export const ContractTable = ({ items, onRowClick, refetch }) => {
 					title: "Monthly payment date",
 					dataKey: "monthly_payment_date",
 					render: (value) => time.to(value),
+				},
+				{
+					title: "Invoice",
+					dataKey: "id",
+					render: (value) => (
+						<div onClick={(event) => event.stopPropagation()}>
+							<Link
+								to={`/invoice?contract_id=${value}`}
+								className="object__action bg_blue"
+							>
+								<InvoiceIcon
+									fill="#fff"
+									stroke="#fff"
+									width={"32px"}
+									height={"32px"}
+								/>
+							</Link>
+						</div>
+					),
 				},
 				{
 					title: "Status",

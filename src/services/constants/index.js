@@ -102,7 +102,7 @@ constants.payedStatusOptions = [
 	},
 	{
 		value: 1,
-		label: "Panding",
+		label: "Pending",
 	},
 	{
 		value: 2,
