@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 import { get, isArray } from "lodash";
 import cn from "classnames";
-import { functions } from "services";
 
 const Chess = ({ setActiveApartment, data, filterFunc, setCount }) => {
 	const [floorsCount, setFloorsCount] = useState(0);
@@ -13,6 +12,7 @@ const Chess = ({ setActiveApartment, data, filterFunc, setCount }) => {
 	useEffect(() => {
 		setCount();
 	}, []);
+
 	return (
 		<div className="chess-box">
 			<div className="chess-table">
@@ -26,13 +26,25 @@ const Chess = ({ setActiveApartment, data, filterFunc, setCount }) => {
 							</span>
 						))}
 				</div>
+
 				<div className="tables">
 					{isArray(data) &&
 						data.map((section, index) => {
-							const floors = isArray(section)
+							let floors = isArray(section)
 								? section
-								: Object.values(get(section, "floors", {}));
+								: Object.values(get(section, "floors", []));
+
 							floorsCount < floors.length && setFloorsCount(floors.length);
+
+							if (floorsCount > floors.length) {
+								floors = [
+									...Array(floorsCount - floors.length).fill({
+										apartments: [{}],
+									}),
+									...floors,
+								];
+							}
+
 							return (
 								<div className="table" key={index}>
 									<div className="titles top">

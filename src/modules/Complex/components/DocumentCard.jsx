@@ -16,7 +16,10 @@ export const DocumentCard = ({ data, onDelete }) => {
 						<div className="d-flex align-items-center object__btns">
 							<button
 								className="object__action bg_red"
-								onClick={(e) => onDelete(get(data, "id"))}
+								onClick={(event) => {
+									event.stopPropagation();
+									onDelete(get(data, "id"));
+								}}
 							>
 								<svg width="24" height="24" viewBox="0 0 24 24">
 									<path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />

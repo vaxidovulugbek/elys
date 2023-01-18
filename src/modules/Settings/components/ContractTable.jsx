@@ -52,7 +52,7 @@ export const ContractTable = ({ items, onRowClick, refetch }) => {
 				{
 					title: "Initial payment",
 					dataKey: "initial_payment",
-					render: (value) => value,
+					render: (value) => functions.convertToReadable(value),
 				},
 				{
 					title: "Monthly payment date",
@@ -119,6 +119,7 @@ export const ContractTable = ({ items, onRowClick, refetch }) => {
 							blank="_target"
 							className="btn btn_form btn_lg"
 							style={{ height: "100%" }}
+							onClick={(event) => event.stopPropagation()}
 						>
 							<DownloadIcon style={{ margin: 0 }} height="100%" width="100%" />
 						</a>

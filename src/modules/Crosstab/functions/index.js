@@ -71,9 +71,11 @@ const handleContractError = (notifications) => {
 	return (data) => {
 		const errors = get(data, "response.data.errors");
 
-		errors &&
-			Object.keys(errors).includes("document_id") &&
+		if (errors && Object.keys(errors).includes("document_id")) {
 			notifications.error("You have to create document first");
+		} else {
+			notifications.error("Что то пошло не так");
+		}
 	};
 };
 

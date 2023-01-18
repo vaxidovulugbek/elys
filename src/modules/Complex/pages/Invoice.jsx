@@ -40,6 +40,7 @@ const Invoice = () => {
 		urlSearchParams: {
 			page,
 			include: "contract,client,apartment",
+			sort: "id",
 			filter: {
 				contract_id: new URLSearchParams(search).get("contract_id"),
 				apartment_id: Number(apartmentOption.value),
@@ -189,7 +190,7 @@ const Invoice = () => {
 					{
 						title: t("Amount"),
 						dataKey: "amount",
-						render: (value) => functions.toFixed(value, 2),
+						render: (value) => functions.convertToReadable(value),
 					},
 				]}
 			/>

@@ -138,7 +138,7 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 						name: "price_area",
 						value: get(apartment, "price_area"),
 						validationType: "number",
-						onSubmitValue: (value) => Number(value.replace(/\s/g, "")),
+						onSubmitValue: (value) => Number(String(value).replace(/\s/g, "")),
 					},
 					{
 						name: "apartment_id",

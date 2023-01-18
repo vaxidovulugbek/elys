@@ -47,7 +47,7 @@ export const DocumentForm = ({ complexId, documentModal, documentRefetch }) => {
 						label: "Type",
 					},
 					{
-						name: "file_id[3]",
+						name: "file_id.3",
 						component: Fields.Upload,
 						label: ["Document", " (UZ)"],
 						placeholder: "Select document",
@@ -55,7 +55,7 @@ export const DocumentForm = ({ complexId, documentModal, documentRefetch }) => {
 						accept: ".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 					},
 					{
-						name: "file_id[2]",
+						name: "file_id.2",
 						component: Fields.Upload,
 						label: ["Document", " (RU)"],
 						placeholder: "Select document",

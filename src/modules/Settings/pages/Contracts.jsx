@@ -35,6 +35,7 @@ const Contracts = () => {
 					{ url: "", name: "Contracts" },
 				]}
 			/>
+
 			<ContractTable
 				items={contracts.data}
 				onRowClick={onRowClick}

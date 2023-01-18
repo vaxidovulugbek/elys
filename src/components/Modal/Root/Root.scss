@@ -44,6 +44,9 @@
 	}
 }
 
+.doc_modal {
+	max-width: 700px;
+}
 .doc_modal.modal_open {
 	transform: translate(-50%, 0);
 }

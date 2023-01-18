@@ -174,7 +174,9 @@ const Apartments = ({ filterFunc, setActiveApartment, activeApartment, complexID
 											{functions.meterPrice(item)} UZS/м
 											<sup>2</sup>
 										</td>
-										<td>{get(item, "price")} UZS</td>
+										<td>
+											{functions.convertToReadable(get(item, "price"))} UZS
+										</td>
 										<td>
 											<span className={`status-${get(item, "status")}`}>
 												{t(
