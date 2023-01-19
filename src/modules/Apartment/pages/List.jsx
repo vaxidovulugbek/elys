@@ -18,7 +18,11 @@ const Apartment = () => {
 	const apartmentList = useFetchInfinite({
 		url: "/apartment",
 		urlSearchParams: {
-			filter: { floor_id: floorID, section_id: sectionID, complex_id: complexID },
+			filter: {
+				"apartment.floor_id": floorID,
+				"apartment.section_id": sectionID,
+				"apartment.complex_id": complexID,
+			},
 		},
 	});
 	useScroll(document.documentElement, apartmentList.fetchNextPage, 300);

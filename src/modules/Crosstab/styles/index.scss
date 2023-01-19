@@ -10,3 +10,15 @@
 @import "masked-date-input";
 @import "paymentType";
 @import "tab";
+
+
+.booked__btn {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    background: var(--main-orange);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 10px;
+    margin: 10px 0 0 auto;
+}

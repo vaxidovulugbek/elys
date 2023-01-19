@@ -21,6 +21,7 @@ export const Input = ({
 	form,
 	onInput,
 	onlyNumber,
+	isComment = false,
 }) => {
 	const { t } = useTranslation();
 
@@ -33,27 +34,38 @@ export const Input = ({
 			<ControlLabel label={label} />
 
 			<label className="form-control cursor_text">
-				<input
-					type={type}
-					onInput={onInput}
-					disabled={isDisabled}
-					placeholder={t(placeholder)}
-					className="form-control__input"
-					{...field}
-					{...inputProps}
-					onChange={(event) => {
-						const value = event.target.value;
+				{isComment ? (
+					<textarea
+						onInput={onInput}
+						disabled={isDisabled}
+						placeholder={t(placeholder)}
+						className="form-control__input h_120"
+						{...field}
+						{...inputProps}
+					></textarea>
+				) : (
+					<input
+						type={type}
+						onInput={onInput}
+						disabled={isDisabled}
+						placeholder={t(placeholder)}
+						className="form-control__input"
+						{...field}
+						{...inputProps}
+						onChange={(event) => {
+							const value = event.target.value;
 
-						if (onlyNumber && (value.match(/^[\s\d]+$/) || value === "")) {
-							field.onChange(event);
-							get(inputProps, "onChange", () => {})(event);
-						}
-						if (!onlyNumber) {
-							field.onChange(event);
-							get(inputProps, "onChange", () => {})(event);
-						}
-					}}
-				/>
+							if (onlyNumber && (value.match(/^[\s\d]+$/) || value === "")) {
+								field.onChange(event);
+								get(inputProps, "onChange", () => {})(event);
+							}
+							if (!onlyNumber) {
+								field.onChange(event);
+								get(inputProps, "onChange", () => {})(event);
+							}
+						}}
+					/>
+				)}
 			</label>
 
 			<ControlError field={field} form={form} />

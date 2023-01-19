@@ -2,7 +2,6 @@
 import PropTypes from "prop-types";
 
 import { useFetchList } from "hooks";
-import React from "react";
 
 export const List = ({
 	url,

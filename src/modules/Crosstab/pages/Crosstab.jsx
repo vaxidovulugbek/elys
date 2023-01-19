@@ -44,13 +44,13 @@ const Crosstab = () => {
 				dataKey={(data) => data}
 				urlSearchParams={{
 					include:
-						"background,floors, floors.background,floors.apartments,floors.apartments.plan.room, floors.apartments.complex, complex, floors.apartments.section, floors.apartments.plan,floors.apartments.plan.files ,floors.apartments.plan.room,floors.apartments.files,floors.apartments.floor",
+						"background,floors, floors.background,floors.apartments,floors.apartments.plan.room, floors.apartments.complex, complex, floors.apartments.section, floors.apartments.plan,floors.apartments.plan.files ,floors.apartments.plan.room,floors.apartments.files,floors.apartments.floor,floors.apartments.bookings.owner",
 					filter: {
 						complex_id: id,
 					},
 				}}
 			>
-				{({ data, isFetching }) => {
+				{({ data, isFetching, refetch }) => {
 					// All apartments
 					const apartments = isArray(get(data, "data"))
 						? get(data, "data").reduce((prev, curr) => {
@@ -217,6 +217,7 @@ const Crosstab = () => {
 							</div>
 							<Apartment
 								{...{
+									refetch,
 									activeApartment,
 									setActiveApartment,
 									setCurrentTab,

@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { isArray } from "lodash";
 
 export const time = {
 	toYear: (timestamp) => {
@@ -6,6 +7,11 @@ export const time = {
 	},
 	toTimestamp: (date) => {
 		return dayjs(date, "DD-MM-YYYY").unix();
+	},
+	convertToTimestamp: (dateString) => {
+		if (isArray(dateString)) {
+			return dayjs(`${dateString[2]}-${dateString[1]}-${dateString[0]}`).unix();
+		} else return;
 	},
 	current: (format = "DD.MM.YYYY") => {
 		return dayjs().format(format);
