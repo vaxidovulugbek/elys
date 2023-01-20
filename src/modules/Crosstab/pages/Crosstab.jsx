@@ -44,7 +44,7 @@ const Crosstab = () => {
 				dataKey={(data) => data}
 				urlSearchParams={{
 					include:
-						"background,floors, floors.background,floors.apartments,floors.apartments.plan.room, floors.apartments.complex, complex, floors.apartments.section, floors.apartments.plan,floors.apartments.plan.files ,floors.apartments.plan.room,floors.apartments.files,floors.apartments.floor,floors.apartments.bookings.owner",
+						"background,floors, floors.background,floors.apartments,floors.apartments.plan.room, floors.apartments.complex, complex, floors.apartments.section, floors.apartments.plan,floors.apartments.plan.files ,floors.apartments.plan.room,floors.apartments.files,floors.apartments.floor,floors.apartments.bookings.owner,floors.apartments.pdf",
 					filter: {
 						complex_id: id,
 					},

@@ -162,6 +162,19 @@ export const ApartmentCard = ({
 					</div>
 				)}
 
+				{get(activeApartment, "pdf") && (
+					<div className="submit">
+						<Link
+							to={get(activeApartment, "pdf.src")}
+							className="btn"
+							target="_blank"
+							download={true}
+						>
+							{t("PDF")}
+						</Link>
+					</div>
+				)}
+
 				<ul>
 					<li>
 						<dt className="name">{t("Name of the apartment")}</dt>

@@ -20,10 +20,10 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 		navigate(-1);
 	};
 
-	const tranlatedStatusOptions = functions.translateConstans(t, constants.statusOptions);
-	const tranlatedTypeOptions = functions.translateConstans(t, constants.typeOptions);
-	const tranlatedClassOptions = functions.translateConstans(t, constants.classOptions);
-	const tranlatedConstructionOptions = functions.translateConstans(
+	const translatedStatusOptions = functions.translateConstans(t, constants.statusOptions);
+	const translatedTypeOptions = functions.translateConstans(t, constants.typeOptions);
+	const translatedClassOptions = functions.translateConstans(t, constants.classOptions);
+	const translatedConstructionOptions = functions.translateConstans(
 		t,
 		constants.constructionOptions
 	);
@@ -124,6 +124,11 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 						},
 						onSubmitValue: (option) => get(option, "value"),
 					},
+					{
+						name: "pdf_id",
+						validationType: "mixed",
+						value: get(formData, "pdf.id"),
+					},
 				]}
 				onSuccess={() => onSuccess()}
 				onError={() => {
@@ -131,7 +136,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 					notifications.error("Something went wrong!");
 				}}
 			>
-				{({ values, isSubmitting }) => (
+				{({ isSubmitting }) => (
 					<>
 						<div className="card-box col-6">
 							<Typography Type="h5" className="text-muted card-sub">
@@ -251,7 +256,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 									<Field
 										name="status"
 										component={Fields.Select}
-										options={tranlatedStatusOptions}
+										options={translatedStatusOptions}
 										label="Status"
 									/>
 								</div>
@@ -260,7 +265,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 									<Field
 										name="type"
 										component={Fields.Select}
-										options={tranlatedTypeOptions}
+										options={translatedTypeOptions}
 										label="Type"
 									/>
 								</div>
@@ -269,7 +274,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 									<Field
 										name="construction_type"
 										component={Fields.Select}
-										options={tranlatedConstructionOptions}
+										options={translatedConstructionOptions}
 										label="Construction type"
 									/>
 								</div>
@@ -278,7 +283,7 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 									<Field
 										name="class"
 										component={Fields.Select}
-										options={tranlatedClassOptions}
+										options={translatedClassOptions}
 										label="Class"
 									/>
 								</div>
@@ -296,6 +301,17 @@ export const ApartmentForm = ({ method, url, formData, onSuccess, btnSubmitText 
 										`/apartment/${get(formData, "id")}`,
 										{ include: "plan,files" },
 									]}
+								/>
+
+								<FastField
+									name="pdf_id"
+									component={Fields.Upload}
+									label="PDF"
+									placeholder="Select File"
+									btnText="Upload"
+									className="mt-4"
+									accept=".pdf"
+									imageTitle={get(formData, "pdf.title")}
 								/>
 							</div>
 						</div>
