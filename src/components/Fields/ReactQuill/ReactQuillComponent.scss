@@ -1,5 +1,22 @@
 .react-quill {
+
+
 	.ql-container {
 		min-height: 250px;
+	}
+
+	.ql-toolbar.ql-snow {
+		border-color: #e3e3e3;
+		border-radius: 4px 4px 0 0;
+	}
+
+	.ql-container.ql-snow {
+		min-height: 150px;
+		border-color: #e3e3e3;
+		border-radius: 0 0 4px 4px;
+	}
+
+	& .ql-editor > * {
+		color: #000 !important;
 	}
 }

@@ -9,6 +9,7 @@ import { notifications } from "services";
 import Containers from "containers";
 import { PageHeading, Fields, Button, MapPicker } from "components";
 import { useTranslation } from "react-i18next";
+import { ReactQuillComponent } from "components/Fields/ReactQuill/ReactQuillComponent";
 
 const Create = () => {
 	const navigate = useNavigate();
@@ -50,6 +51,16 @@ const Create = () => {
 					},
 					{
 						name: "address",
+						validationType: "object",
+						validations: [{ type: "lng" }],
+						value: {
+							en: "",
+							ru: "",
+							uz: "",
+						},
+					},
+					{
+						name: "content",
 						validationType: "object",
 						validations: [{ type: "lng" }],
 						value: {
@@ -139,6 +150,34 @@ const Create = () => {
 											placeholder="Complex"
 										/>
 									</div>
+
+									<div className="col-12">
+										<FastField
+											name="content.en"
+											component={ReactQuillComponent}
+											label={["Content", " (EN)"]}
+											placeholder="Complex"
+										/>
+									</div>
+
+									<div className="col-12">
+										<FastField
+											name="content.ru"
+											component={ReactQuillComponent}
+											label={["Content", " (RU)"]}
+											placeholder="Complex"
+										/>
+									</div>
+
+									<div className="col-12">
+										<FastField
+											name="content.uz"
+											component={ReactQuillComponent}
+											label={["Content", " (UZ)"]}
+											placeholder="Complex"
+										/>
+									</div>
+
 									<div className="col-12">
 										<FastField
 											name="sort"

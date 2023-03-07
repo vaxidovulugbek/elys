@@ -11,6 +11,7 @@ import { PageHeading, Fields, Button, MapPicker, Typography } from "components";
 import { SectionList } from "modules/Section";
 import { functions, notifications } from "services";
 import { EditSvg } from "components/Fields/Upload/EditSvg";
+import { ReactQuillComponent } from "components/Fields/ReactQuill/ReactQuillComponent";
 
 const Update = () => {
 	const navigate = useNavigate();
@@ -64,6 +65,12 @@ const Update = () => {
 							validationType: "object",
 							validations: [{ type: "lng" }],
 							value: get(data, "address"),
+						},
+						{
+							name: "content",
+							validationType: "object",
+							validations: [{ type: "lng" }],
+							value: get(data, "content"),
 						},
 						{
 							name: "region_id",
@@ -177,6 +184,34 @@ const Update = () => {
 												placeholder="Complex"
 											/>
 										</div>
+
+										<div className="col-12">
+											<FastField
+												name="content.en"
+												component={ReactQuillComponent}
+												label={["Content", " (EN)"]}
+												placeholder="Complex"
+											/>
+										</div>
+
+										<div className="col-12">
+											<FastField
+												name="content.ru"
+												component={ReactQuillComponent}
+												label={["Content", " (RU)"]}
+												placeholder="Complex"
+											/>
+										</div>
+
+										<div className="col-12">
+											<FastField
+												name="content.uz"
+												component={ReactQuillComponent}
+												label={["Content", " (UZ)"]}
+												placeholder="Complex"
+											/>
+										</div>
+
 										<div className="col-12">
 											<FastField
 												name="sort"

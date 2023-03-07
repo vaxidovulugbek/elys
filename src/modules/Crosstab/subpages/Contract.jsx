@@ -258,7 +258,7 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 													render: (value) => value,
 												},
 												{
-													title: t("Initial fee"),
+													title: t("Monthly Payment"),
 													dataKey: "fee",
 													render: (value) => value,
 												},

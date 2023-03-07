@@ -61,6 +61,12 @@ const calculateCredit = ({ price, setItems }) => {
 				fee: functions.convertToReadable((credit / month_count).toFixed(2)),
 			}));
 
+		console.log(initial_payment);
+
+		newItems.unshift({
+			month: "Initial",
+			fee: functions.convertToReadable((totalPrice * initial_payment) / 100),
+		});
 		newItems.push({ month: "Total", fee: functions.convertToReadable(totalPrice?.toFixed(2)) });
 
 		setItems(newItems);
@@ -68,8 +74,10 @@ const calculateCredit = ({ price, setItems }) => {
 };
 
 const handleContractError = (notifications) => {
-	return (data) => {
+	return (data, formHelpers) => {
 		const errors = get(data, "response.data.errors");
+
+		formHelpers.setErrors(errors);
 
 		if (errors && Object.keys(errors).includes("document_id")) {
 			notifications.error("You have to create document first");

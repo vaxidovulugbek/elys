@@ -19,9 +19,9 @@ const Apartment = () => {
 		url: "/apartment",
 		urlSearchParams: {
 			filter: {
-				"apartment.floor_id": floorID,
-				"apartment.section_id": sectionID,
-				"apartment.complex_id": complexID,
+				floor_id: floorID,
+				section_id: sectionID,
+				complex_id: complexID,
 			},
 		},
 	});
