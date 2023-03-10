@@ -73,6 +73,7 @@ export const ComplexUsersForm = ({ modal, complexUsers, data, complexID }) => {
 				method={get(data, "id") ? "put" : "post"}
 				onClose={onClose}
 				onSuccess={onSuccess}
+				onError={() => {}}
 				title={get(data, "id") ? "Update a user" : "Adding a new user"}
 			/>
 		</ModalRoot>

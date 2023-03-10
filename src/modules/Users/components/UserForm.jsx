@@ -1,10 +1,9 @@
 import React from "react";
+import { get } from "lodash";
+
 import { constants, notifications } from "services";
 
 import { ModalRoot, Fields, Modals } from "components";
-import { get } from "lodash";
-
-const translatedOptions = constants.sectionStatusOptions;
 
 export const UserForm = ({ modal, getUser, data }) => {
 	const onClose = () => {
@@ -14,6 +13,11 @@ export const UserForm = ({ modal, getUser, data }) => {
 	const onSuccess = () => {
 		getUser.refetch();
 		notifications.success(get(data, "id") ? "User is  updated!" : "User is created!");
+		modal.handleOverlayClose();
+	};
+
+	const onError = () => {
+		notifications.error(get(data, "id") ? "User is  updated!" : "User is created!");
 		modal.handleOverlayClose();
 	};
 	return (
@@ -69,7 +73,7 @@ export const UserForm = ({ modal, getUser, data }) => {
 									component: Fields.Select,
 									label: "Status",
 									placeholder: "status",
-									options: translatedOptions,
+									options: constants.userStatuses,
 								},
 								{
 									name: "role",
@@ -126,7 +130,7 @@ export const UserForm = ({ modal, getUser, data }) => {
 									component: Fields.Select,
 									label: "Status",
 									placeholder: "status",
-									options: translatedOptions,
+									options: constants.userStatuses,
 								},
 								{
 									name: "role",
@@ -245,6 +249,7 @@ export const UserForm = ({ modal, getUser, data }) => {
 				method={get(data, "id") ? "put" : "post"}
 				onClose={onClose}
 				onSuccess={onSuccess}
+				onError={onError}
 				title={get(data, "id") ? "Update a user" : "Adding a new user"}
 			/>
 		</ModalRoot>

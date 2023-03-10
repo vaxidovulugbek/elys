@@ -36,7 +36,26 @@ export const constants = {
 
 	UZBEK: 3,
 	RUSSIAN: 2,
+
+	USER_STATUS_ACTIVE: 10,
+	USER_STATUS_INACTIVE: 9,
+	USER_STATUS_DELETED: 0,
 };
+
+constants.userStatuses = [
+	{
+		label: "Активный",
+		value: constants.USER_STATUS_ACTIVE,
+	},
+	{
+		label: "Не активный",
+		value: constants.USER_STATUS_INACTIVE,
+	},
+	{
+		label: "Удалён",
+		value: constants.USER_STATUS_DELETED,
+	},
+];
 
 constants.statusOptions = [
 	{ value: constants.STATUS_INACTIVE, label: constants.STATUS_INACTIVE_TEXT },
