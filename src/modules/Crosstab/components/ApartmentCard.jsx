@@ -37,7 +37,7 @@ export const ApartmentCard = ({
 	const book = useModalWithHook();
 	const bookHistory = useModalWithHook();
 
-	const handleTarrifDownload = async () => {
+	const handleTariffDownload = async () => {
 		const res = await httpCLient.get(`apartment/${get(activeApartment, "id")}/tariff-print`, {
 			responseType: "blob",
 		});
@@ -46,9 +46,11 @@ export const ApartmentCard = ({
 		const link = document.createElement("a");
 		link.href = url;
 		const fileInfo = res.headers["content-disposition"].split("=");
-		link.setAttribute("download", `${fileInfo[1]}`);
+		const fileName = fileInfo[1].replace(/["']/g, "");
+		link.setAttribute("download", `${fileName}`);
 		document.body.appendChild(link);
 		link.click();
+		link.remove();
 	};
 
 	return (
@@ -165,7 +167,7 @@ export const ApartmentCard = ({
 					</div>
 				)}
 				{ON_SALE.includes(get(activeApartment, "status")) && (
-					<div className="submit" onClick={handleTarrifDownload}>
+					<div className="submit" onClick={handleTariffDownload}>
 						<button className="btn" type="button">
 							{t("Print tariff")}
 						</button>
