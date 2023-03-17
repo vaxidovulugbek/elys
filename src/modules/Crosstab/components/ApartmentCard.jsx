@@ -7,7 +7,7 @@ import { Navigation } from "swiper";
 import { get, isArray, isEmpty } from "lodash";
 import cn from "classnames";
 
-import { constants, functions } from "services";
+import { constants, functions, httpCLient } from "services";
 import { useModalWithHook } from "hooks/useModalWithHook";
 
 import { Fancybox } from "components";
@@ -36,6 +36,20 @@ export const ApartmentCard = ({
 	const planFields = get(activeApartment, "plan.fields");
 	const book = useModalWithHook();
 	const bookHistory = useModalWithHook();
+
+	const handleTarrifDownload = async () => {
+		const res = await httpCLient.get(`apartment/${get(activeApartment, "id")}/tariff-print`, {
+			responseType: "blob",
+		});
+
+		const url = window.URL.createObjectURL(new Blob([res.data]));
+		const link = document.createElement("a");
+		link.href = url;
+		const fileInfo = res.headers["content-disposition"].split("=");
+		link.setAttribute("download", `${fileInfo[1]}`);
+		document.body.appendChild(link);
+		link.click();
+	};
 
 	return (
 		<>
@@ -147,6 +161,13 @@ export const ApartmentCard = ({
 					<div className="submit">
 						<button className="btn" onClick={() => setCurrentTab(5)} type="button">
 							{t("Sell")}
+						</button>
+					</div>
+				)}
+				{ON_SALE.includes(get(activeApartment, "status")) && (
+					<div className="submit" onClick={handleTarrifDownload}>
+						<button className="btn" type="button">
+							{t("Print tariff")}
 						</button>
 					</div>
 				)}
