@@ -1,5 +1,6 @@
 import { get, isArray, isNumber } from "lodash";
 import { notifications } from "services/notifacations";
+import { constants } from "services/constants";
 
 const convertToReadable = (number) => {
 	number = number || 0;
@@ -154,7 +155,22 @@ const getFirstLetter = (string) => {
 	return words && words[0];
 };
 
+const formatPhoneApi = (phone) => {
+	const formattedPhone = String(phone).replace(/\(|\)|_|-|\s*/gi, "");
+
+	return formattedPhone[0] !== "+" ? `+${formattedPhone}` : formattedPhone;
+};
+const formatNumberApi = (number) => {
+	if (!number) return 0;
+	return parseInt(String(number).replace(/\s*/g, ""));
+};
+
+const showUserRole = (type) => constants.roles.find((item) => item.value === type)?.label;
+
 export const functions = {
+	showUserRole,
+	formatPhoneApi,
+	formatNumberApi,
 	convertToReadable,
 	meterPrice,
 	apartmentStatusInPiece,

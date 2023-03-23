@@ -1,13 +1,12 @@
 import React from "react";
-import { get } from "lodash";
-
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
+import { get } from "lodash";
 import cn from "classnames";
 
 import { ControlLabel, ControlError } from "../../common";
 
 import "./Input.scss";
-import { useTranslation } from "react-i18next";
 
 export const Input = ({
 	label = "",
@@ -21,6 +20,7 @@ export const Input = ({
 	form,
 	onInput,
 	onlyNumber,
+	isValid,
 	isComment = false,
 }) => {
 	const { t } = useTranslation();

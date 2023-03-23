@@ -80,12 +80,7 @@ export const UserForm = ({ modal, getUser, data }) => {
 									component: Fields.Select,
 									label: "role",
 									placeholder: "role",
-									options: [
-										{ value: 1, label: "editor" },
-										{ value: 2, label: "operator" },
-										{ value: 10, label: "admin" },
-										{ value: 9, label: "user" },
-									],
+									options: constants.roles,
 								},
 						  ]
 						: [
@@ -137,12 +132,7 @@ export const UserForm = ({ modal, getUser, data }) => {
 									component: Fields.Select,
 									label: "role",
 									placeholder: "role",
-									options: [
-										{ value: 1, label: "editor" },
-										{ value: 2, label: "operator" },
-										{ value: 10, label: "admin" },
-										{ value: 9, label: "user" },
-									],
+									options: constants.roles,
 								},
 						  ]
 				}

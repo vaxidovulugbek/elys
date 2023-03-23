@@ -18,6 +18,13 @@ const createYupSchema = (field) => {
 				validator = validator.email(params ? params : "Invalid email");
 				break;
 
+			case "phone":
+				validator = validator.matches(
+					/(\+9{2}8 \([0-9]{2}\) [0-9]{3}-[0-9]{2}-[0-9]{2})/g,
+					"Phone number is not valid"
+				);
+				break;
+
 			case "lng":
 				validator = validator.shape({
 					uz: yup.string().required(),

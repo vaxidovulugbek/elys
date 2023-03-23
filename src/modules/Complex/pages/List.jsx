@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { get, isArray, lowerFirst } from "lodash";
+import { isArray } from "lodash";
 
 import { useFetchInfinite, useOverlay, useScroll } from "hooks";
 

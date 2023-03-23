@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Table } from "components";
+import { functions } from "services";
 
 export const UserTable = ({ items, onDelete, onEdit }) => {
 	return (
@@ -43,16 +44,7 @@ export const UserTable = ({ items, onDelete, onEdit }) => {
 				{
 					title: "Role",
 					dataKey: "role",
-					render: (value) =>
-						value === 1
-							? "editor"
-							: value === 10
-							? "admin"
-							: value === 9
-							? "user"
-							: value === 2
-							? "operator"
-							: "",
+					render: (value) => functions.showUserRole(value),
 				},
 			]}
 		/>

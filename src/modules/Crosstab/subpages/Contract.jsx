@@ -6,7 +6,7 @@ import { FastField, Field } from "formik";
 import { get, isArray } from "lodash";
 
 import { useFetchList } from "hooks";
-import { constants, notifications, time } from "services";
+import { constants, functions, notifications, time } from "services";
 
 import Containers from "containers";
 import { Fields, Table } from "components";
@@ -123,12 +123,12 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 					{
 						name: "initial_payment",
 						value: get(tariff, "payment"),
-						onSubmitValue: (value) => (value?.length > 0 ? Number(value) : 100),
+						onSubmitValue: (value) => functions.formatNumberApi(value),
 					},
 					{
 						name: "month_count",
 						value: get(tariff, "month_count"),
-						onSubmitValue: (value) => Number(value) || 0,
+						onSubmitValue: (value) => functions.formatNumberApi(value),
 					},
 					{
 						name: "first_name",
@@ -138,7 +138,7 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 						name: "price_area",
 						value: get(apartment, "price_area"),
 						validationType: "number",
-						onSubmitValue: (value) => Number(String(value).replace(/\s/g, "")),
+						onSubmitValue: (value) => functions.formatNumberApi(value),
 					},
 					{
 						name: "apartment_id",
@@ -163,10 +163,14 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 					{
 						name: "phone",
 						value: "",
+						validations: [{ type: "required" }, { type: "phone" }],
+						onSubmitValue: (value) => functions.formatPhoneApi(value),
 					},
 					{
 						name: "contract_number",
 						value: "",
+						validations: [{ type: "typeError" }, { type: "required" }],
+						onSubmitValue: (value) => functions.formatNumberApi(value).toString(),
 					},
 					{
 						name: "birthdate",
@@ -188,6 +192,10 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 						validationType: "number",
 						onSubmitValue: (value) =>
 							Math.floor(time.toTimestamp([value[2], value[1], value[0]])),
+					},
+					{
+						name: "passport_issued_by",
+						value: "",
 					},
 					{
 						name: "date",
@@ -352,10 +360,11 @@ const Contract = ({ paymentDetails, setActiveApartment, activeApartment, setCurr
 									label={"Passport issued date"}
 								/>
 								<FastField
-									component={Fields.Input}
+									component={Fields.InputMask}
 									type="text"
 									name="contract_number"
 									label={"Contract number"}
+									decimalScale={0}
 								/>
 
 								<button type="submit" className="printToDoc submit">

@@ -1,21 +1,24 @@
-import { Table } from "components";
 import React from "react";
+import { useSelector } from "react-redux";
 import { get } from "lodash";
+import { FastField } from "formik";
+import { Link } from "react-router-dom";
 
 import { constants, functions, time } from "services";
 
 import Containers from "containers";
-import { Fields } from "components";
+import { Fields, Table } from "components";
 
 import { ReactComponent as DownloadIcon } from "assets/images/download.svg";
-import { FastField } from "formik";
-import { Link } from "react-router-dom";
 import { ReactComponent as InvoiceIcon } from "assets/images/invoice-icon.svg";
 
-export const ContractTable = ({ items, onRowClick, refetch }) => {
+export const ContractTable = ({ items, onRowClick, refetch, onDelete }) => {
+	const userRole = useSelector((state) => state.auth.role);
+
 	return (
 		<Table
 			items={items}
+			deleteAction={userRole === constants.ROLE_MANAGER ? onDelete : null}
 			columns={[
 				{
 					title: "ID",

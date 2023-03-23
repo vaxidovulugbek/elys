@@ -10,8 +10,6 @@ import { UserTable } from "../components/UserTable";
 import { UserForm } from "../components/UserForm";
 
 const User = () => {
-	console.log("INSIDE");
-
 	const modal = useModalWithHook();
 
 	const [page, setPage] = useState(1);

@@ -1,11 +1,13 @@
 import React from "react";
-import { Button, Spinner, Table } from "components";
+import { Button, Spinner } from "components";
 import { get, isFunction } from "lodash";
 import cn from "classnames";
 import { ReactComponent as EditIcon } from "assets/images/edit-icon.svg";
 import { ReactComponent as ViewIcon } from "assets/images/eye.svg";
 import { ReactComponent as CheckIcon } from "assets/images/check.svg";
 import { ReactComponent as CancelIcon } from "assets/images/close-icon.svg";
+import { useSelector } from "react-redux";
+import { constants } from "services";
 
 export const InvoiceTable = ({
 	items,
@@ -18,6 +20,8 @@ export const InvoiceTable = ({
 	onRowClick,
 	isLoading = false,
 }) => {
+	const userRole = useSelector((state) => state.auth.role);
+
 	return (
 		<>
 			<table className="table">
@@ -46,9 +50,11 @@ export const InvoiceTable = ({
 								row={row}
 								columns={columns}
 								viewAction={viewAction}
-								checkAction={row.status === 1 && checkAction}
-								editAction={row.status === 1 && editAction}
-								cancelAction={row.status === 1 && cancelAction}
+								checkAction={userRole === constants.ROLE_ACCOUNTANT && checkAction}
+								editAction={userRole === constants.ROLE_ACCOUNTANT && editAction}
+								cancelAction={
+									userRole === constants.ROLE_ACCOUNTANT && cancelAction
+								}
 								onRowClick={onRowClick}
 								index={index}
 							/>

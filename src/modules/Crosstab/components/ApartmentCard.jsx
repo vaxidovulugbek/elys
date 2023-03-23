@@ -30,6 +30,7 @@ export const ApartmentCard = ({
 }) => {
 	const { t } = useTranslation();
 	const lngCode = useSelector((state) => get(state, "system.lngCode"));
+	const userRole = useSelector((state) => state.auth.role);
 	const files = get(activeApartment, "plan.files");
 	const images = isArray(files) && files.map((file) => get(file, "thumbnails.full"));
 
@@ -151,41 +152,46 @@ export const ApartmentCard = ({
 					<span>действует до {"28.05.2020"}</span>
 				</div>
 			)} */}
-				{constants.STATUS_FREE === get(activeApartment, "status") && (
-					<div className="submit">
-						<button className="btn" onClick={book.handleOverlayOpen} type="button">
-							{t("Book")}
-						</button>
-					</div>
-				)}
+				{constants.STATUS_FREE === get(activeApartment, "status") &&
+					(userRole === constants.ROLE_MANAGER ||
+						userRole === constants.ROLE_REALTOR) && (
+						<div className="submit">
+							<button className="btn" onClick={book.handleOverlayOpen} type="button">
+								{t("Book")}
+							</button>
+						</div>
+					)}
 
-				{ON_SALE.includes(get(activeApartment, "status")) && (
-					<div className="submit">
-						<button className="btn" onClick={() => setCurrentTab(5)} type="button">
-							{t("Sell")}
-						</button>
-					</div>
-				)}
-				{ON_SALE.includes(get(activeApartment, "status")) && (
-					<div className="submit" onClick={handleTariffDownload}>
-						<button className="btn" type="button">
-							{t("Print tariff")}
-						</button>
-					</div>
-				)}
+				{ON_SALE.includes(get(activeApartment, "status")) &&
+					userRole === constants.ROLE_MANAGER && (
+						<div className="submit">
+							<button className="btn" onClick={() => setCurrentTab(5)} type="button">
+								{t("Sell")}
+							</button>
+						</div>
+					)}
+				{ON_SALE.includes(get(activeApartment, "status")) &&
+					userRole === constants.ROLE_MANAGER && (
+						<div className="submit" onClick={handleTariffDownload}>
+							<button className="btn" type="button">
+								{t("Print tariff")}
+							</button>
+						</div>
+					)}
 
-				{ON_SOLD.includes(get(activeApartment, "status")) && (
-					<div className="submit">
-						<Link
-							to={`/contract?apartment_id=${get(activeApartment, "id")}`}
-							className="btn"
-						>
-							{t("Contracts")}
-						</Link>
-					</div>
-				)}
+				{ON_SOLD.includes(get(activeApartment, "status")) &&
+					userRole === constants.ROLE_MANAGER && (
+						<div className="submit">
+							<Link
+								to={`/contract?apartment_id=${get(activeApartment, "id")}`}
+								className="btn"
+							>
+								{t("Contracts")}
+							</Link>
+						</div>
+					)}
 
-				{get(activeApartment, "pdf") && (
+				{get(activeApartment, "pdf") && userRole === constants.ROLE_MANAGER && (
 					<div className="submit">
 						<Link
 							to={get(activeApartment, "pdf.src")}
@@ -260,7 +266,7 @@ export const ApartmentCard = ({
 				<ul>
 					{isArray(planFields) &&
 						planFields.map((item, index) => (
-							<li>
+							<li key={index}>
 								<dt className="name">{get(item, `plan_field.name.${lngCode}`)}</dt>
 								<dl className="value">{get(item, `value.${lngCode}`)}</dl>
 							</li>

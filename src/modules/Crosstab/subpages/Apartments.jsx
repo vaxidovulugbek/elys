@@ -65,6 +65,11 @@ const Apartments = ({ filterFunc, setActiveApartment, activeApartment, complexID
 								)}
 							</div>
 						</th>
+						<th>
+							<div className="head-row">
+								<h3>{t("Index")}</h3>
+							</div>
+						</th>
 						<th onClick={() => handleSort("plan.room.count")}>
 							<div className="head-row">
 								<h3>{t("Rooms")}</h3>
@@ -163,6 +168,7 @@ const Apartments = ({ filterFunc, setActiveApartment, activeApartment, complexID
 										})}
 									>
 										<td>{get(item, "id")}</td>
+										<td>{index + 1}</td>
 										<td>{get(item, "plan.room.count")}</td>
 										<td>
 											{get(item, "plan.area")} м<sup>2</sup>

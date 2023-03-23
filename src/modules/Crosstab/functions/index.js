@@ -6,7 +6,7 @@ const fixPassportInput = (e) => {
 	const numbers = /[0-9]/;
 	const charArray = e.target.value.toUpperCase().split("");
 	const correctCharArray = charArray.filter((char, i) => {
-		if (i <= 10) {
+		if (i < 9) {
 			if (i < 2) {
 				return char.match(letters);
 			} else if (i >= 2) {
@@ -60,8 +60,6 @@ const calculateCredit = ({ price, setItems }) => {
 				month: index + 1,
 				fee: functions.convertToReadable((credit / month_count).toFixed(2)),
 			}));
-
-		console.log(initial_payment);
 
 		newItems.unshift({
 			month: "Initial",

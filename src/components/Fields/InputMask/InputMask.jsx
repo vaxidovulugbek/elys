@@ -13,7 +13,7 @@ export const InputMask = ({
 	isDisabled = false,
 	size = "sm",
 	outerClass = "",
-	thousandSeparator,
+	thousandSeparator = " ",
 	decimalScale = 10,
 	inputProps = {},
 	field,

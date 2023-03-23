@@ -35,7 +35,10 @@ export const TableRow = ({
 
 			{(editAction || deleteAction || renderButtons) && (
 				<td className="table__td">
-					<div className="d-flex align-items-center justify-content-center">
+					<div
+						onClick={(event) => event.stopPropagation()}
+						className="d-flex align-items-center justify-content-center"
+					>
 						{isFunction(renderButtons) && renderButtons(row)}
 
 						{isFunction(editAction) && (
