@@ -154,6 +154,7 @@ export const ApartmentCard = ({
 			)} */}
 				{constants.STATUS_FREE === get(activeApartment, "status") &&
 					(userRole === constants.ROLE_MANAGER ||
+						userRole === constants.ROLE_ADMIN ||
 						userRole === constants.ROLE_REALTOR) && (
 						<div className="submit">
 							<button className="btn" onClick={book.handleOverlayOpen} type="button">
@@ -163,7 +164,7 @@ export const ApartmentCard = ({
 					)}
 
 				{ON_SALE.includes(get(activeApartment, "status")) &&
-					userRole === constants.ROLE_MANAGER && (
+					(userRole === constants.ROLE_MANAGER || userRole === constants.ROLE_ADMIN) && (
 						<div className="submit">
 							<button className="btn" onClick={() => setCurrentTab(5)} type="button">
 								{t("Sell")}
@@ -171,7 +172,7 @@ export const ApartmentCard = ({
 						</div>
 					)}
 				{ON_SALE.includes(get(activeApartment, "status")) &&
-					userRole === constants.ROLE_MANAGER && (
+					(userRole === constants.ROLE_MANAGER || userRole === constants.ROLE_ADMIN) && (
 						<div className="submit" onClick={handleTariffDownload}>
 							<button className="btn" type="button">
 								{t("Print tariff")}
@@ -180,7 +181,7 @@ export const ApartmentCard = ({
 					)}
 
 				{ON_SOLD.includes(get(activeApartment, "status")) &&
-					userRole === constants.ROLE_MANAGER && (
+					(userRole === constants.ROLE_MANAGER || userRole === constants.ROLE_ADMIN) && (
 						<div className="submit">
 							<Link
 								to={`/contract?apartment_id=${get(activeApartment, "id")}`}
@@ -191,18 +192,19 @@ export const ApartmentCard = ({
 						</div>
 					)}
 
-				{get(activeApartment, "pdf") && userRole === constants.ROLE_MANAGER && (
-					<div className="submit">
-						<Link
-							to={get(activeApartment, "pdf.src")}
-							className="btn"
-							target="_blank"
-							download={true}
-						>
-							{t("PDF")}
-						</Link>
-					</div>
-				)}
+				{get(activeApartment, "pdf") &&
+					(userRole === constants.ROLE_MANAGER || userRole === constants.ROLE_ADMIN) && (
+						<div className="submit">
+							<a
+								href={get(activeApartment, "pdf.src")}
+								className="btn"
+								target="_blank"
+								download={true}
+							>
+								{t("PDF")}
+							</a>
+						</div>
+					)}
 
 				<ul>
 					<li>

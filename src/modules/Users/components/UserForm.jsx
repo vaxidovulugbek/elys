@@ -1,7 +1,7 @@
 import React from "react";
 import { get } from "lodash";
 
-import { constants, notifications } from "services";
+import { constants, functions, notifications } from "services";
 
 import { ModalRoot, Fields, Modals } from "components";
 
@@ -17,7 +17,7 @@ export const UserForm = ({ modal, getUser, data }) => {
 	};
 
 	const onError = () => {
-		notifications.error(get(data, "id") ? "User is  updated!" : "User is created!");
+		notifications.error("Что то пошло не так");
 		modal.handleOverlayClose();
 	};
 	return (
@@ -159,9 +159,9 @@ export const UserForm = ({ modal, getUser, data }) => {
 								},
 								{
 									name: "phone",
-									validationType: "number",
 									value: get(data, "phone"),
-									validations: [{ type: "required" }],
+									validations: [{ type: "typeError" }],
+									onSubmitValue: (value) => functions.formatPhoneApi(value),
 								},
 								{
 									name: "status",
@@ -188,7 +188,7 @@ export const UserForm = ({ modal, getUser, data }) => {
 								{
 									name: "email",
 									value: get(data, "email"),
-									validations: [{ type: "required" }, { type: "email" }],
+									validations: [{ type: "email" }],
 								},
 						  ]
 						: [
@@ -209,8 +209,9 @@ export const UserForm = ({ modal, getUser, data }) => {
 								},
 								{
 									name: "phone",
-									validationType: "number",
 									value: get(data, "phone"),
+									validations: [{ type: "typeError" }],
+									onSubmitValue: (value) => functions.formatPhoneApi(value),
 								},
 								{
 									name: "status",
@@ -230,7 +231,7 @@ export const UserForm = ({ modal, getUser, data }) => {
 								{
 									name: "email",
 									value: get(data, "email"),
-									validations: [{ type: "required" }, { type: "email" }],
+									validations: [{ type: "email" }],
 								},
 						  ]
 				}

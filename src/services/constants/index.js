@@ -41,18 +41,19 @@ export const constants = {
 	USER_STATUS_INACTIVE: 9,
 	USER_STATUS_DELETED: 0,
 
-	ROLE_MANAGER: 10,
-	ROLE_EDITOR: 1,
+	ROLE_ADMIN: 10,
 	ROLE_REALTOR: 2,
 	ROLE_ACCOUNTANT: 3,
+	ROLE_MANAGER: 4,
 	ROLE_USER: 9,
 };
 
 constants.roles = [
-	{ label: "editor", value: constants.ROLE_EDITOR },
-	{ label: "realtor", value: constants.ROLE_REALTOR },
 	{ label: "manager", value: constants.ROLE_MANAGER },
+	{ label: "realtor", value: constants.ROLE_REALTOR },
+	{ label: "admin", value: constants.ROLE_ADMIN },
 	{ label: "accountant", value: constants.ROLE_ACCOUNTANT },
+	{ label: "visitor", value: constants.ROLE_USER },
 ];
 
 constants.userStatuses = [

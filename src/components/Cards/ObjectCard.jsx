@@ -93,7 +93,9 @@ export const ObjectCard = ({
 
 				<div className="d-flex align-items-center object__btns">
 					{(userRole === constants.ROLE_MANAGER ||
-						userRole === constants.ROLE_REALTOR) && (
+						userRole === constants.ROLE_REALTOR ||
+						userRole === constants.ROLE_USER ||
+						userRole === constants.ROLE_ADMIN) && (
 						<Link
 							to={`/crosstab/${get(data, "id")}`}
 							className="object__action bg_purple"
@@ -104,7 +106,7 @@ export const ObjectCard = ({
 						</Link>
 					)}
 
-					{userRole === constants.ROLE_MANAGER && (
+					{(userRole === constants.ROLE_MANAGER || userRole === constants.ROLE_ADMIN) && (
 						<button
 							className="object__action bg_blue"
 							onClick={() => handleDocument(get(data, "id"))}
@@ -115,7 +117,7 @@ export const ObjectCard = ({
 						</button>
 					)}
 
-					{userRole === constants.ROLE_EDITOR && (
+					{userRole === constants.ROLE_ADMIN && (
 						<Link
 							to={`/complex/update/${get(data, "id")}`}
 							className="object__action bg_green"
@@ -126,7 +128,7 @@ export const ObjectCard = ({
 						</Link>
 					)}
 
-					{userRole === constants.ROLE_MANAGER && (
+					{(userRole === constants.ROLE_MANAGER || userRole === constants.ROLE_ADMIN) && (
 						<Link
 							to={`/tariff/${get(data, "id")}`}
 							className="object__action bg_orange"
@@ -135,7 +137,7 @@ export const ObjectCard = ({
 						</Link>
 					)}
 
-					{userRole === constants.ROLE_MANAGER && (
+					{(userRole === constants.ROLE_MANAGER || userRole === constants.ROLE_ADMIN) && (
 						<Link
 							to={`/complex-user/${get(data, "id")}`}
 							className="object__action bg_purple"
@@ -144,7 +146,7 @@ export const ObjectCard = ({
 						</Link>
 					)}
 
-					{userRole === constants.ROLE_MANAGER && (
+					{(userRole === constants.ROLE_MANAGER || userRole === constants.ROLE_ADMIN) && (
 						<Link
 							to={`/complex-statistcs/${get(data, "id")}`}
 							className="object__action bg_orange"
@@ -158,13 +160,13 @@ export const ObjectCard = ({
 						</Link>
 					)}
 
-					{userRole === constants.ROLE_MANAGER && (
+					{(userRole === constants.ROLE_MANAGER || userRole === constants.ROLE_ADMIN) && (
 						<Link to={"/invoice"} className="object__action bg_blue">
 							<InvoiceIcon fill="#fff" stroke="#fff" width={"32px"} height={"32px"} />
 						</Link>
 					)}
 
-					{userRole === constants.ROLE_EDITOR && (
+					{userRole === constants.ROLE_ADMIN && (
 						<button className="object__action bg_red" onClick={(e) => deleteObject(e)}>
 							<svg width="24" height="24" viewBox="0 0 24 24">
 								<path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
@@ -175,7 +177,7 @@ export const ObjectCard = ({
 			</div>
 
 			<div className="object__content">
-				{userRole === constants.ROLE_EDITOR ? (
+				{userRole === constants.ROLE_ADMIN ? (
 					<Link to={`/complex/update/${get(data, "id")}`} className="object__title">
 						{get(data, "name.uz", "")}
 					</Link>
@@ -263,7 +265,7 @@ export const ObjectCard = ({
 					style={{ "--column-gap": "5px" }}
 					onClick={(e) => e.stopPropagation()}
 				>
-					{userRole === constants.ROLE_EDITOR && (
+					{userRole === constants.ROLE_ADMIN && (
 						<Link
 							to={`complex/update/${get(data, "id")}`}
 							className="btn btn_green btn_small"
@@ -275,7 +277,7 @@ export const ObjectCard = ({
 						</Link>
 					)}
 
-					{userRole === constants.ROLE_MANAGER && (
+					{(userRole === constants.ROLE_MANAGER || userRole === constants.ROLE_ADMIN) && (
 						<button
 							className="btn btn_outlined btn_small"
 							onClick={() => handleViewDocument(get(data, "id"))}
@@ -293,6 +295,8 @@ export const ObjectCard = ({
 					)}
 
 					{(userRole === constants.ROLE_MANAGER ||
+						userRole === constants.ROLE_ADMIN ||
+						userRole === constants.ROLE_REALTOR ||
 						userRole === constants.ROLE_REALTOR) && (
 						<Link
 							to={`/crosstab/${get(data, "id")}`}
@@ -306,6 +310,7 @@ export const ObjectCard = ({
 					)}
 
 					{(userRole === constants.ROLE_ACCOUNTANT ||
+						userRole === constants.ROLE_ADMIN ||
 						userRole === constants.ROLE_MANAGER) && (
 						<Link to={"/contract"} className="btn btn_outlined btn_small">
 							<ContractIcon />
@@ -313,7 +318,7 @@ export const ObjectCard = ({
 						</Link>
 					)}
 
-					{userRole === constants.ROLE_MANAGER && (
+					{(userRole === constants.ROLE_MANAGER || userRole === constants.ROLE_ADMIN) && (
 						<Link to={"/client"} className="btn btn_outlined btn_small">
 							<ClientsIcon />
 							{t("Clients")}

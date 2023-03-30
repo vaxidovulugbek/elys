@@ -157,6 +157,7 @@ const getFirstLetter = (string) => {
 
 const formatPhoneApi = (phone) => {
 	const formattedPhone = String(phone).replace(/\(|\)|_|-|\s*/gi, "");
+	if (formattedPhone.length <= 3) return "";
 
 	return formattedPhone[0] !== "+" ? `+${formattedPhone}` : formattedPhone;
 };
