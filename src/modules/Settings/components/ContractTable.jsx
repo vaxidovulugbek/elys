@@ -18,7 +18,7 @@ export const ContractTable = ({ items, onRowClick, refetch, onDelete }) => {
 	return (
 		<Table
 			items={items}
-			deleteAction={userRole === constants.ROLE_MANAGER ? onDelete : null}
+			deleteAction={userRole === constants.ROLE_ADMIN ? onDelete : null}
 			columns={[
 				{
 					title: "ID",
