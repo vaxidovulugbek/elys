@@ -51,7 +51,10 @@ export const ApartmentBookingHistoryModal = ({
 					{
 						title: "Owner",
 						dataKey: "owner",
-						render: (value) => `${get(value, "last_name")} ${get(value, "first_name")}`,
+						render: (value) => {
+							console.log({ value });
+							return `${get(value, "last_name")} ${get(value, "first_name")}`;
+						},
 					},
 					{
 						title: "Comment",

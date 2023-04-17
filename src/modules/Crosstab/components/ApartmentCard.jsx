@@ -17,7 +17,7 @@ import { ReactComponent as Xbtn } from "assets/images/x.svg";
 import { ApartmentBookingHistoryModal } from "modules/Crosstab/components/ApartmentBookingHistoryModal";
 
 const { STATUS_FREE, STATUS_INTEREST, STATUS_SOLD } = constants;
-const ON_SALE = [STATUS_FREE, STATUS_INTEREST];
+const ON_SALE = [STATUS_FREE];
 const ON_SOLD = [STATUS_INTEREST, STATUS_SOLD];
 
 export const ApartmentCard = ({
@@ -140,7 +140,7 @@ export const ApartmentCard = ({
 					</dl>
 
 					{!isEmpty(get(activeApartment, "bookings")) && (
-						<button className="booked__btn" onClick={bookHistory.handleOverlayOpen}>
+						<button className="btn booked__btn" onClick={bookHistory.handleOverlayOpen}>
 							Booked
 						</button>
 					)}

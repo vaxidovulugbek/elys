@@ -12,7 +12,7 @@ import { useQueryClient } from "@tanstack/react-query";
 const stepUrls = ["complex", "section", "floor"];
 
 const include =
-	"files,place,category,district,region,background,svg,vector,apartments.plan.files,apartments.plan.fields.plan_field,apartments.plan.room,apartments.section,apartments.floor,apartments.complex";
+	"files,place,category,district,region,background,svg,vector,apartments.plan.files,apartments.plan.fields.plan_field,apartments.plan.room,apartments.section,apartments.floor,apartments.complex,apartments.pdf,apartments.bookings.owner";
 
 const Interactive = ({ setActiveApartment, complexes, setCount }) => {
 	const { id } = useParams();
