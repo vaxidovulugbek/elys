@@ -172,7 +172,9 @@ export const ApartmentCard = ({
 						</div>
 					)}
 				{ON_SALE.includes(get(activeApartment, "status")) &&
-					(userRole === constants.ROLE_MANAGER || userRole === constants.ROLE_ADMIN) && (
+					(userRole === constants.ROLE_MANAGER ||
+						userRole === constants.ROLE_ADMIN ||
+						userRole === constants.ROLE_REALTOR) && (
 						<div className="submit" onClick={handleTariffDownload}>
 							<button className="btn" type="button">
 								{t("Print tariff")}
@@ -193,7 +195,9 @@ export const ApartmentCard = ({
 					)}
 
 				{get(activeApartment, "pdf") &&
-					(userRole === constants.ROLE_MANAGER || userRole === constants.ROLE_ADMIN) && (
+					(userRole === constants.ROLE_MANAGER ||
+						userRole === constants.ROLE_ADMIN ||
+						userRole === constants.ROLE_REALTOR) && (
 						<div className="submit">
 							<a
 								href={get(activeApartment, "pdf.src")}
