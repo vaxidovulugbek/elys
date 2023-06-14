@@ -145,7 +145,7 @@ const onEditCreator = ({ files, setVector, data }) => {
 		} else if (get(data, "vector")) {
 			setVector(get(data, "vector"));
 		} else {
-			notifications.error("Damini ol!");
+			notifications.error("Фон не загружен");
 		}
 	};
 };
